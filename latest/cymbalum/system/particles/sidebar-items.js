@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Particle","The Particle type hold basic data about a particle in the system. It is self contained, so that it will be easy to send data between parrallels processes."]]});

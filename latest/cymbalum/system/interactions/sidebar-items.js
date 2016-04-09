@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["PairInteraction","Type associating a potential and a pair restriction"]]});

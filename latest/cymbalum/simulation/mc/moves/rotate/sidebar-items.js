@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Rotate","Monte-Carlo move for rotating a rigid molecule"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Vector3D","A simple 3-dimensional vector type, storing three `f64`."]]});

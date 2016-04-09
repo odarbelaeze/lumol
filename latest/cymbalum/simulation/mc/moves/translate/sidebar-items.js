@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Translate","Monte-Carlo move for translating a molecule"]]});

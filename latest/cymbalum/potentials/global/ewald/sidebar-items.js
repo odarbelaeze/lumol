@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Ewald","Ewald summation of the coulombic interactions. The Ewald summation is based on a separation of the coulombic potential U in two parts, using the trivial identity:"]]});

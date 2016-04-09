@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BerendsenThermostat","Berendsen thermostat."],["RemoveRotation","Remove global rotation from the system"],["RemoveTranslation","Remove global translation from the system"],["RescaleThermostat","Velocity rescaling thermostat."]],"trait":[["Control","Trait for controling some parameters in a system during a simulation."]]});

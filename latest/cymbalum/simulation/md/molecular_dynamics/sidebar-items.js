@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MolecularDynamics","Molecular Dynamics propagator for the simulation."]]});

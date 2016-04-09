@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `System` struct in crate `cymbalum`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, System">
+
+    <title>cymbalum::system::System - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>system</a></p><script>window.sidebarCurrent = {name: 'System', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>system</a>::<wbr><a class='struct' href=''>System</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-3821' class='srclink' href='../../src/cymbalum/system/systems.rs.html#47-62' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct System {
+    // some fields omitted
+}</pre><div class='docblock'><p>The System type hold all the data about a simulated system.</p>
+
+<p>This data contains:</p>
+
+<ul>
+<li>an unit cell, containing the system;</li>
+<li>a list of particles in the system;</li>
+<li>a list of molecules in the system;</li>
+<li>a list of interactions, associating particles kinds and potentials</li>
+<li>a hash map associating particles names and particles kinds.</li>
+</ul>
+
+<p>In the implementation, the particles contained in a molecule are guaranted
+to be contiguous in memory. This allow for faster access when iterating over
+molecules, and easier molecule removal in the system.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h4>
+<div class='docblock'><p>Create a new empty System</p>
+</div><h4 id='method.from_cell' class='method'><code>fn <a href='#method.from_cell' class='fnname'>from_cell</a>(cell: <a class='struct' href='../../cymbalum/system/struct.UnitCell.html' title='cymbalum::system::UnitCell'>UnitCell</a>) -&gt; <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h4>
+<div class='docblock'><p>Create an empty system with a specific UnitCell</p>
+</div><h4 id='method.step' class='method'><code>fn <a href='#method.step' class='fnname'>step</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code></h4>
+<div class='docblock'><p>Get the current step of the system</p>
+</div><h4 id='method.increment_step' class='method'><code>fn <a href='#method.increment_step' class='fnname'>increment_step</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Increment the system step</p>
+</div></div><h3 class='impl'><code>impl <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h3><div class='docblock'><p>Topology and particles related functions</p>
+</div><div class='impl-items'><h4 id='method.moltype' class='method'><code>fn <a href='#method.moltype' class='fnname'>moltype</a>(&amp;self, molid: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code></h4>
+<div class='docblock'><p>Get the type of the molecule at index <code>molid</code>. This type is a hash of
+the atoms names, and the set of bonds in the molecule. This means that
+two molecules will have the same type if and only if they contains the
+same atoms and the same bonds, <strong>in the same order</strong>.</p>
+</div><h4 id='method.molecules_with_moltype' class='method'><code>fn <a href='#method.molecules_with_moltype' class='fnname'>molecules_with_moltype</a>(&amp;self, moltype: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt;</code></h4>
+<div class='docblock'><p>Get a list of molecules with <code>moltype</code> molecule type.</p>
+</div><h4 id='method.molecule_containing' class='method'><code>fn <a href='#method.molecule_containing' class='fnname'>molecule_containing</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; &amp;<a class='struct' href='../../cymbalum/system/struct.Molecule.html' title='cymbalum::system::Molecule'>Molecule</a></code></h4>
+<div class='docblock'><p>Get the molecule containing the particle <code>i</code></p>
+</div><h4 id='method.are_in_same_molecule' class='method'><code>fn <a href='#method.are_in_same_molecule' class='fnname'>are_in_same_molecule</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Check if the particles at indexes <code>i</code> and <code>j</code> are in the same molecule</p>
+</div><h4 id='method.molecules' class='method'><code>fn <a href='#method.molecules' class='fnname'>molecules</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='struct' href='../../cymbalum/system/struct.Molecule.html' title='cymbalum::system::Molecule'>Molecule</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
+<div class='docblock'><p>Get the list of molecules in the system.</p>
+</div><h4 id='method.molecule' class='method'><code>fn <a href='#method.molecule' class='fnname'>molecule</a>(&amp;self, id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; &amp;<a class='struct' href='../../cymbalum/system/struct.Molecule.html' title='cymbalum::system::Molecule'>Molecule</a></code></h4>
+<div class='docblock'><p>Get the molecule at index <code>id</code></p>
+</div><h4 id='method.shortest_path' class='method'><code>fn <a href='#method.shortest_path' class='fnname'>shortest_path</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code></h4>
+<div class='docblock'><p>Get the length of the shortest bond path to go from the particle <code>i</code> to
+the particle <code>j</code>. This length is 0 if there is no path from <code>i</code> to <code>j</code>,
+1 if <code>i == j</code>, 2 if there is a bond between <code>i</code> and <code>j</code>, etc.</p>
+</div><h4 id='method.remove_molecule_containing' class='method'><code>fn <a href='#method.remove_molecule_containing' class='fnname'>remove_molecule_containing</a>(&amp;mut self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></h4>
+<div class='docblock'><p>Remove the molecule containing the particle at index <code>i</code></p>
+</div><h4 id='method.add_bond' class='method'><code>fn <a href='#method.add_bond' class='fnname'>add_bond</a>(&amp;mut self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../../cymbalum/system/type.Permutations.html' title='cymbalum::system::Permutations'>Permutations</a>&gt;</code></h4>
+<div class='docblock'><p>Add a bond between the particles at indexes <code>i</code> and <code>j</code>. The particles
+should have been added to the system before calling this.</p>
+
+<h1 id='warning' class='section-header'><a href='#warning'>Warning</a></h1>
+<p>If the bond is between two particles which are not in the same molecule,
+the two molecules are merged together by deplacing particles in the
+particles list, and thus invalidate any previously stored index. In
+particular, any bond, angle, dihedral or molecule is invalidated.</p>
+
+<p>If molecules where merged, this function will return <code>Some(perms)</code>,
+where <code>perms</code> contains a list of <code>(old_index, new_index)</code> associations.
+If no molecules where merged, this function will return <code>None</code>.</p>
+</div><h4 id='method.remove_particle' class='method'><code>fn <a href='#method.remove_particle' class='fnname'>remove_particle</a>(&amp;mut self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></h4>
+<div class='docblock'><p>Removes particle at index <code>i</code> and any associated bonds, angle or dihedral</p>
+</div><h4 id='method.add_particle' class='method'><code>fn <a href='#method.add_particle' class='fnname'>add_particle</a>(&amp;mut self, p: <a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a>)</code></h4>
+<div class='docblock'><p>Insert a particle at the end of the internal list</p>
+</div><h4 id='method.size' class='method'><code>fn <a href='#method.size' class='fnname'>size</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+<div class='docblock'><p>Get the number of particles in this system</p>
+</div><h4 id='method.iter' class='method'><code>fn <a href='#method.iter' class='fnname'>iter</a>(&amp;self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/core/slice/struct.Iter.html' title='core::slice::Iter'>Iter</a>&lt;<a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a>&gt;</code></h4>
+<div class='docblock'><p>Get an iterator over the <code>Particle</code> in this system</p>
+</div><h4 id='method.iter_mut' class='method'><code>fn <a href='#method.iter_mut' class='fnname'>iter_mut</a>(&amp;mut self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/core/slice/struct.IterMut.html' title='core::slice::IterMut'>IterMut</a>&lt;<a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a>&gt;</code></h4>
+<div class='docblock'><p>Get a mutable iterator over the <code>Particle</code> in this system</p>
+</div></div><h3 class='impl'><code>impl <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h3><div class='docblock'><p>Potentials related functions</p>
+</div><div class='impl-items'><h4 id='method.energy_evaluator' class='method'><code>fn <a href='#method.energy_evaluator' class='fnname'>energy_evaluator</a>(&amp;self) -&gt; <a class='struct' href='../../cymbalum/system/struct.EnergyEvaluator.html' title='cymbalum::system::EnergyEvaluator'>EnergyEvaluator</a></code></h4>
+<div class='docblock'><p>Get an helper struct to evaluate the energy of this system.</p>
+</div><h4 id='method.pair_potentials' class='method'><code>fn <a href='#method.pair_potentials' class='fnname'>pair_potentials</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='type' href='../../cymbalum/system/type.PairInteraction.html' title='cymbalum::system::PairInteraction'>PairInteraction</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
+<div class='docblock'><p>Get the list of pair potential acting between the particles at indexes
+<code>i</code> and <code>j</code>.</p>
+</div><h4 id='method.bond_potentials' class='method'><code>fn <a href='#method.bond_potentials' class='fnname'>bond_potentials</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a>&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
+<div class='docblock'><p>Get the list of bonded potential acting between the particles at indexes
+<code>i</code> and <code>j</code>.</p>
+</div><h4 id='method.angle_potentials' class='method'><code>fn <a href='#method.angle_potentials' class='fnname'>angle_potentials</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.AnglePotential.html' title='cymbalum::potentials::functions::AnglePotential'>AnglePotential</a>&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
+<div class='docblock'><p>Get the list of angle interaction acting between the particles at
+indexes <code>i</code>, <code>j</code> and <code>k</code>.</p>
+</div><h4 id='method.dihedral_potentials' class='method'><code>fn <a href='#method.dihedral_potentials' class='fnname'>dihedral_potentials</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, m: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.DihedralPotential.html' title='cymbalum::potentials::functions::DihedralPotential'>DihedralPotential</a>&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
+<div class='docblock'><p>Get the list of dihedral angles interaction acting between the particles
+at indexes <code>i</code>, <code>j</code>, <code>k</code> and <code>m</code>.</p>
+</div><h4 id='method.coulomb_potential' class='method'><code>fn <a href='#method.coulomb_potential' class='fnname'>coulomb_potential</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a class='struct' href='https://doc.rust-lang.org/nightly/core/cell/struct.RefCell.html' title='core::cell::RefCell'>RefCell</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/global/trait.CoulombicPotential.html' title='cymbalum::potentials::global::CoulombicPotential'>CoulombicPotential</a>&gt;&gt;&gt;</code></h4>
+<div class='docblock'><p>Get the current coulombic solver</p>
+</div><h4 id='method.global_potentials' class='method'><code>fn <a href='#method.global_potentials' class='fnname'>global_potentials</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='struct' href='https://doc.rust-lang.org/nightly/core/cell/struct.RefCell.html' title='core::cell::RefCell'>RefCell</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/global/trait.GlobalPotential.html' title='cymbalum::potentials::global::GlobalPotential'>GlobalPotential</a>&gt;&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
+<div class='docblock'><p>Get all the global potentials</p>
+</div><h4 id='method.add_pair_interaction' class='method'><code>fn <a href='#method.add_pair_interaction' class='fnname'>add_pair_interaction</a>(&amp;mut self, i: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, j: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a>&gt;)</code></h4>
+<div class='docblock'><p>Add the <code>potential</code> pair potential between the particles with names
+<code>i</code> and <code>j</code>.</p>
+</div><h4 id='method.add_pair_interaction_with_restriction' class='method'><code>fn <a href='#method.add_pair_interaction_with_restriction' class='fnname'>add_pair_interaction_with_restriction</a>(&amp;mut self, i: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, j: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a>&gt;, restriction: <a class='enum' href='../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a>)</code></h4>
+<div class='docblock'><p>Add the <code>potential</code> pair potential between the particles with names
+<code>i</code> and <code>j</code>, using the <code>restriction</code> restriction scheme.</p>
+</div><h4 id='method.add_bond_interaction' class='method'><code>fn <a href='#method.add_bond_interaction' class='fnname'>add_bond_interaction</a>(&amp;mut self, i: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, j: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a>&gt;)</code></h4>
+<div class='docblock'><p>Add the <code>potential</code> bonded potentials between the particles with names
+<code>i</code> and <code>j</code></p>
+</div><h4 id='method.add_angle_interaction' class='method'><code>fn <a href='#method.add_angle_interaction' class='fnname'>add_angle_interaction</a>(&amp;mut self, i: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, j: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, k: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.AnglePotential.html' title='cymbalum::potentials::functions::AnglePotential'>AnglePotential</a>&gt;)</code></h4>
+<div class='docblock'><p>Add the <code>potential</code> angle potential between the particles with names <code>i</code>,
+<code>j</code>, and <code>k</code></p>
+</div><h4 id='method.add_dihedral_interaction' class='method'><code>fn <a href='#method.add_dihedral_interaction' class='fnname'>add_dihedral_interaction</a>(&amp;mut self, i: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, j: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, k: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, m: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.DihedralPotential.html' title='cymbalum::potentials::functions::DihedralPotential'>DihedralPotential</a>&gt;)</code></h4>
+<div class='docblock'><p>Add the <code>potential</code> dihedral angle potential between the particles with
+names names <code>i</code>, <code>j</code>, <code>k</code>, and <code>m</code></p>
+</div><h4 id='method.set_coulomb_interaction' class='method'><code>fn <a href='#method.set_coulomb_interaction' class='fnname'>set_coulomb_interaction</a>(&amp;mut self, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/global/trait.CoulombicPotential.html' title='cymbalum::potentials::global::CoulombicPotential'>CoulombicPotential</a>&gt;)</code></h4>
+<div class='docblock'><p>Set the coulombic potential to <code>potential</code></p>
+</div><h4 id='method.add_global_interaction' class='method'><code>fn <a href='#method.add_global_interaction' class='fnname'>add_global_interaction</a>(&amp;mut self, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/global/trait.GlobalPotential.html' title='cymbalum::potentials::global::GlobalPotential'>GlobalPotential</a>&gt;)</code></h4>
+<div class='docblock'><p>Add a global interaction to the system</p>
+</div></div><h3 class='impl'><code>impl <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h3><div class='docblock'><p>UnitCell related functions</p>
+</div><div class='impl-items'><h4 id='method.cell' class='method'><code>fn <a href='#method.cell' class='fnname'>cell</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../cymbalum/system/struct.UnitCell.html' title='cymbalum::system::UnitCell'>UnitCell</a></code></h4>
+<div class='docblock'><p>Get a reference to  the system unit cell</p>
+</div><h4 id='method.cell_mut' class='method'><code>fn <a href='#method.cell_mut' class='fnname'>cell_mut</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../../cymbalum/system/struct.UnitCell.html' title='cymbalum::system::UnitCell'>UnitCell</a></code></h4>
+<div class='docblock'><p>Get a mutable reference to  the system unit cell</p>
+</div><h4 id='method.set_cell' class='method'><code>fn <a href='#method.set_cell' class='fnname'>set_cell</a>(&amp;mut self, cell: <a class='struct' href='../../cymbalum/system/struct.UnitCell.html' title='cymbalum::system::UnitCell'>UnitCell</a>)</code></h4>
+<div class='docblock'><p>Set the system unit cell</p>
+</div><h4 id='method.distance' class='method'><code>fn <a href='#method.distance' class='fnname'>distance</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the distance between the particles at indexes <code>i</code> and <code>j</code></p>
+</div><h4 id='method.nearest_image' class='method'><code>fn <a href='#method.nearest_image' class='fnname'>nearest_image</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a></code></h4>
+<div class='docblock'><p>Get the vector between the nearest image of particle <code>j</code> with respect to
+particle <code>i</code>.</p>
+</div><h4 id='method.angle' class='method'><code>fn <a href='#method.angle' class='fnname'>angle</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the angle between the particles <code>i</code>, <code>j</code> and <code>k</code></p>
+</div><h4 id='method.angle_and_derivatives' class='method'><code>fn <a href='#method.angle_and_derivatives' class='fnname'>angle_and_derivatives</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, <a class='struct' href='../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>, <a class='struct' href='../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>, <a class='struct' href='../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>)</a></code></h4>
+<div class='docblock'><p>Get the angle and the derivatives of the angle between the particles
+<code>i</code>, <code>j</code> and <code>k</code></p>
+</div><h4 id='method.dihedral' class='method'><code>fn <a href='#method.dihedral' class='fnname'>dihedral</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, m: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the dihedral angle between the particles <code>i</code>, <code>j</code>, <code>k</code> and <code>m</code></p>
+</div><h4 id='method.dihedral_and_derivatives' class='method'><code>fn <a href='#method.dihedral_and_derivatives' class='fnname'>dihedral_and_derivatives</a>(&amp;self, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, m: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, <a class='struct' href='../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>, <a class='struct' href='../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>, <a class='struct' href='../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>, <a class='struct' href='../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>)</a></code></h4>
+<div class='docblock'><p>Get the dihedral angle and the derivatives of the dihedral angle
+between the particles <code>i</code>, <code>j</code>, <code>k</code> and <code>m</code></p>
+</div></div><h3 class='impl'><code>impl <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h3><div class='docblock'><p>Functions to get pysical properties of a system.</p>
+</div><div class='impl-items'><h4 id='method.kinetic_energy' class='method'><code>fn <a href='#method.kinetic_energy' class='fnname'>kinetic_energy</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the kinetic energy of the system.</p>
+</div><h4 id='method.potential_energy' class='method'><code>fn <a href='#method.potential_energy' class='fnname'>potential_energy</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the potential energy of the system.</p>
+</div><h4 id='method.total_energy' class='method'><code>fn <a href='#method.total_energy' class='fnname'>total_energy</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the total energy of the system.</p>
+</div><h4 id='method.temperature' class='method'><code>fn <a href='#method.temperature' class='fnname'>temperature</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the temperature of the system.</p>
+</div><h4 id='method.volume' class='method'><code>fn <a href='#method.volume' class='fnname'>volume</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the volume of the system.</p>
+</div><h4 id='method.virial' class='method'><code>fn <a href='#method.virial' class='fnname'>virial</a>(&amp;self) -&gt; <a class='struct' href='../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>
+<div class='docblock'><p>Get the tensorial virial of the system.</p>
+</div><h4 id='method.pressure' class='method'><code>fn <a href='#method.pressure' class='fnname'>pressure</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the pressure of the system from the virial equation, at the system
+instananeous temperature.</p>
+</div><h4 id='method.stress' class='method'><code>fn <a href='#method.stress' class='fnname'>stress</a>(&amp;self) -&gt; <a class='struct' href='../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>
+<div class='docblock'><p>Get the stress tensor of the system from the virial equation, at the
+system instananeous temperature.</p>
+</div><h4 id='method.pressure_at_temperature' class='method'><code>fn <a href='#method.pressure_at_temperature' class='fnname'>pressure_at_temperature</a>(&amp;self, temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the pressure of the system from the virial equation, at the given
+<code>temperature</code>.</p>
+</div><h4 id='method.stress_at_temperature' class='method'><code>fn <a href='#method.stress_at_temperature' class='fnname'>stress_at_temperature</a>(&amp;self, temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>
+<div class='docblock'><p>Get the stress tensor of the system from the virial equation, at the
+given <code>temperature</code>.</p>
+</div><h4 id='method.forces' class='method'><code>fn <a href='#method.forces' class='fnname'>forces</a>(&amp;self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>&gt;</code></h4>
+<div class='docblock'><p>Get the forces acting on all the particles in the system</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/trait.IntoIterator.html' title='core::iter::IntoIterator'>IntoIterator</a> for &amp;'a <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h3><div class='impl-items'><h4 id='assoc_type.Item' class='type'><code>type Item = &amp;'a <a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a></code></h4>
+<h4 id='assoc_type.IntoIter' class='type'><code>type IntoIter = <a class='struct' href='https://doc.rust-lang.org/nightly/core/slice/struct.Iter.html' title='core::slice::Iter'>Iter</a>&lt;'a, <a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a>&gt;</code></h4>
+<h4 id='method.into_iter' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/trait.IntoIterator.html#method.into_iter' class='fnname'>into_iter</a>(self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/core/slice/struct.Iter.html' title='core::slice::Iter'>Iter</a>&lt;'a, <a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a>&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/trait.IntoIterator.html' title='core::iter::IntoIterator'>IntoIterator</a> for &amp;'a mut <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h3><div class='impl-items'><h4 id='assoc_type.Item-1' class='type'><code>type Item = &amp;'a mut <a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a></code></h4>
+<h4 id='assoc_type.IntoIter-1' class='type'><code>type IntoIter = <a class='struct' href='https://doc.rust-lang.org/nightly/core/slice/struct.IterMut.html' title='core::slice::IterMut'>IterMut</a>&lt;'a, <a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a>&gt;</code></h4>
+<h4 id='method.into_iter-1' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/trait.IntoIterator.html#method.into_iter' class='fnname'>into_iter</a>(self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/core/slice/struct.IterMut.html' title='core::slice::IterMut'>IterMut</a>&lt;'a, <a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a>&gt;</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Index.html' title='core::ops::Index'>Index</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt; for <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><code>type Output = <a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a></code></h4>
+<h4 id='method.index' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Index.html#method.index' class='fnname'>index</a>(&amp;self, index: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; &amp;<a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.IndexMut.html' title='core::ops::IndexMut'>IndexMut</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt; for <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h3><div class='impl-items'><h4 id='method.index_mut' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.IndexMut.html#method.index_mut' class='fnname'>index_mut</a>(&amp;mut self, index: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; &amp;mut <a class='struct' href='../../cymbalum/system/struct.Particle.html' title='cymbalum::system::Particle'>Particle</a></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "cymbalum";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

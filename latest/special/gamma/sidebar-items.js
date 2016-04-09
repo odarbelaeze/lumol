@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["digamma","Compute the real-valued digamma function."],["gamma","Compute the gamma function."],["inc_gamma","Compute the regularized lower incomplete gamma function."],["ln_gamma","Compute the natural logarithm of the gamma function."]]});

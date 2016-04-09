@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Propagator","The propagator trait is the main algorithm of a simulation, i.e. the one which update the system. The main function here is `propagate`, which should propagate the simulation for one step."]]});

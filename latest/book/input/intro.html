@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="highlight.css">
+
+        <link rel="stylesheet" href="static/css/cymbalum.css">
+
+        <!-- MathJax -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });</script>
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body class="light">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="engine/intro.html"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="engine/system.html"><strong>1.1.</strong> System</a></li><li><a href="engine/simulation.html"><strong>1.2.</strong> Simulation</a></li></ul></li><li><a href="input/intro.html" class="active"><strong>2.</strong> Input files</a></li><li><ul class="section"><li><a href="input/interactions.html"><strong>2.1.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>2.2.</strong> Potentials</a></li><li><strong>2.3.</strong> Initial configuration</li><li><a href="input/units.html"><strong>2.4.</strong> Units</a></li></ul></li><li><strong>3.</strong> Extending Cymbalum</li><li><ul class="section"><li><strong>3.1.</strong> Adding new potentials</li><li><strong>3.2.</strong> Adding a new output</li><li><strong>3.3.</strong> Extending Molecular dynamics</li><li><strong>3.4.</strong> Extending Monte-Carlo</li><li><strong>3.5.</strong> Adding a new propagator</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <h1>Input files</h1>
+<p>The input files in Cymbalum can be classified in three types:</p>
+<ul>
+<li>Initial configuration of the system;</li>
+<li>Interactions and force field description;</li>
+<li>Simulation setup and configuration.</li>
+</ul>
+<p>Currently, only the initial configuration of the system and the force field
+input files are implemented. The initial configuration can be provided in
+various formats. Check the <a href="input/initial.html">relevant documentation</a> for a
+list and description of the formats.</p>
+<p>The force field input file uses the <a href="https://github.com/toml-lang/toml">TOML</a>
+format, a simple and minimalist configuration format based on <code>key = value</code>
+pairs. If you do not know the syntax, <a href="https://github.com/toml-lang/toml">this
+page</a> has a good introduction. The different
+sections in the input file are described in the <a href="input/interactions.html">next
+page</a>.</p>
+<h2>Units in input</h2>
+<p>The unit of a value can be defined by a specific string, which will be parsed
+and converted to the <a href="input/units.html">internal unit system</a>.
+If there is no unit in the string, the internal unit for this type is used.
+No consistency check is performed, and it is up to the code users to check the
+given units.</p>
+<pre><code class="language-toml"># Here, 'cutoff' is a distance
+
+# OK
+cutoff = &quot;8 A&quot;
+# OK, will use the internal unit of distance.
+# This is not recommended. The internal unit may change, and the input convey less information
+cutoff = &quot;8&quot;    
+# OK, but big !
+cutoff = &quot;8 km&quot;  
+
+# OK, but probably not what you want. Will be interpreted as 8000 A
+cutoff = &quot;8 ps&quot;
+# invalid, 'cutoff' must be a string
+cutoff = 8.0   
+</code></pre>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a href="engine/simulation.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="input/interactions.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="engine/simulation.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="input/interactions.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

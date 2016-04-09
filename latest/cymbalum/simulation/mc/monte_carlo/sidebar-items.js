@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MonteCarlo","Metropolis Monte-Carlo propagator"]]});

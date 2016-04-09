@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Wolf","Wolf summation for the coulombic potential, as defined in [Wolf1999]. This is a fast direct pairwise summation for coulombic potential."]]});

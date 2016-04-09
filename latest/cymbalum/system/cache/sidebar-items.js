@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EnergyCache","This is a cache for energy computation."]]});

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="highlight.css">
+
+        <link rel="stylesheet" href="static/css/cymbalum.css">
+
+        <!-- MathJax -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });</script>
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body class="light">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="engine/intro.html" class="active"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="engine/system.html"><strong>1.1.</strong> System</a></li><li><a href="engine/simulation.html"><strong>1.2.</strong> Simulation</a></li></ul></li><li><a href="input/intro.html"><strong>2.</strong> Input files</a></li><li><ul class="section"><li><a href="input/interactions.html"><strong>2.1.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>2.2.</strong> Potentials</a></li><li><strong>2.3.</strong> Initial configuration</li><li><a href="input/units.html"><strong>2.4.</strong> Units</a></li></ul></li><li><strong>3.</strong> Extending Cymbalum</li><li><ul class="section"><li><strong>3.1.</strong> Adding new potentials</li><li><strong>3.2.</strong> Adding a new output</li><li><strong>3.3.</strong> Extending Molecular dynamics</li><li><strong>3.4.</strong> Extending Monte-Carlo</li><li><strong>3.5.</strong> Adding a new propagator</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <h1>Welcome to Cymbalum user manual!</h1>
+<p>Cymbalum is a flexible and extensible molecular simulation engine. That means:</p>
+<ul>
+<li>You can use it to drive classical molecular simulations; from Monte-Carlo to
+molecular dynamics and energy minimization;</li>
+<li>You have full control over the simulation steps, and the simulated system;</li>
+<li>You can <em>easily</em> extend the engine with new algorithms, and hook into its
+internals.</li>
+</ul>
+<p>This user manual describes how to use Cymbalum either as a command line tool or
+a library.</p>
+<h2>Systems and Simulations</h2>
+<p>The two main concepts in Cymbalum are a <code>System</code> and a <code>Simulation</code>. A <code>System</code>
+contains all the simulated system data: atomic names, positions and velocities,
+force-field, simulation box. On the other hand, a <code>Simulation</code> contains
+everything needed to run a simulation with a system, <em>i.e.</em> algorithms and
+associated data.</p>
+<p>A <code>System</code> is usually used in combination with one <code>Simulation</code> to explore the
+properties of the system. Sometimes multiple systems can be associated with the
+same simulation (in Gibbs ensemble Monte-Carlo or in parallel tempering); and
+sometimes multiple simulations can be associated with the same system, when
+running an energy minimization before a molecular dynamics run.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+
+                
+                    <a href="engine/system.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+
+            
+                <a href="engine/system.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>
