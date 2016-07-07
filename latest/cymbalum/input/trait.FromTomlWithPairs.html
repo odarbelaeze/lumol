@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,26 +44,26 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>input</a>::<wbr><a class='trait' href=''>FromTomlWithPairs</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-5776' class='srclink' href='../../src/cymbalum/input/interactions/mod.rs.html#75-78' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-6142' class='srclink' href='../../src/cymbalum/src/input/interactions/mod.rs.html#27-30' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait FromTomlWithPairs <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> {
-    fn <a href='#tymethod.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../../toml/type.Table.html' title='toml::Table'>Table</a>, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a>&gt;) -&gt; Result&lt;Self&gt;;
-}</pre><div class='docblock'><p>Convert a TOML table and a PairPotential to a Rust type. This is intended
+    fn <a href='#tymethod.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../../toml/type.Table.html' title='toml::Table'>Table</a>, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a>&gt;) -&gt; <a class='type' href='../../cymbalum/input/type.Result.html' title='cymbalum::input::Result'>Result</a>&lt;Self&gt;;
+}</pre><div class='docblock'><p>Convert a TOML table and a <code>PairPotential</code> to a Rust type. This is intended
 to be used by potential computation mainly.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.from_toml' class='method stab '><code>fn <a href='#tymethod.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../../toml/type.Table.html' title='toml::Table'>Table</a>, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a>&gt;) -&gt; Result&lt;Self&gt;</code></h3><div class='docblock'><p>Do the conversion from <code>table</code> and <code>potential</code> to Self.</p>
+        <h3 id='tymethod.from_toml' class='method stab '><code>fn <a href='#tymethod.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../../toml/type.Table.html' title='toml::Table'>Table</a>, potential: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a>&gt;) -&gt; <a class='type' href='../../cymbalum/input/type.Result.html' title='cymbalum::input::Result'>Result</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Do the conversion from <code>table</code> and <code>potential</code> to Self.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../cymbalum/input/trait.FromTomlWithPairs.html' title='cymbalum::input::FromTomlWithPairs'>FromTomlWithPairs</a> for <a class='struct' href='../../cymbalum/potentials/computations/struct.CutoffComputation.html' title='cymbalum::potentials::computations::CutoffComputation'>CutoffComputation</a></code></li>
-<li><code>impl <a class='trait' href='../../cymbalum/input/trait.FromTomlWithPairs.html' title='cymbalum::input::FromTomlWithPairs'>FromTomlWithPairs</a> for <a class='struct' href='../../cymbalum/potentials/computations/struct.TableComputation.html' title='cymbalum::potentials::computations::TableComputation'>TableComputation</a></code></li>
+    <li><code>impl FromTomlWithPairs for <a class='struct' href='../../cymbalum/potentials/computations/struct.CutoffComputation.html' title='cymbalum::potentials::computations::CutoffComputation'>CutoffComputation</a></code></li>
+<li><code>impl FromTomlWithPairs for <a class='struct' href='../../cymbalum/potentials/computations/struct.TableComputation.html' title='cymbalum::potentials::computations::TableComputation'>TableComputation</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/cymbalum/input/trait.FromTomlWithPairs.js">
-                      </script></section>
+                         src="../../implementors/cymbalum/input/trait.FromTomlWithPairs.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -85,6 +86,8 @@ to be used by potential computation mainly.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -105,7 +108,7 @@ to be used by potential computation mainly.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,11 +44,11 @@
 
     <section id='main' class="content fn">
 <h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>input</a>::<wbr><a class='fn' href=''>read_interactions</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-5780' class='srclink' href='../../src/cymbalum/input/interactions/mod.rs.html#83-88' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn read_interactions&lt;P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/std/path/struct.Path.html' title='std::path::Path'>Path</a>&gt;&gt;(system: &amp;mut <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, path: P) -&gt; Result&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</pre><div class='docblock'><p>Read interactions from the TOML file at <code>path</code>, and add them to the
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-6146' class='srclink' href='../../src/cymbalum/src/input/interactions/mod.rs.html#35-40' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub fn read_interactions&lt;P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/std/path/struct.Path.html' title='std::path::Path'>Path</a>&gt;&gt;(system: &amp;mut <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, path: P) -&gt; <a class='type' href='../../cymbalum/input/type.Result.html' title='cymbalum::input::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</pre><div class='docblock'><p>Read interactions from the TOML file at <code>path</code>, and add them to the
 <code>system</code>. For a full documentation of the input files syntax, see the user
 manual.</p>
 </div></section>
@@ -73,6 +74,8 @@ manual.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -93,7 +96,7 @@ manual.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

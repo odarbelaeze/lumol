@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>system</a>::<wbr><a href='index.html'>compute</a>::<wbr><a class='struct' href=''>StressAtTemperature</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4416' class='srclink' href='../../../src/cymbalum/system/compute.rs.html#232-235' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-4735' class='srclink' href='../../../src/cymbalum/src/system/compute.rs.html#233-236' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct StressAtTemperature {
     pub temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>,
 }</pre><div class='docblock'><p>Compute the stress tensor of the system from the virial equation, at the
@@ -56,10 +57,13 @@ but here the kinetic energy term is replaced by it average at the given
 temperature.</p>
 </div><h2 class='fields'>Fields</h2>
 <table><tr class='stab '>
-                                  <td id='structfield.temperature'><code>temperature</code></td><td><div class='docblock'><p>Temperature for the stress tensor computation</p>
-</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/system/compute/trait.Compute.html' title='cymbalum::system::compute::Compute'>Compute</a> for <a class='struct' href='../../../cymbalum/system/compute/struct.StressAtTemperature.html' title='cymbalum::system::compute::StressAtTemperature'>StressAtTemperature</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><code>type Output = <a class='struct' href='../../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>
-<h4 id='method.compute' class='method'><code>fn <a href='../../../cymbalum/system/compute/trait.Compute.html#method.compute' class='fnname'>compute</a>(&amp;self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>) -&gt; <a class='struct' href='../../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>
-</div></section>
+                             <td id='structfield.temperature'><code>temperature</code></td><td><div class='docblock'><p>Temperature for the stress tensor computation</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/system/compute/trait.Compute.html' title='cymbalum::system::compute::Compute'>Compute</a> for <a class='struct' href='../../../cymbalum/system/compute/struct.StressAtTemperature.html' title='cymbalum::system::compute::StressAtTemperature'>StressAtTemperature</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4737' class='srclink' href='../../../src/cymbalum/src/system/compute.rs.html#238-248' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Output' class='type'><code>type <a href='../../../cymbalum/system/compute/trait.Compute.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>
+<div class='docblock'><p>The data type of the property</p>
+</div><h4 id='method.compute' class='method'><code>fn <a href='../../../cymbalum/system/compute/trait.Compute.html#tymethod.compute' class='fnname'>compute</a>(&amp;self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>) -&gt; <a class='struct' href='../../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>
+<div class='docblock'><p>Compute the property</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -82,6 +86,8 @@ temperature.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -102,7 +108,7 @@ temperature.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

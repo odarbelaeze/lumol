@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,15 +44,22 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>simulation</a>::<wbr><a href='index.html'>md</a>::<wbr><a class='struct' href=''>RemoveRotation</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4765' class='srclink' href='../../../src/cymbalum/simulation/md/controls.rs.html#122' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-5040' class='srclink' href='../../../src/cymbalum/src/simulation/md/controls.rs.html#127' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct RemoveRotation;</pre><div class='docblock'><p>Remove global rotation from the system</p>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/simulation/md/trait.Control.html' title='cymbalum::simulation::md::Control'>Control</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.RemoveRotation.html' title='cymbalum::simulation::md::RemoveRotation'>RemoveRotation</a></code></h3><div class='impl-items'><h4 id='method.control' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#method.control' class='fnname'>control</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-<h4 id='method.setup' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#method.setup' class='fnname'>setup</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-<h4 id='method.finish' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#method.finish' class='fnname'>finish</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-</div></section>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/simulation/md/trait.Control.html' title='cymbalum::simulation::md::Control'>Control</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.RemoveRotation.html' title='cymbalum::simulation::md::RemoveRotation'>RemoveRotation</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5042' class='srclink' href='../../../src/cymbalum/src/simulation/md/controls.rs.html#129-169' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.control' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#tymethod.control' class='fnname'>control</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Do your job, control algorithm!</p>
+</div><h4 id='method.setup' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#method.setup' class='fnname'>setup</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Function called once at the beggining of the simulation, which allow for some setup of the control algorithm if needed. <a href="../../../cymbalum/simulation/md/trait.Control.html#method.setup">Read more</a></p>
+</div><h4 id='method.finish' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#method.finish' class='fnname'>finish</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Function called once at the end of the simulation.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.RemoveRotation.html' title='cymbalum::simulation::md::RemoveRotation'>RemoveRotation</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-6794' class='srclink' href='../../../src/cymbalum/src/input/simulations/md.rs.html#175-179' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from_toml' class='method'><code>fn <a href='../../../cymbalum/input/trait.FromToml.html#tymethod.from_toml' class='fnname'>from_toml</a>(_: &amp;<a class='type' href='../../../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; <a class='type' href='../../../cymbalum/input/type.Result.html' title='cymbalum::input::Result'>Result</a>&lt;<a class='struct' href='../../../cymbalum/simulation/md/struct.RemoveRotation.html' title='cymbalum::simulation::md::RemoveRotation'>RemoveRotation</a>&gt;</code></h4>
+<div class='docblock'><p>Do the conversion from <code>table</code> to Self.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -74,6 +82,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -94,7 +104,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

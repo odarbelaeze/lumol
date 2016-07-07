@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,47 +44,41 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>potentials</a>::<wbr><a class='mod' href=''>computations</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1512' class='srclink' href='../../../src/cymbalum/potentials/computations.rs.html#4-169' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1974' class='srclink' href='../../../src/cymbalum/src/potentials/computations.rs.html#4-169' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>A potential computation is a way of computing a potential given its
 expression (represented by a <code>PotentialFunction</code>). The same potential can be
 computed either direcly, or using a cutoff, or by a table interpolation, ...</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.CutoffComputation.html'
-                               title='cymbalum::potentials::computations::CutoffComputation'>CutoffComputation</a></td>
-                        <td class='docblock short'>
-                             <p>Direct computation of the potential with a cutoff applied. The computed
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.CutoffComputation.html'
+                                  title='cymbalum::potentials::computations::CutoffComputation'>CutoffComputation</a></td>
+                           <td class='docblock short'>
+                                <p>Direct computation of the potential with a cutoff applied. The computed
 energy is shifted to ensure <code>E(rc) = 0</code>, where <code>rc</code> is the cutoff distance.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.TableComputation.html'
-                               title='cymbalum::potentials::computations::TableComputation'>TableComputation</a></td>
-                        <td class='docblock short'>
-                             <p>Computation of a potential using tabulated values. This can be faster than
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.TableComputation.html'
+                                  title='cymbalum::potentials::computations::TableComputation'>TableComputation</a></td>
+                           <td class='docblock short'>
+                                <p>Computation of a potential using tabulated values. This can be faster than
 direct computation for smooth potentials, but will either uses more memory
 or is less precise than direct computation. Values are tabulated in the <code>[0, max)</code> range, and a cutoff is applied after <code>max</code>. Energy is shifted before
 the cutoff to ensure that <code>E(max) = 0</code></p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.Computation.html'
-                               title='cymbalum::potentials::computations::Computation'>Computation</a></td>
-                        <td class='docblock short'>
-                             <p>A <code>Computation</code> is a way to compute a potential.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.Computation.html'
+                                  title='cymbalum::potentials::computations::Computation'>Computation</a></td>
+                           <td class='docblock short'>
+                                <p>A <code>Computation</code> is a way to compute a potential.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -106,6 +101,8 @@ the cutoff to ensure that <code>E(max) = 0</code></p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -126,7 +123,7 @@ the cutoff to ensure that <code>E(max) = 0</code></p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

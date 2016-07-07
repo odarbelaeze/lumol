@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>potentials</a>::<wbr><a href='index.html'>global</a>::<wbr><a class='trait' href=''>CoulombicPotential</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1674' class='srclink' href='../../../src/cymbalum/potentials/global/mod.rs.html#49-53' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2133' class='srclink' href='../../../src/cymbalum/src/potentials/global/mod.rs.html#49-53' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait CoulombicPotential: <a class='trait' href='../../../cymbalum/potentials/global/trait.GlobalPotential.html' title='cymbalum::potentials::global::GlobalPotential'>GlobalPotential</a> + <a class='trait' href='../../../cymbalum/potentials/global/trait.BoxCloneCoulombic.html' title='cymbalum::potentials::global::BoxCloneCoulombic'>BoxCloneCoulombic</a> {
     fn <a href='#tymethod.set_restriction' class='fnname'>set_restriction</a>(&amp;mut self, restriction: <a class='enum' href='../../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a>);
 }</pre><div class='docblock'><p>Electrostatic potential solver should implement the <code>CoulombicPotential</code>
@@ -59,11 +60,11 @@ trait.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../../cymbalum/potentials/global/trait.CoulombicPotential.html' title='cymbalum::potentials::global::CoulombicPotential'>CoulombicPotential</a> for <a class='struct' href='../../../cymbalum/potentials/struct.Wolf.html' title='cymbalum::potentials::Wolf'>Wolf</a></code></li>
-<li><code>impl <a class='trait' href='../../../cymbalum/potentials/global/trait.CoulombicPotential.html' title='cymbalum::potentials::global::CoulombicPotential'>CoulombicPotential</a> for <a class='struct' href='../../../cymbalum/potentials/struct.Ewald.html' title='cymbalum::potentials::Ewald'>Ewald</a></code></li>
+    <li><code>impl CoulombicPotential for <a class='struct' href='../../../cymbalum/potentials/struct.Wolf.html' title='cymbalum::potentials::Wolf'>Wolf</a></code></li>
+<li><code>impl CoulombicPotential for <a class='struct' href='../../../cymbalum/potentials/struct.Ewald.html' title='cymbalum::potentials::Ewald'>Ewald</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../../implementors/cymbalum/potentials/global/trait.CoulombicPotential.js">
-                      </script></section>
+                         src="../../../implementors/cymbalum/potentials/global/trait.CoulombicPotential.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -86,6 +87,8 @@ trait.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -106,7 +109,7 @@ trait.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

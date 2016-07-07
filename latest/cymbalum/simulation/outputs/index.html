@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,66 +44,56 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>simulation</a>::<wbr><a class='mod' href=''>outputs</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-5148' class='srclink' href='../../../src/cymbalum/simulation/outputs.rs.html#4-300' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-5415' class='srclink' href='../../../src/cymbalum/src/simulation/outputs.rs.html#4-300' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Saving properties of the simulation to some stream (file or stdout mainly)</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.CellOutput.html'
-                               title='cymbalum::simulation::outputs::CellOutput'>CellOutput</a></td>
-                        <td class='docblock short'>
-                             <p>The <code>CellOutput</code> write all the components of a cell to a file . The columns
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.CellOutput.html'
+                                  title='cymbalum::simulation::outputs::CellOutput'>CellOutput</a></td>
+                           <td class='docblock short'>
+                                <p>The <code>CellOutput</code> write all the components of a cell to a file . The columns
 in the file contains the following values: <code>A B C α β γ</code>.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.EnergyOutput.html'
-                               title='cymbalum::simulation::outputs::EnergyOutput'>EnergyOutput</a></td>
-                        <td class='docblock short'>
-                             <p>The <code>EnergyOutput</code> write the energy of the system to a text file, organized
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.EnergyOutput.html'
+                                  title='cymbalum::simulation::outputs::EnergyOutput'>EnergyOutput</a></td>
+                           <td class='docblock short'>
+                                <p>The <code>EnergyOutput</code> write the energy of the system to a text file, organized
 as: <code>PotentialEnergy KineticEnergy TotalEnergy</code>.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.PropertiesOutput.html'
-                               title='cymbalum::simulation::outputs::PropertiesOutput'>PropertiesOutput</a></td>
-                        <td class='docblock short'>
-                             <p>The <code>PropertiesOutput</code> write various physical properties of the system to
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.PropertiesOutput.html'
+                                  title='cymbalum::simulation::outputs::PropertiesOutput'>PropertiesOutput</a></td>
+                           <td class='docblock short'>
+                                <p>The <code>PropertiesOutput</code> write various physical properties of the system to
 a file. These properties are:</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.TrajectoryOutput.html'
-                               title='cymbalum::simulation::outputs::TrajectoryOutput'>TrajectoryOutput</a></td>
-                        <td class='docblock short'>
-                             <p>The <code>TrajectoryOutput</code> allow to write the trajectory of the system to a
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.TrajectoryOutput.html'
+                                  title='cymbalum::simulation::outputs::TrajectoryOutput'>TrajectoryOutput</a></td>
+                           <td class='docblock short'>
+                                <p>The <code>TrajectoryOutput</code> allow to write the trajectory of the system to a
 file, using any format supported by the
 <a href="http://chemfiles.readthedocs.org/en/latest/formats.html">Chemfiles</a> library.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.Output.html'
-                               title='cymbalum::simulation::outputs::Output'>Output</a></td>
-                        <td class='docblock short'>
-                             <p>The <code>Output</code> trait define the interface for all the quantities outputed by
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.Output.html'
+                                  title='cymbalum::simulation::outputs::Output'>Output</a></td>
+                           <td class='docblock short'>
+                                <p>The <code>Output</code> trait define the interface for all the quantities outputed by
 the simulation during the run. An Output can be a text or a binary data
 file, an image, a text log, …</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -125,6 +116,8 @@ file, an image, a text log, …</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -145,7 +138,7 @@ file, an image, a text log, …</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

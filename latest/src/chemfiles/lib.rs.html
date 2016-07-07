@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-88ac128001ac3a9a/chemfiles-0.5.4/src/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/chemfiles-0.6.1/src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -107,6 +108,20 @@
 <span id="64">64</span>
 <span id="65">65</span>
 <span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
 </pre><pre class='rust '>
 <span class='comment'>/* Chemfiles, an efficient IO library for chemistry file formats
  * Copyright (C) 2015 Guillaume Fraux
@@ -127,10 +142,10 @@
 <span class='doccomment'>//! please see its [documentation](http://chemfiles.rtfd.org). Specifically, the</span>
 <span class='doccomment'>//! following pages are worth reading:</span>
 <span class='doccomment'>//!</span>
-<span class='doccomment'>//! - The [overview](http://chemfiles.rtfd.org/en/latest/overview.html) of the</span>
+<span class='doccomment'>//! - The [overview](http://chemfiles.rtfd.io/en/latest/overview.html) of the</span>
 <span class='doccomment'>//!   classes organisation;</span>
-<span class='doccomment'>//! - The [supported formats](http://chemfiles.rtfd.org/en/latest/formats.html);</span>
-<span class='doccomment'>//!</span>
+<span class='doccomment'>//! - The lisf of [supported formats](http://chemfiles.rtfd.io/en/latest/formats.html);</span>
+<span class='doccomment'>//! - The documentation for the [selection language](http://chemfiles.rtfd.io/en/latest/selections.html);</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! As all the function call the underlying C library, they all can fail and</span>
 <span class='doccomment'>//! thus all return a `Result&lt;_, Error&gt;` value.</span>
@@ -141,12 +156,15 @@
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>chemfiles_sys</span>;
 <span class='kw'>use</span> <span class='ident'>chemfiles_sys</span>::<span class='ident'>chfl_version</span>;
 
-<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>mod</span> <span class='ident'>tests</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>mod</span> <span class='ident'>testing</span>;
 
 <span class='kw'>mod</span> <span class='ident'>string</span>;
 
 <span class='kw'>mod</span> <span class='ident'>errors</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>errors</span>::{<span class='ident'>Error</span>, <span class='ident'>ErrorKind</span>};
+
+<span class='doccomment'>/// Custom result type for working with errors in chemfiles</span>
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>std</span>::<span class='ident'>result</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>Error</span><span class='op'>&gt;</span>;
 
 <span class='kw'>mod</span> <span class='ident'>logging</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>logging</span>::{<span class='ident'>Logger</span>, <span class='ident'>LogLevel</span>};
@@ -168,10 +186,21 @@
 <span class='kw'>mod</span> <span class='ident'>trajectory</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>trajectory</span>::<span class='ident'>Trajectory</span>;
 
+<span class='kw'>mod</span> <span class='ident'>selection</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>selection</span>::{<span class='ident'>Selection</span>, <span class='ident'>Match</span>};
+
 <span class='doccomment'>/// Get the version of the chemfiles library</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>version</span>() <span class='op'>-&gt;</span> <span class='ident'>String</span> {
     <span class='kw'>unsafe</span> {
         <span class='ident'>string</span>::<span class='ident'>from_c</span>(<span class='ident'>chfl_version</span>())
+    }
+}
+
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>tests</span> {
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>version</span>() {
+        <span class='macro'>assert</span><span class='macro'>!</span>(::<span class='ident'>version</span>().<span class='ident'>len</span>() <span class='op'>&gt;</span> <span class='number'>0</span>);
     }
 }
 </pre>
@@ -198,6 +227,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -218,7 +249,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

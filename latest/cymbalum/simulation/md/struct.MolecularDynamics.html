@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,25 +44,35 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>simulation</a>::<wbr><a href='index.html'>md</a>::<wbr><a class='struct' href=''>MolecularDynamics</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4805' class='srclink' href='../../../src/cymbalum/simulation/md/molecular_dynamics.rs.html#12-17' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-5077' class='srclink' href='../../../src/cymbalum/src/simulation/md/molecular_dynamics.rs.html#11-18' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct MolecularDynamics {
     // some fields omitted
 }</pre><div class='docblock'><p>Molecular Dynamics propagator for the simulation.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(dt: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5081' class='srclink' href='../../../src/cymbalum/src/simulation/md/molecular_dynamics.rs.html#20-46' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(dt: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></h4>
 <div class='docblock'><p>Create a new <code>MolecularDynamics</code> propagator using a <code>VelocityVerlet</code>
 integrator.</p>
-</div><h4 id='method.from_integrator' class='method'><code>fn <a href='#method.from_integrator' class='fnname'>from_integrator</a>&lt;I&gt;(integrator: I) -&gt; <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a> <span class='where'>where I: <a class='trait' href='../../../cymbalum/simulation/md/trait.Integrator.html' title='cymbalum::simulation::md::Integrator'>Integrator</a> + 'static</span></code></h4>
+</div><h4 id='method.from_integrator' class='method'><code>fn <a href='#method.from_integrator' class='fnname'>from_integrator</a>(integrator: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../cymbalum/simulation/md/trait.Integrator.html' title='cymbalum::simulation::md::Integrator'>Integrator</a>&gt;) -&gt; <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></h4>
 <div class='docblock'><p>Create a new <code>MolecularDynamics</code> propagator using the specified
 <code>integrator</code>.</p>
-</div><h4 id='method.add_control' class='method'><code>fn <a href='#method.add_control' class='fnname'>add_control</a>&lt;C&gt;(&amp;mut self, control: C) <span class='where'>where C: <a class='trait' href='../../../cymbalum/simulation/md/trait.Control.html' title='cymbalum::simulation::md::Control'>Control</a> + 'static</span></code></h4>
+</div><h4 id='method.add_control' class='method'><code>fn <a href='#method.add_control' class='fnname'>add_control</a>(&amp;mut self, control: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../cymbalum/simulation/md/trait.Control.html' title='cymbalum::simulation::md::Control'>Control</a>&gt;)</code></h4>
 <div class='docblock'><p>Add a control algorithm to the internal list of controls.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/simulation/propagator/trait.Propagator.html' title='cymbalum::simulation::propagator::Propagator'>Propagator</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></h3><div class='impl-items'><h4 id='method.setup' class='method'><code>fn <a href='../../../cymbalum/simulation/propagator/trait.Propagator.html#method.setup' class='fnname'>setup</a>(&amp;mut self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-<h4 id='method.propagate' class='method'><code>fn <a href='../../../cymbalum/simulation/propagator/trait.Propagator.html#method.propagate' class='fnname'>propagate</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-<h4 id='method.finish' class='method'><code>fn <a href='../../../cymbalum/simulation/propagator/trait.Propagator.html#method.finish' class='fnname'>finish</a>(&amp;mut self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-</div></section>
+</div><h4 id='method.set_thermostat' class='method'><code>fn <a href='#method.set_thermostat' class='fnname'>set_thermostat</a>(&amp;mut self, thermostat: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../cymbalum/simulation/md/trait.Thermostat.html' title='cymbalum::simulation::md::Thermostat'>Thermostat</a>&gt;)</code></h4>
+<div class='docblock'><p>Set the thermostat to use with this simulation</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/simulation/propagator/trait.Propagator.html' title='cymbalum::simulation::propagator::Propagator'>Propagator</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5092' class='srclink' href='../../../src/cymbalum/src/simulation/md/molecular_dynamics.rs.html#48-73' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.setup' class='method'><code>fn <a href='../../../cymbalum/simulation/propagator/trait.Propagator.html#method.setup' class='fnname'>setup</a>(&amp;mut self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Setup code, preparing all the meta-informations needed about the simulation <a href="../../../cymbalum/simulation/propagator/trait.Propagator.html#method.setup">Read more</a></p>
+</div><h4 id='method.propagate' class='method'><code>fn <a href='../../../cymbalum/simulation/propagator/trait.Propagator.html#tymethod.propagate' class='fnname'>propagate</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Propagate the system for one simulation step.</p>
+</div><h4 id='method.finish' class='method'><code>fn <a href='../../../cymbalum/simulation/propagator/trait.Propagator.html#method.finish' class='fnname'>finish</a>(&amp;mut self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Finish the simulation, and maybe output some informations about it</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-6569' class='srclink' href='../../../src/cymbalum/src/input/simulations/md.rs.html#10-94' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from_toml' class='method'><code>fn <a href='../../../cymbalum/input/trait.FromToml.html#tymethod.from_toml' class='fnname'>from_toml</a>(config: &amp;<a class='type' href='../../../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; <a class='type' href='../../../cymbalum/input/type.Result.html' title='cymbalum::input::Result'>Result</a>&lt;<a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a>&gt;</code></h4>
+<div class='docblock'><p>Do the conversion from <code>table</code> to Self.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -84,6 +95,8 @@ integrator.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -104,7 +117,7 @@ integrator.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

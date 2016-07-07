@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-88ac128001ac3a9a/chemfiles-0.5.4/src/errors.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/chemfiles-0.6.1/src/errors.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>errors.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -153,6 +154,64 @@
 <span id="110">110</span>
 <span id="111">111</span>
 <span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
 </pre><pre class='rust '>
 <span class='comment'>/* Chemfiles, an efficient IO library for chemistry file formats
  * Copyright (C) 2015 Guillaume Fraux
@@ -161,8 +220,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
 */</span>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>error</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>result</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>path</span>::<span class='ident'>Path</span>;
+
 <span class='kw'>use</span> <span class='ident'>chemfiles_sys</span>::<span class='op'>*</span>;
 <span class='kw'>use</span> <span class='ident'>string</span>;
+<span class='kw'>use</span> <span class='prelude-ty'>Result</span>;
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Debug</span>, <span class='ident'>PartialEq</span>)]</span>
 <span class='doccomment'>/// Error type for Chemfiles.</span>
@@ -190,6 +255,8 @@
     <span class='ident'>SelectionError</span>,
     <span class='doccomment'>/// The given path is not valid UTF8</span>
     <span class='ident'>UTF8PathError</span>,
+    <span class='doccomment'>/// We got a null pointer from C++</span>
+    <span class='ident'>NullPtr</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>From</span><span class='op'>&lt;</span><span class='ident'>CHFL_STATUS</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>Error</span> {
@@ -210,60 +277,110 @@
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>From</span><span class='op'>&lt;</span><span class='ident'>Error</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>CHFL_STATUS</span> {
-    <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>error</span>: <span class='ident'>Error</span>) <span class='op'>-&gt;</span> <span class='ident'>CHFL_STATUS</span> {
-        <span class='kw'>match</span> <span class='ident'>error</span>.<span class='ident'>kind</span> {
-            <span class='ident'>ErrorKind</span>::<span class='ident'>CppStdError</span> <span class='op'>=&gt;</span> <span class='ident'>CHFL_CXX_ERROR</span>,
-            <span class='ident'>ErrorKind</span>::<span class='ident'>ChemfilesCppError</span> <span class='op'>=&gt;</span> <span class='ident'>CHFL_GENERIC_ERROR</span>,
-            <span class='ident'>ErrorKind</span>::<span class='ident'>MemoryError</span> <span class='op'>=&gt;</span> <span class='ident'>CHFL_MEMORY_ERROR</span>,
-            <span class='ident'>ErrorKind</span>::<span class='ident'>FileError</span> <span class='op'>=&gt;</span> <span class='ident'>CHFL_FILE_ERROR</span>,
-            <span class='ident'>ErrorKind</span>::<span class='ident'>FormatError</span> <span class='op'>=&gt;</span> <span class='ident'>CHFL_FORMAT_ERROR</span>,
-            <span class='ident'>ErrorKind</span>::<span class='ident'>SelectionError</span> <span class='op'>=&gt;</span> <span class='ident'>CHFL_SELECTION_ERROR</span>,
-            <span class='ident'>ErrorKind</span>::<span class='ident'>UTF8PathError</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;Can not convert UTF8PathError to C error code. It is a Rust-side error.&quot;</span>)
-            },
+<span class='kw'>impl</span> <span class='ident'>Error</span> {
+    <span class='doccomment'>/// Create a new error because the given `path` is invalid UTF-8 data</span>
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>utf8_path_error</span>(<span class='ident'>path</span>: <span class='kw-2'>&amp;</span><span class='ident'>Path</span>) <span class='op'>-&gt;</span> <span class='ident'>Error</span> {
+        <span class='ident'>Error</span> {
+            <span class='ident'>kind</span>: <span class='ident'>ErrorKind</span>::<span class='ident'>UTF8PathError</span>,
+            <span class='ident'>message</span>: <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;Could not convert &#39;{}&#39; to UTF8&quot;</span>, <span class='ident'>path</span>.<span class='ident'>display</span>())
         }
     }
-}
 
-<span class='kw'>impl</span> <span class='ident'>Error</span> {
-    <span class='doccomment'>/// Create a new error of the given `kind` and the last error message from</span>
-    <span class='doccomment'>/// the C++ library.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>kind</span>: <span class='ident'>ErrorKind</span>) <span class='op'>-&gt;</span> <span class='ident'>Error</span> {
+    <span class='doccomment'>/// Create a new error because we got a null pointer from C++</span>
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>null_ptr</span>() <span class='op'>-&gt;</span> <span class='ident'>Error</span> {
         <span class='ident'>Error</span> {
-            <span class='ident'>kind</span>: <span class='ident'>kind</span>,
+            <span class='ident'>kind</span>: <span class='ident'>ErrorKind</span>::<span class='ident'>NullPtr</span>,
             <span class='ident'>message</span>: <span class='ident'>Error</span>::<span class='ident'>last_error</span>()
         }
     }
 
-    <span class='doccomment'>/// Get the message associated with this error.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>message</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
-        <span class='self'>self</span>.<span class='ident'>message</span>.<span class='ident'>clone</span>()
-    }
-
-    <span class='doccomment'>/// Get the last error message.</span>
+    <span class='doccomment'>/// Get the last error message from the C++ library.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>last_error</span>() <span class='op'>-&gt;</span> <span class='ident'>String</span> {
         <span class='kw'>unsafe</span> {
             <span class='ident'>string</span>::<span class='ident'>from_c</span>(<span class='ident'>chfl_last_error</span>())
         }
     }
+
+    <span class='doccomment'>/// Clear any error from the C++ library</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>cleanup</span>() {
+        <span class='kw'>unsafe</span> {
+            <span class='ident'>chfl_clear_errors</span>();
+        }
+    }
 }
 
 <span class='doccomment'>/// Check return value of a C function, and get the error if needed.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>check</span>(<span class='ident'>status</span>: <span class='ident'>CHFL_STATUS</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>check</span>(<span class='ident'>status</span>: <span class='ident'>CHFL_STATUS</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
     <span class='kw'>if</span> <span class='ident'>status</span> <span class='op'>!=</span> <span class='ident'>CHFL_SUCCESS</span> {
         <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>status</span>));
     }
     <span class='kw'>return</span> <span class='prelude-val'>Ok</span>(());
 }
 
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Display</span> <span class='kw'>for</span> <span class='ident'>Error</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>fmt</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>result</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>fmt</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
+        <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;{}&quot;</span>, <span class='self'>self</span>.<span class='ident'>message</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>error</span>::<span class='ident'>Error</span> <span class='kw'>for</span> <span class='ident'>Error</span> {
+    <span class='kw'>fn</span> <span class='ident'>description</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
+        <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>kind</span> {
+            <span class='ident'>ErrorKind</span>::<span class='ident'>CppStdError</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Exception from the C++ standard library&quot;</span>,
+            <span class='ident'>ErrorKind</span>::<span class='ident'>ChemfilesCppError</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Exception from the chemfiles library&quot;</span>,
+            <span class='ident'>ErrorKind</span>::<span class='ident'>MemoryError</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Error in memory allocations&quot;</span>,
+            <span class='ident'>ErrorKind</span>::<span class='ident'>FileError</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Error while reading or writing a file&quot;</span>,
+            <span class='ident'>ErrorKind</span>::<span class='ident'>FormatError</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Error in file formatting, i.e. the file is invalid&quot;</span>,
+	        <span class='ident'>ErrorKind</span>::<span class='ident'>SelectionError</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Error in selection string syntax&quot;</span>,
+	        <span class='ident'>ErrorKind</span>::<span class='ident'>UTF8PathError</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The given path is not valid UTF8&quot;</span>,
+            <span class='ident'>ErrorKind</span>::<span class='ident'>NullPtr</span> <span class='op'>=&gt;</span> <span class='string'>&quot;We got a NULL pointer from C++&quot;</span>
+        }
+    }
+}
+
+
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='ident'>Trajectory</span>;
+    <span class='kw'>use</span> <span class='ident'>Logger</span>;
+    <span class='kw'>use</span> <span class='ident'>chemfiles_sys</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>error</span>::<span class='ident'>Error</span> <span class='kw'>as</span> <span class='ident'>ErrorTrait</span>;
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>errors</span>() {
+        <span class='kw'>let</span> <span class='ident'>logger</span> <span class='op'>=</span> <span class='ident'>Logger</span>::<span class='ident'>get</span>();
+        <span class='ident'>logger</span>.<span class='ident'>log_silent</span>().<span class='ident'>unwrap</span>();
+        <span class='ident'>Error</span>::<span class='ident'>cleanup</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>last_error</span>(), <span class='string'>&quot;&quot;</span>);
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>Trajectory</span>::<span class='ident'>open</span>(<span class='string'>&quot;nope&quot;</span>).<span class='ident'>is_err</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>last_error</span>(), <span class='string'>&quot;Can not find a format associated with the \&quot;\&quot; extension.&quot;</span>);
+        <span class='ident'>Error</span>::<span class='ident'>cleanup</span>();
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>last_error</span>(), <span class='string'>&quot;&quot;</span>);
+        <span class='ident'>logger</span>.<span class='ident'>log_to_stderr</span>().<span class='ident'>unwrap</span>();
+    }
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>codes</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_CXX_ERROR</span>).<span class='ident'>kind</span>, <span class='ident'>ErrorKind</span>::<span class='ident'>CppStdError</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_GENERIC_ERROR</span>).<span class='ident'>kind</span>, <span class='ident'>ErrorKind</span>::<span class='ident'>ChemfilesCppError</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_MEMORY_ERROR</span>).<span class='ident'>kind</span>, <span class='ident'>ErrorKind</span>::<span class='ident'>MemoryError</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_FILE_ERROR</span>).<span class='ident'>kind</span>, <span class='ident'>ErrorKind</span>::<span class='ident'>FileError</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_FORMAT_ERROR</span>).<span class='ident'>kind</span>, <span class='ident'>ErrorKind</span>::<span class='ident'>FormatError</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_SELECTION_ERROR</span>).<span class='ident'>kind</span>, <span class='ident'>ErrorKind</span>::<span class='ident'>SelectionError</span>);
+    }
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>messages</span>() {
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_CXX_ERROR</span>).<span class='ident'>description</span>().<span class='ident'>contains</span>(<span class='string'>&quot;C++ standard library&quot;</span>));
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_GENERIC_ERROR</span>).<span class='ident'>description</span>().<span class='ident'>contains</span>(<span class='string'>&quot;chemfiles library&quot;</span>));
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_MEMORY_ERROR</span>).<span class='ident'>description</span>().<span class='ident'>contains</span>(<span class='string'>&quot;memory&quot;</span>));
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_FILE_ERROR</span>).<span class='ident'>description</span>().<span class='ident'>contains</span>(<span class='string'>&quot;file&quot;</span>));
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_FORMAT_ERROR</span>).<span class='ident'>description</span>().<span class='ident'>contains</span>(<span class='string'>&quot;format&quot;</span>));
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='ident'>CHFL_SELECTION_ERROR</span>).<span class='ident'>description</span>().<span class='ident'>contains</span>(<span class='string'>&quot;selection&quot;</span>));
     }
 }
 </pre>
@@ -290,6 +407,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -310,7 +429,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

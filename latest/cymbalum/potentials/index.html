@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>cymbalum</a>::<wbr><a class='mod' href=''>potentials</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1348' class='srclink' href='../../src/cymbalum/potentials/mod.rs.html#4-26' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1810' class='srclink' href='../../src/cymbalum/src/potentials/mod.rs.html#4-26' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Energy and forces computation in simulations.</p>
 
 <p>In order to compute an energy or a force, two things are needed: a function
@@ -56,70 +57,58 @@ functions. The functions implements the <code>PotentialFunction</code> trait, an
 energy: with a cutoff, from a table, <em>etc.</em></p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use self::<a class='mod'
-                                            href='./functions/index.html'>functions</a>::<a class='trait' href='../../cymbalum/potentials/functions/trait.PotentialFunction.html' title='cymbalum::potentials::functions::PotentialFunction'>PotentialFunction</a>;</code></td></tr><tr><td><code>pub use self::functions::{<a class='trait' href='../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a>, <a class='trait' href='../../cymbalum/potentials/functions/trait.AnglePotential.html' title='cymbalum::potentials::functions::AnglePotential'>AnglePotential</a>, <a class='trait' href='../../cymbalum/potentials/functions/trait.DihedralPotential.html' title='cymbalum::potentials::functions::DihedralPotential'>DihedralPotential</a>};</code></td></tr><tr><td><code>pub use self::functions::{<a class='struct' href='../../cymbalum/potentials/functions/struct.NullPotential.html' title='cymbalum::potentials::functions::NullPotential'>NullPotential</a>, <a class='struct' href='../../cymbalum/potentials/functions/struct.LennardJones.html' title='cymbalum::potentials::functions::LennardJones'>LennardJones</a>, <a class='struct' href='../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a>, <a class='struct' href='../../cymbalum/potentials/functions/struct.CosineHarmonic.html' title='cymbalum::potentials::functions::CosineHarmonic'>CosineHarmonic</a>};</code></td></tr><tr><td><code>pub use self::<a class='mod'
-                                            href='./functions/index.html'>functions</a>::<a class='struct' href='../../cymbalum/potentials/functions/struct.Torsion.html' title='cymbalum::potentials::functions::Torsion'>Torsion</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
-                                            href='./computations/index.html'>computations</a>::<a class='trait' href='../../cymbalum/potentials/computations/trait.Computation.html' title='cymbalum::potentials::computations::Computation'>Computation</a>;</code></td></tr><tr><td><code>pub use self::computations::{<a class='struct' href='../../cymbalum/potentials/computations/struct.TableComputation.html' title='cymbalum::potentials::computations::TableComputation'>TableComputation</a>, <a class='struct' href='../../cymbalum/potentials/computations/struct.CutoffComputation.html' title='cymbalum::potentials::computations::CutoffComputation'>CutoffComputation</a>};</code></td></tr><tr><td><code>pub use self::restrictions::{<a class='enum' href='../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a>, <a class='struct' href='../../cymbalum/potentials/restrictions/struct.RestrictionInfo.html' title='cymbalum::potentials::restrictions::RestrictionInfo'>RestrictionInfo</a>};</code></td></tr><tr><td><code>pub use self::global::{<a class='trait' href='../../cymbalum/potentials/global/trait.GlobalPotential.html' title='cymbalum::potentials::global::GlobalPotential'>GlobalPotential</a>, <a class='trait' href='../../cymbalum/potentials/global/trait.CoulombicPotential.html' title='cymbalum::potentials::global::CoulombicPotential'>CoulombicPotential</a>};</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+                                       href='./functions/index.html'>functions</a>::<a class='trait' href='../../cymbalum/potentials/functions/trait.PotentialFunction.html' title='cymbalum::potentials::functions::PotentialFunction'>PotentialFunction</a>;</code></td></tr><tr><td><code>pub use self::functions::{<a class='trait' href='../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a>, <a class='trait' href='../../cymbalum/potentials/functions/trait.AnglePotential.html' title='cymbalum::potentials::functions::AnglePotential'>AnglePotential</a>, <a class='trait' href='../../cymbalum/potentials/functions/trait.DihedralPotential.html' title='cymbalum::potentials::functions::DihedralPotential'>DihedralPotential</a>};</code></td></tr><tr><td><code>pub use self::functions::{<a class='struct' href='../../cymbalum/potentials/functions/struct.NullPotential.html' title='cymbalum::potentials::functions::NullPotential'>NullPotential</a>, <a class='struct' href='../../cymbalum/potentials/functions/struct.LennardJones.html' title='cymbalum::potentials::functions::LennardJones'>LennardJones</a>, <a class='struct' href='../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a>, <a class='struct' href='../../cymbalum/potentials/functions/struct.CosineHarmonic.html' title='cymbalum::potentials::functions::CosineHarmonic'>CosineHarmonic</a>};</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./functions/index.html'>functions</a>::<a class='struct' href='../../cymbalum/potentials/functions/struct.Torsion.html' title='cymbalum::potentials::functions::Torsion'>Torsion</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./computations/index.html'>computations</a>::<a class='trait' href='../../cymbalum/potentials/computations/trait.Computation.html' title='cymbalum::potentials::computations::Computation'>Computation</a>;</code></td></tr><tr><td><code>pub use self::computations::{<a class='struct' href='../../cymbalum/potentials/computations/struct.TableComputation.html' title='cymbalum::potentials::computations::TableComputation'>TableComputation</a>, <a class='struct' href='../../cymbalum/potentials/computations/struct.CutoffComputation.html' title='cymbalum::potentials::computations::CutoffComputation'>CutoffComputation</a>};</code></td></tr><tr><td><code>pub use self::restrictions::{<a class='enum' href='../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a>, <a class='struct' href='../../cymbalum/potentials/restrictions/struct.RestrictionInfo.html' title='cymbalum::potentials::restrictions::RestrictionInfo'>RestrictionInfo</a>};</code></td></tr><tr><td><code>pub use self::global::{<a class='trait' href='../../cymbalum/potentials/global/trait.GlobalPotential.html' title='cymbalum::potentials::global::GlobalPotential'>GlobalPotential</a>, <a class='trait' href='../../cymbalum/potentials/global/trait.CoulombicPotential.html' title='cymbalum::potentials::global::CoulombicPotential'>CoulombicPotential</a>};</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='computations/index.html'
-                               title='cymbalum::potentials::computations'>computations</a></td>
-                        <td class='docblock short'>
-                             <p>A potential computation is a way of computing a potential given its
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='computations/index.html'
+                                  title='cymbalum::potentials::computations'>computations</a></td>
+                           <td class='docblock short'>
+                                <p>A potential computation is a way of computing a potential given its
 expression (represented by a <code>PotentialFunction</code>). The same potential can be
 computed either direcly, or using a cutoff, or by a table interpolation, ...</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='functions/index.html'
-                               title='cymbalum::potentials::functions'>functions</a></td>
-                        <td class='docblock short'>
-                             <p>Potentials traits and implementations.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='global/index.html'
-                               title='cymbalum::potentials::global'>global</a></td>
-                        <td class='docblock short'>
-                             <p>Global potential are potentials acting on the whole system at once</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='restrictions/index.html'
-                               title='cymbalum::potentials::restrictions'>restrictions</a></td>
-                        <td class='docblock short'>
-                             <p>Encoding restrictions in interactions.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='functions/index.html'
+                                  title='cymbalum::potentials::functions'>functions</a></td>
+                           <td class='docblock short'>
+                                <p>Potentials traits and implementations.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='global/index.html'
+                                  title='cymbalum::potentials::global'>global</a></td>
+                           <td class='docblock short'>
+                                <p>Global potential are potentials acting on the whole system at once</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='restrictions/index.html'
+                                  title='cymbalum::potentials::restrictions'>restrictions</a></td>
+                           <td class='docblock short'>
+                                <p>Encoding restrictions in interactions.</p>
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Ewald.html'
-                               title='cymbalum::potentials::Ewald'>Ewald</a></td>
-                        <td class='docblock short'>
-                             <p>Ewald summation of the coulombic interactions. The Ewald summation is based
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Ewald.html'
+                                  title='cymbalum::potentials::Ewald'>Ewald</a></td>
+                           <td class='docblock short'>
+                                <p>Ewald summation of the coulombic interactions. The Ewald summation is based
 on a separation of the coulombic potential U in two parts, using the trivial
 identity:</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Wolf.html'
-                               title='cymbalum::potentials::Wolf'>Wolf</a></td>
-                        <td class='docblock short'>
-                             <p>Wolf summation for the coulombic potential, as defined in [Wolf1999]. This
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Wolf.html'
+                                  title='cymbalum::potentials::Wolf'>Wolf</a></td>
+                           <td class='docblock short'>
+                                <p>Wolf summation for the coulombic potential, as defined in [Wolf1999]. This
 is a fast direct pairwise summation for coulombic potential.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -142,6 +131,8 @@ is a fast direct pairwise summation for coulombic potential.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -162,7 +153,7 @@ is a fast direct pairwise summation for coulombic potential.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

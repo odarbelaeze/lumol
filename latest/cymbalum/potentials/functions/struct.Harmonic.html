@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>potentials</a>::<wbr><a href='index.html'>functions</a>::<wbr><a class='struct' href=''>Harmonic</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1442' class='srclink' href='../../../src/cymbalum/potentials/functions.rs.html#93-98' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1904' class='srclink' href='../../../src/cymbalum/src/potentials/functions.rs.html#93-98' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Harmonic {
     pub k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>,
     pub x0: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>,
@@ -55,16 +56,29 @@ $$ V(x) = \frac 12 k (x - x_0)<sup>2</sup> $$
 where $x_0$ is the distance equilibrium, and $k$ the elastic constant.</p>
 </div><h2 class='fields'>Fields</h2>
 <table><tr class='stab '>
-                                  <td id='structfield.k'><code>k</code></td><td><div class='docblock'><p>Spring constant</p>
+                             <td id='structfield.k'><code>k</code></td><td><div class='docblock'><p>Spring constant</p>
 </div></td></tr><tr class='stab '>
-                                  <td id='structfield.x0'><code>x0</code></td><td><div class='docblock'><p>Equilibrium value</p>
-</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/potentials/functions/trait.PotentialFunction.html' title='cymbalum::potentials::functions::PotentialFunction'>PotentialFunction</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></h3><div class='impl-items'><h4 id='method.energy' class='method'><code>fn <a href='../../../cymbalum/potentials/functions/trait.PotentialFunction.html#method.energy' class='fnname'>energy</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
-<h4 id='method.force' class='method'><code>fn <a href='../../../cymbalum/potentials/functions/trait.PotentialFunction.html#method.force' class='fnname'>force</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></h3><div class='impl-items'><h4 id='method.virial' class='method'><code>fn <a href='../../../cymbalum/potentials/functions/trait.PairPotential.html#method.virial' class='fnname'>virial</a>(&amp;self, r: &amp;<a class='struct' href='../../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>) -&gt; <a class='struct' href='../../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/potentials/functions/trait.AnglePotential.html' title='cymbalum::potentials::functions::AnglePotential'>AnglePotential</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/potentials/functions/trait.DihedralPotential.html' title='cymbalum::potentials::functions::DihedralPotential'>DihedralPotential</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></h3><div class='impl-items'><h4 id='method.from_toml' class='method'><code>fn <a href='../../../cymbalum/input/trait.FromToml.html#method.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../../../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; Result&lt;<a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a>&gt;</code></h4>
-</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div></section>
+                             <td id='structfield.x0'><code>x0</code></td><td><div class='docblock'><p>Equilibrium value</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/potentials/functions/trait.PotentialFunction.html' title='cymbalum::potentials::functions::PotentialFunction'>PotentialFunction</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1913' class='srclink' href='../../../src/cymbalum/src/potentials/functions.rs.html#100-111' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.energy' class='method'><code>fn <a href='../../../cymbalum/potentials/functions/trait.PotentialFunction.html#tymethod.energy' class='fnname'>energy</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the energy corresponding to the variable <code>x</code></p>
+</div><h4 id='method.force' class='method'><code>fn <a href='../../../cymbalum/potentials/functions/trait.PotentialFunction.html#tymethod.force' class='fnname'>force</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the force norm corresponding to the variable <code>x</code></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/potentials/functions/trait.PairPotential.html' title='cymbalum::potentials::functions::PairPotential'>PairPotential</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1921' class='srclink' href='../../../src/cymbalum/src/potentials/functions.rs.html#113' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.virial' class='method'><code>fn <a href='../../../cymbalum/potentials/functions/trait.PairPotential.html#method.virial' class='fnname'>virial</a>(&amp;self, r: &amp;<a class='struct' href='../../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>) -&gt; <a class='struct' href='../../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>
+<div class='docblock'><p>Compute the virial contribution corresponding to the distance <code>r</code> between the particles</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/potentials/functions/trait.AnglePotential.html' title='cymbalum::potentials::functions::AnglePotential'>AnglePotential</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1922' class='srclink' href='../../../src/cymbalum/src/potentials/functions.rs.html#114' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/potentials/functions/trait.DihedralPotential.html' title='cymbalum::potentials::functions::DihedralPotential'>DihedralPotential</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1923' class='srclink' href='../../../src/cymbalum/src/potentials/functions.rs.html#115' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5748' class='srclink' href='../../../src/cymbalum/src/input/interactions/toml.rs.html#32-47' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from_toml' class='method'><code>fn <a href='../../../cymbalum/input/trait.FromToml.html#tymethod.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../../../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; <a class='type' href='../../../cymbalum/input/type.Result.html' title='cymbalum::input::Result'>Result</a>&lt;<a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a>&gt;</code></h4>
+<div class='docblock'><p>Do the conversion from <code>table</code> to Self.</p>
+</div></div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1907' class='srclink' href='../../../src/cymbalum/src/potentials/functions.rs.html#92' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1908' class='srclink' href='../../../src/cymbalum/src/potentials/functions.rs.html#92' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -87,6 +101,8 @@ where $x_0$ is the distance equilibrium, and $k$ the elastic constant.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -107,7 +123,7 @@ where $x_0$ is the distance equilibrium, and $k$ the elastic constant.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

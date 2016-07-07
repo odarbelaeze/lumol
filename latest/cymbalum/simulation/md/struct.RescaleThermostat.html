@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>simulation</a>::<wbr><a href='index.html'>md</a>::<wbr><a class='struct' href=''>RescaleThermostat</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4714' class='srclink' href='../../../src/cymbalum/simulation/md/controls.rs.html#33-38' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-4991' class='srclink' href='../../../src/cymbalum/src/simulation/md/controls.rs.html#35-40' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct RescaleThermostat {
     // some fields omitted
 }</pre><div class='docblock'><p>Velocity rescaling thermostat.</p>
@@ -56,16 +57,25 @@ the velocities when the temperature differs exceedingly from the desired
 temperature. A tolerance parameter prevent this algorithm from running too
 often: if tolerance is 10K and the target temperature is 300K, the algorithm
 will only run if the instant temperature is below 290K or above 310K.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4994' class='srclink' href='../../../src/cymbalum/src/simulation/md/controls.rs.html#42-56' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a></code></h4>
 <div class='docblock'><p>Create a new <code>RescaleThermostat</code> acting at temperature <code>temperature</code>, with a
 tolerance of <code>5% * temperature</code>.</p>
 </div><h4 id='method.with_tolerance' class='method'><code>fn <a href='#method.with_tolerance' class='fnname'>with_tolerance</a>(temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, tol: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a></code></h4>
 <div class='docblock'><p>Create a new <code>RescaleThermostat</code> acting at temperature <code>T</code>, with a
 tolerance of <code>tol</code>. For rescaling all the steps, use <code>tol = 0</code>.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/simulation/md/trait.Control.html' title='cymbalum::simulation::md::Control'>Control</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a></code></h3><div class='impl-items'><h4 id='method.control' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#method.control' class='fnname'>control</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-<h4 id='method.setup' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#method.setup' class='fnname'>setup</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-<h4 id='method.finish' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#method.finish' class='fnname'>finish</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/simulation/md/trait.Control.html' title='cymbalum::simulation::md::Control'>Control</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5002' class='srclink' href='../../../src/cymbalum/src/simulation/md/controls.rs.html#58-65' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.control' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#tymethod.control' class='fnname'>control</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Do your job, control algorithm!</p>
+</div><h4 id='method.setup' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#method.setup' class='fnname'>setup</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Function called once at the beggining of the simulation, which allow for some setup of the control algorithm if needed. <a href="../../../cymbalum/simulation/md/trait.Control.html#method.setup">Read more</a></p>
+</div><h4 id='method.finish' class='method'><code>fn <a href='../../../cymbalum/simulation/md/trait.Control.html#method.finish' class='fnname'>finish</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Function called once at the end of the simulation.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/simulation/md/trait.Thermostat.html' title='cymbalum::simulation::md::Thermostat'>Thermostat</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5007' class='srclink' href='../../../src/cymbalum/src/simulation/md/controls.rs.html#67' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-6767' class='srclink' href='../../../src/cymbalum/src/input/simulations/md.rs.html#151-167' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from_toml' class='method'><code>fn <a href='../../../cymbalum/input/trait.FromToml.html#tymethod.from_toml' class='fnname'>from_toml</a>(config: &amp;<a class='type' href='../../../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; <a class='type' href='../../../cymbalum/input/type.Result.html' title='cymbalum::input::Result'>Result</a>&lt;<a class='struct' href='../../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a>&gt;</code></h4>
+<div class='docblock'><p>Do the conversion from <code>table</code> to Self.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -88,6 +98,8 @@ tolerance of <code>tol</code>. For rescaling all the steps, use <code>tol = 0</c
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -108,7 +120,7 @@ tolerance of <code>tol</code>. For rescaling all the steps, use <code>tol = 0</c
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

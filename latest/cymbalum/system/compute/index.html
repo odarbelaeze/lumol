@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,135 +44,111 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>system</a>::<wbr><a class='mod' href=''>compute</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4238' class='srclink' href='../../../src/cymbalum/system/compute.rs.html#4-527' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-4593' class='srclink' href='../../../src/cymbalum/src/system/compute.rs.html#4-506' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Computing properties of a system</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Forces.html'
-                               title='cymbalum::system::compute::Forces'>Forces</a></td>
-                        <td class='docblock short'>
-                             <p>Compute all the forces acting on the system, and return a vector of
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Forces.html'
+                                  title='cymbalum::system::compute::Forces'>Forces</a></td>
+                           <td class='docblock short'>
+                                <p>Compute all the forces acting on the system, and return a vector of
 force acting on each particles</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.KineticEnergy.html'
-                               title='cymbalum::system::compute::KineticEnergy'>KineticEnergy</a></td>
-                        <td class='docblock short'>
-                             <p>Compute the kinetic energy of the system</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.PotentialEnergy.html'
-                               title='cymbalum::system::compute::PotentialEnergy'>PotentialEnergy</a></td>
-                        <td class='docblock short'>
-                             <p>Compute the potential energy of the system</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Pressure.html'
-                               title='cymbalum::system::compute::Pressure'>Pressure</a></td>
-                        <td class='docblock short'>
-                             <p>Compute the virial pressure of the system. This pressure is given by the
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.KineticEnergy.html'
+                                  title='cymbalum::system::compute::KineticEnergy'>KineticEnergy</a></td>
+                           <td class='docblock short'>
+                                <p>Compute the kinetic energy of the system</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.PotentialEnergy.html'
+                                  title='cymbalum::system::compute::PotentialEnergy'>PotentialEnergy</a></td>
+                           <td class='docblock short'>
+                                <p>Compute the potential energy of the system</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Pressure.html'
+                                  title='cymbalum::system::compute::Pressure'>Pressure</a></td>
+                           <td class='docblock short'>
+                                <p>Compute the virial pressure of the system. This pressure is given by the
 following formula:
 $$ p = \frac{N k_B T}{V} + \frac{1}{3V} \sum_i \vec f_i \cdot \vec r_i $$</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.PressureAtTemperature.html'
-                               title='cymbalum::system::compute::PressureAtTemperature'>PressureAtTemperature</a></td>
-                        <td class='docblock short'>
-                             <p>Compute the pressure of the system from the virial equation, at the given
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.PressureAtTemperature.html'
+                                  title='cymbalum::system::compute::PressureAtTemperature'>PressureAtTemperature</a></td>
+                           <td class='docblock short'>
+                                <p>Compute the pressure of the system from the virial equation, at the given
 temperature. This pressure is given by the following formula:
 $$ p = \frac{N k_B T}{V} + \frac{1}{3V} \sum_i \vec f_i \cdot \vec r_i $$</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Stress.html'
-                               title='cymbalum::system::compute::Stress'>Stress</a></td>
-                        <td class='docblock short'>
-                             <p>Compute the stress tensor of the system, defined by:
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Stress.html'
+                                  title='cymbalum::system::compute::Stress'>Stress</a></td>
+                           <td class='docblock short'>
+                                <p>Compute the stress tensor of the system, defined by:
 $$ \sigma = \frac{1}{V} (\sum_i m_i v_i \otimes v_i + \sum_i \sum_{j &gt; i} \vec r_{ij} \otimes \vec f_{ij}) $$</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.StressAtTemperature.html'
-                               title='cymbalum::system::compute::StressAtTemperature'>StressAtTemperature</a></td>
-                        <td class='docblock short'>
-                             <p>Compute the stress tensor of the system from the virial equation, at the
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.StressAtTemperature.html'
+                                  title='cymbalum::system::compute::StressAtTemperature'>StressAtTemperature</a></td>
+                           <td class='docblock short'>
+                                <p>Compute the stress tensor of the system from the virial equation, at the
 given temperature. The stress tensor is defined by
 $$ \sigma = \sigma = \frac{1}{V} (\sum_i m_i v_i \otimes v_i + \sum_i \sum_{j &gt; i} \vec r_{ij} \otimes \vec f_{ij}) $$
 but here the kinetic energy term is replaced by it average at the given
 temperature.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Temperature.html'
-                               title='cymbalum::system::compute::Temperature'>Temperature</a></td>
-                        <td class='docblock short'>
-                             <p>Compute the instananeous temperature of the system</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.TotalEnergy.html'
-                               title='cymbalum::system::compute::TotalEnergy'>TotalEnergy</a></td>
-                        <td class='docblock short'>
-                             <p>Compute the total energy of the system</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Virial.html'
-                               title='cymbalum::system::compute::Virial'>Virial</a></td>
-                        <td class='docblock short'>
-                             <p>Compute the virial tensor of the system, defined by
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Temperature.html'
+                                  title='cymbalum::system::compute::Temperature'>Temperature</a></td>
+                           <td class='docblock short'>
+                                <p>Compute the instananeous temperature of the system</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.TotalEnergy.html'
+                                  title='cymbalum::system::compute::TotalEnergy'>TotalEnergy</a></td>
+                           <td class='docblock short'>
+                                <p>Compute the total energy of the system</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Virial.html'
+                                  title='cymbalum::system::compute::Virial'>Virial</a></td>
+                           <td class='docblock short'>
+                                <p>Compute the virial tensor of the system, defined by
 $$ W = \sum_i \sum_{j &gt; i} \vec r_{ij} \otimes \vec f_{ij} $$</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Volume.html'
-                               title='cymbalum::system::compute::Volume'>Volume</a></td>
-                        <td class='docblock short'>
-                             <p>Compute the volume of the system</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Volume.html'
+                                  title='cymbalum::system::compute::Volume'>Volume</a></td>
+                           <td class='docblock short'>
+                                <p>Compute the volume of the system</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.Compute.html'
-                               title='cymbalum::system::compute::Compute'>Compute</a></td>
-                        <td class='docblock short'>
-                             <p>The compute trait allow to compute properties of a system, whithout
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.Compute.html'
+                                  title='cymbalum::system::compute::Compute'>Compute</a></td>
+                           <td class='docblock short'>
+                                <p>The compute trait allow to compute properties of a system, whithout
 modifying this system. The Output type is the type of the computed
 property.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -194,6 +171,8 @@ property.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -214,7 +193,7 @@ property.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

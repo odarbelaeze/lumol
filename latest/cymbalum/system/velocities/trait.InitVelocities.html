@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>system</a>::<wbr><a href='index.html'>velocities</a>::<wbr><a class='trait' href=''>InitVelocities</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2758' class='srclink' href='../../../src/cymbalum/system/velocities.rs.html#24-29' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3127' class='srclink' href='../../../src/cymbalum/src/system/velocities.rs.html#24-29' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait InitVelocities {
     fn <a href='#tymethod.init' class='fnname'>init</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>);
     fn <a href='#tymethod.seed' class='fnname'>seed</a>(&amp;mut self, seed: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>);
@@ -59,11 +60,11 @@
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../../cymbalum/system/velocities/trait.InitVelocities.html' title='cymbalum::system::velocities::InitVelocities'>InitVelocities</a> for <a class='struct' href='../../../cymbalum/system/velocities/struct.BoltzmanVelocities.html' title='cymbalum::system::velocities::BoltzmanVelocities'>BoltzmanVelocities</a></code></li>
-<li><code>impl <a class='trait' href='../../../cymbalum/system/velocities/trait.InitVelocities.html' title='cymbalum::system::velocities::InitVelocities'>InitVelocities</a> for <a class='struct' href='../../../cymbalum/system/velocities/struct.UniformVelocities.html' title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a></code></li>
+    <li><code>impl InitVelocities for <a class='struct' href='../../../cymbalum/system/velocities/struct.BoltzmannVelocities.html' title='cymbalum::system::velocities::BoltzmannVelocities'>BoltzmannVelocities</a></code></li>
+<li><code>impl InitVelocities for <a class='struct' href='../../../cymbalum/system/velocities/struct.UniformVelocities.html' title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../../implementors/cymbalum/system/velocities/trait.InitVelocities.js">
-                      </script></section>
+                         src="../../../implementors/cymbalum/system/velocities/trait.InitVelocities.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -86,6 +87,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -106,7 +109,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

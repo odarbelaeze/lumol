@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,147 +44,121 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>potentials</a>::<wbr><a class='mod' href=''>functions</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1350' class='srclink' href='../../../src/cymbalum/potentials/functions.rs.html#4-264' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1812' class='srclink' href='../../../src/cymbalum/src/potentials/functions.rs.html#4-264' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Potentials traits and implementations.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.CosineHarmonic.html'
-                               title='cymbalum::potentials::functions::CosineHarmonic'>CosineHarmonic</a></td>
-                        <td class='docblock short'>
-                             <p>Cosine harmonic potential, using the following form:
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.CosineHarmonic.html'
+                                  title='cymbalum::potentials::functions::CosineHarmonic'>CosineHarmonic</a></td>
+                           <td class='docblock short'>
+                                <p>Cosine harmonic potential, using the following form:
 $$ V(r) = \frac 12 k (\cos r - \cos x_0)<sup>2</sup> $$
 where $x_0$ is the distance equilibrium, and $k$ the elastic constant.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Harmonic.html'
-                               title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></td>
-                        <td class='docblock short'>
-                             <p>Harmonic potential, using the following form:
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Harmonic.html'
+                                  title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></td>
+                           <td class='docblock short'>
+                                <p>Harmonic potential, using the following form:
 $$ V(x) = \frac 12 k (x - x_0)<sup>2</sup> $$
 where $x_0$ is the distance equilibrium, and $k$ the elastic constant.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.LennardJones.html'
-                               title='cymbalum::potentials::functions::LennardJones'>LennardJones</a></td>
-                        <td class='docblock short'>
-                             <p>Lennard-Jones potential, using the following form:
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.LennardJones.html'
+                                  title='cymbalum::potentials::functions::LennardJones'>LennardJones</a></td>
+                           <td class='docblock short'>
+                                <p>Lennard-Jones potential, using the following form:
 $$ V(r) = 4 \epsilon \left[ (\sigma/r)<sup>{12}</sup> - (\sigma/r)<sup>{6}</sup> \right] $$
 where $\sigma$ is a distance constant, and $\epsilon$ an energetic constant.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.NullPotential.html'
-                               title='cymbalum::potentials::functions::NullPotential'>NullPotential</a></td>
-                        <td class='docblock short'>
-                             <p>The <code>NullPotential</code> always returns 0.0 as energy and force.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Torsion.html'
-                               title='cymbalum::potentials::functions::Torsion'>Torsion</a></td>
-                        <td class='docblock short'>
-                             <p>Torsion potential, using the following form:
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.NullPotential.html'
+                                  title='cymbalum::potentials::functions::NullPotential'>NullPotential</a></td>
+                           <td class='docblock short'>
+                                <p>The <code>NullPotential</code> always returns 0.0 as energy and force.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Torsion.html'
+                                  title='cymbalum::potentials::functions::Torsion'>Torsion</a></td>
+                           <td class='docblock short'>
+                                <p>Torsion potential, using the following form:
 $$ V(r) = k(1 + \cos(n\phi􏰈 - \delta)) $$
 where $k$ is the force constant, <code>n</code> the periodicity of the potential, and
 $\delta$ the equilibrium angle.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.AnglePotential.html'
-                               title='cymbalum::potentials::functions::AnglePotential'>AnglePotential</a></td>
-                        <td class='docblock short'>
-                             <p>Angle potential can be expressed by implenting the <code>AnglePotential</code> trait.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.BoxCloneAngle.html'
-                               title='cymbalum::potentials::functions::BoxCloneAngle'>BoxCloneAngle</a></td>
-                        <td class='docblock short'>
-                             <p>This is an internal implementation detail for cloning Box<Trait>,
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.AnglePotential.html'
+                                  title='cymbalum::potentials::functions::AnglePotential'>AnglePotential</a></td>
+                           <td class='docblock short'>
+                                <p>Angle potential can be expressed by implenting the <code>AnglePotential</code> trait.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.BoxCloneAngle.html'
+                                  title='cymbalum::potentials::functions::BoxCloneAngle'>BoxCloneAngle</a></td>
+                           <td class='docblock short'>
+                                <p>This is an internal implementation detail for cloning Box<Trait>,
 where Trait is used as a trait object.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.BoxCloneDihedral.html'
-                               title='cymbalum::potentials::functions::BoxCloneDihedral'>BoxCloneDihedral</a></td>
-                        <td class='docblock short'>
-                             <p>This is an internal implementation detail for cloning Box<Trait>,
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.BoxCloneDihedral.html'
+                                  title='cymbalum::potentials::functions::BoxCloneDihedral'>BoxCloneDihedral</a></td>
+                           <td class='docblock short'>
+                                <p>This is an internal implementation detail for cloning Box<Trait>,
 where Trait is used as a trait object.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.BoxClonePair.html'
-                               title='cymbalum::potentials::functions::BoxClonePair'>BoxClonePair</a></td>
-                        <td class='docblock short'>
-                             <p>This is an internal implementation detail for cloning Box<Trait>,
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.BoxClonePair.html'
+                                  title='cymbalum::potentials::functions::BoxClonePair'>BoxClonePair</a></td>
+                           <td class='docblock short'>
+                                <p>This is an internal implementation detail for cloning Box<Trait>,
 where Trait is used as a trait object.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.BoxClonePotential.html'
-                               title='cymbalum::potentials::functions::BoxClonePotential'>BoxClonePotential</a></td>
-                        <td class='docblock short'>
-                             <p>This is an internal implementation detail for cloning Box<Trait>,
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.BoxClonePotential.html'
+                                  title='cymbalum::potentials::functions::BoxClonePotential'>BoxClonePotential</a></td>
+                           <td class='docblock short'>
+                                <p>This is an internal implementation detail for cloning Box<Trait>,
 where Trait is used as a trait object.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.DihedralPotential.html'
-                               title='cymbalum::potentials::functions::DihedralPotential'>DihedralPotential</a></td>
-                        <td class='docblock short'>
-                             <p>Dihedral angles potential can be expressed by implenting the
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.DihedralPotential.html'
+                                  title='cymbalum::potentials::functions::DihedralPotential'>DihedralPotential</a></td>
+                           <td class='docblock short'>
+                                <p>Dihedral angles potential can be expressed by implenting the
 <code>DihedralPotential</code> trait.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.PairPotential.html'
-                               title='cymbalum::potentials::functions::PairPotential'>PairPotential</a></td>
-                        <td class='docblock short'>
-                             <p>Pair potential can be expressed by implenting the <code>PairPotential</code> trait.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.PotentialFunction.html'
-                               title='cymbalum::potentials::functions::PotentialFunction'>PotentialFunction</a></td>
-                        <td class='docblock short'>
-                             <p>A <code>PotentialFunction</code> is a set of two parametric functions which takes a
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.PairPotential.html'
+                                  title='cymbalum::potentials::functions::PairPotential'>PairPotential</a></td>
+                           <td class='docblock short'>
+                                <p>Pair potential can be expressed by implenting the <code>PairPotential</code> trait.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.PotentialFunction.html'
+                                  title='cymbalum::potentials::functions::PotentialFunction'>PotentialFunction</a></td>
+                           <td class='docblock short'>
+                                <p>A <code>PotentialFunction</code> is a set of two parametric functions which takes a
 single scalar variable and return the energy or the norm of the force
 corresponding to the value of that variable.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -206,6 +181,8 @@ corresponding to the value of that variable.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -226,7 +203,7 @@ corresponding to the value of that variable.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

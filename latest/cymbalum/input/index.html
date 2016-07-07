@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,21 +44,27 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>cymbalum</a>::<wbr><a class='mod' href=''>input</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-5346' class='srclink' href='../../src/cymbalum/input/mod.rs.html#4-34' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>Input and output capacities.</p>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-5612' class='srclink' href='../../src/cymbalum/src/input/mod.rs.html#4-86' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Input capacities for cymbalum</p>
 
-<h1 id='input-files' class='section-header'><a href='#input-files'>Input files</a></h1>
-<p>This module provide readers for two types of file:
-* Configuration files uses the YAML format to define the <code>System</code> or the
-  <code>Simulation</code> in an human-readable way, and without writing any code;
-* Structures files defines the positions and the names of particles in the
-  <code>System</code> or in a specific <code>Molecule</code>.</p>
+<p>This module provide input files reader for two types of files:</p>
 
-<h1 id='reading-yaml-files' class='section-header'><a href='#reading-yaml-files'>Reading YAML files</a></h1>
-<p>The <code>read_interactions</code> function read interactions into a <code>System</code>.</p>
+<ul>
+<li>Configuration files uses the TOML format to define a <code>System</code> or a
+<code>Simulation</code> in an human-readable way, without writing any code. This
+type of input is further divided in potentials input files and whole
+simulation input files;</li>
+<li>Structures files defines the positions and the names of particles in a
+<code>System</code> or in a specific <code>Molecule</code>.</li>
+</ul>
+
+<h1 id='reading-configuration-files' class='section-header'><a href='#reading-configuration-files'>Reading configuration files</a></h1>
+<p>The <code>read_interactions</code> function read interactions into a <code>System</code>, and the
+<code>read_config</code> function reads a whole simulation (<code>Simulation</code> and <code>System</code>
+objects).</p>
 
 <h1 id='reading-and-writing-trajectories' class='section-header'><a href='#reading-and-writing-trajectories'>Reading and writing trajectories</a></h1>
 <p>The <code>Trajectory</code> type allow to read and write trajectories on the disk.
@@ -65,87 +72,91 @@ One can also read a single molecule from a file using the <code>read_molecule</c
 function.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Trajectory.html'
-                               title='cymbalum::input::Trajectory'>Trajectory</a></td>
-                        <td class='docblock short'>
-                             <p>A Trajectory is a file containing one or more successives simulation steps</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Trajectory.html'
+                                  title='cymbalum::input::Trajectory'>Trajectory</a></td>
+                           <td class='docblock short'>
+                                <p>A Trajectory is a file containing one or more successives simulation steps</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.TrajectoryError.html'
+                                  title='cymbalum::input::TrajectoryError'>TrajectoryError</a></td>
+                           <td class='docblock short'>
+                                <p>Possible error when reading and wrinting to trajectories</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.InteractionError.html'
-                               title='cymbalum::input::InteractionError'>InteractionError</a></td>
-                        <td class='docblock short'>
-                             <p>Possible causes of error when reading potential files</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.Error.html'
+                                  title='cymbalum::input::Error'>Error</a></td>
+                           <td class='docblock short'>
+                                <p>Possible causes of error when reading input files</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.FromToml.html'
-                               title='cymbalum::input::FromToml'>FromToml</a></td>
-                        <td class='docblock short'>
-                             <p>Convert a TOML table to a Rust type. This is the trait to implement in order
-to use the input files.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.FromTomlWithPairs.html'
-                               title='cymbalum::input::FromTomlWithPairs'>FromTomlWithPairs</a></td>
-                        <td class='docblock short'>
-                             <p>Convert a TOML table and a PairPotential to a Rust type. This is intended
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.FromToml.html'
+                                  title='cymbalum::input::FromToml'>FromToml</a></td>
+                           <td class='docblock short'>
+                                <p>Convert a TOML table to a Rust type.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.FromTomlWithData.html'
+                                  title='cymbalum::input::FromTomlWithData'>FromTomlWithData</a></td>
+                           <td class='docblock short'>
+                                <p>Convert a TOML table and some additional data to a Rust type.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.FromTomlWithPairs.html'
+                                  title='cymbalum::input::FromTomlWithPairs'>FromTomlWithPairs</a></td>
+                           <td class='docblock short'>
+                                <p>Convert a TOML table and a <code>PairPotential</code> to a Rust type. This is intended
 to be used by potential computation mainly.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.guess_bonds.html'
-                               title='cymbalum::input::guess_bonds'>guess_bonds</a></td>
-                        <td class='docblock short'>
-                             <p>Guess the bonds in a system</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.read_interactions.html'
-                               title='cymbalum::input::read_interactions'>read_interactions</a></td>
-                        <td class='docblock short'>
-                             <p>Read interactions from the TOML file at <code>path</code>, and add them to the
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.guess_bonds.html'
+                                  title='cymbalum::input::guess_bonds'>guess_bonds</a></td>
+                           <td class='docblock short'>
+                                <p>Guess the bonds in a system</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.read_config.html'
+                                  title='cymbalum::input::read_config'>read_config</a></td>
+                           <td class='docblock short'>
+                                <p>Read a whole simulation input file.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.read_interactions.html'
+                                  title='cymbalum::input::read_interactions'>read_interactions</a></td>
+                           <td class='docblock short'>
+                                <p>Read interactions from the TOML file at <code>path</code>, and add them to the
 <code>system</code>. For a full documentation of the input files syntax, see the user
 manual.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.read_molecule.html'
-                               title='cymbalum::input::read_molecule'>read_molecule</a></td>
-                        <td class='docblock short'>
-                             <p>Read a the first molecule from the file at <code>path</code>. If no bond information
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.read_molecule.html'
+                                  title='cymbalum::input::read_molecule'>read_molecule</a></td>
+                           <td class='docblock short'>
+                                <p>Read a the first molecule from the file at <code>path</code>. If no bond information
 exists in the file, bonds are guessed.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+                           </td>
+                       </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='type' href='type.TrajectoryResult.html'
-                               title='cymbalum::input::TrajectoryResult'>TrajectoryResult</a></td>
-                        <td class='docblock short'>
-                             <p>Result type for all Trajectory operations</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Result.html'
+                                  title='cymbalum::input::Result'>Result</a></td>
+                           <td class='docblock short'>
+                                <p>Custom <code>Result</code> type for input files</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -168,6 +179,8 @@ exists in the file, bonds are guessed.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -188,7 +201,7 @@ exists in the file, bonds are guessed.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

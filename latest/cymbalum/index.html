@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>cymbalum</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-0' class='srclink' href='../src/cymbalum/lib.rs.html#4-74' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-0' class='srclink' href='../src/cymbalum/src/lib.rs.html#4-69' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Cymbalum is a classical molecular simulation engine that provides a solid
 base for developing new algorithms and methods.</p>
 
@@ -66,92 +67,74 @@ error messages.</li>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use <a class='mod' href='../cymbalum/types/index.html' title='cymbalum::types'>types</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../cymbalum/potentials/index.html' title='cymbalum::potentials'>potentials</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../cymbalum/system/index.html' title='cymbalum::system'>system</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../cymbalum/simulation/index.html' title='cymbalum::simulation'>simulation</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='constants/index.html'
-                               title='cymbalum::constants'>constants</a></td>
-                        <td class='docblock short'>
-                             <p>Usefull physical constants, expressed in the internal unit system.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='input/index.html'
-                               title='cymbalum::input'>input</a></td>
-                        <td class='docblock short'>
-                             <p>Input and output capacities.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='potentials/index.html'
-                               title='cymbalum::potentials'>potentials</a></td>
-                        <td class='docblock short'>
-                             <p>Energy and forces computation in simulations.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='simulation/index.html'
-                               title='cymbalum::simulation'>simulation</a></td>
-                        <td class='docblock short'>
-                             <p>Types and traits for representing simulation algorithms</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='system/index.html'
-                               title='cymbalum::system'>system</a></td>
-                        <td class='docblock short'>
-                             <p>The <code>system</code> module provide a way to store data about a simulated system.
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='constants/index.html'
+                                  title='cymbalum::constants'>constants</a></td>
+                           <td class='docblock short'>
+                                <p>Usefull physical constants, expressed in the internal unit system.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='input/index.html'
+                                  title='cymbalum::input'>input</a></td>
+                           <td class='docblock short'>
+                                <p>Input capacities for cymbalum</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='potentials/index.html'
+                                  title='cymbalum::potentials'>potentials</a></td>
+                           <td class='docblock short'>
+                                <p>Energy and forces computation in simulations.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='simulation/index.html'
+                                  title='cymbalum::simulation'>simulation</a></td>
+                           <td class='docblock short'>
+                                <p>Types and traits for representing simulation algorithms</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='system/index.html'
+                                  title='cymbalum::system'>system</a></td>
+                           <td class='docblock short'>
+                                <p>The <code>system</code> module provide a way to store data about a simulated system.
 These systems are represented by an <code>System</code> instance, made of a list of
 <code>Particle</code>, an enclosing <code>UnitCell</code> and some interactions.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='types/index.html'
-                               title='cymbalum::types'>types</a></td>
-                        <td class='docblock short'>
-                             <p>Some basic types used in all the other modules</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='units/index.html'
-                               title='cymbalum::units'>units</a></td>
-                        <td class='docblock short'>
-                             <p>This module allow to convert from and to the internal unit system.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='types/index.html'
+                                  title='cymbalum::types'>types</a></td>
+                           <td class='docblock short'>
+                                <p>Some basic types used in all the other modules</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='units/index.html'
+                                  title='cymbalum::units'>units</a></td>
+                           <td class='docblock short'>
+                                <p>This module allow to convert from and to the internal unit system.</p>
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Logger.html'
-                               title='cymbalum::Logger'>Logger</a></td>
-                        <td class='docblock short'>
-                             <p>Logger with capacity to write to the standard output stream, the standard
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Logger.html'
+                                  title='cymbalum::Logger'>Logger</a></td>
+                           <td class='docblock short'>
+                                <p>Logger with capacity to write to the standard output stream, the standard
 error stream or a file.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.LogLevel.html'
-                               title='cymbalum::LogLevel'>LogLevel</a></td>
-                        <td class='docblock short'>
-                             <p>An enum representing the available verbosity levels of the logging framework</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.LogLevel.html'
+                                  title='cymbalum::LogLevel'>LogLevel</a></td>
+                           <td class='docblock short'>
+                                <p>An enum representing the available verbosity levels of the logging framework</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -174,6 +157,8 @@ error stream or a file.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -194,7 +179,7 @@ error stream or a file.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-88ac128001ac3a9a/ndarray-0.4.8/src/si.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.0/src/si.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>si.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -202,7 +203,7 @@
 <span class='comment'>// option. This file may not be copied, modified, or distributed</span>
 <span class='comment'>// except according to those terms.</span>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::{<span class='ident'>Range</span>, <span class='ident'>RangeFrom</span>, <span class='ident'>RangeTo</span>, <span class='ident'>RangeFull</span>};
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>Ixs</span>;
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>Ixs</span>;
 
 <span class='comment'>// [a:b:s] syntax for example [:3], [::-1]</span>
 <span class='comment'>// [0,:] -- first row of matrix</span>
@@ -267,14 +268,14 @@
 
 <span class='kw'>impl</span> <span class='ident'>Si</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>step</span>(<span class='self'>self</span>, <span class='ident'>step</span>: <span class='ident'>Ixs</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>step</span>(<span class='self'>self</span>, <span class='ident'>step</span>: <span class='ident'>Ixs</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='ident'>Si</span>(<span class='self'>self</span>.<span class='number'>0</span>, <span class='self'>self</span>.<span class='number'>1</span>, <span class='self'>self</span>.<span class='number'>2</span> <span class='op'>*</span> <span class='ident'>step</span>)
     }
 }
 
 <span class='kw'>impl</span> <span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>Si</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='op'>*</span><span class='self'>self</span>
     }
 }
@@ -307,10 +308,10 @@
 <span class='doccomment'>/// use ndarray::{</span>
 <span class='doccomment'>///     ArrayView,</span>
 <span class='doccomment'>///     Ix,</span>
-<span class='doccomment'>///     OwnedArray,</span>
+<span class='doccomment'>///     Array,</span>
 <span class='doccomment'>/// };</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// fn laplacian(v: &amp;ArrayView&lt;f32, (Ix, Ix)&gt;) -&gt; OwnedArray&lt;f32, (Ix, Ix)&gt; {</span>
+<span class='doccomment'>/// fn laplacian(v: &amp;ArrayView&lt;f32, (Ix, Ix)&gt;) -&gt; Array&lt;f32, (Ix, Ix)&gt; {</span>
 <span class='doccomment'>///     -4. * &amp;v.slice(s![1..-1, 1..-1])</span>
 <span class='doccomment'>///     + v.slice(s![ ..-2, 1..-1])</span>
 <span class='doccomment'>///     + v.slice(s![1..-1,  ..-2])</span>
@@ -321,29 +322,29 @@
 <span class='doccomment'>/// ```</span>
 <span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>s</span>(
-    (<span class='kw-2'>@</span><span class='ident'>as_expr</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>);
+    (@<span class='ident'>as_expr</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>);
     <span class='comment'>// convert a..b;c into @step(a..b, c), final item</span>
-    (<span class='kw-2'>@</span><span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>:<span class='ident'>tt</span>)<span class='op'>*</span>] <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>;<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
-        <span class='macro'>s</span><span class='macro'>!</span>[<span class='kw-2'>@</span><span class='ident'>as_expr</span> <span class='kw-2'>&amp;</span>[$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>)<span class='op'>*</span> <span class='macro'>s</span><span class='macro'>!</span>(<span class='kw-2'>@</span><span class='ident'>step</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>)]]
+    (@<span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>:<span class='ident'>tt</span>)<span class='op'>*</span>] <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>;<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
+        <span class='macro'>s</span><span class='macro'>!</span>[@<span class='ident'>as_expr</span> <span class='kw-2'>&amp;</span>[$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>)<span class='op'>*</span> <span class='macro'>s</span><span class='macro'>!</span>(@<span class='ident'>step</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>)]]
     };
     <span class='comment'>// convert a..b into @step(a..b, 1), final item</span>
-    (<span class='kw-2'>@</span><span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>:<span class='ident'>tt</span>)<span class='op'>*</span>] <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
-        <span class='macro'>s</span><span class='macro'>!</span>[<span class='kw-2'>@</span><span class='ident'>as_expr</span> <span class='kw-2'>&amp;</span>[$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>)<span class='op'>*</span> <span class='macro'>s</span><span class='macro'>!</span>(<span class='kw-2'>@</span><span class='ident'>step</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>, <span class='number'>1</span>)]]
+    (@<span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>:<span class='ident'>tt</span>)<span class='op'>*</span>] <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
+        <span class='macro'>s</span><span class='macro'>!</span>[@<span class='ident'>as_expr</span> <span class='kw-2'>&amp;</span>[$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>)<span class='op'>*</span> <span class='macro'>s</span><span class='macro'>!</span>(@<span class='ident'>step</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>, <span class='number'>1</span>)]]
     };
     <span class='comment'>// convert a..b;c into @step(a..b, c)</span>
-    (<span class='kw-2'>@</span><span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>:<span class='ident'>tt</span>)<span class='op'>*</span>] <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>;<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>:<span class='ident'>expr</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span> {
-        <span class='macro'>s</span><span class='macro'>!</span>[<span class='kw-2'>@</span><span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>)<span class='op'>*</span> <span class='macro'>s</span><span class='macro'>!</span>(<span class='kw-2'>@</span><span class='ident'>step</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>),] $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>)<span class='op'>*</span>]
+    (@<span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>:<span class='ident'>tt</span>)<span class='op'>*</span>] <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>;<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>:<span class='ident'>expr</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span> {
+        <span class='macro'>s</span><span class='macro'>!</span>[@<span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>)<span class='op'>*</span> <span class='macro'>s</span><span class='macro'>!</span>(@<span class='ident'>step</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>),] $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>)<span class='op'>*</span>]
     };
     <span class='comment'>// convert a..b into @step(a..b, 1)</span>
-    (<span class='kw-2'>@</span><span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>:<span class='ident'>tt</span>)<span class='op'>*</span>] <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span> {
-        <span class='macro'>s</span><span class='macro'>!</span>[<span class='kw-2'>@</span><span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>)<span class='op'>*</span> <span class='macro'>s</span><span class='macro'>!</span>(<span class='kw-2'>@</span><span class='ident'>step</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>, <span class='number'>1</span>),] $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>)<span class='op'>*</span>]
+    (@<span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>:<span class='ident'>tt</span>)<span class='op'>*</span>] <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span> {
+        <span class='macro'>s</span><span class='macro'>!</span>[@<span class='ident'>parse</span> [$(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>stack</span>)<span class='op'>*</span> <span class='macro'>s</span><span class='macro'>!</span>(@<span class='ident'>step</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>, <span class='number'>1</span>),] $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>)<span class='op'>*</span>]
     };
     <span class='comment'>// convert range, step into Si</span>
-    (<span class='kw-2'>@</span><span class='ident'>step</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
-        <span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>Si</span> <span class='kw'>as</span> ::<span class='ident'>std</span>::<span class='ident'>convert</span>::<span class='ident'>From</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>::<span class='ident'>from</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>).<span class='ident'>step</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>)
+    (@<span class='ident'>step</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
+        <span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='kw'>crate</span>::<span class='macro-nonterminal'>Si</span> <span class='kw'>as</span> ::<span class='ident'>std</span>::<span class='ident'>convert</span>::<span class='ident'>From</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>::<span class='ident'>from</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>r</span>).<span class='ident'>step</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>s</span>)
     };
     ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span> {
-        <span class='macro'>s</span><span class='macro'>!</span>[<span class='kw-2'>@</span><span class='ident'>parse</span> [] $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>)<span class='op'>*</span>]
+        <span class='macro'>s</span><span class='macro'>!</span>[@<span class='ident'>parse</span> [] $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>)<span class='op'>*</span>]
     };
 );
 </pre>
@@ -370,6 +371,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -390,7 +393,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

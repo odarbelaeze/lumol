@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-88ac128001ac3a9a/ndarray-0.4.8/src/free_functions.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.0/src/free_functions.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>free_functions.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -220,17 +221,6 @@
 <span id="177">177</span>
 <span id="178">178</span>
 <span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014-2016 bluss and ndarray developers.</span>
 <span class='comment'>//</span>
@@ -242,27 +232,16 @@
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>;
 
-<span class='kw'>use</span> <span class='ident'>libnum</span>;
 <span class='kw'>use</span> <span class='ident'>imp_prelude</span>::<span class='op'>*</span>;
 
-<span class='doccomment'>/// ***Deprecated: Use `ArrayBase::zeros` instead.***</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// Create an array filled with zeros</span>
-<span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>has_deprecated</span>, <span class='ident'>deprecated</span>(<span class='ident'>note</span><span class='op'>=</span><span class='string'>&quot;Use `ArrayBase::zeros` instead.&quot;</span>))]</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>zeros</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>D</span><span class='op'>&gt;</span>(<span class='ident'>dim</span>: <span class='ident'>D</span>) <span class='op'>-&gt;</span> <span class='ident'>OwnedArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>D</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>A</span>: <span class='ident'>Clone</span> <span class='op'>+</span> <span class='ident'>libnum</span>::<span class='ident'>Zero</span>, <span class='ident'>D</span>: <span class='ident'>Dimension</span>,
-{
-    <span class='ident'>ArrayBase</span>::<span class='ident'>zeros</span>(<span class='ident'>dim</span>)
-}
-
 <span class='doccomment'>/// Create a zero-dimensional array with the element `x`.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr0</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>A</span>) <span class='op'>-&gt;</span> <span class='ident'>OwnedArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, ()<span class='op'>&gt;</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr0</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>A</span>) <span class='op'>-&gt;</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>A</span>, ()<span class='op'>&gt;</span>
 {
-    <span class='kw'>unsafe</span> { <span class='ident'>ArrayBase</span>::<span class='ident'>from_vec_dim_unchecked</span>((), <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>x</span>]) }
+    <span class='kw'>unsafe</span> { <span class='ident'>ArrayBase</span>::<span class='ident'>from_shape_vec_unchecked</span>((), <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>x</span>]) }
 }
 
 <span class='doccomment'>/// Create a one-dimensional array with elements from `xs`.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr1</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span><span class='op'>&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>]) <span class='op'>-&gt;</span> <span class='ident'>OwnedArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix</span><span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr1</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span><span class='op'>&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>]) <span class='op'>-&gt;</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix</span><span class='op'>&gt;</span> {
     <span class='ident'>ArrayBase</span>::<span class='ident'>from_vec</span>(<span class='ident'>xs</span>.<span class='ident'>to_vec</span>())
 }
 
@@ -333,7 +312,7 @@
 <span class='doccomment'>/// Fixed-size array used for array initialization</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>FixedInitializer</span> {
     <span class='kw'>type</span> <span class='ident'>Elem</span>;
-    <span class='kw'>fn</span> <span class='ident'>as_init_slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>Self</span>::<span class='ident'>Elem</span>];
+    <span class='kw'>fn</span> <span class='ident'>as_init_slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='self'>Self</span>::<span class='ident'>Elem</span>];
     <span class='kw'>fn</span> <span class='ident'>len</span>() <span class='op'>-&gt;</span> <span class='ident'>usize</span>;
 }
 
@@ -366,7 +345,7 @@
 <span class='doccomment'>///     a.shape() == [2, 3]</span>
 <span class='doccomment'>/// );</span>
 <span class='doccomment'>/// ```</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr2</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span> <span class='op'>=</span> <span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>]) <span class='op'>-&gt;</span> <span class='ident'>OwnedArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, (<span class='ident'>Ix</span>, <span class='ident'>Ix</span>)<span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr2</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span> <span class='op'>=</span> <span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>]) <span class='op'>-&gt;</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>A</span>, (<span class='ident'>Ix</span>, <span class='ident'>Ix</span>)<span class='op'>&gt;</span> {
     <span class='kw'>let</span> (<span class='ident'>m</span>, <span class='ident'>n</span>) <span class='op'>=</span> (<span class='ident'>xs</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>Ix</span>, <span class='ident'>V</span>::<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>Ix</span>);
     <span class='kw'>let</span> <span class='ident'>dim</span> <span class='op'>=</span> (<span class='ident'>m</span>, <span class='ident'>n</span>);
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>::<span class='ident'>with_capacity</span>(<span class='ident'>dim</span>.<span class='ident'>size</span>());
@@ -374,7 +353,7 @@
         <span class='ident'>result</span>.<span class='ident'>extend_from_slice</span>(<span class='ident'>snd</span>.<span class='ident'>as_init_slice</span>());
     }
     <span class='kw'>unsafe</span> {
-        <span class='ident'>ArrayBase</span>::<span class='ident'>from_vec_dim_unchecked</span>(<span class='ident'>dim</span>, <span class='ident'>result</span>)
+        <span class='ident'>ArrayBase</span>::<span class='ident'>from_shape_vec_unchecked</span>(<span class='ident'>dim</span>, <span class='ident'>result</span>)
     }
 }
 
@@ -402,7 +381,7 @@
 <span class='doccomment'>/// );</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr3</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span><span class='op'>=</span><span class='ident'>U</span><span class='op'>&gt;</span>, <span class='ident'>U</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span><span class='op'>=</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>])
-    <span class='op'>-&gt;</span> <span class='ident'>OwnedArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, (<span class='ident'>Ix</span>, <span class='ident'>Ix</span>, <span class='ident'>Ix</span>)<span class='op'>&gt;</span>
+    <span class='op'>-&gt;</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>A</span>, (<span class='ident'>Ix</span>, <span class='ident'>Ix</span>, <span class='ident'>Ix</span>)<span class='op'>&gt;</span>
 {
     <span class='kw'>let</span> <span class='ident'>dim</span> <span class='op'>=</span> (<span class='ident'>xs</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>Ix</span>, <span class='ident'>V</span>::<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>Ix</span>, <span class='ident'>U</span>::<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>Ix</span>);
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>::<span class='ident'>with_capacity</span>(<span class='ident'>dim</span>.<span class='ident'>size</span>());
@@ -412,7 +391,7 @@
         }
     }
     <span class='kw'>unsafe</span> {
-        <span class='ident'>ArrayBase</span>::<span class='ident'>from_vec_dim_unchecked</span>(<span class='ident'>dim</span>, <span class='ident'>result</span>)
+        <span class='ident'>ArrayBase</span>::<span class='ident'>from_shape_vec_unchecked</span>(<span class='ident'>dim</span>, <span class='ident'>result</span>)
     }
 }
 
@@ -446,6 +425,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -466,7 +447,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

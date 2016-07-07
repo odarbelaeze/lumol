@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,31 +44,42 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>input</a>::<wbr><a class='trait' href=''>FromToml</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-5773' class='srclink' href='../../src/cymbalum/input/interactions/mod.rs.html#68-71' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-7227' class='srclink' href='../../src/cymbalum/src/input/mod.rs.html#75-78' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait FromToml: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> {
-    fn <a href='#tymethod.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; Result&lt;Self&gt;;
-}</pre><div class='docblock'><p>Convert a TOML table to a Rust type. This is the trait to implement in order
-to use the input files.</p>
+    fn <a href='#tymethod.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; <a class='type' href='../../cymbalum/input/type.Result.html' title='cymbalum::input::Result'>Result</a>&lt;Self&gt;;
+}</pre><div class='docblock'><p>Convert a TOML table to a Rust type.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.from_toml' class='method stab '><code>fn <a href='#tymethod.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; Result&lt;Self&gt;</code></h3><div class='docblock'><p>Do the conversion from <code>table</code> to Self.</p>
+        <h3 id='tymethod.from_toml' class='method stab '><code>fn <a href='#tymethod.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; <a class='type' href='../../cymbalum/input/type.Result.html' title='cymbalum::input::Result'>Result</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Do the conversion from <code>table</code> to Self.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../cymbalum/potentials/functions/struct.NullPotential.html' title='cymbalum::potentials::functions::NullPotential'>NullPotential</a></code></li>
-<li><code>impl <a class='trait' href='../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></li>
-<li><code>impl <a class='trait' href='../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../cymbalum/potentials/functions/struct.LennardJones.html' title='cymbalum::potentials::functions::LennardJones'>LennardJones</a></code></li>
-<li><code>impl <a class='trait' href='../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../cymbalum/potentials/functions/struct.CosineHarmonic.html' title='cymbalum::potentials::functions::CosineHarmonic'>CosineHarmonic</a></code></li>
-<li><code>impl <a class='trait' href='../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../cymbalum/potentials/functions/struct.Torsion.html' title='cymbalum::potentials::functions::Torsion'>Torsion</a></code></li>
-<li><code>impl <a class='trait' href='../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../cymbalum/potentials/struct.Wolf.html' title='cymbalum::potentials::Wolf'>Wolf</a></code></li>
-<li><code>impl <a class='trait' href='../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../cymbalum/potentials/struct.Ewald.html' title='cymbalum::potentials::Ewald'>Ewald</a></code></li>
+    <li><code>impl FromToml for <a class='struct' href='../../cymbalum/potentials/functions/struct.NullPotential.html' title='cymbalum::potentials::functions::NullPotential'>NullPotential</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/potentials/functions/struct.Harmonic.html' title='cymbalum::potentials::functions::Harmonic'>Harmonic</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/potentials/functions/struct.LennardJones.html' title='cymbalum::potentials::functions::LennardJones'>LennardJones</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/potentials/functions/struct.CosineHarmonic.html' title='cymbalum::potentials::functions::CosineHarmonic'>CosineHarmonic</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/potentials/functions/struct.Torsion.html' title='cymbalum::potentials::functions::Torsion'>Torsion</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/potentials/struct.Wolf.html' title='cymbalum::potentials::Wolf'>Wolf</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/potentials/struct.Ewald.html' title='cymbalum::potentials::Ewald'>Ewald</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/outputs/struct.TrajectoryOutput.html' title='cymbalum::simulation::outputs::TrajectoryOutput'>TrajectoryOutput</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/outputs/struct.CellOutput.html' title='cymbalum::simulation::outputs::CellOutput'>CellOutput</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/outputs/struct.EnergyOutput.html' title='cymbalum::simulation::outputs::EnergyOutput'>EnergyOutput</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/outputs/struct.PropertiesOutput.html' title='cymbalum::simulation::outputs::PropertiesOutput'>PropertiesOutput</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/md/struct.BerendsenThermostat.html' title='cymbalum::simulation::md::BerendsenThermostat'>BerendsenThermostat</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/md/struct.RescaleThermostat.html' title='cymbalum::simulation::md::RescaleThermostat'>RescaleThermostat</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/md/struct.RemoveTranslation.html' title='cymbalum::simulation::md::RemoveTranslation'>RemoveTranslation</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/md/struct.RemoveRotation.html' title='cymbalum::simulation::md::RemoveRotation'>RemoveRotation</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/mc/struct.MonteCarlo.html' title='cymbalum::simulation::mc::MonteCarlo'>MonteCarlo</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../../cymbalum/simulation/mc/struct.Rotate.html' title='cymbalum::simulation::mc::Rotate'>Rotate</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/cymbalum/input/trait.FromToml.js">
-                      </script></section>
+                         src="../../implementors/cymbalum/input/trait.FromToml.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -90,6 +102,8 @@ to use the input files.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -110,7 +124,7 @@ to use the input files.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

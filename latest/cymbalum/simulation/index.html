@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,73 +44,61 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>cymbalum</a>::<wbr><a class='mod' href=''>simulation</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4456' class='srclink' href='../../src/cymbalum/simulation/mod.rs.html#4-22' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-4773' class='srclink' href='../../src/cymbalum/src/simulation/mod.rs.html#4-22' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Types and traits for representing simulation algorithms</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use self::<a class='mod'
-                                            href='./propagator/index.html'>propagator</a>::<a class='trait' href='../../cymbalum/simulation/propagator/trait.Propagator.html' title='cymbalum::simulation::propagator::Propagator'>Propagator</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod' href='../../cymbalum/simulation/md/index.html' title='cymbalum::simulation::md'>md</a>::*;</code></td></tr><tr><td><code>pub use self::<a class='mod' href='../../cymbalum/simulation/mc/index.html' title='cymbalum::simulation::mc'>mc</a>::*;</code></td></tr><tr><td><code>pub use self::<a class='mod' href='../../cymbalum/simulation/minimization/index.html' title='cymbalum::simulation::minimization'>minimization</a>::*;</code></td></tr><tr><td><code>pub use self::<a class='mod'
-                                            href='./outputs/index.html'>outputs</a>::<a class='trait' href='../../cymbalum/simulation/outputs/trait.Output.html' title='cymbalum::simulation::outputs::Output'>Output</a>;</code></td></tr><tr><td><code>pub use self::outputs::{<a class='struct' href='../../cymbalum/simulation/outputs/struct.TrajectoryOutput.html' title='cymbalum::simulation::outputs::TrajectoryOutput'>TrajectoryOutput</a>, <a class='struct' href='../../cymbalum/simulation/outputs/struct.CellOutput.html' title='cymbalum::simulation::outputs::CellOutput'>CellOutput</a>, <a class='struct' href='../../cymbalum/simulation/outputs/struct.EnergyOutput.html' title='cymbalum::simulation::outputs::EnergyOutput'>EnergyOutput</a>, <a class='struct' href='../../cymbalum/simulation/outputs/struct.PropertiesOutput.html' title='cymbalum::simulation::outputs::PropertiesOutput'>PropertiesOutput</a>};</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+                                       href='./propagator/index.html'>propagator</a>::<a class='trait' href='../../cymbalum/simulation/propagator/trait.Propagator.html' title='cymbalum::simulation::propagator::Propagator'>Propagator</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod' href='../../cymbalum/simulation/md/index.html' title='cymbalum::simulation::md'>md</a>::*;</code></td></tr><tr><td><code>pub use self::<a class='mod' href='../../cymbalum/simulation/mc/index.html' title='cymbalum::simulation::mc'>mc</a>::*;</code></td></tr><tr><td><code>pub use self::<a class='mod' href='../../cymbalum/simulation/minimization/index.html' title='cymbalum::simulation::minimization'>minimization</a>::*;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                       href='./outputs/index.html'>outputs</a>::<a class='trait' href='../../cymbalum/simulation/outputs/trait.Output.html' title='cymbalum::simulation::outputs::Output'>Output</a>;</code></td></tr><tr><td><code>pub use self::outputs::{<a class='struct' href='../../cymbalum/simulation/outputs/struct.TrajectoryOutput.html' title='cymbalum::simulation::outputs::TrajectoryOutput'>TrajectoryOutput</a>, <a class='struct' href='../../cymbalum/simulation/outputs/struct.CellOutput.html' title='cymbalum::simulation::outputs::CellOutput'>CellOutput</a>, <a class='struct' href='../../cymbalum/simulation/outputs/struct.EnergyOutput.html' title='cymbalum::simulation::outputs::EnergyOutput'>EnergyOutput</a>, <a class='struct' href='../../cymbalum/simulation/outputs/struct.PropertiesOutput.html' title='cymbalum::simulation::outputs::PropertiesOutput'>PropertiesOutput</a>};</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='mc/index.html'
-                               title='cymbalum::simulation::mc'>mc</a></td>
-                        <td class='docblock short'>
-                             <p>Monte-Carlo Metropolis algorithms</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='md/index.html'
-                               title='cymbalum::simulation::md'>md</a></td>
-                        <td class='docblock short'>
-                             <p>Molecular dynamics algorithms.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='minimization/index.html'
-                               title='cymbalum::simulation::minimization'>minimization</a></td>
-                        <td class='docblock short'>
-                             <p>Energy minization algorithms</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='outputs/index.html'
-                               title='cymbalum::simulation::outputs'>outputs</a></td>
-                        <td class='docblock short'>
-                             <p>Saving properties of the simulation to some stream (file or stdout mainly)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='mod' href='propagator/index.html'
-                               title='cymbalum::simulation::propagator'>propagator</a></td>
-                        <td class='docblock short'>
-                             <p>A propagator is responsible for updating the system during a simulation</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='mc/index.html'
+                                  title='cymbalum::simulation::mc'>mc</a></td>
+                           <td class='docblock short'>
+                                <p>Monte-Carlo Metropolis algorithms</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='md/index.html'
+                                  title='cymbalum::simulation::md'>md</a></td>
+                           <td class='docblock short'>
+                                <p>Molecular dynamics algorithms.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='minimization/index.html'
+                                  title='cymbalum::simulation::minimization'>minimization</a></td>
+                           <td class='docblock short'>
+                                <p>Energy minization algorithms</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='outputs/index.html'
+                                  title='cymbalum::simulation::outputs'>outputs</a></td>
+                           <td class='docblock short'>
+                                <p>Saving properties of the simulation to some stream (file or stdout mainly)</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='propagator/index.html'
+                                  title='cymbalum::simulation::propagator'>propagator</a></td>
+                           <td class='docblock short'>
+                                <p>A propagator is responsible for updating the system during a simulation</p>
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Simulation.html'
-                               title='cymbalum::simulation::Simulation'>Simulation</a></td>
-                        <td class='docblock short'>
-                             <p>The Simulation struct holds all the needed algorithms for running the
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Simulation.html'
+                                  title='cymbalum::simulation::Simulation'>Simulation</a></td>
+                           <td class='docblock short'>
+                                <p>The Simulation struct holds all the needed algorithms for running the
 simulation. It should be use together with a <code>System</code> to perform the
 simulation.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -132,6 +121,8 @@ simulation.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -152,7 +143,7 @@ simulation.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

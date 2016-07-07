@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content enum">
 <h1 class='fqn'><span class='in-band'>Enum <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>potentials</a>::<wbr><a href='index.html'>restrictions</a>::<wbr><a class='enum' href=''>PairRestriction</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1597' class='srclink' href='../../../src/cymbalum/potentials/restrictions.rs.html#17-36' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2057' class='srclink' href='../../../src/cymbalum/src/potentials/restrictions.rs.html#17-36' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum PairRestriction {
     None,
     IntraMolecular,
@@ -62,23 +63,29 @@
 <p>Some pairs can be excluded from the energy computation; this enum lists the
 possible case of exclusion.</p>
 </div><h2 class='variants'>Variants</h2>
-<table><tr><td id='variant.None'><code>None</code></td><td><div class='docblock'><p>No pair should be excluded</p>
-</div></td></tr><tr><td id='variant.IntraMolecular'><code>IntraMolecular</code></td><td><div class='docblock'><p>Only apply the interaction to intra-molecular pairs</p>
-</div></td></tr><tr><td id='variant.InterMolecular'><code>InterMolecular</code></td><td><div class='docblock'><p>Only apply the interaction to inter-molecular pairs</p>
-</div></td></tr><tr><td id='variant.Exclude12'><code>Exclude12</code></td><td><div class='docblock'><p>Only apply the interaction to pairs which are not in 1-2 position</p>
-</div></td></tr><tr><td id='variant.Exclude13'><code>Exclude13</code></td><td><div class='docblock'><p>Only apply the interaction to pairs which are not in 1-2 or 1-3 position</p>
-</div></td></tr><tr><td id='variant.Exclude14'><code>Exclude14</code></td><td><div class='docblock'><p>Only apply the interaction to pairs which are not in 1-2, 1-3 or 1-4 position</p>
-</div></td></tr><tr><td id='variant.Scale14'><code>Scale14</code></td><td><div class='docblock'><p>Only apply the interaction to pairs which are not in 1-2 or 1-3 position,
+<table class='variants_table'><tr><td id='variant.None'><code>None</code></td><td><div class='docblock'><p>No pair should be excluded</p>
+</div></td><td></td></tr><tr><td id='variant.IntraMolecular'><code>IntraMolecular</code></td><td><div class='docblock'><p>Only apply the interaction to intra-molecular pairs</p>
+</div></td><td></td></tr><tr><td id='variant.InterMolecular'><code>InterMolecular</code></td><td><div class='docblock'><p>Only apply the interaction to inter-molecular pairs</p>
+</div></td><td></td></tr><tr><td id='variant.Exclude12'><code>Exclude12</code></td><td><div class='docblock'><p>Only apply the interaction to pairs which are not in 1-2 position</p>
+</div></td><td></td></tr><tr><td id='variant.Exclude13'><code>Exclude13</code></td><td><div class='docblock'><p>Only apply the interaction to pairs which are not in 1-2 or 1-3 position</p>
+</div></td><td></td></tr><tr><td id='variant.Exclude14'><code>Exclude14</code></td><td><div class='docblock'><p>Only apply the interaction to pairs which are not in 1-2, 1-3 or 1-4 position</p>
+</div></td><td></td></tr><tr><td id='variant.Scale14'><code>Scale14</code></td><td><div class='docblock'><p>Only apply the interaction to pairs which are not in 1-2 or 1-3 position,
 and scale the interaction for pairs in 1-4 position</p>
 </div><h3 class='fields'>Fields</h3>
 
-                                              <table><tr><td id='variant.Scale14.field.scaling'><code>scaling</code></td><td><div class='docblock'><p>The scaling factor for interactions in 1-4 position</p>
-</div></td></tr></table></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='enum' href='../../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a></code></h3><div class='impl-items'><h4 id='method.informations' class='method'><code>fn <a href='#method.informations' class='fnname'>informations</a>(&amp;self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../../cymbalum/potentials/restrictions/struct.RestrictionInfo.html' title='cymbalum::potentials::restrictions::RestrictionInfo'>RestrictionInfo</a></code></h4>
+                           <table><tr><td id='variant.Scale14.field.scaling'><code>scaling</code></td><td><div class='docblock'><p>The scaling factor for interactions in 1-4 position</p>
+</div></td></tr></table></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='enum' href='../../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2098' class='srclink' href='../../../src/cymbalum/src/potentials/restrictions.rs.html#47-76' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.informations' class='method'><code>fn <a href='#method.informations' class='fnname'>informations</a>(&amp;self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../../cymbalum/potentials/restrictions/struct.RestrictionInfo.html' title='cymbalum::potentials::restrictions::RestrictionInfo'>RestrictionInfo</a></code></h4>
 <div class='docblock'><p>Get the restrictions information for the pair <code>(i, j)</code> in the <code>system</code></p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a></code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2066' class='srclink' href='../../../src/cymbalum/src/potentials/restrictions.rs.html#16' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2078' class='srclink' href='../../../src/cymbalum/src/potentials/restrictions.rs.html#16' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../../cymbalum/potentials/restrictions/enum.PairRestriction.html' title='cymbalum::potentials::restrictions::PairRestriction'>PairRestriction</a></code></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -101,6 +108,8 @@ and scale the interaction for pairs in 1-4 position</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -121,7 +130,7 @@ and scale the interaction for pairs in 1-4 position</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

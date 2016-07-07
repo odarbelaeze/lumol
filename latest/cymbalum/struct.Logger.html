@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,15 +44,16 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>cymbalum</a>::<wbr><a class='struct' href=''>Logger</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-34' class='srclink' href='../src/cymbalum/logging.rs.html#33-36' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-53' class='srclink' href='../src/cymbalum/src/logging.rs.html#74-78' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Logger {
     // some fields omitted
 }</pre><div class='docblock'><p>Logger with capacity to write to the standard output stream, the standard
 error stream or a file.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../cymbalum/struct.Logger.html' title='cymbalum::Logger'>Logger</a></code></h3><div class='impl-items'><h4 id='method.stdout' class='method'><code>fn <a href='#method.stdout' class='fnname'>stdout</a>()</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../cymbalum/struct.Logger.html' title='cymbalum::Logger'>Logger</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-69' class='srclink' href='../src/cymbalum/src/logging.rs.html#84-175' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.stdout' class='method'><code>fn <a href='#method.stdout' class='fnname'>stdout</a>()</code></h4>
 <div class='docblock'><p>Initialize the global logger to use the standard output stream.</p>
 </div><h4 id='method.stdout_at_level' class='method'><code>fn <a href='#method.stdout_at_level' class='fnname'>stdout_at_level</a>(level: <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a>)</code></h4>
 <div class='docblock'><p>Initialize the global logger to use the standard output stream, with
@@ -68,10 +70,19 @@ the file if needed. If the file already exists, it is not removed.</p>
 <div class='docblock'><p>Initialize the global logger to write to the file at <code>path</code>, creating
 the file if needed. If the file already exists, it is not removed. The
 maximum log level is set to <code>level</code>.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../log/trait.Log.html' title='log::Log'>Log</a> for <a class='struct' href='../cymbalum/struct.Logger.html' title='cymbalum::Logger'>Logger</a></code></h3><div class='docblock'><p>Implements Log trait for Logger</p>
-</div><div class='impl-items'><h4 id='method.enabled' class='method'><code>fn <a href='../log/trait.Log.html#method.enabled' class='fnname'>enabled</a>(&amp;self, metadata: &amp;<a class='struct' href='../log/struct.LogMetadata.html' title='log::LogMetadata'>LogMetadata</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
-<h4 id='method.log' class='method'><code>fn <a href='../log/trait.Log.html#method.log' class='fnname'>log</a>(&amp;self, record: &amp;<a class='struct' href='../log/struct.LogRecord.html' title='log::LogRecord'>LogRecord</a>)</code></h4>
-</div></section>
+</div><h4 id='method.target' class='method'><code>fn <a href='#method.target' class='fnname'>target</a>() -&gt; Target</code></h4>
+<div class='docblock'><p>Get the target for log events</p>
+</div><h4 id='method.is_screen' class='method'><code>fn <a href='#method.is_screen' class='fnname'>is_screen</a>() -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Is the log events target the screen?</p>
+</div><h4 id='method.is_file' class='method'><code>fn <a href='#method.is_file' class='fnname'>is_file</a>() -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Is the log events target a file?</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../log/trait.Log.html' title='log::Log'>Log</a> for <a class='struct' href='../cymbalum/struct.Logger.html' title='cymbalum::Logger'>Logger</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-132' class='srclink' href='../src/cymbalum/src/logging.rs.html#193-231' title='goto source code'>[src]</a></span></h3>
+<div class='docblock'><p>Implements Log trait for Logger</p>
+</div><div class='impl-items'><h4 id='method.enabled' class='method'><code>fn <a href='../log/trait.Log.html#tymethod.enabled' class='fnname'>enabled</a>(&amp;self, metadata: &amp;<a class='struct' href='../log/struct.LogMetadata.html' title='log::LogMetadata'>LogMetadata</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Determines if a log message with the specified metadata would be logged. <a href="../log/trait.Log.html#tymethod.enabled">Read more</a></p>
+</div><h4 id='method.log' class='method'><code>fn <a href='../log/trait.Log.html#tymethod.log' class='fnname'>log</a>(&amp;self, record: &amp;<a class='struct' href='../log/struct.LogRecord.html' title='log::LogRecord'>LogRecord</a>)</code></h4>
+<div class='docblock'><p>Logs the <code>LogRecord</code>. <a href="../log/trait.Log.html#tymethod.log">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -94,6 +105,8 @@ maximum log level is set to <code>level</code>.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -114,7 +127,7 @@ maximum log level is set to <code>level</code>.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

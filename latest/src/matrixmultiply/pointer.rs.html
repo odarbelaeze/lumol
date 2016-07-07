@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-88ac128001ac3a9a/matrixmultiply-0.1.7/src/pointer.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/matrixmultiply-0.1.8/src/pointer.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>pointer.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -90,7 +91,7 @@
 
 <span class='doccomment'>/// Extension methods for raw pointers</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>PointerExt</span> : <span class='ident'>Copy</span> {
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>offset</span>(<span class='self'>self</span>, <span class='ident'>i</span>: <span class='ident'>isize</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>offset</span>(<span class='self'>self</span>, <span class='ident'>i</span>: <span class='ident'>isize</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>;
 
     <span class='doccomment'>/// Increment by 1</span>
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
@@ -100,21 +101,21 @@
 
     <span class='doccomment'>/// Offset by `s` multiplied by `index`.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>stride_offset</span>(<span class='self'>self</span>, <span class='ident'>s</span>: <span class='ident'>isize</span>, <span class='ident'>index</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>stride_offset</span>(<span class='self'>self</span>, <span class='ident'>s</span>: <span class='ident'>isize</span>, <span class='ident'>index</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='self'>self</span>.<span class='ident'>offset</span>(<span class='ident'>s</span> <span class='op'>*</span> <span class='ident'>index</span> <span class='kw'>as</span> <span class='ident'>isize</span>)
     }
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>PointerExt</span> <span class='kw'>for</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>T</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>offset</span>(<span class='self'>self</span>, <span class='ident'>i</span>: <span class='ident'>isize</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>offset</span>(<span class='self'>self</span>, <span class='ident'>i</span>: <span class='ident'>isize</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='self'>self</span>.<span class='ident'>offset</span>(<span class='ident'>i</span>)
     }
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>PointerExt</span> <span class='kw'>for</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>T</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>offset</span>(<span class='self'>self</span>, <span class='ident'>i</span>: <span class='ident'>isize</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>offset</span>(<span class='self'>self</span>, <span class='ident'>i</span>: <span class='ident'>isize</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='self'>self</span>.<span class='ident'>offset</span>(<span class='ident'>i</span>)
     }
 }
@@ -142,6 +143,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -162,7 +165,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

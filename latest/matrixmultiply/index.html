@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>matrixmultiply</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-0' class='srclink' href='../src/matrixmultiply/lib.rs.html#8-34' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-0' class='srclink' href='../src/matrixmultiply/lib.rs.html#8-62' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>General matrix multiplication for f32, f64 matrices.</p>
 
 <p>Allows arbitrary row, column strided matrices.</p>
@@ -56,26 +57,51 @@ and less featureful implementation.
 See their <a href="https://github.com/flame/blis/wiki/Multithreading">multithreading</a> page for a very good diagram over how
 the algorithm partitions the matrix (<em>Note:</em> this crate does not implement
 multithreading).</p>
+
+<h2 id='matrix-representation' class='section-header'><a href='#matrix-representation'>Matrix Representation</a></h2>
+<p><strong>matrixmultiply</strong> supports matrices with general stride, so a matrix
+is passed using a pointer and four integers:</p>
+
+<ul>
+<li><code>a: *const f32</code>, pointer to the first element in the matrix</li>
+<li><code>m: usize</code>, number of rows</li>
+<li><code>k: usize</code>, number of columns</li>
+<li><code>rsa: isize</code>, row stride</li>
+<li><code>csa: isize</code>, column stride</li>
+</ul>
+
+<p>In this example, A is a m by k matrix. <code>a</code> is a pointer to the element at
+index <em>0, 0</em>.</p>
+
+<p>The <em>row stride</em> is the pointer offset (in number of elements) to the
+element on the next row. It’s the distance from element <em>i, j</em> to <em>i + 1,
+j</em>.</p>
+
+<p>The <em>column stride</em> is the pointer offset (in number of elements) to the
+element in the next column. It’s the distance from element <em>i, j</em> to <em>i,
+j + 1</em>.</p>
+
+<p>For example for a contiguous matrix, row major strides are <em>rsa=k,
+csa=1</em> and column major strides are <em>rsa=1, csa=m</em>.</p>
+
+<p>Stides can be negative or even zero, but for a mutable matrix elements
+may not alias each other.</p>
 </div><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.dgemm.html'
-                               title='matrixmultiply::dgemm'>dgemm</a></td>
-                        <td class='docblock short'>
-                             <p>General matrix multiplication (f64)</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.sgemm.html'
-                               title='matrixmultiply::sgemm'>sgemm</a></td>
-                        <td class='docblock short'>
-                             <p>General matrix multiplication (f32)</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.dgemm.html'
+                                  title='matrixmultiply::dgemm'>dgemm</a></td>
+                           <td class='docblock short'>
+                                <p>General matrix multiplication (f64)</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.sgemm.html'
+                                  title='matrixmultiply::sgemm'>sgemm</a></td>
+                           <td class='docblock short'>
+                                <p>General matrix multiplication (f32)</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -98,6 +124,8 @@ multithreading).</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -118,7 +146,7 @@ multithreading).</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

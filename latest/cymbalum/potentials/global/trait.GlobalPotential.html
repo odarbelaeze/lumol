@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>potentials</a>::<wbr><a href='index.html'>global</a>::<wbr><a class='trait' href=''>GlobalPotential</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1656' class='srclink' href='../../../src/cymbalum/potentials/global/mod.rs.html#14-21' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2115' class='srclink' href='../../../src/cymbalum/src/potentials/global/mod.rs.html#14-21' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait GlobalPotential: <a class='trait' href='../../../cymbalum/potentials/global/trait.GlobalCache.html' title='cymbalum::potentials::global::GlobalCache'>GlobalCache</a> + <a class='trait' href='../../../cymbalum/potentials/global/trait.BoxCloneGlobal.html' title='cymbalum::potentials::global::BoxCloneGlobal'>BoxCloneGlobal</a> {
     fn <a href='#tymethod.energy' class='fnname'>energy</a>(&amp;mut self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>;
     fn <a href='#tymethod.forces' class='fnname'>forces</a>(&amp;mut self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../../cymbalum/types/struct.Vector3D.html' title='cymbalum::types::Vector3D'>Vector3D</a>&gt;;
@@ -62,11 +63,11 @@ system at once.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../../cymbalum/potentials/global/trait.GlobalPotential.html' title='cymbalum::potentials::global::GlobalPotential'>GlobalPotential</a> for <a class='struct' href='../../../cymbalum/potentials/struct.Wolf.html' title='cymbalum::potentials::Wolf'>Wolf</a></code></li>
-<li><code>impl <a class='trait' href='../../../cymbalum/potentials/global/trait.GlobalPotential.html' title='cymbalum::potentials::global::GlobalPotential'>GlobalPotential</a> for <a class='struct' href='../../../cymbalum/potentials/struct.Ewald.html' title='cymbalum::potentials::Ewald'>Ewald</a></code></li>
+    <li><code>impl GlobalPotential for <a class='struct' href='../../../cymbalum/potentials/struct.Wolf.html' title='cymbalum::potentials::Wolf'>Wolf</a></code></li>
+<li><code>impl GlobalPotential for <a class='struct' href='../../../cymbalum/potentials/struct.Ewald.html' title='cymbalum::potentials::Ewald'>Ewald</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../../implementors/cymbalum/potentials/global/trait.GlobalPotential.js">
-                      </script></section>
+                         src="../../../implementors/cymbalum/potentials/global/trait.GlobalPotential.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -89,6 +90,8 @@ system at once.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -109,7 +112,7 @@ system at once.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

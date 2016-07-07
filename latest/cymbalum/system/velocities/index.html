@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,52 +44,44 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>system</a>::<wbr><a class='mod' href=''>velocities</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2742' class='srclink' href='../../../src/cymbalum/system/velocities.rs.html#4-136' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3113' class='srclink' href='../../../src/cymbalum/src/system/velocities.rs.html#4-136' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>This module provides some ways to initialize the velocities in a <code>System</code></p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.BoltzmanVelocities.html'
-                               title='cymbalum::system::velocities::BoltzmanVelocities'>BoltzmanVelocities</a></td>
-                        <td class='docblock short'>
-                             <p>Initialize the velocities from a Boltzman distribution.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.UniformVelocities.html'
-                               title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a></td>
-                        <td class='docblock short'>
-                             <p>Initialize the velocities from an uniform distribution.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.BoltzmannVelocities.html'
+                                  title='cymbalum::system::velocities::BoltzmannVelocities'>BoltzmannVelocities</a></td>
+                           <td class='docblock short'>
+                                <p>Initialize the velocities from a Boltzman distribution.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.UniformVelocities.html'
+                                  title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a></td>
+                           <td class='docblock short'>
+                                <p>Initialize the velocities from an uniform distribution.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.InitVelocities.html'
-                               title='cymbalum::system::velocities::InitVelocities'>InitVelocities</a></td>
-                        <td class='docblock short'>
-                             <p>Random initializer for the velocities of a system.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.InitVelocities.html'
+                                  title='cymbalum::system::velocities::InitVelocities'>InitVelocities</a></td>
+                           <td class='docblock short'>
+                                <p>Random initializer for the velocities of a system.</p>
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.scale.html'
-                               title='cymbalum::system::velocities::scale'>scale</a></td>
-                        <td class='docblock short'>
-                             <p>Scale all velocities in the <code>System</code> such that the <code>system</code> temperature
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.scale.html'
+                                  title='cymbalum::system::velocities::scale'>scale</a></td>
+                           <td class='docblock short'>
+                                <p>Scale all velocities in the <code>System</code> such that the <code>system</code> temperature
 is <code>temperature</code>.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -111,6 +104,8 @@ is <code>temperature</code>.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -131,7 +126,7 @@ is <code>temperature</code>.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

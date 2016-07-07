@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-88ac128001ac3a9a/special-0.5.2/src/gamma.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/special-0.7.1/src/gamma.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>gamma.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -281,146 +282,143 @@
 <span id="238">238</span>
 <span id="239">239</span>
 <span id="240">240</span>
-<span id="241">241</span>
-<span id="242">242</span>
-<span id="243">243</span>
-<span id="244">244</span>
-<span id="245">245</span>
-<span id="246">246</span>
-<span id="247">247</span>
-<span id="248">248</span>
-<span id="249">249</span>
-<span id="250">250</span>
-<span id="251">251</span>
-<span id="252">252</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>m</span>;
+<span class='kw'>use</span> <span class='ident'>math</span>;
 
-<span class='doccomment'>/// Compute the real-valued digamma function.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// The formula is as follows:</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```math</span>
-<span class='doccomment'>///        d ln(Γ(x))</span>
-<span class='doccomment'>/// ψ(x) = ----------</span>
-<span class='doccomment'>///            dx</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// where Γ is the gamma function. The computation is based on an approximation</span>
-<span class='doccomment'>/// as described in the reference below.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ## Examples</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// use special::digamma;</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// const EULER_MASCHERONI: f64 = 0.57721566490153286060651209008240243104215933593992;</span>
-<span class='doccomment'>/// assert!((digamma(1.0) + EULER_MASCHERONI).abs() &lt; 1e-15);</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ## References</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// 1. M. J. Beal, Variational algorithms for approximate Bayesian inference.</span>
-<span class='doccomment'>///    University of London, 2003, pp. 265–266.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>digamma</span>(<span class='ident'>x</span>: <span class='ident'>f64</span>)<span class='op'>-&gt;</span> <span class='ident'>f64</span> {
-    <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>evaluate_polynomial</span>(
-        (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>coefficients</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> (
-            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>coefficients</span>.<span class='ident'>iter</span>().<span class='ident'>rev</span>().<span class='ident'>fold</span>(<span class='number'>0.0</span>, <span class='op'>|</span><span class='ident'>sum</span>, <span class='kw-2'>&amp;</span><span class='ident'>c</span><span class='op'>|</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span> <span class='op'>*</span> <span class='ident'>sum</span> <span class='op'>+</span> <span class='ident'>c</span>)
-        );
+<span class='doccomment'>/// Gamma functions.</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Gamma</span> <span class='kw'>where</span> <span class='self'>Self</span>: <span class='ident'>Sized</span> {
+    <span class='doccomment'>/// Compute the real-valued digamma function.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// The formula is as follows:</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```math</span>
+    <span class='doccomment'>///        d ln(Γ(x))</span>
+    <span class='doccomment'>/// ψ(x) = ----------</span>
+    <span class='doccomment'>///            dx</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// where Γ is the gamma function. The computation is based on an</span>
+    <span class='doccomment'>/// approximation as described in the reference below.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ## Examples</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// use special::Gamma;</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// const EULER_MASCHERONI: f64 = 0.57721566490153286060651209008240243104215933593992;</span>
+    <span class='doccomment'>/// assert!((1.0.digamma() + EULER_MASCHERONI).abs() &lt; 1e-15);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ## References</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// 1. M. J. Beal, Variational algorithms for approximate Bayesian</span>
+    <span class='doccomment'>///    inference. University of London, 2003, pp. 265–266.</span>
+    <span class='kw'>fn</span> <span class='ident'>digamma</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>;
+
+    <span class='doccomment'>/// Compute the gamma function.</span>
+    <span class='kw'>fn</span> <span class='ident'>gamma</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>;
+
+    <span class='doccomment'>/// Compute the regularized lower incomplete gamma function.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// The formula is as follows:</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```math</span>
+    <span class='doccomment'>///           γ(x, p)    1   x</span>
+    <span class='doccomment'>/// P(x, p) = ------- = ---- ∫ t^(p-1) e^(-t) dt</span>
+    <span class='doccomment'>///            Γ(p)     Γ(p) 0</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// where γ is the incomplete lower gamma function, and Γ is the complete</span>
+    <span class='doccomment'>/// gamma function.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// The code is based on a [C implementation][1] by John Burkardt. The</span>
+    <span class='doccomment'>/// original algorithm was published in Applied Statistics and is known as</span>
+    <span class='doccomment'>/// [Algorithm AS 239][2].</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa239/asa239.html</span>
+    <span class='doccomment'>/// [2]: http://www.jstor.org/stable/2347328</span>
+    <span class='kw'>fn</span> <span class='ident'>inc_gamma</span>(<span class='self'>self</span>, <span class='ident'>p</span>: <span class='self'>Self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>;
+
+    <span class='doccomment'>/// Compute the natural logarithm of the gamma function.</span>
+    <span class='kw'>fn</span> <span class='ident'>ln_gamma</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='self'>Self</span>, <span class='ident'>i32</span>);
+}
+
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>evaluate_polynomial</span>(
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>coefficients</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> (
+        <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>coefficients</span>.<span class='ident'>iter</span>().<span class='ident'>rev</span>().<span class='ident'>fold</span>(<span class='number'>0.0</span>, <span class='op'>|</span><span class='ident'>sum</span>, <span class='kw-2'>&amp;</span><span class='ident'>c</span><span class='op'>|</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span> <span class='op'>*</span> <span class='ident'>sum</span> <span class='op'>+</span> <span class='ident'>c</span>)
     );
+);
 
-    <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&lt;=</span> <span class='number'>8.0</span> {
-        <span class='kw'>return</span> <span class='ident'>digamma</span>(<span class='ident'>x</span> <span class='op'>+</span> <span class='number'>1.0</span>) <span class='op'>-</span> <span class='ident'>x</span>.<span class='ident'>recip</span>();
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>implement</span> { ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>kind</span>:<span class='ident'>ty</span>),<span class='op'>*</span>) <span class='op'>=&gt;</span> ($(<span class='kw'>impl</span> <span class='ident'>Gamma</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>kind</span> {
+    <span class='kw'>fn</span> <span class='ident'>digamma</span>(<span class='self'>self</span>)<span class='op'>-&gt;</span> <span class='self'>Self</span> {
+        <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='self'>self</span>;
+        <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&lt;=</span> <span class='number'>8.0</span> {
+            <span class='kw'>return</span> (<span class='ident'>x</span> <span class='op'>+</span> <span class='number'>1.0</span>).<span class='ident'>digamma</span>() <span class='op'>-</span> <span class='ident'>x</span>.<span class='ident'>recip</span>();
+        }
+        <span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='ident'>x</span>.<span class='ident'>recip</span>();
+        <span class='kw'>let</span> <span class='ident'>y2</span> <span class='op'>=</span> <span class='ident'>y</span> <span class='op'>*</span> <span class='ident'>y</span>;
+        <span class='ident'>x</span>.<span class='ident'>ln</span>() <span class='op'>-</span> <span class='number'>0.5</span> <span class='op'>*</span> <span class='ident'>y</span> <span class='op'>-</span> <span class='ident'>y2</span> <span class='op'>*</span> <span class='macro'>evaluate_polynomial</span><span class='macro'>!</span>(<span class='ident'>y2</span>, [
+            <span class='number'>1.0</span> <span class='op'>/</span> <span class='number'>12.0</span>, <span class='op'>-</span><span class='number'>1.0</span> <span class='op'>/</span> <span class='number'>120.0</span>, <span class='number'>1.0</span> <span class='op'>/</span> <span class='number'>252.0</span>, <span class='op'>-</span><span class='number'>1.0</span> <span class='op'>/</span> <span class='number'>240.0</span>,
+            <span class='number'>5.0</span> <span class='op'>/</span> <span class='number'>660.0</span>, <span class='op'>-</span><span class='number'>691.0</span> <span class='op'>/</span> <span class='number'>32760.0</span>, <span class='number'>1.0</span> <span class='op'>/</span> <span class='number'>12.0</span>, <span class='op'>-</span><span class='number'>3617.0</span> <span class='op'>/</span> <span class='number'>8160.0</span>,
+        ])
     }
 
-    <span class='kw'>let</span> <span class='ident'>inv_x</span> <span class='op'>=</span> <span class='ident'>x</span>.<span class='ident'>recip</span>();
-    <span class='kw'>let</span> <span class='ident'>inv_x_2</span> <span class='op'>=</span> <span class='ident'>inv_x</span> <span class='op'>*</span> <span class='ident'>inv_x</span>;
-    <span class='ident'>x</span>.<span class='ident'>ln</span>() <span class='op'>-</span> <span class='number'>0.5</span> <span class='op'>*</span> <span class='ident'>inv_x</span> <span class='op'>-</span> <span class='ident'>inv_x_2</span> <span class='op'>*</span> <span class='macro'>evaluate_polynomial</span><span class='macro'>!</span>(<span class='ident'>inv_x_2</span>, [
-        <span class='number'>1.0</span> <span class='op'>/</span> <span class='number'>12.0</span>, <span class='op'>-</span><span class='number'>1.0</span> <span class='op'>/</span> <span class='number'>120.0</span>, <span class='number'>1.0</span> <span class='op'>/</span> <span class='number'>252.0</span>, <span class='op'>-</span><span class='number'>1.0</span> <span class='op'>/</span> <span class='number'>240.0</span>,
-        <span class='number'>5.0</span> <span class='op'>/</span> <span class='number'>660.0</span>, <span class='op'>-</span><span class='number'>691.0</span> <span class='op'>/</span> <span class='number'>32760.0</span>, <span class='number'>1.0</span> <span class='op'>/</span> <span class='number'>12.0</span>, <span class='op'>-</span><span class='number'>3617.0</span> <span class='op'>/</span> <span class='number'>8160.0</span>,
-    ])
-}
-
-<span class='doccomment'>/// Compute the gamma function.</span>
-<span class='attribute'>#[<span class='ident'>inline</span>]</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>gamma</span>(<span class='ident'>x</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
-    <span class='kw'>unsafe</span> { <span class='ident'>m</span>::<span class='ident'>tgamma</span>(<span class='ident'>x</span>) }
-}
-
-<span class='doccomment'>/// Compute the regularized lower incomplete gamma function.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// The formula is as follows:</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```math</span>
-<span class='doccomment'>///           γ(x, p)    1   x</span>
-<span class='doccomment'>/// P(x, p) = ------- = ---- ∫ t^(p-1) e^(-t) dt</span>
-<span class='doccomment'>///            Γ(p)     Γ(p) 0</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// where γ is the incomplete lower gamma function, and Γ is the complete gamma</span>
-<span class='doccomment'>/// function.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// The code is based on a [C implementation][1] by John Burkardt. The original</span>
-<span class='doccomment'>/// algorithm was published in Applied Statistics and is known as</span>
-<span class='doccomment'>/// [Algorithm AS 239][2].</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// [1]: http://people.sc.fsu.edu/~jburkardt/c_src/asa239/asa239.html</span>
-<span class='doccomment'>/// [2]: http://www.jstor.org/stable/2347328</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>inc_gamma</span>(<span class='ident'>x</span>: <span class='ident'>f64</span>, <span class='ident'>p</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
-    <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='ident'>x</span> <span class='op'>&gt;=</span> <span class='number'>0.0</span> <span class='op'>&amp;&amp;</span> <span class='ident'>p</span> <span class='op'>&gt;</span> <span class='number'>0.0</span>);
-
-    <span class='kw'>const</span> <span class='ident'>ELIMIT</span>: <span class='ident'>f64</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>88.0</span>;
-    <span class='kw'>const</span> <span class='ident'>OFLO</span>: <span class='ident'>f64</span> <span class='op'>=</span> <span class='number'>1.0e+37</span>;
-    <span class='kw'>const</span> <span class='ident'>TOL</span>: <span class='ident'>f64</span> <span class='op'>=</span> <span class='number'>1.0e-14</span>;
-    <span class='kw'>const</span> <span class='ident'>XBIG</span>: <span class='ident'>f64</span> <span class='op'>=</span> <span class='number'>1.0e+08</span>;
-
-    <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>==</span> <span class='number'>0.0</span> {
-        <span class='kw'>return</span> <span class='number'>0.0</span>;
+    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>gamma</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
+        <span class='kw'>unsafe</span> { <span class='ident'>math</span>::<span class='ident'>tgamma</span>(<span class='self'>self</span> <span class='kw'>as</span> <span class='ident'>f64</span>) <span class='kw'>as</span> <span class='self'>Self</span> }
     }
 
-    <span class='comment'>// For `p ≥ 1000`, the original algorithm uses an approximation shown below.</span>
-    <span class='comment'>// However, it introduces a substantial accuracy loss.</span>
-    <span class='comment'>//</span>
-    <span class='comment'>// ```</span>
-    <span class='comment'>// use std::f64::consts::FRAC_1_SQRT_2;</span>
-    <span class='comment'>//</span>
-    <span class='comment'>// const PLIMIT: f64 = 1000.0;</span>
-    <span class='comment'>//</span>
-    <span class='comment'>// if PLIMIT &lt; p {</span>
-    <span class='comment'>//     let pn1 = 3.0 * p.sqrt() * ((x / p).powf(1.0 / 3.0) + 1.0 / (9.0 * p) - 1.0);</span>
-    <span class='comment'>//     return 0.5 * (1.0 + unsafe { m::erf(FRAC_1_SQRT_2 * pn1) });</span>
-    <span class='comment'>// }</span>
-    <span class='comment'>// ```</span>
+    <span class='kw'>fn</span> <span class='ident'>inc_gamma</span>(<span class='self'>self</span>, <span class='ident'>p</span>: <span class='self'>Self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
+        <span class='kw'>const</span> <span class='ident'>ELIMIT</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>kind</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>88.0</span>;
+        <span class='kw'>const</span> <span class='ident'>OFLO</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>kind</span> <span class='op'>=</span> <span class='number'>1.0e+37</span>;
+        <span class='kw'>const</span> <span class='ident'>TOL</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>kind</span> <span class='op'>=</span> <span class='number'>1.0e-14</span>;
+        <span class='kw'>const</span> <span class='ident'>XBIG</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>kind</span> <span class='op'>=</span> <span class='number'>1.0e+08</span>;
 
-    <span class='kw'>if</span> <span class='ident'>XBIG</span> <span class='op'>&lt;</span> <span class='ident'>x</span> {
-        <span class='kw'>return</span> <span class='number'>1.0</span>;
-    }
+        <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='self'>self</span>;
+        <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='ident'>x</span> <span class='op'>&gt;=</span> <span class='number'>0.0</span> <span class='op'>&amp;&amp;</span> <span class='ident'>p</span> <span class='op'>&gt;</span> <span class='number'>0.0</span>);
 
-    <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&lt;=</span> <span class='number'>1.0</span> <span class='op'>||</span> <span class='ident'>x</span> <span class='op'>&lt;</span> <span class='ident'>p</span> {
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span> <span class='op'>=</span> <span class='ident'>p</span> <span class='op'>*</span> <span class='ident'>x</span>.<span class='ident'>ln</span>() <span class='op'>-</span> <span class='ident'>x</span> <span class='op'>-</span> <span class='ident'>ln_gamma</span>(<span class='ident'>p</span> <span class='op'>+</span> <span class='number'>1.0</span>).<span class='number'>0</span>;
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='number'>1.0</span>;
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>value</span> <span class='op'>=</span> <span class='number'>1.0</span>;
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>p</span>;
-
-        <span class='kw'>loop</span> {
-            <span class='ident'>a</span> <span class='op'>+=</span> <span class='number'>1.0</span>;
-            <span class='ident'>c</span> <span class='op'>*=</span> <span class='ident'>x</span> <span class='op'>/</span> <span class='ident'>a</span>;
-            <span class='ident'>value</span> <span class='op'>+=</span> <span class='ident'>c</span>;
-
-            <span class='kw'>if</span> <span class='ident'>c</span> <span class='op'>&lt;=</span> <span class='ident'>TOL</span> {
-                <span class='kw'>break</span>;
-            }
+        <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>==</span> <span class='number'>0.0</span> {
+            <span class='kw'>return</span> <span class='number'>0.0</span>;
         }
 
-        <span class='ident'>arg</span> <span class='op'>+=</span> <span class='ident'>value</span>.<span class='ident'>ln</span>();
+        <span class='comment'>// For `p ≥ 1000`, the original algorithm uses an approximation shown</span>
+        <span class='comment'>// below. However, it introduces a substantial accuracy loss.</span>
+        <span class='comment'>//</span>
+        <span class='comment'>// ```</span>
+        <span class='comment'>// use std::f64::consts::FRAC_1_SQRT_2;</span>
+        <span class='comment'>//</span>
+        <span class='comment'>// const PLIMIT: f64 = 1000.0;</span>
+        <span class='comment'>//</span>
+        <span class='comment'>// if PLIMIT &lt; p {</span>
+        <span class='comment'>//     let pn1 = 3.0 * p.sqrt() * ((x / p).powf(1.0 / 3.0) + 1.0 / (9.0 * p) - 1.0);</span>
+        <span class='comment'>//     return 0.5 * (1.0 + (FRAC_1_SQRT_2 * pn1).erf());</span>
+        <span class='comment'>// }</span>
+        <span class='comment'>// ```</span>
 
-        <span class='kw'>if</span> <span class='ident'>ELIMIT</span> <span class='op'>&lt;=</span> <span class='ident'>arg</span> {
-            <span class='kw'>return</span> <span class='ident'>arg</span>.<span class='ident'>exp</span>();
-        } <span class='kw'>else</span> {
-            <span class='kw'>return</span> <span class='number'>0.0</span>;
-        };
-    } <span class='kw'>else</span> {
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span> <span class='op'>=</span> <span class='ident'>p</span> <span class='op'>*</span> <span class='ident'>x</span>.<span class='ident'>ln</span>() <span class='op'>-</span> <span class='ident'>x</span> <span class='op'>-</span> <span class='ident'>ln_gamma</span>(<span class='ident'>p</span>).<span class='number'>0</span>;
+        <span class='kw'>if</span> <span class='ident'>XBIG</span> <span class='op'>&lt;</span> <span class='ident'>x</span> {
+            <span class='kw'>return</span> <span class='number'>1.0</span>;
+        }
+
+        <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&lt;=</span> <span class='number'>1.0</span> <span class='op'>||</span> <span class='ident'>x</span> <span class='op'>&lt;</span> <span class='ident'>p</span> {
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span> <span class='op'>=</span> <span class='ident'>p</span> <span class='op'>*</span> <span class='ident'>x</span>.<span class='ident'>ln</span>() <span class='op'>-</span> <span class='ident'>x</span> <span class='op'>-</span> (<span class='ident'>p</span> <span class='op'>+</span> <span class='number'>1.0</span>).<span class='ident'>ln_gamma</span>().<span class='number'>0</span>;
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>value</span> <span class='op'>=</span> <span class='number'>1.0</span>;
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>p</span>;
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='number'>1.0</span>;
+
+            <span class='kw'>loop</span> {
+                <span class='ident'>a</span> <span class='op'>+=</span> <span class='number'>1.0</span>;
+                <span class='ident'>c</span> <span class='op'>*=</span> <span class='ident'>x</span> <span class='op'>/</span> <span class='ident'>a</span>;
+                <span class='ident'>value</span> <span class='op'>+=</span> <span class='ident'>c</span>;
+                <span class='kw'>if</span> <span class='ident'>c</span> <span class='op'>&lt;=</span> <span class='ident'>TOL</span> {
+                    <span class='kw'>break</span>;
+                }
+            }
+            <span class='ident'>arg</span> <span class='op'>+=</span> <span class='ident'>value</span>.<span class='ident'>ln</span>();
+
+            <span class='kw'>return</span> <span class='kw'>if</span> <span class='ident'>ELIMIT</span> <span class='op'>&lt;=</span> <span class='ident'>arg</span> { <span class='ident'>arg</span>.<span class='ident'>exp</span>() } <span class='kw'>else</span> { <span class='number'>0.0</span> };
+        }
+
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span> <span class='op'>=</span> <span class='ident'>p</span> <span class='op'>*</span> <span class='ident'>x</span>.<span class='ident'>ln</span>() <span class='op'>-</span> <span class='ident'>x</span> <span class='op'>-</span> <span class='ident'>p</span>.<span class='ident'>ln_gamma</span>().<span class='number'>0</span>;
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='number'>1.0</span> <span class='op'>-</span> <span class='ident'>p</span>;
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='ident'>a</span> <span class='op'>+</span> <span class='ident'>x</span> <span class='op'>+</span> <span class='number'>1.0</span>;
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='number'>0.0</span>;
@@ -437,7 +435,6 @@
             <span class='kw'>let</span> <span class='ident'>an</span> <span class='op'>=</span> <span class='ident'>a</span> <span class='op'>*</span> <span class='ident'>c</span>;
             <span class='kw'>let</span> <span class='ident'>pn5</span> <span class='op'>=</span> <span class='ident'>b</span> <span class='op'>*</span> <span class='ident'>pn3</span> <span class='op'>-</span> <span class='ident'>an</span> <span class='op'>*</span> <span class='ident'>pn1</span>;
             <span class='kw'>let</span> <span class='ident'>pn6</span> <span class='op'>=</span> <span class='ident'>b</span> <span class='op'>*</span> <span class='ident'>pn4</span> <span class='op'>-</span> <span class='ident'>an</span> <span class='op'>*</span> <span class='ident'>pn2</span>;
-
             <span class='kw'>if</span> <span class='ident'>pn6</span> <span class='op'>!=</span> <span class='number'>0.0</span> {
                 <span class='kw'>let</span> <span class='ident'>rn</span> <span class='op'>=</span> <span class='ident'>pn5</span> <span class='op'>/</span> <span class='ident'>pn6</span>;
                 <span class='kw'>if</span> (<span class='ident'>value</span> <span class='op'>-</span> <span class='ident'>rn</span>).<span class='ident'>abs</span>() <span class='op'>&lt;=</span> <span class='ident'>TOL</span>.<span class='ident'>min</span>(<span class='ident'>TOL</span> <span class='op'>*</span> <span class='ident'>rn</span>) {
@@ -445,12 +442,10 @@
                 }
                 <span class='ident'>value</span> <span class='op'>=</span> <span class='ident'>rn</span>;
             }
-
             <span class='ident'>pn1</span> <span class='op'>=</span> <span class='ident'>pn3</span>;
             <span class='ident'>pn2</span> <span class='op'>=</span> <span class='ident'>pn4</span>;
             <span class='ident'>pn3</span> <span class='op'>=</span> <span class='ident'>pn5</span>;
             <span class='ident'>pn4</span> <span class='op'>=</span> <span class='ident'>pn6</span>;
-
             <span class='kw'>if</span> <span class='ident'>OFLO</span> <span class='op'>&lt;=</span> <span class='ident'>pn5</span>.<span class='ident'>abs</span>() {
                 <span class='ident'>pn1</span> <span class='op'>/=</span> <span class='ident'>OFLO</span>;
                 <span class='ident'>pn2</span> <span class='op'>/=</span> <span class='ident'>OFLO</span>;
@@ -458,50 +453,32 @@
                 <span class='ident'>pn4</span> <span class='op'>/=</span> <span class='ident'>OFLO</span>;
             }
         }
-
         <span class='ident'>arg</span> <span class='op'>+=</span> <span class='ident'>value</span>.<span class='ident'>ln</span>();
 
-        <span class='kw'>if</span> <span class='ident'>ELIMIT</span> <span class='op'>&lt;=</span> <span class='ident'>arg</span> {
-            <span class='kw'>return</span> <span class='number'>1.0</span> <span class='op'>-</span> <span class='ident'>arg</span>.<span class='ident'>exp</span>();
-        } <span class='kw'>else</span> {
-            <span class='kw'>return</span> <span class='number'>1.0</span>;
-        }
+        <span class='kw'>if</span> <span class='ident'>ELIMIT</span> <span class='op'>&lt;=</span> <span class='ident'>arg</span> { <span class='number'>1.0</span> <span class='op'>-</span> <span class='ident'>arg</span>.<span class='ident'>exp</span>() } <span class='kw'>else</span> { <span class='number'>1.0</span> }
     }
-}
 
-<span class='doccomment'>/// Compute the natural logarithm of the gamma function.</span>
-<span class='attribute'>#[<span class='ident'>inline</span>]</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>ln_gamma</span>(<span class='ident'>x</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> (<span class='ident'>f64</span>, <span class='ident'>i32</span>) {
-    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>sign</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='number'>0</span>;
-    <span class='kw'>let</span> <span class='ident'>value</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>m</span>::<span class='ident'>lgamma</span>(<span class='ident'>x</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>sign</span>) };
-    (<span class='ident'>value</span>, <span class='ident'>sign</span>)
-}
+    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>ln_gamma</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='self'>Self</span>, <span class='ident'>i32</span>) {
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>sign</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='number'>0</span>;
+        <span class='kw'>let</span> <span class='ident'>value</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>math</span>::<span class='ident'>lgamma</span>(<span class='self'>self</span> <span class='kw'>as</span> <span class='ident'>f64</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>sign</span>) <span class='kw'>as</span> <span class='self'>Self</span> };
+        (<span class='ident'>value</span>, <span class='ident'>sign</span>)
+    }
+})<span class='op'>*</span>)}
+
+<span class='macro'>implement</span><span class='macro'>!</span>(<span class='ident'>f32</span>, <span class='ident'>f64</span>);
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>tests</span> {
     <span class='kw'>use</span> <span class='ident'>assert</span>;
 
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>Gamma</span>;
+
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>digamma</span>() {
         <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>f64</span>::<span class='ident'>consts</span>::{<span class='ident'>FRAC_PI_2</span>, <span class='ident'>LN_2</span>};
         <span class='kw'>const</span> <span class='ident'>EULER_MASCHERONI</span>: <span class='ident'>f64</span> <span class='op'>=</span> <span class='number'>0.57721566490153286060651209008240243104215933593992</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='op'>-</span><span class='ident'>FRAC_PI_2</span> <span class='op'>-</span> <span class='number'>3.0</span> <span class='op'>*</span> <span class='ident'>LN_2</span> <span class='op'>-</span> <span class='ident'>EULER_MASCHERONI</span>, <span class='ident'>super</span>::<span class='ident'>digamma</span>(<span class='number'>0.25</span>));
-    }
-
-    <span class='attribute'>#[<span class='ident'>test</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>gamma</span>() {
-        <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>f64</span>::<span class='ident'>INFINITY</span>;
-        <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>0.0</span>, <span class='number'>0.5</span>, <span class='number'>1.0</span>, <span class='number'>1.5</span>, <span class='number'>2.0</span>, <span class='number'>2.5</span>, <span class='number'>3.0</span>, <span class='number'>3.5</span>, <span class='number'>4.0</span>, <span class='number'>4.5</span>, <span class='number'>5.0</span>, <span class='number'>5.5</span>, <span class='number'>6.0</span>, <span class='number'>6.5</span>, <span class='number'>7.0</span>];
-        <span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[
-                         <span class='ident'>INFINITY</span>, <span class='number'>1.772453850905516e+00</span>, <span class='number'>1.000000000000000e+00</span>,
-            <span class='number'>8.862269254527581e-01</span>, <span class='number'>1.000000000000000e+00</span>, <span class='number'>1.329340388179137e+00</span>,
-            <span class='number'>2.000000000000000e+00</span>, <span class='number'>3.323350970447843e+00</span>, <span class='number'>6.000000000000000e+00</span>,
-            <span class='number'>1.163172839656745e+01</span>, <span class='number'>2.400000000000000e+01</span>, <span class='number'>5.234277778455353e+01</span>,
-            <span class='number'>1.200000000000000e+02</span>, <span class='number'>2.878852778150444e+02</span>, <span class='number'>7.200000000000000e+02</span>,
-        ];
-
-        <span class='kw'>let</span> <span class='ident'>z</span> <span class='op'>=</span> <span class='ident'>x</span>.<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>super</span>::<span class='ident'>gamma</span>(<span class='ident'>x</span>)).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>();
-        <span class='ident'>assert</span>::<span class='ident'>close</span>(<span class='kw-2'>&amp;</span><span class='ident'>z</span>, <span class='kw-2'>&amp;</span><span class='ident'>y</span>, <span class='number'>1e-12</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='op'>-</span><span class='ident'>FRAC_PI_2</span> <span class='op'>-</span> <span class='number'>3.0</span> <span class='op'>*</span> <span class='ident'>LN_2</span> <span class='op'>-</span> <span class='ident'>EULER_MASCHERONI</span>, <span class='number'>0.25</span>.<span class='ident'>digamma</span>());
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -521,7 +498,7 @@
             <span class='number'>9.738240752336722e-01</span>, <span class='number'>9.815062931491536e-01</span>,
         ];
 
-        <span class='kw'>let</span> <span class='ident'>z</span> <span class='op'>=</span> <span class='ident'>x</span>.<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>super</span>::<span class='ident'>inc_gamma</span>(<span class='ident'>x</span>, <span class='ident'>p</span>)).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>();
+        <span class='kw'>let</span> <span class='ident'>z</span> <span class='op'>=</span> <span class='ident'>x</span>.<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>x</span>.<span class='ident'>inc_gamma</span>(<span class='ident'>p</span>)).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>();
         <span class='ident'>assert</span>::<span class='ident'>close</span>(<span class='kw-2'>&amp;</span><span class='ident'>z</span>, <span class='kw-2'>&amp;</span><span class='ident'>y</span>, <span class='number'>1e-14</span>);
     }
 
@@ -542,7 +519,7 @@
             <span class='number'>9.792520392189441e-01</span>, <span class='number'>9.889149370075309e-01</span>,
         ];
 
-        <span class='kw'>let</span> <span class='ident'>z</span> <span class='op'>=</span> <span class='ident'>x</span>.<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>super</span>::<span class='ident'>inc_gamma</span>(<span class='ident'>x</span>, <span class='ident'>p</span>)).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>();
+        <span class='kw'>let</span> <span class='ident'>z</span> <span class='op'>=</span> <span class='ident'>x</span>.<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>x</span>.<span class='ident'>inc_gamma</span>(<span class='ident'>p</span>)).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>();
         <span class='ident'>assert</span>::<span class='ident'>close</span>(<span class='kw-2'>&amp;</span><span class='ident'>z</span>, <span class='kw-2'>&amp;</span><span class='ident'>y</span>, <span class='number'>1e-12</span>);
     }
 }
@@ -570,6 +547,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -590,7 +569,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

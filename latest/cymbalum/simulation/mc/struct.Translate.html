@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,26 +44,38 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>simulation</a>::<wbr><a href='index.html'>mc</a>::<wbr><a class='struct' href=''>Translate</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4952' class='srclink' href='../../../src/cymbalum/simulation/mc/moves/translate.rs.html#16-27' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-5231' class='srclink' href='../../../src/cymbalum/src/simulation/mc/moves/translate.rs.html#16-27' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Translate {
     // some fields omitted
 }</pre><div class='docblock'><p>Monte-Carlo move for translating a molecule</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(dr: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5237' class='srclink' href='../../../src/cymbalum/src/simulation/mc/moves/translate.rs.html#29-54' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(dr: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></h4>
 <div class='docblock'><p>Create a new <code>Translate</code> move, with maximum displacement of <code>dr</code>,
 translating all the molecules in the system.</p>
 </div><h4 id='method.with_moltype' class='method'><code>fn <a href='#method.with_moltype' class='fnname'>with_moltype</a>(dr: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, moltype: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></h4>
 <div class='docblock'><p>Create a new <code>Translate</code> move, with maximum displacement of <code>dr</code>,
 translating only molecules with <code>moltype</code> type.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/simulation/mc/trait.MCMove.html' title='cymbalum::simulation::mc::MCMove'>MCMove</a> for <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></h3><div class='impl-items'><h4 id='method.describe' class='method'><code>fn <a href='../../../cymbalum/simulation/mc/trait.MCMove.html#method.describe' class='fnname'>describe</a>(&amp;self) -&gt; &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></h4>
-<h4 id='method.prepare' class='method'><code>fn <a href='../../../cymbalum/simulation/mc/trait.MCMove.html#method.prepare' class='fnname'>prepare</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, rng: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../rand/trait.Rng.html' title='rand::Rng'>Rng</a>&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
-<h4 id='method.cost' class='method'><code>fn <a href='../../../cymbalum/simulation/mc/trait.MCMove.html#method.cost' class='fnname'>cost</a>(&amp;self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, beta: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, cache: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.EnergyCache.html' title='cymbalum::system::EnergyCache'>EnergyCache</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
-<h4 id='method.apply' class='method'><code>fn <a href='../../../cymbalum/simulation/mc/trait.MCMove.html#method.apply' class='fnname'>apply</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-<h4 id='method.restore' class='method'><code>fn <a href='../../../cymbalum/simulation/mc/trait.MCMove.html#method.restore' class='fnname'>restore</a>(&amp;mut self, _: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5248' class='srclink' href='../../../src/cymbalum/src/simulation/mc/moves/translate.rs.html#56-60' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/simulation/mc/trait.MCMove.html' title='cymbalum::simulation::mc::MCMove'>MCMove</a> for <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5250' class='srclink' href='../../../src/cymbalum/src/simulation/mc/moves/translate.rs.html#62-103' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.describe' class='method'><code>fn <a href='../../../cymbalum/simulation/mc/trait.MCMove.html#tymethod.describe' class='fnname'>describe</a>(&amp;self) -&gt; &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></h4>
+<div class='docblock'><p>Give a short description of this move</p>
+</div><h4 id='method.prepare' class='method'><code>fn <a href='../../../cymbalum/simulation/mc/trait.MCMove.html#tymethod.prepare' class='fnname'>prepare</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, rng: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../rand/trait.Rng.html' title='rand::Rng'>Rng</a>&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Prepare the move, by selecting the particles to move, and the parameters of the move. The <code>rng</code> random number generator should be used to generate the parameters of the move. <a href="../../../cymbalum/simulation/mc/trait.MCMove.html#tymethod.prepare">Read more</a></p>
+</div><h4 id='method.cost' class='method'><code>fn <a href='../../../cymbalum/simulation/mc/trait.MCMove.html#tymethod.cost' class='fnname'>cost</a>(&amp;self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, beta: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, cache: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.EnergyCache.html' title='cymbalum::system::EnergyCache'>EnergyCache</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+<div class='docblock'><p>Get the cost of performing this move on <code>system</code>. For example in simple NVT simulations, this cost is the energetic difference over <code>beta</code>. The cost must be dimmensionless, and will be placed in an exponential. The <code>cache</code> should be used to compute the cost, or the <code>cache.unused</code> function should be used to ensure that the cache is updated  as needed after this move. <a href="../../../cymbalum/simulation/mc/trait.MCMove.html#tymethod.cost">Read more</a></p>
+</div><h4 id='method.apply' class='method'><code>fn <a href='../../../cymbalum/simulation/mc/trait.MCMove.html#tymethod.apply' class='fnname'>apply</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Effectivelly apply the move, if it has not already been done in <code>prepare</code>. <a href="../../../cymbalum/simulation/mc/trait.MCMove.html#tymethod.apply">Read more</a></p>
+</div><h4 id='method.restore' class='method'><code>fn <a href='../../../cymbalum/simulation/mc/trait.MCMove.html#tymethod.restore' class='fnname'>restore</a>(&amp;mut self, _: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Restore the system to it&#39;s initial state, if it has been changed in <code>prepare</code>. <a href="../../../cymbalum/simulation/mc/trait.MCMove.html#tymethod.restore">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/input/trait.FromToml.html' title='cymbalum::input::FromToml'>FromToml</a> for <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-6869' class='srclink' href='../../../src/cymbalum/src/input/simulations/mc.rs.html#45-59' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from_toml' class='method'><code>fn <a href='../../../cymbalum/input/trait.FromToml.html#tymethod.from_toml' class='fnname'>from_toml</a>(config: &amp;<a class='type' href='../../../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; <a class='type' href='../../../cymbalum/input/type.Result.html' title='cymbalum::input::Result'>Result</a>&lt;<a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a>&gt;</code></h4>
+<div class='docblock'><p>Do the conversion from <code>table</code> to Self.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -85,6 +98,8 @@ translating only molecules with <code>moltype</code> type.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -105,7 +120,7 @@ translating only molecules with <code>moltype</code> type.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

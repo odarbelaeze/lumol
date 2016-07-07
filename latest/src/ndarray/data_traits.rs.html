@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-88ac128001ac3a9a/ndarray-0.4.8/src/data_traits.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.0/src/data_traits.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>data_traits.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -236,19 +237,6 @@
 <span id="193">193</span>
 <span id="194">194</span>
 <span id="195">195</span>
-<span id="196">196</span>
-<span id="197">197</span>
-<span id="198">198</span>
-<span id="199">199</span>
-<span id="200">200</span>
-<span id="201">201</span>
-<span id="202">202</span>
-<span id="203">203</span>
-<span id="204">204</span>
-<span id="205">205</span>
-<span id="206">206</span>
-<span id="207">207</span>
-<span id="208">208</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014-2016 bluss and ndarray developers.</span>
 <span class='comment'>//</span>
@@ -274,11 +262,12 @@
 <span class='doccomment'>/// ***Note:*** `Data` is not an extension interface at this point.</span>
 <span class='doccomment'>/// Traits in Rust can serve many different roles. This trait is public because</span>
 <span class='doccomment'>/// it is used as a bound on public methods.</span>
-<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>Data</span> {
+<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>Data</span> : <span class='ident'>Sized</span> {
     <span class='doccomment'>/// The array element type.</span>
     <span class='kw'>type</span> <span class='ident'>Elem</span>;
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-    <span class='kw'>fn</span> <span class='ident'>slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>Self</span>::<span class='ident'>Elem</span>];
+    <span class='comment'>// This method is only used for debugging</span>
+    <span class='kw'>fn</span> <span class='ident'>_data_slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='self'>Self</span>::<span class='ident'>Elem</span>];
 }
 
 <span class='doccomment'>/// Array representation trait.</span>
@@ -288,18 +277,16 @@
 <span class='doccomment'>/// ***Internal trait, see `Data`.***</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>DataMut</span> : <span class='ident'>Data</span> {
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-    <span class='kw'>fn</span> <span class='ident'>slice_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>Self</span>::<span class='ident'>Elem</span>];
-    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>ensure_unique</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>D</span><span class='op'>&gt;</span>)
-        <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>,
+    <span class='kw'>fn</span> <span class='ident'>ensure_unique</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='self'>Self</span>, <span class='ident'>D</span><span class='op'>&gt;</span>)
+        <span class='kw'>where</span> <span class='self'>Self</span>: <span class='ident'>Sized</span>,
               <span class='ident'>D</span>: <span class='ident'>Dimension</span>
     { }
 
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>is_unique</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='boolval'>true</span>
+        <span class='boolvalue'>true</span>
     }
 }
 
@@ -311,12 +298,12 @@
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>DataClone</span> : <span class='ident'>Data</span> {
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='doccomment'>/// Unsafe because, `ptr` must point inside the current storage.</span>
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>clone_with_ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Self</span>::<span class='ident'>Elem</span>) <span class='op'>-&gt;</span> (<span class='kw'>Self</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Self</span>::<span class='ident'>Elem</span>);
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>clone_with_ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='self'>Self</span>::<span class='ident'>Elem</span>) <span class='op'>-&gt;</span> (<span class='self'>Self</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='self'>Self</span>::<span class='ident'>Elem</span>);
 }
 
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>Data</span> <span class='kw'>for</span> <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span> {
     <span class='kw'>type</span> <span class='ident'>Elem</span> <span class='op'>=</span> <span class='ident'>A</span>;
-    <span class='kw'>fn</span> <span class='ident'>slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>] {
+    <span class='kw'>fn</span> <span class='ident'>_data_slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>] {
         <span class='self'>self</span>
     }
 }
@@ -325,12 +312,8 @@
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataMut</span> <span class='kw'>for</span> <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span>
     <span class='kw'>where</span> <span class='ident'>A</span>: <span class='ident'>Clone</span>
 {
-    <span class='kw'>fn</span> <span class='ident'>slice_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>A</span>] {
-        <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Rc</span>::<span class='ident'>make_mut</span>(<span class='self'>self</span>)[..]
-    }
-
-    <span class='kw'>fn</span> <span class='ident'>ensure_unique</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>(<span class='ident'>self_</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>D</span><span class='op'>&gt;</span>)
-        <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>,
+    <span class='kw'>fn</span> <span class='ident'>ensure_unique</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span>(<span class='ident'>self_</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='self'>Self</span>, <span class='ident'>D</span><span class='op'>&gt;</span>)
+        <span class='kw'>where</span> <span class='self'>Self</span>: <span class='ident'>Sized</span>,
               <span class='ident'>D</span>: <span class='ident'>Dimension</span>
     {
         <span class='kw'>if</span> <span class='ident'>Rc</span>::<span class='ident'>get_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>self_</span>.<span class='ident'>data</span>).<span class='ident'>is_some</span>() {
@@ -340,8 +323,8 @@
             <span class='comment'>// Create a new vec if the current view is less than half of</span>
             <span class='comment'>// backing data.</span>
             <span class='kw'>unsafe</span> {
-                <span class='op'>*</span><span class='ident'>self_</span> <span class='op'>=</span> <span class='ident'>ArrayBase</span>::<span class='ident'>from_vec_dim_unchecked</span>(<span class='ident'>self_</span>.<span class='ident'>dim</span>.<span class='ident'>clone</span>(),
-                                                           <span class='ident'>self_</span>.<span class='ident'>iter</span>()
+                <span class='op'>*</span><span class='ident'>self_</span> <span class='op'>=</span> <span class='ident'>ArrayBase</span>::<span class='ident'>from_shape_vec_unchecked</span>(<span class='ident'>self_</span>.<span class='ident'>dim</span>.<span class='ident'>clone</span>(),
+                                                             <span class='ident'>self_</span>.<span class='ident'>iter</span>()
                                                             .<span class='ident'>cloned</span>()
                                                             .<span class='ident'>collect</span>());
             }
@@ -361,7 +344,7 @@
 }
 
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataClone</span> <span class='kw'>for</span> <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span> {
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>clone_with_ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Self</span>::<span class='ident'>Elem</span>) <span class='op'>-&gt;</span> (<span class='kw'>Self</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Self</span>::<span class='ident'>Elem</span>) {
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>clone_with_ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='self'>Self</span>::<span class='ident'>Elem</span>) <span class='op'>-&gt;</span> (<span class='self'>Self</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='self'>Self</span>::<span class='ident'>Elem</span>) {
         <span class='comment'>// pointer is preserved</span>
         (<span class='self'>self</span>.<span class='ident'>clone</span>(), <span class='ident'>ptr</span>)
     }
@@ -369,21 +352,17 @@
 
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>Data</span> <span class='kw'>for</span> <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
     <span class='kw'>type</span> <span class='ident'>Elem</span> <span class='op'>=</span> <span class='ident'>A</span>;
-    <span class='kw'>fn</span> <span class='ident'>slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>] {
+    <span class='kw'>fn</span> <span class='ident'>_data_slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>] {
         <span class='self'>self</span>
     }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataMut</span> <span class='kw'>for</span> <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>slice_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>A</span>] {
-        <span class='self'>self</span>
-    }
-}
+<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataMut</span> <span class='kw'>for</span> <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> { }
 
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataClone</span> <span class='kw'>for</span> <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>
     <span class='kw'>where</span> <span class='ident'>A</span>: <span class='ident'>Clone</span>
 {
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>clone_with_ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Self</span>::<span class='ident'>Elem</span>) <span class='op'>-&gt;</span> (<span class='kw'>Self</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Self</span>::<span class='ident'>Elem</span>) {
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>clone_with_ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='self'>Self</span>::<span class='ident'>Elem</span>) <span class='op'>-&gt;</span> (<span class='self'>Self</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='self'>Self</span>::<span class='ident'>Elem</span>) {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>u</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>clone</span>();
         <span class='kw'>let</span> <span class='ident'>our_off</span> <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='ident'>isize</span> <span class='op'>-</span> <span class='ident'>ptr</span> <span class='kw'>as</span> <span class='ident'>isize</span>) <span class='op'>/</span>
                       <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>() <span class='kw'>as</span> <span class='ident'>isize</span>;
@@ -394,29 +373,25 @@
 
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>Data</span> <span class='kw'>for</span> <span class='ident'>ViewRepr</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>A</span><span class='op'>&gt;</span> {
     <span class='kw'>type</span> <span class='ident'>Elem</span> <span class='op'>=</span> <span class='ident'>A</span>;
-    <span class='kw'>fn</span> <span class='ident'>slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>] {
+    <span class='kw'>fn</span> <span class='ident'>_data_slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>] {
         <span class='kw-2'>&amp;</span>[]
     }
 }
 
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataClone</span> <span class='kw'>for</span> <span class='ident'>ViewRepr</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>A</span><span class='op'>&gt;</span> {
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>clone_with_ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Self</span>::<span class='ident'>Elem</span>) <span class='op'>-&gt;</span> (<span class='kw'>Self</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>Self</span>::<span class='ident'>Elem</span>) {
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>clone_with_ptr</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='self'>Self</span>::<span class='ident'>Elem</span>) <span class='op'>-&gt;</span> (<span class='self'>Self</span>, <span class='op'>*</span><span class='kw-2'>mut</span> <span class='self'>Self</span>::<span class='ident'>Elem</span>) {
         (<span class='op'>*</span><span class='self'>self</span>, <span class='ident'>ptr</span>)
     }
 }
 
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>Data</span> <span class='kw'>for</span> <span class='ident'>ViewRepr</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>A</span><span class='op'>&gt;</span> {
     <span class='kw'>type</span> <span class='ident'>Elem</span> <span class='op'>=</span> <span class='ident'>A</span>;
-    <span class='kw'>fn</span> <span class='ident'>slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>] {
+    <span class='kw'>fn</span> <span class='ident'>_data_slice</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>] {
         <span class='kw-2'>&amp;</span>[]
     }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataMut</span> <span class='kw'>for</span> <span class='ident'>ViewRepr</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>A</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>slice_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>A</span>] {
-        <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> []
-    }
-}
+<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataMut</span> <span class='kw'>for</span> <span class='ident'>ViewRepr</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>A</span><span class='op'>&gt;</span> { }
 
 <span class='doccomment'>/// Array representation trait.</span>
 <span class='doccomment'>///</span>
@@ -425,9 +400,9 @@
 <span class='doccomment'>/// ***Internal trait, see `Data`.***</span>
 <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>DataOwned</span> : <span class='ident'>Data</span> {
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-    <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>elements</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Elem</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
+    <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>elements</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='self'>Self</span>::<span class='ident'>Elem</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>;
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
-    <span class='kw'>fn</span> <span class='ident'>into_shared</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Self</span>::<span class='ident'>Elem</span><span class='op'>&gt;&gt;</span>;
+    <span class='kw'>fn</span> <span class='ident'>into_shared</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='self'>Self</span>::<span class='ident'>Elem</span><span class='op'>&gt;&gt;</span>;
 }
 
 <span class='doccomment'>/// Array representation trait.</span>
@@ -441,7 +416,7 @@
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataShared</span> <span class='kw'>for</span> <span class='ident'>ViewRepr</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>A</span><span class='op'>&gt;</span> {}
 
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataOwned</span> <span class='kw'>for</span> <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>elements</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>elements</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='ident'>elements</span>
     }
     <span class='kw'>fn</span> <span class='ident'>into_shared</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span> {
@@ -450,7 +425,7 @@
 }
 
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>DataOwned</span> <span class='kw'>for</span> <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>elements</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>elements</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='ident'>Rc</span>::<span class='ident'>new</span>(<span class='ident'>elements</span>)
     }
     <span class='kw'>fn</span> <span class='ident'>into_shared</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span> {
@@ -482,6 +457,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -502,7 +479,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

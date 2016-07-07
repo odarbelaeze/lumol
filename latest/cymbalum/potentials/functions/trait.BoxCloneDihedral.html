@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>potentials</a>::<wbr><a href='index.html'>functions</a>::<wbr><a class='trait' href=''>BoxCloneDihedral</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1399' class='srclink' href='../../../src/cymbalum/utils/macros.rs.html#20-23' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1861' class='srclink' href='../../../src/cymbalum/src/utils/macros.rs.html#20-23' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait BoxCloneDihedral {
     fn <a href='#tymethod.box_clone_dihedral' class='fnname'>box_clone_dihedral</a>(&amp;self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../cymbalum/potentials/functions/trait.DihedralPotential.html' title='cymbalum::potentials::functions::DihedralPotential'>DihedralPotential</a>&gt;;
 }</pre><div class='docblock'><p>This is an internal implementation detail for cloning Box<Trait>,
@@ -58,9 +59,10 @@ where Trait is used as a trait object.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    </ul><script type="text/javascript" async
-                              src="../../../implementors/cymbalum/potentials/functions/trait.BoxCloneDihedral.js">
-                      </script></section>
+    <li><code>impl&lt;T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='../../../cymbalum/potentials/functions/trait.DihedralPotential.html' title='cymbalum::potentials::functions::DihedralPotential'>DihedralPotential</a> + 'static&gt; BoxCloneDihedral for T</code></li>
+</ul><script type="text/javascript" async
+                         src="../../../implementors/cymbalum/potentials/functions/trait.BoxCloneDihedral.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -83,6 +85,8 @@ where Trait is used as a trait object.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -103,7 +107,7 @@ where Trait is used as a trait object.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

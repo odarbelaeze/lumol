@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>simulation</a>::<wbr><a href='index.html'>propagator</a>::<wbr><a class='trait' href=''>Propagator</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4461' class='srclink' href='../../../src/cymbalum/simulation/propagator.rs.html#10-20' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-4778' class='srclink' href='../../../src/cymbalum/src/simulation/propagator.rs.html#10-20' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Propagator {
     fn <a href='#tymethod.propagate' class='fnname'>propagate</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>);
 
@@ -68,12 +69,12 @@ simulation</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../../cymbalum/simulation/propagator/trait.Propagator.html' title='cymbalum::simulation::propagator::Propagator'>Propagator</a> for <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></li>
-<li><code>impl <a class='trait' href='../../../cymbalum/simulation/propagator/trait.Propagator.html' title='cymbalum::simulation::propagator::Propagator'>Propagator</a> for <a class='struct' href='../../../cymbalum/simulation/mc/struct.MonteCarlo.html' title='cymbalum::simulation::mc::MonteCarlo'>MonteCarlo</a></code></li>
-<li><code>impl <a class='trait' href='../../../cymbalum/simulation/propagator/trait.Propagator.html' title='cymbalum::simulation::propagator::Propagator'>Propagator</a> for <a class='struct' href='../../../cymbalum/simulation/minimization/struct.SteepestDescent.html' title='cymbalum::simulation::minimization::SteepestDescent'>SteepestDescent</a></code></li>
+    <li><code>impl Propagator for <a class='struct' href='../../../cymbalum/simulation/md/struct.MolecularDynamics.html' title='cymbalum::simulation::md::MolecularDynamics'>MolecularDynamics</a></code></li>
+<li><code>impl Propagator for <a class='struct' href='../../../cymbalum/simulation/mc/struct.MonteCarlo.html' title='cymbalum::simulation::mc::MonteCarlo'>MonteCarlo</a></code></li>
+<li><code>impl Propagator for <a class='struct' href='../../../cymbalum/simulation/minimization/struct.SteepestDescent.html' title='cymbalum::simulation::minimization::SteepestDescent'>SteepestDescent</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../../implementors/cymbalum/simulation/propagator/trait.Propagator.js">
-                      </script></section>
+                         src="../../../implementors/cymbalum/simulation/propagator/trait.Propagator.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -96,6 +97,8 @@ simulation</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -116,7 +119,7 @@ simulation</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,16 +44,18 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>system</a>::<wbr><a class='struct' href=''>EnergyEvaluator</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3540' class='srclink' href='../../src/cymbalum/system/energy.rs.html#11-13' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-4098' class='srclink' href='../../src/cymbalum/src/system/energy.rs.html#11-13' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct EnergyEvaluator&lt;'a&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>An helper struct to evaluate energy components of a system.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../cymbalum/system/struct.EnergyEvaluator.html' title='cymbalum::system::EnergyEvaluator'>EnergyEvaluator</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(system: &amp;'a <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>) -&gt; <a class='struct' href='../../cymbalum/system/struct.EnergyEvaluator.html' title='cymbalum::system::EnergyEvaluator'>EnergyEvaluator</a>&lt;'a&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='struct' href='../../cymbalum/system/struct.EnergyEvaluator.html' title='cymbalum::system::EnergyEvaluator'>EnergyEvaluator</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4101' class='srclink' href='../../src/cymbalum/src/system/energy.rs.html#15-22' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(system: &amp;'a <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>) -&gt; <a class='struct' href='../../cymbalum/system/struct.EnergyEvaluator.html' title='cymbalum::system::EnergyEvaluator'>EnergyEvaluator</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Create a new energy evaluator acting on the given <code>system</code>.</p>
-</div></div><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../cymbalum/system/struct.EnergyEvaluator.html' title='cymbalum::system::EnergyEvaluator'>EnergyEvaluator</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.pair' class='method'><code>fn <a href='#method.pair' class='fnname'>pair</a>(&amp;self, r: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='struct' href='../../cymbalum/system/struct.EnergyEvaluator.html' title='cymbalum::system::EnergyEvaluator'>EnergyEvaluator</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4105' class='srclink' href='../../src/cymbalum/src/system/energy.rs.html#24-141' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.pair' class='method'><code>fn <a href='#method.pair' class='fnname'>pair</a>(&amp;self, r: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, i: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, j: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
 <div class='docblock'><p>Compute the energy associated with the pair of particles <code>i, j</code> at
 distance <code>r</code></p>
 </div><h4 id='method.pairs' class='method'><code>fn <a href='#method.pairs' class='fnname'>pairs</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
@@ -71,8 +74,6 @@ distance <code>r</code></p>
 angle <code>phi</code></p>
 </div><h4 id='method.dihedrals' class='method'><code>fn <a href='#method.dihedrals' class='fnname'>dihedrals</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
 <div class='docblock'><p>Compute the energy of all the dihedral angles in the system</p>
-</div><h4 id='method.molecules' class='method'><code>fn <a href='#method.molecules' class='fnname'>molecules</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
-<div class='docblock'><p>Compute the energy of the molecule interaction, <em>i.e.</em> the sum <code>bonds + angles + dihedrals</code>.</p>
 </div><h4 id='method.coulomb' class='method'><code>fn <a href='#method.coulomb' class='fnname'>coulomb</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
 <div class='docblock'><p>Compute the energy of the electrostatic interactions</p>
 </div><h4 id='method.global' class='method'><code>fn <a href='#method.global' class='fnname'>global</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h4>
@@ -100,6 +101,8 @@ angle <code>phi</code></p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -120,7 +123,7 @@ angle <code>phi</code></p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

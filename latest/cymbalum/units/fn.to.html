@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,11 +44,12 @@
 
     <section id='main' class="content fn">
 <h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>units</a>::<wbr><a class='fn' href=''>to</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-281' class='srclink' href='../../src/cymbalum/units.rs.html#250-253' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub fn to(val: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, unit: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, <a class='enum' href='../../cymbalum/units/enum.UnitParsingError.html' title='cymbalum::units::UnitParsingError'>UnitParsingError</a>&gt;</pre><div class='docblock'><p>Convert the numeric value <code>val</code> (in internal units) to the unit <code>unit</code>.</p>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-561' class='srclink' href='../../src/cymbalum/src/units.rs.html#407-410' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub fn to(value: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, unit: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, <a class='enum' href='../../cymbalum/units/enum.ParseError.html' title='cymbalum::units::ParseError'>ParseError</a>&gt;</pre><div class='docblock'><p>Convert the numeric value <code>val</code> (in internal units) to the unit <code>unit</code>.</p>
+
 <pre class='rust rust-example-rendered'>
 <span class='kw'>let</span> <span class='ident'>real</span> <span class='op'>=</span> <span class='ident'>to</span>(<span class='number'>10.0</span>, <span class='string'>&quot;A&quot;</span>);
 <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>real</span> <span class='op'>==</span> <span class='number'>10.0</span>);
@@ -77,6 +79,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -97,7 +101,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

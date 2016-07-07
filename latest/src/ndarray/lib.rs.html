@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-88ac128001ac3a9a/ndarray-0.4.8/src/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.0/src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -764,39 +765,6 @@
 <span id="721">721</span>
 <span id="722">722</span>
 <span id="723">723</span>
-<span id="724">724</span>
-<span id="725">725</span>
-<span id="726">726</span>
-<span id="727">727</span>
-<span id="728">728</span>
-<span id="729">729</span>
-<span id="730">730</span>
-<span id="731">731</span>
-<span id="732">732</span>
-<span id="733">733</span>
-<span id="734">734</span>
-<span id="735">735</span>
-<span id="736">736</span>
-<span id="737">737</span>
-<span id="738">738</span>
-<span id="739">739</span>
-<span id="740">740</span>
-<span id="741">741</span>
-<span id="742">742</span>
-<span id="743">743</span>
-<span id="744">744</span>
-<span id="745">745</span>
-<span id="746">746</span>
-<span id="747">747</span>
-<span id="748">748</span>
-<span id="749">749</span>
-<span id="750">750</span>
-<span id="751">751</span>
-<span id="752">752</span>
-<span id="753">753</span>
-<span id="754">754</span>
-<span id="755">755</span>
-<span id="756">756</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014-2016 bluss and ndarray developers.</span>
 <span class='comment'>//</span>
@@ -806,7 +774,6 @@
 <span class='comment'>// option. This file may not be copied, modified, or distributed</span>
 <span class='comment'>// except according to those terms.</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span><span class='op'>=</span><span class='string'>&quot;ndarray&quot;</span>]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>has_deprecated</span>, <span class='ident'>feature</span>(<span class='ident'>deprecated</span>))]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>doc</span>(<span class='ident'>html_root_url</span> <span class='op'>=</span> <span class='string'>&quot;http://bluss.github.io/rust-ndarray/master/&quot;</span>)]</span>
 
 <span class='doccomment'>//! The `ndarray` crate provides an N-dimensional container for general elements</span>
@@ -814,7 +781,7 @@
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! - [`ArrayBase`](struct.ArrayBase.html):</span>
 <span class='doccomment'>//!   The N-dimensional array type itself.</span>
-<span class='doccomment'>//! - [`OwnedArray`](type.OwnedArray.html):</span>
+<span class='doccomment'>//! - [`Array`](type.Array.html):</span>
 <span class='doccomment'>//!   An array where the data is owned uniquely.</span>
 <span class='doccomment'>//! - [`RcArray`](type.RcArray.html):</span>
 <span class='doccomment'>//!   An array where the data has shared ownership and is copy on write.</span>
@@ -827,7 +794,7 @@
 <span class='doccomment'>//! - Slicing, also with arbitrary step size, and negative indices to mean</span>
 <span class='doccomment'>//!   elements from the end of the axis.</span>
 <span class='doccomment'>//! - There is both a copy on write array (`RcArray`), or a regular uniquely owned array</span>
-<span class='doccomment'>//!   (`OwnedArray`), and both can use read-only and read-write array views.</span>
+<span class='doccomment'>//!   (`Array`), and both can use read-only and read-write array views.</span>
 <span class='doccomment'>//! - Iteration and most operations are efficient on arrays with contiguous</span>
 <span class='doccomment'>//!   innermost dimension.</span>
 <span class='doccomment'>//! - Array views can be used to slice and mutate any `[T]` data using</span>
@@ -839,9 +806,7 @@
 <span class='doccomment'>//!   + The crate is continuously developing, and breaking changes are expected</span>
 <span class='doccomment'>//!     during evolution from version to version. We adhere to semver,</span>
 <span class='doccomment'>//!     but alpha releases break at will.</span>
-<span class='doccomment'>//!   + We adopt the newest stable rust features we need. In place methods like `iadd`</span>
-<span class='doccomment'>//!     *will be deprecated* when Rust supports `+=` and similar in Rust 1.8.</span>
-<span class='doccomment'>//!   + We try to introduce more static checking gradually.</span>
+<span class='doccomment'>//!   + We adopt the newest stable rust features we need.</span>
 <span class='doccomment'>//! - Performance status:</span>
 <span class='doccomment'>//!   + Performance of an operation depends on the memory layout of the array</span>
 <span class='doccomment'>//!     or array view. Especially if it&#39;s a binary operation, which</span>
@@ -858,9 +823,6 @@
 <span class='doccomment'>//! The following crate feature flags are available. They are configured in your</span>
 <span class='doccomment'>//! `Cargo.toml`.</span>
 <span class='doccomment'>//!</span>
-<span class='doccomment'>//! - `assign_ops`</span>
-<span class='doccomment'>//!   - Requires Rust 1.8, will be default soon.</span>
-<span class='doccomment'>//!   - Enables the compound assignment operators</span>
 <span class='doccomment'>//! - `rustc-serialize`</span>
 <span class='doccomment'>//!   - Optional, compatible with Rust stable</span>
 <span class='doccomment'>//!   - Enables serialization support</span>
@@ -868,27 +830,21 @@
 <span class='doccomment'>//!   - Optional and experimental, compatible with Rust stable</span>
 <span class='doccomment'>//!   - Enable transparent BLAS support for matrix multiplication. Pluggable</span>
 <span class='doccomment'>//!     backend via `blas-sys`.</span>
-<span class='doccomment'>//! - `rblas`</span>
-<span class='doccomment'>//!   - ***Deprecated:*** replaced by separate crate `ndarray-rblas`</span>
-<span class='doccomment'>//!   - Enables `rblas` integration</span>
 <span class='doccomment'>//!</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>all</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;assign_ops&quot;</span>, <span class='ident'>not</span>(<span class='ident'>has_assign</span>)),
-            <span class='ident'>feature</span>(<span class='ident'>augmented_assignments</span>, <span class='ident'>op_assign_traits</span>))]</span>
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde&quot;</span>)]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>serde</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;rustc-serialize&quot;</span>)]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rustc_serialize</span> <span class='kw'>as</span> <span class='ident'>serialize</span>;
 
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;rblas&quot;</span>)]</span>
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rblas</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;blas&quot;</span>)]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>blas_sys</span>;
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>matrixmultiply</span>;
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>itertools</span>;
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>num</span> <span class='kw'>as</span> <span class='ident'>libnum</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>num_traits</span> <span class='kw'>as</span> <span class='ident'>libnum</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>num_complex</span>;
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rc</span>::<span class='ident'>Rc</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::{<span class='self'>self</span>, <span class='ident'>Iter</span>, <span class='ident'>IterMut</span>};
@@ -916,22 +872,17 @@
     <span class='ident'>AxisChunksIter</span>,
     <span class='ident'>AxisChunksIterMut</span>,
 };
-<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>deprecated</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>iterators</span>::{
-    <span class='ident'>OuterIter</span>,
-    <span class='ident'>OuterIterMut</span>,
-};
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>arraytraits</span>::<span class='ident'>AsArray</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>linalg</span>::{<span class='ident'>LinalgScalar</span>, <span class='ident'>NdFloat</span>};
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>linalg_traits</span>::{<span class='ident'>LinalgScalar</span>, <span class='ident'>NdFloat</span>};
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>stacking</span>::<span class='ident'>stack</span>;
+
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>shape_builder</span>::{ <span class='ident'>ShapeBuilder</span> };
 
 <span class='kw'>mod</span> <span class='ident'>arraytraits</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde&quot;</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>arrayserialize</span>;
 <span class='kw'>mod</span> <span class='ident'>arrayformat</span>;
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;rblas&quot;</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>blas</span>;
 <span class='kw'>mod</span> <span class='ident'>data_traits</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>data_traits</span>::{
@@ -949,24 +900,18 @@
 
 <span class='kw'>mod</span> <span class='ident'>indexes</span>;
 <span class='kw'>mod</span> <span class='ident'>iterators</span>;
-<span class='kw'>mod</span> <span class='ident'>linalg</span>;
+<span class='kw'>mod</span> <span class='ident'>linalg_traits</span>;
 <span class='kw'>mod</span> <span class='ident'>linspace</span>;
 <span class='kw'>mod</span> <span class='ident'>numeric_util</span>;
 <span class='kw'>mod</span> <span class='ident'>si</span>;
 <span class='kw'>mod</span> <span class='ident'>error</span>;
+<span class='kw'>mod</span> <span class='ident'>shape_builder</span>;
 <span class='kw'>mod</span> <span class='ident'>stacking</span>;
 
 <span class='doccomment'>/// Implementation&#39;s prelude. Common types used everywhere.</span>
 <span class='kw'>mod</span> <span class='ident'>imp_prelude</span> {
+    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>prelude</span>::<span class='op'>*</span>;
     <span class='kw'>pub</span> <span class='kw'>use</span> {
-        <span class='ident'>Axis</span>,
-        <span class='ident'>ArrayBase</span>,
-        <span class='ident'>ArrayView</span>,
-        <span class='ident'>ArrayViewMut</span>,
-        <span class='ident'>OwnedArray</span>,
-        <span class='ident'>RcArray</span>,
-        <span class='ident'>Ix</span>, <span class='ident'>Ixs</span>,
-        <span class='ident'>Dimension</span>,
         <span class='ident'>RemoveAxis</span>,
         <span class='ident'>Data</span>,
         <span class='ident'>DataMut</span>,
@@ -979,6 +924,8 @@
     <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Debug</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Priv</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='kw'>pub</span> <span class='ident'>T</span>);
 }
+
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>prelude</span>;
 
 <span class='doccomment'>/// Array index type</span>
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Ix</span> <span class='op'>=</span> <span class='ident'>usize</span>;
@@ -994,17 +941,17 @@
 <span class='doccomment'>/// The `ArrayBase&lt;S, D&gt;` is parameterized by `S` for the data container and</span>
 <span class='doccomment'>/// `D` for the dimensionality.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// Type aliases [`OwnedArray`], [`RcArray`], [`ArrayView`], and [`ArrayViewMut`] refer</span>
+<span class='doccomment'>/// Type aliases [`Array`], [`RcArray`], [`ArrayView`], and [`ArrayViewMut`] refer</span>
 <span class='doccomment'>/// to `ArrayBase` with different types for the data container.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// [`OwnedArray`]: type.OwnedArray.html</span>
+<span class='doccomment'>/// [`Array`]: type.Array.html</span>
 <span class='doccomment'>/// [`RcArray`]: type.RcArray.html</span>
 <span class='doccomment'>/// [`ArrayView`]: type.ArrayView.html</span>
 <span class='doccomment'>/// [`ArrayViewMut`]: type.ArrayViewMut.html</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ## Contents</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// + [OwnedArray and RcArray](#ownedarray-and-rcarray)</span>
+<span class='doccomment'>/// + [Array and RcArray](#ownedarray-and-rcarray)</span>
 <span class='doccomment'>/// + [Indexing and Dimension](#indexing-and-dimension)</span>
 <span class='doccomment'>/// + [Slicing](#slicing)</span>
 <span class='doccomment'>/// + [Subviews](#subviews)</span>
@@ -1013,9 +960,9 @@
 <span class='doccomment'>/// + [Methods](#methods)</span>
 <span class='doccomment'>/// + [Methods for Array Views](#methods-for-array-views)</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// ## `OwnedArray` and `RcArray`</span>
+<span class='doccomment'>/// ## `Array` and `RcArray`</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// `OwnedArray` owns the underlying array elements directly (just like</span>
+<span class='doccomment'>/// `Array` owns the underlying array elements directly (just like</span>
 <span class='doccomment'>/// a `Vec`), while [`RcArray`](type.RcArray.html) is a an array with reference</span>
 <span class='doccomment'>/// counted data. `RcArray` can act both as an owner or as a view in that regard.</span>
 <span class='doccomment'>/// Sharing requires that it uses copy-on-write for mutable operations.</span>
@@ -1172,27 +1119,26 @@
 <span class='doccomment'>/// Since the trait implementations are hard to overview, here is a summary.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// Let `A` be an array or view of any kind. Let `B` be an array</span>
-<span class='doccomment'>/// with owned storage (either `OwnedArray` or `RcArray`).</span>
-<span class='doccomment'>/// Let `C` be an array with mutable data (either `OwnedArray`, `RcArray`</span>
+<span class='doccomment'>/// with owned storage (either `Array` or `RcArray`).</span>
+<span class='doccomment'>/// Let `C` be an array with mutable data (either `Array`, `RcArray`</span>
 <span class='doccomment'>/// or `ArrayViewMut`).</span>
 <span class='doccomment'>/// The following combinations of operands</span>
-<span class='doccomment'>/// are supported for an arbitrary binary operator denoted by `@`.</span>
+<span class='doccomment'>/// are supported for an arbitrary binary operator denoted by `@` (it can be</span>
+<span class='doccomment'>/// `+`, `-`, `*`, `/` and so on).</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// - `&amp;A @ &amp;A` which produces a new `OwnedArray`</span>
+<span class='doccomment'>/// - `&amp;A @ &amp;A` which produces a new `Array`</span>
 <span class='doccomment'>/// - `B @ A` which consumes `B`, updates it with the result, and returns it</span>
 <span class='doccomment'>/// - `B @ &amp;A` which consumes `B`, updates it with the result, and returns it</span>
 <span class='doccomment'>/// - `C @= &amp;A` which performs an arithmetic operation in place</span>
-<span class='doccomment'>///   (requires crate feature `&quot;assign_ops&quot;`)</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// The trait [`ScalarOperand`](trait.ScalarOperand.html) marks types that can be used in arithmetic</span>
 <span class='doccomment'>/// with arrays directly. For a scalar `K` the following combinations of operands</span>
 <span class='doccomment'>/// are supported (scalar can be on either the left or right side, but</span>
 <span class='doccomment'>/// `ScalarOperand` docs has the detailed condtions).</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// - `&amp;A @ K` or `K @ &amp;A` which produces a new `OwnedArray`</span>
+<span class='doccomment'>/// - `&amp;A @ K` or `K @ &amp;A` which produces a new `Array`</span>
 <span class='doccomment'>/// - `B @ K` or `K @ B` which consumes `B`, updates it with the result and returns it</span>
 <span class='doccomment'>/// - `C @= K` which performs an arithmetic operation in place</span>
-<span class='doccomment'>///   (requires crate feature `&quot;assign_ops&quot;`)</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ## Broadcasting</span>
 <span class='doccomment'>///</span>
@@ -1235,13 +1181,10 @@
 <span class='doccomment'>/// can act as both an owner as the data as well as a lightweight view.</span>
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>RcArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>D</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span>, <span class='ident'>D</span><span class='op'>&gt;</span>;
 
-<span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>has_deprecated</span>, <span class='ident'>deprecated</span>(<span class='ident'>note</span><span class='op'>=</span><span class='string'>&quot;`Array` is deprecated! Renamed to `RcArray`.&quot;</span>))]</span>
-<span class='doccomment'>/// ***Deprecated: Use `RcArray` instead***</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// Array where the data is reference counted and copy on write, it</span>
-<span class='doccomment'>/// can act as both an owner as the data as well as a lightweight view.</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>D</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span>, <span class='ident'>D</span><span class='op'>&gt;</span>;
+<span class='doccomment'>/// Array where the data is owned uniquely.</span>
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>D</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>, <span class='ident'>D</span><span class='op'>&gt;</span>;
 
+<span class='attribute'>#[<span class='ident'>deprecated</span>(<span class='ident'>note</span><span class='op'>=</span><span class='string'>&quot;Use the type alias `Array` instead&quot;</span>)]</span>
 <span class='doccomment'>/// Array where the data is owned uniquely.</span>
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>OwnedArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>D</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>, <span class='ident'>D</span><span class='op'>&gt;</span>;
 
@@ -1277,7 +1220,7 @@
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='ident'>ViewRepr</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-    <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='ident'>ViewRepr</span> { <span class='ident'>life</span>: <span class='ident'>PhantomData</span> }
     }
 }
@@ -1292,32 +1235,6 @@
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>S</span>, <span class='ident'>D</span><span class='op'>&gt;</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>S</span>, <span class='ident'>D</span><span class='op'>&gt;</span>
     <span class='kw'>where</span> <span class='ident'>S</span>: <span class='ident'>Data</span><span class='op'>&lt;</span><span class='ident'>Elem</span><span class='op'>=</span><span class='ident'>A</span><span class='op'>&gt;</span>, <span class='ident'>D</span>: <span class='ident'>Dimension</span>
 {
-    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;rblas&quot;</span>)]</span>
-    <span class='doccomment'>/// Return `true` if the innermost dimension is contiguous (includes</span>
-    <span class='doccomment'>/// the special cases of 0 or 1 length in that axis).</span>
-    <span class='kw'>fn</span> <span class='ident'>is_inner_contiguous</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='kw'>let</span> <span class='ident'>ndim</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>ndim</span>();
-        <span class='kw'>if</span> <span class='ident'>ndim</span> <span class='op'>==</span> <span class='number'>0</span> {
-            <span class='kw'>return</span> <span class='boolval'>true</span>;
-        }
-        <span class='self'>self</span>.<span class='ident'>shape</span>()[<span class='ident'>ndim</span> <span class='op'>-</span> <span class='number'>1</span>] <span class='op'>&lt;=</span> <span class='number'>1</span> <span class='op'>||</span> <span class='self'>self</span>.<span class='ident'>strides</span>()[<span class='ident'>ndim</span> <span class='op'>-</span> <span class='number'>1</span>] <span class='op'>==</span> <span class='number'>1</span>
-    }
-
-    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;rblas&quot;</span>)]</span>
-    <span class='doccomment'>/// If the array is not in the standard layout, copy all elements</span>
-    <span class='doccomment'>/// into the standard layout so that the array is C-contiguous.</span>
-    <span class='kw'>fn</span> <span class='ident'>ensure_standard_layout</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>)
-        <span class='kw'>where</span> <span class='ident'>S</span>: <span class='ident'>DataOwned</span>,
-              <span class='ident'>A</span>: <span class='ident'>Clone</span>
-    {
-        <span class='kw'>if</span> <span class='op'>!</span><span class='self'>self</span>.<span class='ident'>is_standard_layout</span>() {
-            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>iter</span>().<span class='ident'>cloned</span>().<span class='ident'>collect</span>();
-            <span class='self'>self</span>.<span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>as_mut_ptr</span>();
-            <span class='self'>self</span>.<span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>DataOwned</span>::<span class='ident'>new</span>(<span class='ident'>v</span>);
-            <span class='self'>self</span>.<span class='ident'>strides</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>dim</span>.<span class='ident'>default_strides</span>();
-        }
-    }
-
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>broadcast_unwrap</span><span class='op'>&lt;</span><span class='ident'>E</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>dim</span>: <span class='ident'>E</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayView</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>E</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>E</span>: <span class='ident'>Dimension</span>,
@@ -1368,11 +1285,11 @@
 }
 
 
-<span class='kw'>mod</span> <span class='ident'>impl_numeric</span>;
+<span class='kw'>mod</span> <span class='ident'>impl_2d</span>;
 
-<span class='kw'>mod</span> <span class='ident'>impl_linalg</span>;
+<span class='kw'>mod</span> <span class='ident'>numeric</span>;
 
-<span class='kw'>mod</span> <span class='ident'>impl_ops_inplace</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>linalg</span>;
 
 <span class='kw'>mod</span> <span class='ident'>impl_ops</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>impl_ops</span>::<span class='ident'>ScalarOperand</span>;
@@ -1388,7 +1305,7 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// Unsafe because: `ptr` must be valid for the given dimension and strides.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>new_</span>(<span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>A</span>, <span class='ident'>dim</span>: <span class='ident'>D</span>, <span class='ident'>strides</span>: <span class='ident'>D</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>new_</span>(<span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>A</span>, <span class='ident'>dim</span>: <span class='ident'>D</span>, <span class='ident'>strides</span>: <span class='ident'>D</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='ident'>ArrayView</span> {
             <span class='ident'>data</span>: <span class='ident'>ViewRepr</span>::<span class='ident'>new</span>(),
             <span class='ident'>ptr</span>: <span class='ident'>ptr</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>A</span>,
@@ -1431,7 +1348,7 @@
 
     <span class='doccomment'>/// Return an outer iterator for this view.</span>
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span> <span class='comment'>// not official</span>
-    <span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>has_deprecated</span>, <span class='ident'>deprecated</span>(<span class='ident'>note</span><span class='op'>=</span><span class='string'>&quot;This method will be replaced.&quot;</span>))]</span>
+    <span class='attribute'>#[<span class='ident'>deprecated</span>(<span class='ident'>note</span><span class='op'>=</span><span class='string'>&quot;This method will be replaced.&quot;</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>into_outer_iter</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>AxisIter</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>A</span>, <span class='ident'>D</span>::<span class='ident'>Smaller</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>RemoveAxis</span>,
     {
@@ -1447,7 +1364,7 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// Unsafe because: `ptr` must be valid for the given dimension and strides.</span>
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>new_</span>(<span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>A</span>, <span class='ident'>dim</span>: <span class='ident'>D</span>, <span class='ident'>strides</span>: <span class='ident'>D</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>new_</span>(<span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>A</span>, <span class='ident'>dim</span>: <span class='ident'>D</span>, <span class='ident'>strides</span>: <span class='ident'>D</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='ident'>ArrayViewMut</span> {
             <span class='ident'>data</span>: <span class='ident'>ViewRepr</span>::<span class='ident'>new</span>(),
             <span class='ident'>ptr</span>: <span class='ident'>ptr</span>,
@@ -1495,7 +1412,7 @@
 
     <span class='doccomment'>/// Return an outer iterator for this view.</span>
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span> <span class='comment'>// not official</span>
-    <span class='attribute'>#[<span class='ident'>cfg_attr</span>(<span class='ident'>has_deprecated</span>, <span class='ident'>deprecated</span>(<span class='ident'>note</span><span class='op'>=</span><span class='string'>&quot;This method will be replaced.&quot;</span>))]</span>
+    <span class='attribute'>#[<span class='ident'>deprecated</span>(<span class='ident'>note</span><span class='op'>=</span><span class='string'>&quot;This method will be replaced.&quot;</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>into_outer_iter</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>AxisIterMut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>A</span>, <span class='ident'>D</span>::<span class='ident'>Smaller</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>RemoveAxis</span>,
     {
@@ -1554,6 +1471,24 @@
     <span class='ident'>Slice</span>(<span class='ident'>S</span>),
     <span class='ident'>Counted</span>(<span class='ident'>C</span>),
 }
+
+
+<span class='doccomment'>/// A contiguous array shape of n dimensions.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// Either c- or f- memory ordered (*c* a.k.a *row major* is the default).</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Shape</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> {
+    <span class='ident'>dim</span>: <span class='ident'>D</span>,
+    <span class='ident'>is_c</span>: <span class='ident'>bool</span>,
+}
+
+<span class='doccomment'>/// An array shape of n dimensions c-order, f-order or custom strides.</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>StrideShape</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> {
+    <span class='ident'>dim</span>: <span class='ident'>D</span>,
+    <span class='ident'>strides</span>: <span class='ident'>D</span>,
+    <span class='ident'>custom</span>: <span class='ident'>bool</span>,
+}
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
@@ -1578,6 +1513,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -1598,7 +1535,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

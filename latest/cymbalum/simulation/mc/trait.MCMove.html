@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>simulation</a>::<wbr><a href='index.html'>mc</a>::<wbr><a class='trait' href=''>MCMove</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4918' class='srclink' href='../../../src/cymbalum/simulation/mc/moves/mod.rs.html#17-44' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-5197' class='srclink' href='../../../src/cymbalum/src/simulation/mc/moves/mod.rs.html#17-44' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait MCMove {
     fn <a href='#tymethod.describe' class='fnname'>describe</a>(&amp;self) -&gt; &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>;
     fn <a href='#tymethod.prepare' class='fnname'>prepare</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, rng: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../rand/trait.Rng.html' title='rand::Rng'>Rng</a>&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>;
@@ -78,11 +79,11 @@ updated  as needed after this move.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../../cymbalum/simulation/mc/trait.MCMove.html' title='cymbalum::simulation::mc::MCMove'>MCMove</a> for <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></li>
-<li><code>impl <a class='trait' href='../../../cymbalum/simulation/mc/trait.MCMove.html' title='cymbalum::simulation::mc::MCMove'>MCMove</a> for <a class='struct' href='../../../cymbalum/simulation/mc/struct.Rotate.html' title='cymbalum::simulation::mc::Rotate'>Rotate</a></code></li>
+    <li><code>impl MCMove for <a class='struct' href='../../../cymbalum/simulation/mc/struct.Translate.html' title='cymbalum::simulation::mc::Translate'>Translate</a></code></li>
+<li><code>impl MCMove for <a class='struct' href='../../../cymbalum/simulation/mc/struct.Rotate.html' title='cymbalum::simulation::mc::Rotate'>Rotate</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../../implementors/cymbalum/simulation/mc/trait.MCMove.js">
-                      </script></section>
+                         src="../../../implementors/cymbalum/simulation/mc/trait.MCMove.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -105,6 +106,8 @@ updated  as needed after this move.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -125,7 +128,7 @@ updated  as needed after this move.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

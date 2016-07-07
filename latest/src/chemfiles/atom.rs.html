@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-88ac128001ac3a9a/chemfiles-0.5.4/src/atom.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/chemfiles-0.6.1/src/atom.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>atom.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -289,6 +290,9 @@
 <span id="246">246</span>
 <span id="247">247</span>
 <span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
 </pre><pre class='rust '>
 <span class='comment'>/* Chemfiles, an efficient IO library for chemistry file formats
  * Copyright (C) 2015 Guillaume Fraux
@@ -300,30 +304,31 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::<span class='ident'>Drop</span>;
 
 <span class='kw'>use</span> <span class='ident'>chemfiles_sys</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>errors</span>::{<span class='ident'>check</span>, <span class='ident'>Error</span>, <span class='ident'>ErrorKind</span>};
+<span class='kw'>use</span> <span class='ident'>errors</span>::{<span class='ident'>check</span>, <span class='ident'>Error</span>};
 <span class='kw'>use</span> <span class='ident'>string</span>;
+<span class='kw'>use</span> <span class='prelude-ty'>Result</span>;
 
 <span class='doccomment'>/// Available types of atoms</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Debug</span>, <span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>AtomType</span> {
     <span class='doccomment'>/// Element from the periodic table of elements</span>
-    <span class='ident'>Element</span> <span class='op'>=</span> <span class='ident'>ELEMENT</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
+    <span class='ident'>Element</span> <span class='op'>=</span> <span class='ident'>CHFL_ATOM_ELEMENT</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
     <span class='doccomment'>/// Coarse-grained atom are composed of more than one element: CH3 groups,</span>
     <span class='doccomment'>/// amino-acids are corse-grained atoms.</span>
-    <span class='ident'>CorseGrain</span> <span class='op'>=</span> <span class='ident'>COARSE_GRAINED</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
+    <span class='ident'>CorseGrain</span> <span class='op'>=</span> <span class='ident'>CHFL_ATOM_COARSE_GRAINED</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
     <span class='doccomment'>/// Dummy site, with no physical reality</span>
-    <span class='ident'>Dummy</span> <span class='op'>=</span> <span class='ident'>DUMMY</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
+    <span class='ident'>Dummy</span> <span class='op'>=</span> <span class='ident'>CHFL_ATOM_DUMMY</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
     <span class='doccomment'>/// Undefined atom type</span>
-    <span class='ident'>Undefined</span> <span class='op'>=</span> <span class='ident'>UNDEFINED</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
+    <span class='ident'>Undefined</span> <span class='op'>=</span> <span class='ident'>CHFL_ATOM_UNDEFINED</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>From</span><span class='op'>&lt;</span><span class='ident'>CHFL_ATOM_TYPE</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>AtomType</span> {
-    <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>atomtype</span>: <span class='ident'>CHFL_ATOM_TYPE</span>) <span class='op'>-&gt;</span> <span class='ident'>AtomType</span> {
+<span class='kw'>impl</span> <span class='ident'>From</span><span class='op'>&lt;</span><span class='ident'>CHFL_ATOM_TYPES</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>AtomType</span> {
+    <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>atomtype</span>: <span class='ident'>CHFL_ATOM_TYPES</span>) <span class='op'>-&gt;</span> <span class='ident'>AtomType</span> {
         <span class='kw'>match</span> <span class='ident'>atomtype</span> {
-            <span class='ident'>ELEMENT</span> <span class='op'>=&gt;</span> <span class='ident'>AtomType</span>::<span class='ident'>Element</span>,
-            <span class='ident'>COARSE_GRAINED</span> <span class='op'>=&gt;</span> <span class='ident'>AtomType</span>::<span class='ident'>CorseGrain</span>,
-            <span class='ident'>DUMMY</span> <span class='op'>=&gt;</span> <span class='ident'>AtomType</span>::<span class='ident'>Dummy</span>,
-            <span class='ident'>UNDEFINED</span> <span class='op'>=&gt;</span> <span class='ident'>AtomType</span>::<span class='ident'>Undefined</span>,
+            <span class='ident'>CHFL_ATOM_ELEMENT</span> <span class='op'>=&gt;</span> <span class='ident'>AtomType</span>::<span class='ident'>Element</span>,
+            <span class='ident'>CHFL_ATOM_COARSE_GRAINED</span> <span class='op'>=&gt;</span> <span class='ident'>AtomType</span>::<span class='ident'>CorseGrain</span>,
+            <span class='ident'>CHFL_ATOM_DUMMY</span> <span class='op'>=&gt;</span> <span class='ident'>AtomType</span>::<span class='ident'>Dummy</span>,
+            <span class='ident'>CHFL_ATOM_UNDEFINED</span> <span class='op'>=&gt;</span> <span class='ident'>AtomType</span>::<span class='ident'>Undefined</span>,
             _ <span class='op'>=&gt;</span> <span class='macro'>unreachable</span><span class='macro'>!</span>()
         }
     }
@@ -338,20 +343,22 @@
 
 <span class='kw'>impl</span> <span class='ident'>Atom</span> {
     <span class='doccomment'>/// Create a new `Atom` from a `name`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>S</span><span class='op'>&gt;</span>(<span class='ident'>name</span>: <span class='ident'>S</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Atom</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>S</span>: <span class='ident'>Into</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span><span class='op'>&gt;</span>{
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>S</span><span class='op'>&gt;</span>(<span class='ident'>name</span>: <span class='ident'>S</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Atom</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>S</span>: <span class='ident'>Into</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span><span class='op'>&gt;</span>{
         <span class='kw'>let</span> <span class='ident'>handle</span> : <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>CHFL_ATOM</span>;
         <span class='kw'>let</span> <span class='ident'>buffer</span> <span class='op'>=</span> <span class='ident'>string</span>::<span class='ident'>to_c</span>(<span class='ident'>name</span>.<span class='ident'>into</span>());
         <span class='kw'>unsafe</span> {
             <span class='ident'>handle</span> <span class='op'>=</span> <span class='ident'>chfl_atom</span>(<span class='ident'>buffer</span>.<span class='ident'>as_ptr</span>());
         }
+
         <span class='kw'>if</span> <span class='ident'>handle</span>.<span class='ident'>is_null</span>() {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>new</span>(<span class='ident'>ErrorKind</span>::<span class='ident'>ChemfilesCppError</span>));
+            <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>null_ptr</span>())
+        } <span class='kw'>else</span> {
+            <span class='prelude-val'>Ok</span>(<span class='ident'>Atom</span>{<span class='ident'>handle</span>: <span class='ident'>handle</span>})
         }
-        <span class='prelude-val'>Ok</span>(<span class='ident'>Atom</span>{<span class='ident'>handle</span>: <span class='ident'>handle</span>})
     }
 
     <span class='doccomment'>/// Get the `Atom` mass, in atomic mass units</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>mass</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f32</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>mass</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f32</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>mass</span>: <span class='ident'>f32</span> <span class='op'>=</span> <span class='number'>0.0</span>;
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_mass</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>mass</span>)));
@@ -360,7 +367,7 @@
     }
 
     <span class='doccomment'>/// Set the `Atom` mass, in atomic mass units</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_mass</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>mass</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_mass</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>mass</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_set_mass</span>(<span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_ATOM</span>, <span class='ident'>mass</span>)));
         }
@@ -368,7 +375,7 @@
     }
 
     <span class='doccomment'>/// Get the `Atom` charge, in number of the electron charge *e*</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>charge</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f32</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>charge</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f32</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>charge</span>: <span class='ident'>f32</span> <span class='op'>=</span> <span class='number'>0.0</span>;
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_charge</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>charge</span>)));
@@ -377,7 +384,7 @@
     }
 
     <span class='doccomment'>/// Set the `Atom` charge, in number of the electron charge *e*</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_charge</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>charge</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_charge</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>charge</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_set_charge</span>(<span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_ATOM</span>, <span class='ident'>charge</span>)));
         }
@@ -385,7 +392,7 @@
     }
 
     <span class='doccomment'>/// Get the `Atom` name</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>buffer</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>0</span>; <span class='number'>10</span>];
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_name</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>buffer</span>[<span class='number'>0</span>], <span class='ident'>buffer</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>usize</span>)));
@@ -394,7 +401,7 @@
     }
 
     <span class='doccomment'>/// Set the `Atom` name</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_name</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>S</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='ident'>S</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>S</span>: <span class='ident'>Into</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span><span class='op'>&gt;</span>{
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_name</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>S</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>name</span>: <span class='ident'>S</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> <span class='kw'>where</span> <span class='ident'>S</span>: <span class='ident'>Into</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span><span class='op'>&gt;</span>{
         <span class='kw'>let</span> <span class='ident'>buffer</span> <span class='op'>=</span> <span class='ident'>string</span>::<span class='ident'>to_c</span>(<span class='ident'>name</span>.<span class='ident'>into</span>());
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_set_name</span>(<span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_ATOM</span>, <span class='ident'>buffer</span>.<span class='ident'>as_ptr</span>())));
@@ -405,7 +412,7 @@
     <span class='doccomment'>/// Try to get the full name of the `Atom`. The full name of &quot;He&quot; is</span>
     <span class='doccomment'>/// &quot;Helium&quot;, and so on. If the name can not be found, returns the empty</span>
     <span class='doccomment'>/// string.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>full_name</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>full_name</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>buffer</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>0</span>; <span class='number'>10</span>];
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_full_name</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>buffer</span>[<span class='number'>0</span>], <span class='ident'>buffer</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>usize</span>)));
@@ -415,7 +422,7 @@
 
     <span class='doccomment'>/// Try to get the Van der Waals radius of the `Atom`. If the radius can not</span>
     <span class='doccomment'>/// be found, returns -1.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>vdw_radius</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f64</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>vdw_radius</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>radius</span>: <span class='ident'>f64</span> <span class='op'>=</span> <span class='number'>0.0</span>;
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_vdw_radius</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>radius</span>)));
@@ -425,7 +432,7 @@
 
     <span class='doccomment'>/// Try to get the covalent radius of the `Atom`. If the radius can not be</span>
     <span class='doccomment'>/// found, returns -1.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>covalent_radius</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f64</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>covalent_radius</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>radius</span>: <span class='ident'>f64</span> <span class='op'>=</span> <span class='number'>0.0</span>;
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_covalent_radius</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>radius</span>)));
@@ -435,7 +442,7 @@
 
     <span class='doccomment'>/// Try to get the atomic number of the `Atom`. If the number can not be</span>
     <span class='doccomment'>/// found, returns -1.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>atomic_number</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>i32</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>atomic_number</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>number</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_atomic_number</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>number</span>)));
@@ -444,7 +451,7 @@
     }
 
     <span class='doccomment'>/// Get the type of the atom</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>atom_type</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>AtomType</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>atom_type</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>AtomType</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_type</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>res</span>)));
@@ -453,9 +460,9 @@
     }
 
     <span class='doccomment'>/// Set the type of the atom</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_atom_type</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>atom_type</span>: <span class='ident'>AtomType</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_atom_type</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>atom_type</span>: <span class='ident'>AtomType</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
-            <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_set_type</span>(<span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_ATOM</span>, <span class='ident'>atom_type</span> <span class='kw'>as</span> <span class='ident'>CHFL_ATOM_TYPE</span>)));
+            <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_atom_set_type</span>(<span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_ATOM</span>, <span class='ident'>atom_type</span> <span class='kw'>as</span> <span class='ident'>CHFL_ATOM_TYPES</span>)));
         }
         <span class='prelude-val'>Ok</span>(())
     }
@@ -485,7 +492,7 @@
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>mass</span>() {
@@ -562,6 +569,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -582,7 +591,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

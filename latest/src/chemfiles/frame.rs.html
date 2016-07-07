@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-88ac128001ac3a9a/chemfiles-0.5.4/src/frame.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/chemfiles-0.6.1/src/frame.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>frame.rs.html -- source</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -402,53 +403,6 @@
 <span id="359">359</span>
 <span id="360">360</span>
 <span id="361">361</span>
-<span id="362">362</span>
-<span id="363">363</span>
-<span id="364">364</span>
-<span id="365">365</span>
-<span id="366">366</span>
-<span id="367">367</span>
-<span id="368">368</span>
-<span id="369">369</span>
-<span id="370">370</span>
-<span id="371">371</span>
-<span id="372">372</span>
-<span id="373">373</span>
-<span id="374">374</span>
-<span id="375">375</span>
-<span id="376">376</span>
-<span id="377">377</span>
-<span id="378">378</span>
-<span id="379">379</span>
-<span id="380">380</span>
-<span id="381">381</span>
-<span id="382">382</span>
-<span id="383">383</span>
-<span id="384">384</span>
-<span id="385">385</span>
-<span id="386">386</span>
-<span id="387">387</span>
-<span id="388">388</span>
-<span id="389">389</span>
-<span id="390">390</span>
-<span id="391">391</span>
-<span id="392">392</span>
-<span id="393">393</span>
-<span id="394">394</span>
-<span id="395">395</span>
-<span id="396">396</span>
-<span id="397">397</span>
-<span id="398">398</span>
-<span id="399">399</span>
-<span id="400">400</span>
-<span id="401">401</span>
-<span id="402">402</span>
-<span id="403">403</span>
-<span id="404">404</span>
-<span id="405">405</span>
-<span id="406">406</span>
-<span id="407">407</span>
-<span id="408">408</span>
 </pre><pre class='rust '>
 <span class='comment'>/* Chemfiles, an efficient IO library for chemistry file formats
  * Copyright (C) 2015 Guillaume Fraux
@@ -462,9 +416,9 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>;
 
 <span class='kw'>use</span> <span class='ident'>chemfiles_sys</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>string</span>;
-<span class='kw'>use</span> <span class='ident'>errors</span>::{<span class='ident'>check</span>, <span class='ident'>Error</span>, <span class='ident'>ErrorKind</span>};
+<span class='kw'>use</span> <span class='ident'>errors</span>::{<span class='ident'>check</span>, <span class='ident'>Error</span>};
 <span class='kw'>use</span> {<span class='ident'>Atom</span>, <span class='ident'>Topology</span>, <span class='ident'>UnitCell</span>};
+<span class='kw'>use</span> <span class='prelude-ty'>Result</span>;
 
 <span class='doccomment'>/// A `Frame` holds data from one step of a simulation: the current `Topology`,</span>
 <span class='doccomment'>/// the positions, and maybe the velocities of the particles in the system.</span>
@@ -475,33 +429,37 @@
 <span class='kw'>impl</span> <span class='ident'>Frame</span> {
     <span class='doccomment'>/// Create an empty frame with initial capacity of `natoms`. It will be</span>
     <span class='doccomment'>/// resized by the library as needed.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>natoms</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Frame</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>natoms</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Frame</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>handle</span> : <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>CHFL_FRAME</span>;
         <span class='kw'>unsafe</span> {
             <span class='ident'>handle</span> <span class='op'>=</span> <span class='ident'>chfl_frame</span>(<span class='ident'>natoms</span>);
         }
+
         <span class='kw'>if</span> <span class='ident'>handle</span>.<span class='ident'>is_null</span>() {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>new</span>(<span class='ident'>ErrorKind</span>::<span class='ident'>ChemfilesCppError</span>));
+            <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>null_ptr</span>())
+        } <span class='kw'>else</span> {
+            <span class='prelude-val'>Ok</span>(<span class='ident'>Frame</span>{<span class='ident'>handle</span>: <span class='ident'>handle</span>})
         }
-        <span class='prelude-val'>Ok</span>(<span class='ident'>Frame</span>{<span class='ident'>handle</span>: <span class='ident'>handle</span>})
     }
 
     <span class='doccomment'>/// Get a specific `Atom` from a frame, given its `index` in the frame</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>atom</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>index</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Atom</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>atom</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>index</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Atom</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>handle</span> : <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>CHFL_ATOM</span>;
         <span class='kw'>unsafe</span> {
             <span class='ident'>handle</span> <span class='op'>=</span> <span class='ident'>chfl_atom_from_frame</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='ident'>index</span>);
         }
+
         <span class='kw'>if</span> <span class='ident'>handle</span>.<span class='ident'>is_null</span>() {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>new</span>(<span class='ident'>ErrorKind</span>::<span class='ident'>ChemfilesCppError</span>));
-        }
-        <span class='kw'>unsafe</span> {
-            <span class='prelude-val'>Ok</span>(<span class='ident'>Atom</span>::<span class='ident'>from_ptr</span>(<span class='ident'>handle</span>))
+            <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>null_ptr</span>())
+        } <span class='kw'>else</span> {
+            <span class='kw'>unsafe</span> {
+                <span class='prelude-val'>Ok</span>(<span class='ident'>Atom</span>::<span class='ident'>from_ptr</span>(<span class='ident'>handle</span>))
+            }
         }
     }
 
     <span class='doccomment'>/// Get the current number of atoms in the `Frame`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>natoms</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>usize</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>natoms</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>natoms</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_atoms_count</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>natoms</span>)));
@@ -512,7 +470,7 @@
     <span class='doccomment'>/// Resize the positions and the velocities in frame, to make space for</span>
     <span class='doccomment'>/// `natoms` atoms. Previous data is conserved, as well as the presence of</span>
     <span class='doccomment'>/// absence of velocities.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>resize</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>natoms</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>resize</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>natoms</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_resize</span>(<span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_FRAME</span>, <span class='ident'>natoms</span>)));
         }
@@ -520,7 +478,7 @@
     }
 
     <span class='doccomment'>/// Get a view into the positions of the `Frame`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>positions</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span>[[<span class='ident'>f32</span>; <span class='number'>3</span>]], <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>positions</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span>[[<span class='ident'>f32</span>; <span class='number'>3</span>]]<span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>ptr</span>::<span class='ident'>null_mut</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>natoms</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='kw'>unsafe</span> {
@@ -537,7 +495,7 @@
     }
 
     <span class='doccomment'>/// Get a mutable view into the positions of the `Frame`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>positions_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [[<span class='ident'>f32</span>; <span class='number'>3</span>]], <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>positions_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [[<span class='ident'>f32</span>; <span class='number'>3</span>]]<span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>ptr</span>::<span class='ident'>null_mut</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>natoms</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='kw'>unsafe</span> {
@@ -554,7 +512,7 @@
     }
 
     <span class='doccomment'>/// Get a view into the velocities of the `Frame`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>velocities</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span>[[<span class='ident'>f32</span>; <span class='number'>3</span>]], <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>velocities</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span>[[<span class='ident'>f32</span>; <span class='number'>3</span>]]<span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>ptr</span>::<span class='ident'>null_mut</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>natoms</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='kw'>unsafe</span> {
@@ -571,7 +529,7 @@
     }
 
     <span class='doccomment'>/// Get a mutable view into the velocities of the `Frame`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>velocities_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [[<span class='ident'>f32</span>; <span class='number'>3</span>]], <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>velocities_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [[<span class='ident'>f32</span>; <span class='number'>3</span>]]<span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>ptr</span> <span class='op'>=</span> <span class='ident'>ptr</span>::<span class='ident'>null_mut</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>natoms</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='kw'>unsafe</span> {
@@ -588,7 +546,7 @@
     }
 
     <span class='doccomment'>/// Check if the `Frame` has velocity information.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>has_velocities</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>bool</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>has_velocities</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_has_velocities</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>res</span>)));
@@ -598,7 +556,7 @@
 
     <span class='doccomment'>/// Add velocity storage to this frame for `Frame::natoms` atoms. If the</span>
     <span class='doccomment'>/// frame already have velocities, this does nothing.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_velocities</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_velocities</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_add_velocities</span>(<span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_FRAME</span>)));
         }
@@ -606,21 +564,23 @@
     }
 
     <span class='doccomment'>/// Get the `UnitCell` from the `Frame`</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>cell</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>UnitCell</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>cell</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>UnitCell</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>handle</span> : <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>CHFL_CELL</span>;
         <span class='kw'>unsafe</span> {
             <span class='ident'>handle</span> <span class='op'>=</span> <span class='ident'>chfl_cell_from_frame</span>(<span class='self'>self</span>.<span class='ident'>handle</span>);
         }
+
         <span class='kw'>if</span> <span class='ident'>handle</span>.<span class='ident'>is_null</span>() {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>new</span>(<span class='ident'>ErrorKind</span>::<span class='ident'>ChemfilesCppError</span>));
-        }
-        <span class='kw'>unsafe</span> {
-            <span class='prelude-val'>Ok</span>(<span class='ident'>UnitCell</span>::<span class='ident'>from_ptr</span>(<span class='ident'>handle</span>))
+            <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>null_ptr</span>())
+        } <span class='kw'>else</span> {
+            <span class='kw'>unsafe</span> {
+                <span class='prelude-val'>Ok</span>(<span class='ident'>UnitCell</span>::<span class='ident'>from_ptr</span>(<span class='ident'>handle</span>))
+            }
         }
     }
 
     <span class='doccomment'>/// Set the `UnitCell` of the `Frame`</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_cell</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>cell</span>: <span class='kw-2'>&amp;</span><span class='ident'>UnitCell</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_cell</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>cell</span>: <span class='kw-2'>&amp;</span><span class='ident'>UnitCell</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_set_cell</span>(
                 <span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_FRAME</span>,
@@ -631,21 +591,23 @@
     }
 
     <span class='doccomment'>/// Get the `Topology` from the `Frame`</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>topology</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Topology</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>topology</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Topology</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>handle</span> : <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>CHFL_TOPOLOGY</span>;
         <span class='kw'>unsafe</span> {
             <span class='ident'>handle</span> <span class='op'>=</span> <span class='ident'>chfl_topology_from_frame</span>(<span class='self'>self</span>.<span class='ident'>handle</span>);
         }
+
         <span class='kw'>if</span> <span class='ident'>handle</span>.<span class='ident'>is_null</span>() {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>new</span>(<span class='ident'>ErrorKind</span>::<span class='ident'>ChemfilesCppError</span>));
-        }
-        <span class='kw'>unsafe</span> {
-            <span class='prelude-val'>Ok</span>(<span class='ident'>Topology</span>::<span class='ident'>from_ptr</span>(<span class='ident'>handle</span>))
+            <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>null_ptr</span>())
+        } <span class='kw'>else</span> {
+            <span class='kw'>unsafe</span> {
+                <span class='prelude-val'>Ok</span>(<span class='ident'>Topology</span>::<span class='ident'>from_ptr</span>(<span class='ident'>handle</span>))
+            }
         }
     }
 
     <span class='doccomment'>/// Set the `Topology` of the `Frame`</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_topology</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>topology</span>: <span class='kw-2'>&amp;</span><span class='ident'>Topology</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_topology</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>topology</span>: <span class='kw-2'>&amp;</span><span class='ident'>Topology</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_set_topology</span>(
                 <span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_FRAME</span>,
@@ -656,7 +618,7 @@
     }
 
     <span class='doccomment'>/// Get the `Frame` step, i.e. the frame number in the trajectory</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>step</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>usize</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>step</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_step</span>(<span class='self'>self</span>.<span class='ident'>handle</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>res</span>)));
@@ -665,47 +627,20 @@
     }
 
     <span class='doccomment'>/// Set the `Frame` step</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_step</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>step</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_step</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>step</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
             <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_set_step</span>(<span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_FRAME</span>, <span class='ident'>step</span>)));
         }
         <span class='kw'>return</span> <span class='prelude-val'>Ok</span>(());
     }
 
-    <span class='doccomment'>/// Try to guess the bonds, angles and dihedrals in the system. If `bonds`</span>
-    <span class='doccomment'>/// is true, guess everything; else only guess the angles and dihedrals from</span>
-    <span class='doccomment'>/// the topology bond list.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>guess_topology</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>bonds</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Guess the bonds, angles and dihedrals in the system using an atomic</span>
+    <span class='doccomment'>/// distance criteria</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>guess_topology</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
-            <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_guess_topology</span>(<span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_FRAME</span>, <span class='ident'>bool_to_u8</span>(<span class='ident'>bonds</span>))));
+            <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_guess_topology</span>(<span class='self'>self</span>.<span class='ident'>handle</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHFL_FRAME</span>)));
         }
         <span class='kw'>return</span> <span class='prelude-val'>Ok</span>(());
-    }
-
-    <span class='doccomment'>/// Select atoms in a frame, from a specific selection string.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// This function select atoms in a frame matching a selection string. For</span>
-    <span class='doccomment'>/// example, `&quot;name H and x &gt; 4&quot;` will select all the atoms with name `&quot;H&quot;`</span>
-    <span class='doccomment'>/// and `x` coordinate less than 4. See the C++ documentation for the full</span>
-    <span class='doccomment'>/// selection language.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// The result is a `Vec&lt;bool&gt;` containing `true` at position `i` if the</span>
-    <span class='doccomment'>/// atom at position `i` matches the selection string, and `false`</span>
-    <span class='doccomment'>/// otherwise.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>select</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>selection</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>natoms</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>natoms</span>().<span class='ident'>unwrap</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>0u8</span>; <span class='ident'>natoms</span>];
-        <span class='kw'>let</span> <span class='ident'>c_str</span> <span class='op'>=</span> <span class='ident'>string</span>::<span class='ident'>to_c</span>(<span class='ident'>selection</span>);
-        <span class='kw'>unsafe</span> {
-            <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>check</span>(<span class='ident'>chfl_frame_selection</span>(
-                <span class='self'>self</span>.<span class='ident'>handle</span>,
-                <span class='ident'>c_str</span>.<span class='ident'>into_raw</span>(),
-                <span class='ident'>res</span>.<span class='ident'>as_mut_ptr</span>(),
-                <span class='ident'>natoms</span>
-            )));
-        }
-        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>res</span>.<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>u</span><span class='op'>|</span> <span class='ident'>u8_to_bool</span>(<span class='ident'>u</span>)).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>();
-        <span class='prelude-val'>Ok</span>(<span class='ident'>res</span>)
     }
 
     <span class='doccomment'>/// Create a `Frame` from a C pointer. This function is unsafe because</span>
@@ -721,20 +656,6 @@
     }
 }
 
-<span class='kw'>fn</span> <span class='ident'>bool_to_u8</span>(<span class='ident'>val</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>u8</span> {
-    <span class='kw'>match</span> <span class='ident'>val</span> {
-        <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='number'>1</span>,
-        <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='number'>0</span>
-    }
-}
-
-<span class='kw'>fn</span> <span class='ident'>u8_to_bool</span>(<span class='ident'>val</span>: <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-    <span class='kw'>match</span> <span class='ident'>val</span> {
-        <span class='number'>0</span> <span class='op'>=&gt;</span> <span class='boolval'>false</span>,
-        _ <span class='op'>=&gt;</span> <span class='boolval'>true</span>
-    }
-}
-
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Frame</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
@@ -747,7 +668,7 @@
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
     <span class='kw'>use</span> ::{<span class='ident'>Atom</span>, <span class='ident'>Topology</span>, <span class='ident'>UnitCell</span>};
 
     <span class='comment'>// TODO: remove this when 1.7.0 hit stable. This is slice::clone_from_slice</span>
@@ -786,25 +707,11 @@
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>selection</span>() {
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>frame</span> <span class='op'>=</span> <span class='ident'>Frame</span>::<span class='ident'>new</span>(<span class='number'>4</span>).<span class='ident'>unwrap</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>topology</span> <span class='op'>=</span> <span class='ident'>Topology</span>::<span class='ident'>new</span>().<span class='ident'>unwrap</span>();
-        <span class='ident'>topology</span>.<span class='ident'>push</span>(<span class='kw-2'>&amp;</span><span class='ident'>Atom</span>::<span class='ident'>new</span>(<span class='string'>&quot;H&quot;</span>).<span class='ident'>unwrap</span>()).<span class='ident'>unwrap</span>();
-        <span class='ident'>topology</span>.<span class='ident'>push</span>(<span class='kw-2'>&amp;</span><span class='ident'>Atom</span>::<span class='ident'>new</span>(<span class='string'>&quot;O&quot;</span>).<span class='ident'>unwrap</span>()).<span class='ident'>unwrap</span>();
-        <span class='ident'>topology</span>.<span class='ident'>push</span>(<span class='kw-2'>&amp;</span><span class='ident'>Atom</span>::<span class='ident'>new</span>(<span class='string'>&quot;O&quot;</span>).<span class='ident'>unwrap</span>()).<span class='ident'>unwrap</span>();
-        <span class='ident'>topology</span>.<span class='ident'>push</span>(<span class='kw-2'>&amp;</span><span class='ident'>Atom</span>::<span class='ident'>new</span>(<span class='string'>&quot;H&quot;</span>).<span class='ident'>unwrap</span>()).<span class='ident'>unwrap</span>();
-        <span class='ident'>frame</span>.<span class='ident'>set_topology</span>(<span class='kw-2'>&amp;</span><span class='ident'>topology</span>).<span class='ident'>unwrap</span>();
-
-        <span class='kw'>let</span> <span class='ident'>matched</span> <span class='op'>=</span> <span class='ident'>frame</span>.<span class='ident'>select</span>(<span class='string'>&quot;name H&quot;</span>).<span class='ident'>unwrap</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>matched</span>, <span class='macro'>vec</span><span class='macro'>!</span>[<span class='boolval'>true</span>, <span class='boolval'>false</span>, <span class='boolval'>false</span>, <span class='boolval'>true</span>]);
-    }
-
-    <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>velocities</span>() {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>frame</span> <span class='op'>=</span> <span class='ident'>Frame</span>::<span class='ident'>new</span>(<span class='number'>4</span>).<span class='ident'>unwrap</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>frame</span>.<span class='ident'>has_velocities</span>(), <span class='prelude-val'>Ok</span>(<span class='boolval'>false</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>frame</span>.<span class='ident'>has_velocities</span>(), <span class='prelude-val'>Ok</span>(<span class='boolvalue'>false</span>));
         <span class='ident'>frame</span>.<span class='ident'>add_velocities</span>().<span class='ident'>unwrap</span>();
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>frame</span>.<span class='ident'>has_velocities</span>(), <span class='prelude-val'>Ok</span>(<span class='boolval'>true</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>frame</span>.<span class='ident'>has_velocities</span>(), <span class='prelude-val'>Ok</span>(<span class='boolvalue'>true</span>));
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>expected</span> <span class='op'>=</span> [[<span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>],
                             [<span class='number'>4.0</span>, <span class='number'>5.0</span>, <span class='number'>6.0</span>],
@@ -832,7 +739,7 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>topology</span>() {
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>frame</span> <span class='op'>=</span> <span class='ident'>Frame</span>::<span class='ident'>new</span>(<span class='number'>0</span>).<span class='ident'>unwrap</span>();
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>frame</span> <span class='op'>=</span> <span class='ident'>Frame</span>::<span class='ident'>new</span>(<span class='number'>2</span>).<span class='ident'>unwrap</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>topology</span> <span class='op'>=</span> <span class='ident'>Topology</span>::<span class='ident'>new</span>().<span class='ident'>unwrap</span>();
 
         <span class='ident'>topology</span>.<span class='ident'>push</span>(<span class='kw-2'>&amp;</span><span class='ident'>Atom</span>::<span class='ident'>new</span>(<span class='string'>&quot;Zn&quot;</span>).<span class='ident'>unwrap</span>()).<span class='ident'>unwrap</span>();
@@ -882,6 +789,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -902,7 +811,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

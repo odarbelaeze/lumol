@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,22 +44,23 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>simulation</a>::<wbr><a class='struct' href=''>Simulation</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4496' class='srclink' href='../../src/cymbalum/simulation/simulations.rs.html#53-56' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-4811' class='srclink' href='../../src/cymbalum/src/simulation/simulations.rs.html#53-56' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Simulation {
     // some fields omitted
 }</pre><div class='docblock'><p>The Simulation struct holds all the needed algorithms for running the
 simulation. It should be use together with a <code>System</code> to perform the
 simulation.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../cymbalum/simulation/struct.Simulation.html' title='cymbalum::simulation::Simulation'>Simulation</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>&lt;P&gt;(propagator: P) -&gt; <a class='struct' href='../../cymbalum/simulation/struct.Simulation.html' title='cymbalum::simulation::Simulation'>Simulation</a> <span class='where'>where P: <a class='trait' href='../../cymbalum/simulation/propagator/trait.Propagator.html' title='cymbalum::simulation::propagator::Propagator'>Propagator</a> + 'static</span></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../cymbalum/simulation/struct.Simulation.html' title='cymbalum::simulation::Simulation'>Simulation</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4814' class='srclink' href='../../src/cymbalum/src/simulation/simulations.rs.html#58-110' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(propagator: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/simulation/propagator/trait.Propagator.html' title='cymbalum::simulation::propagator::Propagator'>Propagator</a>&gt;) -&gt; <a class='struct' href='../../cymbalum/simulation/struct.Simulation.html' title='cymbalum::simulation::Simulation'>Simulation</a></code></h4>
 <div class='docblock'><p>Create a new Simulation from a Propagator.</p>
 </div><h4 id='method.run' class='method'><code>fn <a href='#method.run' class='fnname'>run</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, nsteps: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></h4>
 <div class='docblock'><p>Run the simulation on System for <code>nsteps</code> steps.</p>
-</div><h4 id='method.add_output' class='method'><code>fn <a href='#method.add_output' class='fnname'>add_output</a>&lt;O&gt;(&amp;mut self, output: O) <span class='where'>where O: <a class='trait' href='../../cymbalum/simulation/outputs/trait.Output.html' title='cymbalum::simulation::outputs::Output'>Output</a> + 'static</span></code></h4>
+</div><h4 id='method.add_output' class='method'><code>fn <a href='#method.add_output' class='fnname'>add_output</a>(&amp;mut self, output: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/simulation/outputs/trait.Output.html' title='cymbalum::simulation::outputs::Output'>Output</a>&gt;)</code></h4>
 <div class='docblock'><p>Add a new <code>Output</code> algorithm in the outputs list</p>
-</div><h4 id='method.add_output_with_frequency' class='method'><code>fn <a href='#method.add_output_with_frequency' class='fnname'>add_output_with_frequency</a>&lt;O&gt;(&amp;mut self, output: O, frequency: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) <span class='where'>where O: <a class='trait' href='../../cymbalum/simulation/outputs/trait.Output.html' title='cymbalum::simulation::outputs::Output'>Output</a> + 'static</span></code></h4>
+</div><h4 id='method.add_output_with_frequency' class='method'><code>fn <a href='#method.add_output_with_frequency' class='fnname'>add_output_with_frequency</a>(&amp;mut self, output: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/simulation/outputs/trait.Output.html' title='cymbalum::simulation::outputs::Output'>Output</a>&gt;, frequency: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>)</code></h4>
 <div class='docblock'><p>Add a new <code>Output</code> algorithm in the outputs list, which will be used
 at the given frequency. The output will be used everytime the system
  step matches this frequency.</p>
@@ -85,6 +87,8 @@ at the given frequency. The output will be used everytime the system
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -105,7 +109,7 @@ at the given frequency. The output will be used everytime the system
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

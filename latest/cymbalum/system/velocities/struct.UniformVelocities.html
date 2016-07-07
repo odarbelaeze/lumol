@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,19 +44,23 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>cymbalum</a>::<wbr><a href='../index.html'>system</a>::<wbr><a href='index.html'>velocities</a>::<wbr><a class='struct' href=''>UniformVelocities</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2786' class='srclink' href='../../../src/cymbalum/system/velocities.rs.html#68-72' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3153' class='srclink' href='../../../src/cymbalum/src/system/velocities.rs.html#68-72' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct UniformVelocities {
     // some fields omitted
 }</pre><div class='docblock'><p>Initialize the velocities from an uniform distribution.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../../cymbalum/system/velocities/struct.UniformVelocities.html' title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../../cymbalum/system/velocities/struct.UniformVelocities.html' title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../cymbalum/system/velocities/struct.UniformVelocities.html' title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3157' class='srclink' href='../../../src/cymbalum/src/system/velocities.rs.html#74-85' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../../cymbalum/system/velocities/struct.UniformVelocities.html' title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a></code></h4>
 <div class='docblock'><p>This <code>UniformVelocities</code> initializer will initialize velocities at
 temperature <code>temperature</code>.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../cymbalum/system/velocities/trait.InitVelocities.html' title='cymbalum::system::velocities::InitVelocities'>InitVelocities</a> for <a class='struct' href='../../../cymbalum/system/velocities/struct.UniformVelocities.html' title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a></code></h3><div class='impl-items'><h4 id='method.init' class='method'><code>fn <a href='../../../cymbalum/system/velocities/trait.InitVelocities.html#method.init' class='fnname'>init</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
-<h4 id='method.seed' class='method'><code>fn <a href='../../../cymbalum/system/velocities/trait.InitVelocities.html#method.seed' class='fnname'>seed</a>(&amp;mut self, seed: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>)</code></h4>
-</div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/system/velocities/trait.InitVelocities.html' title='cymbalum::system::velocities::InitVelocities'>InitVelocities</a> for <a class='struct' href='../../../cymbalum/system/velocities/struct.UniformVelocities.html' title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3161' class='srclink' href='../../../src/cymbalum/src/system/velocities.rs.html#87-102' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.init' class='method'><code>fn <a href='../../../cymbalum/system/velocities/trait.InitVelocities.html#tymethod.init' class='fnname'>init</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>)</code></h4>
+<div class='docblock'><p>Initialize the velocities of the system.</p>
+</div><h4 id='method.seed' class='method'><code>fn <a href='../../../cymbalum/system/velocities/trait.InitVelocities.html#tymethod.seed' class='fnname'>seed</a>(&amp;mut self, seed: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>)</code></h4>
+<div class='docblock'><p>Set the seed of the random number generator. The default seed is 42.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -78,6 +83,8 @@ temperature <code>temperature</code>.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -98,7 +105,7 @@ temperature <code>temperature</code>.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

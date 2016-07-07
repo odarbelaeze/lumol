@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors['bitflags'] = [];implementors['cymbalum'] = [];
+implementors["cymbalum"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

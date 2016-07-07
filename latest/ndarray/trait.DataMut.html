@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>ndarray</a>::<wbr><a class='trait' href=''>DataMut</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-304' class='srclink' href='../src/ndarray/data_traits.rs.html#37-52' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-287' class='srclink' href='../src/ndarray/data_traits.rs.html#38-51' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub unsafe trait DataMut: <a class='trait' href='../ndarray/trait.Data.html' title='ndarray::Data'>Data</a> { }</pre><div class='docblock'><p>Array representation trait.</p>
 
 <p>For an array with writable elements.</p>
@@ -55,12 +56,12 @@
 </div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;A&gt; <a class='trait' href='../ndarray/trait.DataMut.html' title='ndarray::DataMut'>DataMut</a> for <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;A&gt;&gt; <span class='where'>where A: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a></span></code></li>
-<li><code>impl&lt;A&gt; <a class='trait' href='../ndarray/trait.DataMut.html' title='ndarray::DataMut'>DataMut</a> for <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;A&gt;</code></li>
-<li><code>impl&lt;'a, A&gt; <a class='trait' href='../ndarray/trait.DataMut.html' title='ndarray::DataMut'>DataMut</a> for <a class='struct' href='../ndarray/struct.ViewRepr.html' title='ndarray::ViewRepr'>ViewRepr</a>&lt;&amp;'a mut A&gt;</code></li>
+    <li><code>impl&lt;A&gt; DataMut for <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;A&gt;&gt; <span class='where'>where A: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a></span></code></li>
+<li><code>impl&lt;A&gt; DataMut for <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;A&gt;</code></li>
+<li><code>impl&lt;'a, A&gt; DataMut for <a class='struct' href='../ndarray/struct.ViewRepr.html' title='ndarray::ViewRepr'>ViewRepr</a>&lt;&amp;'a mut A&gt;</code></li>
 </ul><script type="text/javascript" async
-                              src="../implementors/ndarray/trait.DataMut.js">
-                      </script></section>
+                         src="../implementors/ndarray/trait.DataMut.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -83,6 +84,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -103,7 +106,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
