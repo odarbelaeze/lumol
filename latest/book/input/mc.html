@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="highlight.css">
+
+        <link rel="stylesheet" href="static/css/cymbalum.css">
+
+        <!-- MathJax -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });</script>
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body class="light">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="engine/intro.html"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="engine/system.html"><strong>1.1.</strong> System</a></li><li><a href="engine/simulation.html"><strong>1.2.</strong> Simulation</a></li></ul></li><li><strong>2.</strong> Tutorial: using Cymbalum</li><li><ul class="section"><li><strong>2.1.</strong> Monte-Carlo of argon</li><li><strong>2.2.</strong> Molecular dynamics of water</li><li><strong>2.3.</strong> Gibbs simulation of ethane</li><li><strong>2.4.</strong> Hello Sodium Chloride</li><li><strong>2.5.</strong> Adsorption in zeolites</li></ul></li><li><a href="input/intro.html"><strong>3.</strong> Input files</a></li><li><ul class="section"><li><a href="input/systems.html"><strong>3.1.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>3.2.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>3.3.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>3.4.</strong> Simulations</a></li><li><a href="input/md.html"><strong>3.5.</strong> Molecular dynamics</a></li><li><a href="input/mc.html" class="active"><strong>3.6.</strong> Monte-Carlo</a></li><li><a href="input/units.html"><strong>3.7.</strong> Units</a></li></ul></li><li><strong>4.</strong> Tutorial: extending Cymbalum</li><li><ul class="section"><li><strong>4.1.</strong> Adding potentials</li><li><strong>4.2.</strong> Adding outputs</li><li><strong>4.3.</strong> Extending Molecular dynamics</li><li><strong>4.4.</strong> Extending Monte-Carlo</li><li><strong>4.5.</strong> Adding propagators</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <h1>Monte-Carlo</h1>
+<p>A Monte-Carlo simulation is started by setting the propagator <code>type</code> to
+<code>MonteCarlo</code>. The two needed keys are the <code>temperature</code> of the simulation, and
+the Monte-Carlo <code>moves</code> to use.</p>
+<pre><code class="language-toml">[simulations.propagator]
+type = &quot;MonteCarlo&quot;
+temperature = &quot;500 K&quot;
+moves = [
+    {type = &quot;Translate&quot;, delta = &quot;1 A&quot;, frequency = 2},
+    {type = &quot;Rotate&quot;, delta = &quot;20 deg&quot;, molecule = &quot;CO2.xyz&quot;},
+]
+</code></pre>
+<h2>Moves</h2>
+<p>All the Monte-Carlo moves are specified as inline tables, with the <code>type</code> key
+setting the type of move. They all accept an optional <code>frequency</code> value setting
+at which frequency the move should be selected. By default the frequency is 1,
+and the actual frequency will be the <code>frequency</code> value diveded by the sum of all
+the frequencies.</p>
+<p>Some moves acting a single molecule also accept a <code>molecule</code> key, giving the
+path to a file which <a href="chemfiles.github.io">chemfiles</a> can read. The molecule associated
+with the move will then be selected with the following algorithm:</p>
+<ul>
+<li>Read the first frame of the file;</li>
+<li>If the file does not contain any bonding informations, try to guess the bonds;</li>
+<li>Use the first molecule of the frame.</li>
+</ul>
+<p>The same move type can be present more than once in the input, to have different
+amplitudes for different compounds for example.</p>
+<pre><code class="language-toml">[simulations.propagator]
+type = &quot;MonteCarlo&quot;
+temperature = &quot;500 K&quot;
+moves = [
+    {type = &quot;Translate&quot;, delta = &quot;2 A&quot;, molecule = &quot;H2O.xyz&quot;},
+    {type = &quot;Translate&quot;, delta = &quot;0.5 A&quot;, molecule = &quot;protein.pdb&quot;},
+]
+</code></pre>
+<h3>Translation</h3>
+<p>The <code>Translate</code> move type will do small translations of a single molecule at the
+time. If the input contains the <code>molecule</code> key, the move will only apply to one
+molecule. If not, the move will apply to all molecules in the system. The
+<code>delta</code> key gives the amplitude of the translations, in distance unit.</p>
+<pre><code class="language-toml">[simulations.propagator]
+type = &quot;MonteCarlo&quot;
+temperature = &quot;500 K&quot;
+moves = [
+    {type = &quot;Translate&quot;, delta = &quot;1 A&quot;, frequency = 2},
+    {type = &quot;Translate&quot;, delta = &quot;10 A&quot;, molecule = &quot;He.xyz&quot;},
+]
+</code></pre>
+<h3>Rotation</h3>
+<p>The <code>Rotate</code> move type will do small rotations of a single molecule at the
+time. If the input contains the <code>molecule</code> key, the move will only apply to one
+molecule. If not, the move will apply to all molecules in the system. The
+<code>delta</code> key gives the amplitude of the rotations, in angle unit.</p>
+<pre><code class="language-toml">[simulations.propagator]
+type = &quot;MonteCarlo&quot;
+temperature = &quot;500 K&quot;
+moves = [
+    {type = &quot;Rotate&quot;, delta = &quot;3 deg&quot;, frequency = 2},
+]
+</code></pre>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a href="input/md.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="input/units.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="input/md.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="input/units.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

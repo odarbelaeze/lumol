@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="highlight.css">
+
+        <link rel="stylesheet" href="static/css/cymbalum.css">
+
+        <!-- MathJax -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });</script>
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body class="light">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="engine/intro.html"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="engine/system.html"><strong>1.1.</strong> System</a></li><li><a href="engine/simulation.html"><strong>1.2.</strong> Simulation</a></li></ul></li><li><strong>2.</strong> Tutorial: using Cymbalum</li><li><ul class="section"><li><strong>2.1.</strong> Monte-Carlo of argon</li><li><strong>2.2.</strong> Molecular dynamics of water</li><li><strong>2.3.</strong> Gibbs simulation of ethane</li><li><strong>2.4.</strong> Hello Sodium Chloride</li><li><strong>2.5.</strong> Adsorption in zeolites</li></ul></li><li><a href="input/intro.html"><strong>3.</strong> Input files</a></li><li><ul class="section"><li><a href="input/systems.html" class="active"><strong>3.1.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>3.2.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>3.3.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>3.4.</strong> Simulations</a></li><li><a href="input/md.html"><strong>3.5.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>3.6.</strong> Monte-Carlo</a></li><li><a href="input/units.html"><strong>3.7.</strong> Units</a></li></ul></li><li><strong>4.</strong> Tutorial: extending Cymbalum</li><li><ul class="section"><li><strong>4.1.</strong> Adding potentials</li><li><strong>4.2.</strong> Adding outputs</li><li><strong>4.3.</strong> Extending Molecular dynamics</li><li><strong>4.4.</strong> Extending Monte-Carlo</li><li><strong>4.5.</strong> Adding propagators</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <h1>Systems</h1>
+<p>The system to use in a simulation must be specified in the <code>[[systems]]</code> section
+of the input file. The minimal input file contains only the <code>file</code> key, giving
+the path to a file to read to get the system.</p>
+<pre><code class="language-toml">[[systems]]
+file = &quot;data/CO2.pdb&quot;
+</code></pre>
+<p>The program read the file, and use information from this file to build the
+system. If the file is a trajectory containing multiple steps, the first frame
+is used. File reading is provided by <a href="http://chemfiles.github.io/">chemfiles</a>,
+and supported formats are documented <a href="http://chemfiles.readthedocs.io/en/latest/formats.html">here</a>.</p>
+<p>Additional keys allow to change the system after it is read from the file.</p>
+<h2>Setting the topology</h2>
+<p>When using a simple <code>.xyz</code> file as the system definition, no bonding information
+are present in the system. There are two ways to add bonding informations:</p>
+<ul>
+<li>Use the <code>topology</code> key to give a file containing topological informations
+<pre><code class="language-toml">[[systems]]
+file = &quot;water.xyz&quot;
+topology = &quot;topology.pdb&quot;
+</code></pre>
+</li>
+<li>Use the <code>guess_bonds</code> key, to use a distance-based algorithm to guess the
+bonds in the system. The algorithm used is the same as the one in <a href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a>.
+You should always check if the bonding informations guessed by the algorithm
+is coherent with your system.
+<pre><code class="language-toml">[[systems]]
+file = &quot;water.xyz&quot;
+guess_bonds = true
+</code></pre>
+</li>
+</ul>
+<h2>Setting the unit cell</h2>
+<p>The <code>cell</code> key can be used to set the unit cell of the system in three different
+ways:</p>
+<ul>
+<li><code>cell = &lt;length&gt;</code> will set the unit cell to a cubic cell with the given side
+length. <code>&lt;length&gt;</code> should be a numeric value in Angstrom.
+<pre><code class="language-toml">[[systems]]
+file = &quot;water.xyz&quot;
+cell = 40
+</code></pre>
+</li>
+<li><code>cell = [&lt;a&gt;, &lt;b&gt;, &lt;c&gt;]</code> will set the unit cell to a orthorhombic cell with<br />
+the given side lengths. <code>&lt;a&gt;</code>, <code>&lt;b&gt;</code>, and <code>&lt;c&gt;</code> should be numeric values in
+Angstrom.
+<pre><code class="language-toml">[[systems]]
+file = &quot;water.xyz&quot;
+cell = [24, 24, 76]
+</code></pre>
+</li>
+<li><code>cell = [&lt;a&gt;, &lt;b&gt;, &lt;c&gt;, &lt;alpha&gt;, &lt;beta&gt;, &lt;gamma&gt;]</code> will set the unit cell to a
+triclinic cell with the given side lengths and angles. <code>&lt;a&gt;</code>, <code>&lt;b&gt;</code>, and <code>&lt;c&gt;</code>
+should be numeric values in Angstrom; and <code>&lt;alpha&gt;</code>, <code>&lt;beta&gt;</code>, and <code>&lt;gamma&gt;</code>
+numeric values in degree.
+<pre><code class="language-toml">[[systems]]
+file = &quot;water.xyz&quot;
+cell = [24, 24, 22, 90, 82.33, 110.4]
+</code></pre>
+</li>
+</ul>
+<h2>Initializing velocities</h2>
+<p>For molecular dynamics simulations, the <code>velocities</code> key can be used to
+initialize the velocities in the system. The syntax is the following:</p>
+<pre><code class="language-toml">[[systems]]
+file = &quot;data/CO2.pdb&quot;
+velocities = {init = &quot;300 K&quot;}
+</code></pre>
+<p>Where <code>init</code> key refers to a temperature string. The velocities will the be
+initialized from a Boltzmann distribution at this temperature.</p>
+<h2>Specifying interactions</h2>
+<p>Interactions between atoms can be specified in two ways: either inside the main
+input file, or as a separated file.</p>
+<p>If the <code>potentials</code> key contains a string, this string is interpreted as the
+path to another input file containing only interactions definitions, as
+documented <a href="input/interactions.html">here</a>.</p>
+<pre><code class="language-toml">[[systems]]
+file = &quot;polymer.pdb&quot;
+potentials = &quot;potentials.toml&quot;
+</code></pre>
+<p>If the <code>potentials</code> key is actually a sub-table of <code>systems</code>, then the different
+sections for interactions input (<code>pairs</code>, <code>charges</code>, <code>angles</code>, ...) are looked
+inside this table. They use the same syntax as in <a href="input/interactions.html">standalone
+input</a>.</p>
+<pre><code class="language-toml">[[systems]]
+file = &quot;polymer.pdb&quot;
+
+[[systems.potentials.pairs]]
+atoms = [&quot;C&quot;, &quot;O&quot;]
+lj = {sigma = &quot;3 A&quot;, epsilon = &quot;0.5 kJ/mol&quot;}
+
+[[systems.potentials.angles]]
+atoms = [&quot;O&quot;, &quot;C&quot;, &quot;O&quot;]
+harmonic = {x0 = &quot;109 deg&quot;, k = &quot;5 kJ/mol/deg&quot;}
+</code></pre>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a href="input/intro.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="input/interactions.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="input/intro.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="input/interactions.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

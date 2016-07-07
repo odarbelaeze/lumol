@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="highlight.css">
+
+        <link rel="stylesheet" href="static/css/cymbalum.css">
+
+        <!-- MathJax -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });</script>
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body class="light">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="engine/intro.html"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="engine/system.html"><strong>1.1.</strong> System</a></li><li><a href="engine/simulation.html"><strong>1.2.</strong> Simulation</a></li></ul></li><li><strong>2.</strong> Tutorial: using Cymbalum</li><li><ul class="section"><li><strong>2.1.</strong> Monte-Carlo of argon</li><li><strong>2.2.</strong> Molecular dynamics of water</li><li><strong>2.3.</strong> Gibbs simulation of ethane</li><li><strong>2.4.</strong> Hello Sodium Chloride</li><li><strong>2.5.</strong> Adsorption in zeolites</li></ul></li><li><a href="input/intro.html"><strong>3.</strong> Input files</a></li><li><ul class="section"><li><a href="input/systems.html"><strong>3.1.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>3.2.</strong> Interactions</a></li><li><a href="input/potentials.html" class="active"><strong>3.3.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>3.4.</strong> Simulations</a></li><li><a href="input/md.html"><strong>3.5.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>3.6.</strong> Monte-Carlo</a></li><li><a href="input/units.html"><strong>3.7.</strong> Units</a></li></ul></li><li><strong>4.</strong> Tutorial: extending Cymbalum</li><li><ul class="section"><li><strong>4.1.</strong> Adding potentials</li><li><strong>4.2.</strong> Adding outputs</li><li><strong>4.3.</strong> Extending Molecular dynamics</li><li><strong>4.4.</strong> Extending Monte-Carlo</li><li><strong>4.5.</strong> Adding propagators</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <h1>Available potentials</h1>
+<p>This section is a list of all the available potentials in Cymbalum, with the
+associated parameters. All potentials have to provide additional parameters in
+there definition, as a TOML table. Using inline tables is the easiest way to do
+so:</p>
+<pre><code class="language-toml">[[pairs]]
+atoms = [&quot;A&quot;, &quot;B&quot;]
+# Additional parameters here are 'sigma' and 'epsilon'.
+lj = {sigma = &quot;3 A&quot;, epsilon = &quot;123 kJ/mol&quot;}
+</code></pre>
+<p>The same potential can be used for either pairs (at distance $r$); or for
+angles (at angle $\phi$). In all the formulas, the $x$ parameter
+represents either a distance or an angle.</p>
+<h2>Null potential</h2>
+<p>This potential is always 0, for all values of $x$. It should be used to remove
+interactions between atoms in a pair/bond/angle/dihedral that are
+present in the system but should not be interacting.</p>
+<p>This potential can be used by specifying the <code>null</code> key with an empty table <code>{}</code>
+as value.</p>
+<pre><code class="language-toml">[[pairs]]
+atoms = [&quot;O&quot;, &quot;O&quot;]
+null = {}
+</code></pre>
+<h2>Lennard-Jones potential</h2>
+<p>The Lennard-Jones potential is a classical potential for pair interactions
+expressed as: $$ V(x) = 4 \epsilon \left[\left(\frac{\sigma}{x}\right)^{12} -
+\left(\frac{\sigma}{x}\right)^6\right].$$</p>
+<p>The Lennard-Jones potential is defined using the <code>lj</code> or <code>lennardjones</code> key. The
+parameters are <code>sigma</code> ($\sigma$) and <code>epsilon</code> ($\epsilon$), which should be
+provided as strings.</p>
+<pre><code class="language-toml">[[pairs]]
+atoms = [&quot;O&quot;, &quot;O&quot;]
+lennardjones = {sigma = &quot;3.16 A&quot;, epsilon = &quot;0.155 kcal/mol&quot;}
+</code></pre>
+<h2>Harmonic potential</h2>
+<p>The Harmonic potential is usually used for intramolecular interactions such as
+bonds, angles or dihedrals. It is expressed as:
+$$ V(x) = \frac 12 k \ (x - x_0)^2$$</p>
+<p>The potential type keyword is <code>harmonic</code>, and the parameters are <code>k</code> and <code>x0</code>,
+provided as strings.</p>
+<pre><code class="language-toml">[[bonds]]
+atoms = [&quot;O&quot;, &quot;H&quot;]
+harmonic = {k = &quot;1054.2 kcal/mol/A^2&quot;, x0 = &quot;1.0 A&quot;}
+
+[[angles]]
+atoms = [&quot;H&quot;, &quot;O&quot;, &quot;H&quot;]
+harmonic = {k = &quot;75.9 kcal/mol/rad^2&quot;, x0 = &quot;109.5 deg&quot;}
+</code></pre>
+<h2>Cosine-Harmonic potential</h2>
+<p>This potential is usually used for angles and dihedral angles interactions,
+because it presents a $2\pi$ periodicity. It is expressed as: $$ V(x) = \frac 12
+k \ (\cos x - \cos x_0)^2$$</p>
+<p>The potential type keyword is <code>cosine-harmonic</code>, and the parameters <code>k</code> and <code>x0</code>
+should be provided as strings.</p>
+<pre><code class="language-toml">[[angles]]
+atoms = [&quot;H&quot;, &quot;C&quot;, &quot;H&quot;]
+cosine-harmonic = {k = &quot;67 kJ/mol&quot;, x0 = &quot;120 deg&quot;}
+</code></pre>
+<h2>Torsion potential</h2>
+<p>This potential is usually used for dihedral interactions. It is
+expressed as: $$ V(x) = k \ (1 + \cos(n x - \delta))$$</p>
+<p>The potential type keyword is <code>torsion</code>, and the parameters <code>k</code> and <code>delta</code>
+($\delta$) should be provided as strings, and <code>n</code> should be provided as an
+integer.</p>
+<pre><code class="language-toml">[[dihedrals]]
+atoms = [&quot;C&quot;, &quot;C&quot;, &quot;C&quot;, &quot;C&quot;]
+torsion = {k = &quot;40 kJ/mol&quot;, delta = &quot;120 deg&quot;, n: 4}
+</code></pre>
+<h1>Electrostatic interactions</h1>
+<p>When some particles in a system are charged, they interact with a Coulomb
+potential: $$ V(x) = \frac{Z_i Z_j}{4 \pi \epsilon r_{ij}}, $$ where $Z_{i,j}$
+are the net charges of the particles, $r_{ij}$ the distance between them and
+$\epsilon$ the dielectric permittivity of the current medium (usually the one of
+void). Because this potential goes to zero at infinity slower than $1/r^3$, it
+can not be computed in periodic simulations using a cutoff distance. This
+section present the available solvers for electrostatic interactions.</p>
+<p>In the input files, electrostatic interactions are specified with two sections:
+the <code>[charges]</code> section set the values of the charges of the atoms in the
+system, and the <code>[coulomb]</code> section set the solver to use for the interaction.</p>
+<h2>Charge section</h2>
+<p>Charges for the particles in the system are set in a <code>[charges]</code> section in the
+potential input file. This section should contains multiple <code>name = &lt;charge&gt;</code>
+entries, one for each charged particle in the system.</p>
+<pre><code class="language-toml"># Some salt here
+[charges]
+Na = 1
+Cl = -1
+</code></pre>
+<h2>Ewald solver</h2>
+<p>Ewald idea for computing the electrostatic interactions is to split the
+interaction in a short-range term which can be handled with a cutoff scheme; and
+a long range term that ca be computed by using a <a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier
+transform</a>. For more
+information about the Ewald summation and its variants, see
+<a href="http://dx.doi.org/10.1063/1.881812">[Frenkel2002]</a>.</p>
+<p>The <code>[coulomb]</code> section for using an Ewald solver looks like this in the input
+file:</p>
+<pre><code class="language-toml">[coulomb]
+ewald = {cutoff = &quot;9 A&quot;, kmax = 7}
+</code></pre>
+<p>The <code>cutoff</code> parameter specify the cutoff distance for the short-range and
+long-range interactions splitting. The <code>kmax</code> parameter give the number of
+vector to use in the reciprocal space (the long-range part of interactions).
+Usually 7-8 is a good value for pure water, for very periodic charges a lower
+value like 5 can do it, and for more heterogeneous system, higher values of
+<code>kmax</code> are needed.</p>
+<h2>Wolf solver</h2>
+<p>Wolf method is another method for computing electrostatic interactions presented
+in <a href="http://dx.doi.org/10.1063/1.478738">[Wolf1999]</a>. This method replaces the
+expensive computation in reciprocal space from Ewald by a corrective term, and
+can be expressed as a converging sum over the charged pairs in the system.</p>
+<p>It is accessible with the <code>wolf</code> keyword in the input files:</p>
+<pre><code class="language-toml">[coulomb]
+wolf = {cutoff = &quot;11 A&quot;}
+</code></pre>
+<p>The only parameter is a <code>cutoff</code>, which should be taken bigger than the
+corresponding Ewald cutoff. A value of 10 A is a good one in pure water.</p>
+<h1>Restrictions</h1>
+<p>Some force fields define additional restrictions concerning which particles
+should interact together. For example, sometimes bonded particles should not
+interact through electrostatic potential, or some interactions should only be
+taken in account for particles not in the same molecule. The way to specify this
+is to use restrictions. Restrictions can be used in two places: in the
+<code>[[pairs]]</code> section, and in the <code>[coulomb]</code> section. In both cases, they are
+specified with the <code>restriction</code> keyword, and one of the possible values.</p>
+<pre><code class="language-toml">[[pairs]]
+atoms = [&quot;O&quot;, &quot;O&quot;]
+lj = {sigma = &quot;3 A&quot;, epsilon = &quot;123 kJ/mol&quot;}
+restriction = {scale14 = 0.5}
+
+[coulomb]
+ewald = {cutoff = &quot;8 A&quot;, kmax = 6}
+restriction = &quot;intermolecular&quot;
+</code></pre>
+<p>The possible values for <code>restriction</code> are:</p>
+<ul>
+<li><code>&quot;intramolecular&quot;</code> or <code>&quot;intra-molecular&quot;</code> to restrict the potential to only
+particles in the same molecule;</li>
+<li><code>&quot;intermolecular&quot;</code> or <code>&quot;inter-molecular&quot;</code> to restrict the potential to only
+particles NOT in the same molecule;</li>
+<li><code>&quot;exclude12&quot;</code> to exclude particles directly bonded together;</li>
+<li><code>&quot;exclude13&quot;</code> to exclude particles directly bonded together or forming an
+angle;</li>
+<li><code>&quot;exclude14&quot;</code> to exclude particles directly bonded together; forming an angle
+or a dihedral angle;</li>
+<li><code>{scale14 = &lt;scaling&gt;}</code> to exclude particles directly bonded together or
+forming an angle and to scale interaction between particles at 3 bonds of
+distance by the given <code>scaling</code> factor. The factor must be between 0 and 1.</li>
+</ul>
+<h1>Potential computations</h1>
+<p>The same potential function (Lennard-Jones, Harmonic, <em>etc.</em>) can be computed
+with different method: directly, by sifting it at the cutoff distance, using a
+table interpolation, <em>etc.</em> This is the purpose of computation. The default way
+is to use the mathematical function corresponding to a potential to compute it.
+To use another computation, the <code>computation</code> keyword can be used in the
+<code>[[pairs]]</code> section.</p>
+<h2>Cutoff computation</h2>
+<p>It is possible to use a cutoff radius $rc$ to compute a potential $U(r)$ such
+that:</p>
+<p>$$ V(r) = \begin{cases}
+U(r) - U(rc) &amp; r &lt;= rc \\
+0 &amp; r &gt; rc
+\end{cases}$$</p>
+<p>The potential $U$ is additionally shifted to make sure it is continuous at $r =
+rc$. This is important for molecular dynamics, where a discontinuity means an
+infinite force in the integration.</p>
+<p>You can choose the <code>cutoff</code> by providing it in the input:</p>
+<pre><code class="language-toml">[[pairs]]
+atoms = [&quot;O&quot;, &quot;O&quot;]
+lj = {sigma = &quot;3 A&quot;, epsilon = &quot;123 kJ/mol&quot;}
+computation = {cutoff = &quot;8 A&quot;}
+</code></pre>
+<h2>Table interpolation</h2>
+<p>Another way to compute a potential is to pre-compute it on a regularly spaced
+grid, and then to interpolate values for points in the grid. In some cases, this
+can be faster than recomputing the function every time.</p>
+<p>This can be done with the <code>table</code> computation, which does a linear interpolation
+in regularly spaced values in the <code>[0, max)</code> segment. You need to provide the
+<code>max</code> value, and the number of points <code>n</code> for the interpolation:</p>
+<pre><code class="language-toml">[[pairs]]
+atoms = [&quot;O&quot;, &quot;O&quot;]
+lj = {sigma = &quot;3 A&quot;, epsilon = &quot;123 kJ/mol&quot;}
+computation = {table = {max = &quot;8 A&quot;, n = 5000}}
+</code></pre>
+<hr />
+<p>[Frenkel2002] Frenkel, D. &amp; Smit, B. <em>Understanding molecular simulation.</em>
+(Academic press, 2002).</p>
+<p>[Wolf1999] Wolf, D., Keblinski, P., Phillpot, S. R. &amp; Eggebrecht, J. <em>Exact
+method for the simulation of Coulombic systems by spherically truncated,
+pairwise 1/r summation.</em> The Journal of Chemical Physics <strong>110</strong>, 8254 (1999).</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a href="input/interactions.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="input/simulations.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="input/interactions.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="input/simulations.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>
