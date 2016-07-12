@@ -306,16 +306,21 @@
 <span id="262">262</span>
 <span id="263">263</span>
 <span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
 </pre><pre class='rust '>
 <span class='comment'>// Cymbalum, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
 
-<span class='doccomment'>//! Potentials traits and implementations.</span>
 <span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>Matrix3</span>, <span class='ident'>Vector3D</span>};
 
-<span class='doccomment'>/// A `PotentialFunction` is a set of two parametric functions which takes a</span>
-<span class='doccomment'>/// single scalar variable and return the energy or the norm of the force</span>
-<span class='doccomment'>/// corresponding to the value of that variable.</span>
+<span class='doccomment'>/// A set of two parametric functions which takes a single scalar variable and</span>
+<span class='doccomment'>/// return the corresponding energy or norm of the force.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// The scalar variable will be the distance for pair potentials, the angle for</span>
 <span class='doccomment'>/// angles or dihedral angles potentials, *etc.*</span>
@@ -328,9 +333,11 @@
 
 <span class='macro'>impl_box_clone</span><span class='macro'>!</span>(<span class='ident'>PotentialFunction</span>, <span class='ident'>BoxClonePotential</span>, <span class='ident'>box_clone_potential</span>);
 
-<span class='doccomment'>/// Pair potential can be expressed by implenting the `PairPotential` trait.</span>
+<span class='doccomment'>/// Potential that can be used for two body interactions, either covalent or</span>
+<span class='doccomment'>/// non-covalent.</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>PairPotential</span> : <span class='ident'>PotentialFunction</span> <span class='op'>+</span> <span class='ident'>BoxClonePair</span> {
-    <span class='doccomment'>/// Compute the virial contribution corresponding to the distance `r` between the particles</span>
+    <span class='doccomment'>/// Compute the virial contribution corresponding to the distance `r`</span>
+    <span class='doccomment'>/// between the particles</span>
     <span class='kw'>fn</span> <span class='ident'>virial</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='kw-2'>&amp;</span><span class='ident'>Vector3D</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix3</span> {
         <span class='kw'>let</span> <span class='ident'>fact</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>force</span>(<span class='ident'>r</span>.<span class='ident'>norm</span>());
         <span class='kw'>let</span> <span class='ident'>rn</span> <span class='op'>=</span> <span class='ident'>r</span>.<span class='ident'>normalized</span>();
@@ -341,20 +348,19 @@
 
 <span class='macro'>impl_box_clone</span><span class='macro'>!</span>(<span class='ident'>PairPotential</span>, <span class='ident'>BoxClonePair</span>, <span class='ident'>box_clone_pair</span>);
 
-<span class='doccomment'>/// Angle potential can be expressed by implenting the `AnglePotential` trait.</span>
+<span class='doccomment'>/// Potential that can be used for molecular angles.</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AnglePotential</span> : <span class='ident'>PotentialFunction</span> <span class='op'>+</span> <span class='ident'>BoxCloneAngle</span> {}
 <span class='macro'>impl_box_clone</span><span class='macro'>!</span>(<span class='ident'>AnglePotential</span>, <span class='ident'>BoxCloneAngle</span>, <span class='ident'>box_clone_angle</span>);
 
-<span class='doccomment'>/// Dihedral angles potential can be expressed by implenting the</span>
-<span class='doccomment'>/// `DihedralPotential` trait.</span>
+<span class='doccomment'>/// Potential that can be used for molecular dihedral angles.</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>DihedralPotential</span> : <span class='ident'>PotentialFunction</span> <span class='op'>+</span> <span class='ident'>BoxCloneDihedral</span> {}
 <span class='macro'>impl_box_clone</span><span class='macro'>!</span>(<span class='ident'>DihedralPotential</span>, <span class='ident'>BoxCloneDihedral</span>, <span class='ident'>box_clone_dihedral</span>);
 
 <span class='comment'>/******************************************************************************/</span>
-<span class='doccomment'>/// The `NullPotential` always returns 0.0 as energy and force.</span>
+<span class='doccomment'>/// The `NullPotential` always returns 0 as energy and force.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// It is to be used when there is no potential interaction between two</span>
-<span class='doccomment'>/// particles kinds.</span>
+<span class='doccomment'>/// It should be used to indicate that there is no potential interaction between</span>
+<span class='doccomment'>/// two particles kinds.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>NullPotential</span>;
 <span class='kw'>impl</span> <span class='ident'>PotentialFunction</span> <span class='kw'>for</span> <span class='ident'>NullPotential</span> {
@@ -367,7 +373,9 @@
 <span class='kw'>impl</span> <span class='ident'>DihedralPotential</span> <span class='kw'>for</span> <span class='ident'>NullPotential</span> {}
 
 <span class='comment'>/******************************************************************************/</span>
-<span class='doccomment'>/// Lennard-Jones potential, using the following form:</span>
+<span class='doccomment'>/// Lennard-Jones potential.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// The following expression is used:</span>
 <span class='doccomment'>/// $$ V(r) = 4 \epsilon \left[ (\sigma/r)^{12} - (\sigma/r)^{6} \right] $$</span>
 <span class='doccomment'>/// where $\sigma$ is a distance constant, and $\epsilon$ an energetic constant.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
@@ -395,7 +403,9 @@
 <span class='kw'>impl</span> <span class='ident'>PairPotential</span> <span class='kw'>for</span> <span class='ident'>LennardJones</span> {}
 
 <span class='comment'>/******************************************************************************/</span>
-<span class='doccomment'>/// Harmonic potential, using the following form:</span>
+<span class='doccomment'>/// Harmonic potential.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// The following expression is used:</span>
 <span class='doccomment'>/// $$ V(x) = \frac 12 k (x - x_0)^2 $$</span>
 <span class='doccomment'>/// where $x_0$ is the distance equilibrium, and $k$ the elastic constant.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
@@ -424,7 +434,9 @@
 <span class='kw'>impl</span> <span class='ident'>DihedralPotential</span> <span class='kw'>for</span> <span class='ident'>Harmonic</span> {}
 
 <span class='comment'>/******************************************************************************/</span>
-<span class='doccomment'>/// Cosine harmonic potential, using the following form:</span>
+<span class='doccomment'>/// Cosine harmonic potential.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// The following expression is used:</span>
 <span class='doccomment'>/// $$ V(r) = \frac 12 k (\cos r - \cos x_0)^2 $$</span>
 <span class='doccomment'>/// where $x_0$ is the distance equilibrium, and $k$ the elastic constant.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
@@ -460,8 +472,10 @@
 <span class='kw'>impl</span> <span class='ident'>DihedralPotential</span> <span class='kw'>for</span> <span class='ident'>CosineHarmonic</span> {}
 
 <span class='comment'>/******************************************************************************/</span>
-<span class='doccomment'>/// Torsion potential, using the following form:</span>
-<span class='doccomment'>/// $$ V(r) = k(1 + \cos(n\phi􏰈 - \delta)) $$</span>
+<span class='doccomment'>/// Torsion potential.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// The following expression is used:</span>
+<span class='doccomment'>/// $$ V(r) = k(1 + \cos(n\phi_0 - \delta)) $$</span>
 <span class='doccomment'>/// where $k$ is the force constant, `n` the periodicity of the potential, and</span>
 <span class='doccomment'>/// $\delta$ the equilibrium angle.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>

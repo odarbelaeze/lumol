@@ -880,8 +880,6 @@
 <span id="836">836</span>
 <span id="837">837</span>
 <span id="838">838</span>
-<span id="839">839</span>
-<span id="840">840</span>
 </pre><pre class='rust '>
 <span class='comment'>// Cymbalum, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -898,15 +896,13 @@
 
 <span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>GlobalPotential</span>, <span class='ident'>CoulombicPotential</span>, <span class='ident'>GlobalCache</span>};
 
-<span class='doccomment'>/// Ewald summation of the coulombic interactions. The Ewald summation is based</span>
-<span class='doccomment'>/// on a separation of the coulombic potential U in two parts, using the trivial</span>
-<span class='doccomment'>/// identity:</span>
+<span class='doccomment'>/// Ewald summation of the coulombic interactions.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>///     U(x) = U(x) * (f(x) + 1) - U(x) * f(x)</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// where `f(x)` is the `erf` function. This leads to a separation of the</span>
-<span class='doccomment'>/// conditionally convergent coulombic sum into two absolutly convergent sums:</span>
-<span class='doccomment'>/// one in real space, and the other in Fourier or k-space.</span>
+<span class='doccomment'>/// The Ewald summation is based on a separation of the coulombic potential `U`</span>
+<span class='doccomment'>/// in two parts, using the trivial identity: $$U(x) = U(x) * (f(x) + 1)  -</span>
+<span class='doccomment'>/// U(x) * f(x)$$ where `f(x)` is the `erf` function. This leads to a separation</span>
+<span class='doccomment'>/// of the conditionally convergent coulombic sum into two absolutly convergent</span>
+<span class='doccomment'>/// sums: one in real space, and the other in Fourier or k-space.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// For more informations about this algorithm see [FS2002].</span>
 <span class='doccomment'>///</span>

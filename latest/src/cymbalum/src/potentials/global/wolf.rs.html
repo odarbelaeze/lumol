@@ -289,6 +289,7 @@
 <span id="245">245</span>
 <span id="246">246</span>
 <span id="247">247</span>
+<span id="248">248</span>
 </pre><pre class='rust '>
 <span class='comment'>// Cymbalum, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -304,8 +305,9 @@
 
 <span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>GlobalPotential</span>, <span class='ident'>CoulombicPotential</span>, <span class='ident'>GlobalCache</span>};
 
-<span class='doccomment'>/// Wolf summation for the coulombic potential, as defined in [Wolf1999]. This</span>
-<span class='doccomment'>/// is a fast direct pairwise summation for coulombic potential.</span>
+<span class='doccomment'>/// Wolf summation for coulombic interactions.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// This is a fast, direct, pairwise summation for coulombic potential [Wolf1999].</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// [Wolf1999]: Wolf, D. et al. J. Chem. Phys. 110, 8254 (1999).</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>

@@ -211,20 +211,23 @@
 <span id="167">167</span>
 <span id="168">168</span>
 <span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
 </pre><pre class='rust '>
 <span class='comment'>// Cymbalum, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
 
-<span class='doccomment'>//! A potential computation is a way of computing a potential given its</span>
-<span class='doccomment'>//! expression (represented by a `PotentialFunction`). The same potential can be</span>
-<span class='doccomment'>//! computed either direcly, or using a cutoff, or by a table interpolation, ...</span>
 <span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>PotentialFunction</span>, <span class='ident'>PairPotential</span>};
 
-<span class='doccomment'>/// A `Computation` is a way to compute a potential.</span>
+<span class='doccomment'>/// Methods for energy and forces computation.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// A potential computation is a way of computing a potential given its</span>
+<span class='doccomment'>/// expression (represented by a `PotentialFunction`). The same potential can be</span>
+<span class='doccomment'>/// computed either direcly, or using a cutoff, or by a table interpolation, ...</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Computation</span>: <span class='ident'>Sync</span> <span class='op'>+</span> <span class='ident'>Send</span> {
-    <span class='comment'>// / Kind of potential we can apply this computation to</span>
-    <span class='comment'>// type Potential: PotentialFunction + ?Sized;</span>
-
     <span class='doccomment'>/// Compute the energy value at `r`</span>
     <span class='kw'>fn</span> <span class='ident'>compute_energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>;
 
@@ -243,8 +246,9 @@
 }
 
 <span class='comment'>/******************************************************************************/</span>
-<span class='doccomment'>/// Direct computation of the potential with a cutoff applied. The computed</span>
-<span class='doccomment'>/// energy is shifted to ensure `E(rc) = 0`, where `rc` is the cutoff distance.</span>
+<span class='doccomment'>/// Computation of a potential with a cutoff.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// Energy is shifted to ensure `E(rc) = 0`, where `rc` is the cutoff distance.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>CutoffComputation</span> {
     <span class='doccomment'>/// Potential to compute</span>
@@ -287,11 +291,12 @@
 <span class='kw'>impl</span> <span class='ident'>PairPotential</span> <span class='kw'>for</span> <span class='ident'>CutoffComputation</span> {}
 
 <span class='comment'>/******************************************************************************/</span>
-<span class='doccomment'>/// Computation of a potential using tabulated values. This can be faster than</span>
-<span class='doccomment'>/// direct computation for smooth potentials, but will either uses more memory</span>
-<span class='doccomment'>/// or is less precise than direct computation. Values are tabulated in the `[0,</span>
-<span class='doccomment'>/// max)` range, and a cutoff is applied after `max`. Energy is shifted before</span>
-<span class='doccomment'>/// the cutoff to ensure that `E(max) = 0`</span>
+<span class='doccomment'>/// Computation of a potential using tabulated values.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// This can be faster than direct computation for smooth potentials, but will</span>
+<span class='doccomment'>/// either uses more memory or be less precise than direct computation. Values</span>
+<span class='doccomment'>/// are tabulated in the `[0, max)` range, and a cutoff is applied after `max`.</span>
+<span class='doccomment'>/// Energy is shifted to ensure `E(max) = 0`</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TableComputation</span> {
     <span class='comment'>// TODO: use genericity over static values here if it ever comes out</span>
@@ -299,13 +304,13 @@
 
     <span class='doccomment'>/// Number of tabulated values</span>
     <span class='ident'>size</span>: <span class='ident'>usize</span>,
-    <span class='doccomment'>/// Step for tabulated value. compute_energy[i]/compute_force[i] contains compute_energy/compute_force at</span>
-    <span class='doccomment'>/// r = i * delta</span>
+    <span class='doccomment'>/// Step for tabulated value. `energy_table[i]`/`force_table[i]` contains</span>
+    <span class='doccomment'>/// energy/force at `r = i * delta`</span>
     <span class='ident'>delta</span>: <span class='ident'>f64</span>,
     <span class='doccomment'>/// Tabulated potential</span>
-    <span class='ident'>compute_energy</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span>,
+    <span class='ident'>energy_table</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span>,
     <span class='doccomment'>/// Tabulated compute_force</span>
-    <span class='ident'>compute_force</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span>,
+    <span class='ident'>force_table</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span>,
 }
 
 
@@ -315,14 +320,19 @@
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>potential</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PairPotential</span><span class='op'>&gt;</span>, <span class='ident'>size</span>: <span class='ident'>usize</span>, <span class='ident'>max</span>:<span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>TableComputation</span> {
         <span class='kw'>let</span> <span class='ident'>delta</span> <span class='op'>=</span> <span class='ident'>max</span><span class='op'>/</span>(<span class='ident'>size</span> <span class='kw'>as</span> <span class='ident'>f64</span>);
         <span class='kw'>let</span> <span class='ident'>energy_shift</span> <span class='op'>=</span> <span class='ident'>potential</span>.<span class='ident'>energy</span>(<span class='ident'>max</span>);
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>compute_energy</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>size</span>);
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>compute_force</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>size</span>);
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>energy_table</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>size</span>);
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>force_table</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>size</span>);
         <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='ident'>size</span> {
             <span class='kw'>let</span> <span class='ident'>pos</span> <span class='op'>=</span> <span class='ident'>i</span> <span class='kw'>as</span> <span class='ident'>f64</span> <span class='op'>*</span> <span class='ident'>delta</span>;
-            <span class='ident'>compute_energy</span>.<span class='ident'>push</span>(<span class='ident'>potential</span>.<span class='ident'>energy</span>(<span class='ident'>pos</span>) <span class='op'>-</span> <span class='ident'>energy_shift</span>);
-            <span class='ident'>compute_force</span>.<span class='ident'>push</span>(<span class='ident'>potential</span>.<span class='ident'>force</span>(<span class='ident'>pos</span>));
+            <span class='ident'>energy_table</span>.<span class='ident'>push</span>(<span class='ident'>potential</span>.<span class='ident'>energy</span>(<span class='ident'>pos</span>) <span class='op'>-</span> <span class='ident'>energy_shift</span>);
+            <span class='ident'>force_table</span>.<span class='ident'>push</span>(<span class='ident'>potential</span>.<span class='ident'>force</span>(<span class='ident'>pos</span>));
         }
-        <span class='ident'>TableComputation</span>{<span class='ident'>size</span>: <span class='ident'>size</span>, <span class='ident'>delta</span>: <span class='ident'>delta</span>, <span class='ident'>compute_energy</span>: <span class='ident'>compute_energy</span>, <span class='ident'>compute_force</span>: <span class='ident'>compute_force</span>}
+        <span class='ident'>TableComputation</span> {
+            <span class='ident'>size</span>: <span class='ident'>size</span>,
+            <span class='ident'>delta</span>: <span class='ident'>delta</span>,
+            <span class='ident'>energy_table</span>: <span class='ident'>energy_table</span>,
+            <span class='ident'>force_table</span>: <span class='ident'>force_table</span>
+        }
     }
 }
 
@@ -331,8 +341,8 @@
         <span class='kw'>let</span> <span class='ident'>bin</span> <span class='op'>=</span> <span class='ident'>f64</span>::<span class='ident'>floor</span>(<span class='ident'>r</span> <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>delta</span>) <span class='kw'>as</span> <span class='ident'>usize</span>;
         <span class='kw'>if</span> <span class='ident'>bin</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>size</span> <span class='op'>-</span> <span class='number'>1</span> {
             <span class='kw'>let</span> <span class='ident'>dx</span> <span class='op'>=</span> <span class='ident'>r</span> <span class='op'>-</span> (<span class='ident'>bin</span> <span class='kw'>as</span> <span class='ident'>f64</span>)<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>delta</span>;
-            <span class='kw'>let</span> <span class='ident'>slope</span> <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>compute_energy</span>[<span class='ident'>bin</span> <span class='op'>+</span> <span class='number'>1</span>] <span class='op'>-</span> <span class='self'>self</span>.<span class='ident'>compute_energy</span>[<span class='ident'>bin</span>])<span class='op'>/</span><span class='self'>self</span>.<span class='ident'>delta</span>;
-            <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>compute_energy</span>[<span class='ident'>bin</span>] <span class='op'>+</span> <span class='ident'>dx</span><span class='op'>*</span><span class='ident'>slope</span>;
+            <span class='kw'>let</span> <span class='ident'>slope</span> <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>energy_table</span>[<span class='ident'>bin</span> <span class='op'>+</span> <span class='number'>1</span>] <span class='op'>-</span> <span class='self'>self</span>.<span class='ident'>energy_table</span>[<span class='ident'>bin</span>])<span class='op'>/</span><span class='self'>self</span>.<span class='ident'>delta</span>;
+            <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>energy_table</span>[<span class='ident'>bin</span>] <span class='op'>+</span> <span class='ident'>dx</span><span class='op'>*</span><span class='ident'>slope</span>;
         } <span class='kw'>else</span> {
             <span class='kw'>return</span> <span class='number'>0.0</span>;
         }
@@ -342,8 +352,8 @@
         <span class='kw'>let</span> <span class='ident'>bin</span> <span class='op'>=</span> <span class='ident'>f64</span>::<span class='ident'>floor</span>(<span class='ident'>r</span> <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>delta</span>) <span class='kw'>as</span> <span class='ident'>usize</span>;
         <span class='kw'>if</span> <span class='ident'>bin</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>size</span> <span class='op'>-</span> <span class='number'>1</span> {
             <span class='kw'>let</span> <span class='ident'>dx</span> <span class='op'>=</span> <span class='ident'>r</span> <span class='op'>-</span> (<span class='ident'>bin</span> <span class='kw'>as</span> <span class='ident'>f64</span>)<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>delta</span>;
-            <span class='kw'>let</span> <span class='ident'>slope</span> <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>compute_force</span>[<span class='ident'>bin</span> <span class='op'>+</span> <span class='number'>1</span>] <span class='op'>-</span> <span class='self'>self</span>.<span class='ident'>compute_force</span>[<span class='ident'>bin</span>])<span class='op'>/</span><span class='self'>self</span>.<span class='ident'>delta</span>;
-            <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>compute_force</span>[<span class='ident'>bin</span>] <span class='op'>+</span> <span class='ident'>dx</span><span class='op'>*</span><span class='ident'>slope</span>;
+            <span class='kw'>let</span> <span class='ident'>slope</span> <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>force_table</span>[<span class='ident'>bin</span> <span class='op'>+</span> <span class='number'>1</span>] <span class='op'>-</span> <span class='self'>self</span>.<span class='ident'>force_table</span>[<span class='ident'>bin</span>])<span class='op'>/</span><span class='self'>self</span>.<span class='ident'>delta</span>;
+            <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>force_table</span>[<span class='ident'>bin</span>] <span class='op'>+</span> <span class='ident'>dx</span><span class='op'>*</span><span class='ident'>slope</span>;
         } <span class='kw'>else</span> {
             <span class='kw'>return</span> <span class='number'>0.0</span>;
         }
