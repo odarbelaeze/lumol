@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-395' class='srclink' href='../src/chemfiles/cell.rs.html#50-52' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-389' class='srclink' href='../src/chemfiles/cell.rs.html#50-52' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct UnitCell {
     // some fields omitted
 }</pre><div class='docblock'><p>An <code>UnitCell</code> represent the box containing the atoms in the system, and its
@@ -65,7 +65,7 @@ represent such matrix as an upper triangular matrix:</p>
         <span class='op'>|</span>  <span class='number'>0</span>     <span class='number'>0</span>    <span class='ident'>c_z</span> <span class='op'>|</span></pre>
 
 <p>An unit cell also have a cell type, represented by the <code>CellType</code> enum.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../chemfiles/struct.UnitCell.html' title='chemfiles::UnitCell'>UnitCell</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-397' class='srclink' href='../src/chemfiles/cell.rs.html#54-181' title='goto source code'>[src]</a></span></h3>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../chemfiles/struct.UnitCell.html' title='chemfiles::UnitCell'>UnitCell</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-391' class='srclink' href='../src/chemfiles/cell.rs.html#54-181' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(a: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, b: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, c: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='type' href='../chemfiles/type.Result.html' title='chemfiles::Result'>Result</a>&lt;<a class='struct' href='../chemfiles/struct.UnitCell.html' title='chemfiles::UnitCell'>UnitCell</a>&gt;</code></h4>
 <div class='docblock'><p>Create an <code>Orthorombic</code> <code>UnitCell</code> from the three lenghts, in Angstroms.</p>
 </div><h4 id='method.infinite' class='method'><code>fn <a href='#method.infinite' class='fnname'>infinite</a>() -&gt; <a class='type' href='../chemfiles/type.Result.html' title='chemfiles::Result'>Result</a>&lt;<a class='struct' href='../chemfiles/struct.UnitCell.html' title='chemfiles::UnitCell'>UnitCell</a>&gt;</code></h4>
@@ -98,7 +98,7 @@ no validity check is made on the pointer.</p>
 </div><h4 id='method.as_ptr' class='method'><code>unsafe fn <a href='#method.as_ptr' class='fnname'>as_ptr</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.pointer.html'>*const </a><a class='enum' href='../chemfiles_sys/enum.CHFL_CELL.html' title='chemfiles_sys::CHFL_CELL'>CHFL_CELL</a></code></h4>
 <div class='docblock'><p>Get the underlying C pointer. This function is unsafe because no
 lifetime guarantee is made on the pointer.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../chemfiles/struct.UnitCell.html' title='chemfiles::UnitCell'>UnitCell</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-472' class='srclink' href='../src/chemfiles/cell.rs.html#183-191' title='goto source code'>[src]</a></span></h3>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../chemfiles/struct.UnitCell.html' title='chemfiles::UnitCell'>UnitCell</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-466' class='srclink' href='../src/chemfiles/cell.rs.html#183-191' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
 <div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
 </div></div></section>

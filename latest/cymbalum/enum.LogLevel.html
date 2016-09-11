@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-22' class='srclink' href='../log/enum.LogLevel.html?gotosrc=22' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-34' class='srclink' href='../log/enum.LogLevel.html?gotosrc=34' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum LogLevel {
     Error,
     Warn,
@@ -58,27 +58,32 @@
 
 <p>A <code>LogLevel</code> may be compared directly to a <code>LogLevelFilter</code>.</p>
 </div><h2 class='variants'>Variants</h2>
-<table class='variants_table'><tr><td id='variant.Error'><code>Error</code></td><td><div class='docblock'><p>The &quot;error&quot; level.</p>
+<span id='variant.Error' class='variant'><code>Error</code></span><div class='docblock'><p>The &quot;error&quot; level.</p>
 
 <p>Designates very serious errors.</p>
-</div></td><td></td></tr><tr><td id='variant.Warn'><code>Warn</code></td><td><div class='docblock'><p>The &quot;warn&quot; level.</p>
+</div><span id='variant.Warn' class='variant'><code>Warn</code></span><div class='docblock'><p>The &quot;warn&quot; level.</p>
 
 <p>Designates hazardous situations.</p>
-</div></td><td></td></tr><tr><td id='variant.Info'><code>Info</code></td><td><div class='docblock'><p>The &quot;info&quot; level.</p>
+</div><span id='variant.Info' class='variant'><code>Info</code></span><div class='docblock'><p>The &quot;info&quot; level.</p>
 
 <p>Designates useful information.</p>
-</div></td><td></td></tr><tr><td id='variant.Debug'><code>Debug</code></td><td><div class='docblock'><p>The &quot;debug&quot; level.</p>
+</div><span id='variant.Debug' class='variant'><code>Debug</code></span><div class='docblock'><p>The &quot;debug&quot; level.</p>
 
 <p>Designates lower priority information.</p>
-</div></td><td></td></tr><tr><td id='variant.Trace'><code>Trace</code></td><td><div class='docblock'><p>The &quot;trace&quot; level.</p>
+</div><span id='variant.Trace' class='variant'><code>Trace</code></span><div class='docblock'><p>The &quot;trace&quot; level.</p>
 
 <p>Designates very low priority, often extremely verbose, information.</p>
-</div></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
 <div class='impl-items'><h4 id='method.max' class='method'><code>fn <a href='#method.max' class='fnname'>max</a>() -&gt; <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></h4>
 <div class='docblock'><p>Returns the most verbose logging level.</p>
 </div><h4 id='method.to_log_level_filter' class='method'><code>fn <a href='#method.to_log_level_filter' class='fnname'>to_log_level_filter</a>(&amp;self) -&gt; <a class='enum' href='../log/enum.LogLevelFilter.html' title='log::LogLevelFilter'>LogLevelFilter</a></code></h4>
 <div class='docblock'><p>Converts the <code>LogLevel</code> to the equivalent <code>LogLevelFilter</code>.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>,&nbsp;<a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html' title='core::fmt::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
 <div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></h4>
 <div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
 </div><h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h4>
@@ -120,16 +125,11 @@
 <div class='docblock'><p>This method returns an <code>Ordering</code> between <code>self</code> and <code>other</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html#tymethod.cmp">Read more</a></p>
 </div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html' title='core::str::FromStr'>FromStr</a> for <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
 <div class='impl-items'><h4 id='associatedtype.Err' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html#associatedtype.Err' class='type'>Err</a> = <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a></code></h4>
-<h4 id='method.from_str' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html#tymethod.from_str' class='fnname'>from_str</a>(level: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.from_str' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html#tymethod.from_str' class='fnname'>from_str</a>(level: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a>,&nbsp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
 </div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
-<div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, fmt: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html' title='core::fmt::Error'>Error</a>&gt;</code></h4>
+<div class='impl-items'><h4 id='method.fmt-1' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, fmt: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>,&nbsp;<a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html' title='core::fmt::Error'>Error</a>&gt;</code></h4>
 <div class='docblock'><p>Formats the value using the given formatter.</p>
-</div></div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
-<div class='impl-items'><h4 id='method.fmt-1' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html' title='core::fmt::Error'>Error</a>&gt;</code></h4>
-<div class='docblock'><p>Formats the value using the given formatter.</p>
-</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
-<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../cymbalum/enum.LogLevel.html' title='cymbalum::LogLevel'>LogLevel</a></code></span><span class='out-of-band'></span></h3>
-<div class='impl-items'></div></section>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

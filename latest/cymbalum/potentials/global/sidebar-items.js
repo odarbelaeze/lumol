@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Ewald","Ewald summation of the coulombic interactions."],["Wolf","Wolf summation for coulombic interactions."]],"trait":[["CoulombicPotential","Electrostatic potential solver."],["GlobalPotential","Potential acting on the whole system at once."]]});

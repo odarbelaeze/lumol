@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.0/src/impl_constructors.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.2/src/impl_constructors.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>impl_constructors.rs.html -- source</title>
@@ -557,11 +557,11 @@
     {
         <span class='comment'>// debug check for issues that indicates wrong use of this constructor</span>
         <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='kw'>match</span> <span class='ident'>dimension</span>::<span class='ident'>can_index_slice</span>(<span class='kw-2'>&amp;</span><span class='ident'>v</span>, <span class='kw-2'>&amp;</span><span class='ident'>dim</span>, <span class='kw-2'>&amp;</span><span class='ident'>strides</span>) {
-            <span class='prelude-val'>Ok</span>(_) <span class='op'>=&gt;</span> <span class='boolvalue'>true</span>,
+            <span class='prelude-val'>Ok</span>(_) <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
             <span class='prelude-val'>Err</span>(<span class='kw-2'>ref</span> <span class='ident'>e</span>) <span class='op'>=&gt;</span> <span class='kw'>match</span> <span class='ident'>e</span>.<span class='ident'>kind</span>() {
-                <span class='ident'>ErrorKind</span>::<span class='ident'>OutOfBounds</span> <span class='op'>=&gt;</span> <span class='boolvalue'>false</span>,
-                <span class='ident'>ErrorKind</span>::<span class='ident'>RangeLimited</span> <span class='op'>=&gt;</span> <span class='boolvalue'>false</span>,
-                _ <span class='op'>=&gt;</span> <span class='boolvalue'>true</span>,
+                <span class='ident'>ErrorKind</span>::<span class='ident'>OutOfBounds</span> <span class='op'>=&gt;</span> <span class='bool-val'>false</span>,
+                <span class='ident'>ErrorKind</span>::<span class='ident'>RangeLimited</span> <span class='op'>=&gt;</span> <span class='bool-val'>false</span>,
+                _ <span class='op'>=&gt;</span> <span class='bool-val'>true</span>,
             }
         });
         <span class='ident'>ArrayBase</span> {

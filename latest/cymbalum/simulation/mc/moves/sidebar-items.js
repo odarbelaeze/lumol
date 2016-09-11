@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Rotate","Monte-Carlo move for rotating a rigid molecule"],["Translate","Monte-Carlo move for translating a molecule"]],"trait":[["MCMove","The `MCMove` trait correspond to the set of methods used in Monte-Carlo simulations."]]});

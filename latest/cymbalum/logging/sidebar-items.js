@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["LogLevel","An enum representing the available verbosity levels of the logging framework"]],"struct":[["Logger","Logger with capacity to write to the standard output stream, the standard error stream or a file."]]});

@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["Error","Possible causes of error when reading input files"]],"struct":[["TrajectoryError","Possible error when reading and wrinting to trajectories"]],"type":[["Result","Custom `Result` type for input files"]]});

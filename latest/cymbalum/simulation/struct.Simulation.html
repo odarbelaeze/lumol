@@ -47,13 +47,13 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-4811' class='srclink' href='../../src/cymbalum/src/simulation/simulations.rs.html#53-56' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-4773' class='srclink' href='../../src/cymbalum/src/simulation/simulations.rs.html#53-56' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Simulation {
     // some fields omitted
 }</pre><div class='docblock'><p>The Simulation struct holds all the needed algorithms for running the
 simulation. It should be use together with a <code>System</code> to perform the
 simulation.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../cymbalum/simulation/struct.Simulation.html' title='cymbalum::simulation::Simulation'>Simulation</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4814' class='srclink' href='../../src/cymbalum/src/simulation/simulations.rs.html#58-110' title='goto source code'>[src]</a></span></h3>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../cymbalum/simulation/struct.Simulation.html' title='cymbalum::simulation::Simulation'>Simulation</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4776' class='srclink' href='../../src/cymbalum/src/simulation/simulations.rs.html#58-110' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(propagator: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/simulation/propagator/trait.Propagator.html' title='cymbalum::simulation::propagator::Propagator'>Propagator</a>&gt;) -&gt; <a class='struct' href='../../cymbalum/simulation/struct.Simulation.html' title='cymbalum::simulation::Simulation'>Simulation</a></code></h4>
 <div class='docblock'><p>Create a new Simulation from a Propagator.</p>
 </div><h4 id='method.run' class='method'><code>fn <a href='#method.run' class='fnname'>run</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>, nsteps: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></h4>

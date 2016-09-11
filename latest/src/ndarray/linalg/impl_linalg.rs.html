@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.0/src/linalg/impl_linalg.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.2/src/linalg/impl_linalg.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>impl_linalg.rs.html -- source</title>
@@ -1126,17 +1126,17 @@
           <span class='ident'>S</span>::<span class='ident'>Elem</span>: <span class='ident'>Any</span>,
 {
     <span class='kw'>if</span> <span class='op'>!</span><span class='ident'>same_type</span>::<span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>S</span>::<span class='ident'>Elem</span><span class='op'>&gt;</span>() {
-        <span class='kw'>return</span> <span class='boolvalue'>false</span>;
+        <span class='kw'>return</span> <span class='bool-val'>false</span>;
     }
     <span class='kw'>if</span> <span class='ident'>a</span>.<span class='ident'>len</span>() <span class='op'>&gt;</span> <span class='ident'>blas_index</span>::<span class='ident'>max_value</span>() <span class='kw'>as</span> <span class='ident'>usize</span> {
-        <span class='kw'>return</span> <span class='boolvalue'>false</span>;
+        <span class='kw'>return</span> <span class='bool-val'>false</span>;
     }
     <span class='kw'>let</span> <span class='ident'>stride</span> <span class='op'>=</span> <span class='ident'>a</span>.<span class='ident'>strides</span>()[<span class='number'>0</span>];
     <span class='kw'>if</span> <span class='ident'>stride</span> <span class='op'>&gt;</span> <span class='ident'>blas_index</span>::<span class='ident'>max_value</span>() <span class='kw'>as</span> <span class='ident'>isize</span> <span class='op'>||</span>
         <span class='ident'>stride</span> <span class='op'>&lt;</span> <span class='ident'>blas_index</span>::<span class='ident'>min_value</span>() <span class='kw'>as</span> <span class='ident'>isize</span> {
-        <span class='kw'>return</span> <span class='boolvalue'>false</span>;
+        <span class='kw'>return</span> <span class='bool-val'>false</span>;
     }
-    <span class='boolvalue'>true</span>
+    <span class='bool-val'>true</span>
 }
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;blas&quot;</span>)]</span>
@@ -1146,28 +1146,28 @@
           <span class='ident'>S</span>::<span class='ident'>Elem</span>: <span class='ident'>Any</span>,
 {
     <span class='kw'>if</span> <span class='op'>!</span><span class='ident'>same_type</span>::<span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>S</span>::<span class='ident'>Elem</span><span class='op'>&gt;</span>() {
-        <span class='kw'>return</span> <span class='boolvalue'>false</span>;
+        <span class='kw'>return</span> <span class='bool-val'>false</span>;
     }
     <span class='kw'>let</span> <span class='ident'>s0</span> <span class='op'>=</span> <span class='ident'>a</span>.<span class='ident'>strides</span>()[<span class='number'>0</span>];
     <span class='kw'>let</span> <span class='ident'>s1</span> <span class='op'>=</span> <span class='ident'>a</span>.<span class='ident'>strides</span>()[<span class='number'>1</span>];
     <span class='kw'>if</span> <span class='ident'>s1</span> <span class='op'>!=</span> <span class='number'>1</span> {
-        <span class='kw'>return</span> <span class='boolvalue'>false</span>;
+        <span class='kw'>return</span> <span class='bool-val'>false</span>;
     }
     <span class='kw'>if</span> <span class='ident'>s0</span> <span class='op'>&lt;</span> <span class='number'>1</span> <span class='op'>||</span> <span class='ident'>s1</span> <span class='op'>&lt;</span> <span class='number'>1</span> {
-        <span class='kw'>return</span> <span class='boolvalue'>false</span>;
+        <span class='kw'>return</span> <span class='bool-val'>false</span>;
     }
     <span class='kw'>if</span> (<span class='ident'>s0</span> <span class='op'>&gt;</span> <span class='ident'>blas_index</span>::<span class='ident'>max_value</span>() <span class='kw'>as</span> <span class='ident'>isize</span> <span class='op'>||</span> <span class='ident'>s0</span> <span class='op'>&lt;</span> <span class='ident'>blas_index</span>::<span class='ident'>min_value</span>() <span class='kw'>as</span> <span class='ident'>isize</span>) <span class='op'>||</span>
         (<span class='ident'>s1</span> <span class='op'>&gt;</span> <span class='ident'>blas_index</span>::<span class='ident'>max_value</span>() <span class='kw'>as</span> <span class='ident'>isize</span> <span class='op'>||</span> <span class='ident'>s1</span> <span class='op'>&lt;</span> <span class='ident'>blas_index</span>::<span class='ident'>min_value</span>() <span class='kw'>as</span> <span class='ident'>isize</span>)
     {
-        <span class='kw'>return</span> <span class='boolvalue'>false</span>;
+        <span class='kw'>return</span> <span class='bool-val'>false</span>;
     }
     <span class='kw'>let</span> (<span class='ident'>m</span>, <span class='ident'>n</span>) <span class='op'>=</span> <span class='ident'>a</span>.<span class='ident'>dim</span>();
     <span class='kw'>if</span> <span class='ident'>m</span> <span class='op'>&gt;</span> <span class='ident'>blas_index</span>::<span class='ident'>max_value</span>() <span class='kw'>as</span> <span class='ident'>usize</span> <span class='op'>||</span>
         <span class='ident'>n</span> <span class='op'>&gt;</span> <span class='ident'>blas_index</span>::<span class='ident'>max_value</span>() <span class='kw'>as</span> <span class='ident'>usize</span>
     {
-        <span class='kw'>return</span> <span class='boolvalue'>false</span>;
+        <span class='kw'>return</span> <span class='bool-val'>false</span>;
     }
-    <span class='boolvalue'>true</span>
+    <span class='bool-val'>true</span>
 }
 </pre>
 </section>

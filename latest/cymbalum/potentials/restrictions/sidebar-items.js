@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["PairRestriction","Possible restrictions on the pair interactions."]],"struct":[["RestrictionInfo","Restriction information attached to a pair of Particles in a System"]]});

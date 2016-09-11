@@ -363,7 +363,7 @@
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
 
 <span class='doccomment'>//! [Chemfiles](https://github.com/chemfiles/chemfiles/) adaptators for Cymbalum.</span>
-<span class='kw'>use</span> <span class='ident'>system</span>::{<span class='ident'>System</span>, <span class='ident'>Particle</span>, <span class='ident'>Molecule</span>, <span class='ident'>UnitCell</span>, <span class='ident'>CellType</span>};
+<span class='kw'>use</span> <span class='ident'>system</span>::{<span class='ident'>System</span>, <span class='ident'>Particle</span>, <span class='ident'>Molecule</span>, <span class='ident'>UnitCell</span>, <span class='ident'>CellShape</span>};
 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>Vector3D</span>;
 <span class='kw'>use</span> <span class='ident'>chemfiles</span>;
 <span class='kw'>use</span> <span class='ident'>input</span>::<span class='ident'>error</span>::<span class='ident'>TrajectoryError</span>;
@@ -487,15 +487,15 @@
 <span class='kw'>impl</span> <span class='ident'>ToChemfiles</span> <span class='kw'>for</span> <span class='ident'>UnitCell</span> {
     <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>chemfiles</span>::<span class='ident'>UnitCell</span>;
     <span class='kw'>fn</span> <span class='ident'>to_chemfiles</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>TrajectoryResult</span><span class='op'>&lt;</span><span class='ident'>chemfiles</span>::<span class='ident'>UnitCell</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>celltype</span>() {
-            <span class='ident'>CellType</span>::<span class='ident'>Infinite</span> <span class='op'>=&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>shape</span>() {
+            <span class='ident'>CellShape</span>::<span class='ident'>Infinite</span> <span class='op'>=&gt;</span> {
                 <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>chemfiles</span>::<span class='ident'>UnitCell</span>::<span class='ident'>infinite</span>())
             }
-            <span class='ident'>CellType</span>::<span class='ident'>Orthorombic</span> <span class='op'>=&gt;</span> {
+            <span class='ident'>CellShape</span>::<span class='ident'>Orthorombic</span> <span class='op'>=&gt;</span> {
                 <span class='kw'>let</span> (<span class='ident'>a</span>, <span class='ident'>b</span>, <span class='ident'>c</span>) <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>a</span>(), <span class='self'>self</span>.<span class='ident'>b</span>(), <span class='self'>self</span>.<span class='ident'>c</span>());
                 <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>chemfiles</span>::<span class='ident'>UnitCell</span>::<span class='ident'>new</span>(<span class='ident'>a</span>, <span class='ident'>b</span>, <span class='ident'>c</span>))
             },
-            <span class='ident'>CellType</span>::<span class='ident'>Triclinic</span> <span class='op'>=&gt;</span> {
+            <span class='ident'>CellShape</span>::<span class='ident'>Triclinic</span> <span class='op'>=&gt;</span> {
                 <span class='kw'>let</span> (<span class='ident'>a</span>, <span class='ident'>b</span>, <span class='ident'>c</span>) <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>a</span>(), <span class='self'>self</span>.<span class='ident'>b</span>(), <span class='self'>self</span>.<span class='ident'>c</span>());
                 <span class='kw'>let</span> (<span class='ident'>alpha</span>, <span class='ident'>beta</span>, <span class='ident'>gamma</span>) <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>alpha</span>(), <span class='self'>self</span>.<span class='ident'>beta</span>(), <span class='self'>self</span>.<span class='ident'>gamma</span>());
                 <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>chemfiles</span>::<span class='ident'>UnitCell</span>::<span class='ident'>triclinic</span>(<span class='ident'>a</span>, <span class='ident'>b</span>, <span class='ident'>c</span>, <span class='ident'>alpha</span>, <span class='ident'>beta</span>, <span class='ident'>gamma</span>))

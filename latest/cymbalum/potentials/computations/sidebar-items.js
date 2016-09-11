@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["CutoffComputation","Computation of a potential with a cutoff."],["TableComputation","Computation of a potential using tabulated values."]],"trait":[["Computation","Methods for energy and forces computation."]]});

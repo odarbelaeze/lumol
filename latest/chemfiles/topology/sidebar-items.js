@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Topology","A `Topology` contains the definition of all the particles in the system, and the liaisons between the particles (bonds, angles, dihedrals, ...)."]]});

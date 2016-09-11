@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.0/src/impl_views.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.2/src/impl_views.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>impl_views.rs.html -- source</title>
@@ -229,6 +229,34 @@
 <span id="185">185</span>
 <span id="186">186</span>
 <span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014-2016 bluss and ndarray developers.</span>
 <span class='comment'>//</span>
@@ -289,6 +317,20 @@
                 <span class='self'>Self</span>::<span class='ident'>new_</span>(<span class='ident'>xs</span>.<span class='ident'>as_ptr</span>(), <span class='ident'>dim</span>, <span class='ident'>strides</span>)
             }
         })
+    }
+
+    <span class='doccomment'>/// Create an `ArrayView&lt;A, D&gt;` from shape information and a</span>
+    <span class='doccomment'>/// raw pointer to the elements.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Unsafe because caller is responsible for ensuring that the pointer is</span>
+    <span class='doccomment'>/// valid, not mutably aliased and coherent with the dimension and stride information.</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_shape_ptr</span><span class='op'>&lt;</span><span class='ident'>Sh</span><span class='op'>&gt;</span>(<span class='ident'>shape</span>: <span class='ident'>Sh</span>, <span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>A</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>
+        <span class='kw'>where</span> <span class='ident'>Sh</span>: <span class='ident'>Into</span><span class='op'>&lt;</span><span class='ident'>StrideShape</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;&gt;</span>
+    {
+        <span class='kw'>let</span> <span class='ident'>shape</span> <span class='op'>=</span> <span class='ident'>shape</span>.<span class='ident'>into</span>();
+        <span class='kw'>let</span> <span class='ident'>dim</span> <span class='op'>=</span> <span class='ident'>shape</span>.<span class='ident'>dim</span>;
+        <span class='kw'>let</span> <span class='ident'>strides</span> <span class='op'>=</span> <span class='ident'>shape</span>.<span class='ident'>strides</span>;
+        <span class='ident'>ArrayView</span>::<span class='ident'>new_</span>(<span class='ident'>ptr</span>, <span class='ident'>dim</span>, <span class='ident'>strides</span>)
     }
 
     <span class='doccomment'>/// Split the array along `axis` and return one view strictly before the</span>
@@ -378,6 +420,20 @@
                 <span class='self'>Self</span>::<span class='ident'>new_</span>(<span class='ident'>xs</span>.<span class='ident'>as_mut_ptr</span>(), <span class='ident'>dim</span>, <span class='ident'>strides</span>)
             }
         })
+    }
+
+    <span class='doccomment'>/// Create an `ArrayViewMut&lt;A, D&gt;` from shape information and a</span>
+    <span class='doccomment'>/// raw pointer to the elements.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Unsafe because caller is responsible for ensuring that the pointer is</span>
+    <span class='doccomment'>/// valid, not aliased and coherent with the dimension and stride information.</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_shape_ptr</span><span class='op'>&lt;</span><span class='ident'>Sh</span><span class='op'>&gt;</span>(<span class='ident'>shape</span>: <span class='ident'>Sh</span>, <span class='ident'>ptr</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>A</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>
+        <span class='kw'>where</span> <span class='ident'>Sh</span>: <span class='ident'>Into</span><span class='op'>&lt;</span><span class='ident'>StrideShape</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;&gt;</span>
+    {
+        <span class='kw'>let</span> <span class='ident'>shape</span> <span class='op'>=</span> <span class='ident'>shape</span>.<span class='ident'>into</span>();
+        <span class='kw'>let</span> <span class='ident'>dim</span> <span class='op'>=</span> <span class='ident'>shape</span>.<span class='ident'>dim</span>;
+        <span class='kw'>let</span> <span class='ident'>strides</span> <span class='op'>=</span> <span class='ident'>shape</span>.<span class='ident'>strides</span>;
+        <span class='ident'>ArrayViewMut</span>::<span class='ident'>new_</span>(<span class='ident'>ptr</span>, <span class='ident'>dim</span>, <span class='ident'>strides</span>)
     }
 
     <span class='doccomment'>/// Split the array along `axis` and return one mutable view strictly</span>

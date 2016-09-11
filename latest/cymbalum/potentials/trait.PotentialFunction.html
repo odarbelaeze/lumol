@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1815' class='srclink' href='../../src/cymbalum/src/potentials/functions.rs.html#11-16' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1801' class='srclink' href='../../src/cymbalum/src/potentials/functions.rs.html#11-16' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait PotentialFunction: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + BoxClonePotential {
     fn <a href='#tymethod.energy' class='fnname'>energy</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>;
     fn <a href='#tymethod.force' class='fnname'>force</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>;
@@ -69,7 +69,7 @@ angles or dihedral angles potentials, <em>etc.</em></p>
 <li><code>impl PotentialFunction for <a class='struct' href='../../cymbalum/potentials/struct.Harmonic.html' title='cymbalum::potentials::Harmonic'>Harmonic</a></code></li>
 <li><code>impl PotentialFunction for <a class='struct' href='../../cymbalum/potentials/struct.CosineHarmonic.html' title='cymbalum::potentials::CosineHarmonic'>CosineHarmonic</a></code></li>
 <li><code>impl PotentialFunction for <a class='struct' href='../../cymbalum/potentials/struct.Torsion.html' title='cymbalum::potentials::Torsion'>Torsion</a></code></li>
-<li><code>impl&lt;P: <a class='trait' href='../../cymbalum/potentials/trait.Computation.html' title='cymbalum::potentials::Computation'>Computation</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + 'static&gt; PotentialFunction for P</code></li>
+<li><code>impl&lt;P:&nbsp;<a class='trait' href='../../cymbalum/potentials/trait.Computation.html' title='cymbalum::potentials::Computation'>Computation</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + 'static&gt; PotentialFunction for P</code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/cymbalum/potentials/trait.PotentialFunction.js">
                  </script></section>

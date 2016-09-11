@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["ErrorKind","Possible causes of error in chemfiles"]],"struct":[["Error","Error type for Chemfiles."]]});

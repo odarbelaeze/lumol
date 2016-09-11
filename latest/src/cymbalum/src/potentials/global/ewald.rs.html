@@ -889,7 +889,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>f64</span>::<span class='ident'>consts</span>::{<span class='ident'>PI</span>, <span class='ident'>FRAC_2_SQRT_PI</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>f64</span>;
 
-<span class='kw'>use</span> <span class='ident'>system</span>::{<span class='ident'>System</span>, <span class='ident'>UnitCell</span>, <span class='ident'>CellType</span>};
+<span class='kw'>use</span> <span class='ident'>system</span>::{<span class='ident'>System</span>, <span class='ident'>UnitCell</span>, <span class='ident'>CellShape</span>};
 <span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>Matrix3</span>, <span class='ident'>Vector3D</span>, <span class='ident'>Array3</span>, <span class='ident'>Complex</span>, <span class='ident'>Zero</span>};
 <span class='kw'>use</span> <span class='ident'>constants</span>::<span class='ident'>ELCC</span>;
 <span class='kw'>use</span> <span class='ident'>potentials</span>::{<span class='ident'>PairRestriction</span>, <span class='ident'>RestrictionInfo</span>};
@@ -960,14 +960,14 @@
                 <span class='kw'>return</span>;
             }
         }
-        <span class='kw'>match</span> <span class='ident'>cell</span>.<span class='ident'>celltype</span>() {
-            <span class='ident'>CellType</span>::<span class='ident'>Infinite</span> <span class='op'>=&gt;</span> {
+        <span class='kw'>match</span> <span class='ident'>cell</span>.<span class='ident'>shape</span>() {
+            <span class='ident'>CellShape</span>::<span class='ident'>Infinite</span> <span class='op'>=&gt;</span> {
                 <span class='macro'>fatal_error</span><span class='macro'>!</span>(<span class='string'>&quot;Can not use Ewald sum with Infinite cell.&quot;</span>);
             },
-            <span class='ident'>CellType</span>::<span class='ident'>Triclinic</span> <span class='op'>=&gt;</span> {
+            <span class='ident'>CellShape</span>::<span class='ident'>Triclinic</span> <span class='op'>=&gt;</span> {
                 <span class='macro'>fatal_error</span><span class='macro'>!</span>(<span class='string'>&quot;Can not (yet) use Ewald sum with Triclinic cell.&quot;</span>);
             },
-            <span class='ident'>CellType</span>::<span class='ident'>Orthorombic</span> <span class='op'>=&gt;</span> {
+            <span class='ident'>CellShape</span>::<span class='ident'>Orthorombic</span> <span class='op'>=&gt;</span> {
                 <span class='comment'>// All good!</span>
             },
         }

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.0/src/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.2/src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
@@ -765,6 +765,11 @@
 <span id="721">721</span>
 <span id="722">722</span>
 <span id="723">723</span>
+<span id="724">724</span>
+<span id="725">725</span>
+<span id="726">726</span>
+<span id="727">727</span>
+<span id="728">728</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014-2016 bluss and ndarray developers.</span>
 <span class='comment'>//</span>
@@ -825,7 +830,10 @@
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! - `rustc-serialize`</span>
 <span class='doccomment'>//!   - Optional, compatible with Rust stable</span>
-<span class='doccomment'>//!   - Enables serialization support</span>
+<span class='doccomment'>//!   - Enables serialization support for rustc-serialize 0.3</span>
+<span class='doccomment'>//! - `serde`</span>
+<span class='doccomment'>//!   - Optional, compatible with Rust stable</span>
+<span class='doccomment'>//!   - Enables serialization support for serde 0.8</span>
 <span class='doccomment'>//! - `blas`</span>
 <span class='doccomment'>//!   - Optional and experimental, compatible with Rust stable</span>
 <span class='doccomment'>//!   - Enable transparent BLAS support for matrix multiplication. Pluggable</span>
@@ -882,6 +890,8 @@
 <span class='kw'>mod</span> <span class='ident'>arraytraits</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde&quot;</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>arrayserialize</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde&quot;</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>arraydeserialize</span>;
 <span class='kw'>mod</span> <span class='ident'>arrayformat</span>;
 <span class='kw'>mod</span> <span class='ident'>data_traits</span>;
 

@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Complex","Complex number, only implemented for f64 real and imag parts"]]});

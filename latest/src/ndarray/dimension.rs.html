@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.0/src/dimension.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.2/src/dimension.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>dimension.rs.html -- source</title>
@@ -923,11 +923,11 @@
         <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>strides</span>[<span class='ident'>index</span>];
         <span class='comment'>// any stride is ok if dimension is 1</span>
         <span class='kw'>if</span> <span class='ident'>d</span> <span class='op'>!=</span> <span class='number'>1</span> <span class='op'>&amp;&amp;</span> (<span class='ident'>s</span> <span class='kw'>as</span> <span class='ident'>isize</span>) <span class='op'>&lt;</span> <span class='ident'>prev_offset</span> {
-            <span class='kw'>return</span> <span class='boolvalue'>true</span>;
+            <span class='kw'>return</span> <span class='bool-val'>true</span>;
         }
         <span class='ident'>prev_offset</span> <span class='op'>=</span> <span class='ident'>stride_offset</span>(<span class='ident'>d</span>, <span class='ident'>s</span>);
     }
-    <span class='boolvalue'>false</span>
+    <span class='bool-val'>false</span>
 }
 
 <span class='doccomment'>/// Check whether the given dimension and strides are memory safe</span>
@@ -1116,13 +1116,13 @@
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>next_for</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>index</span>: <span class='self'>Self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='self'>Self</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>index</span> <span class='op'>=</span> <span class='ident'>index</span>;
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>done</span> <span class='op'>=</span> <span class='boolvalue'>false</span>;
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>done</span> <span class='op'>=</span> <span class='bool-val'>false</span>;
         <span class='kw'>for</span> (<span class='kw-2'>&amp;</span><span class='ident'>dim</span>, <span class='ident'>ix</span>) <span class='kw'>in</span> <span class='ident'>zipsl</span>(<span class='self'>self</span>.<span class='ident'>slice</span>(), <span class='ident'>index</span>.<span class='ident'>slice_mut</span>()).<span class='ident'>rev</span>() {
             <span class='op'>*</span><span class='ident'>ix</span> <span class='op'>+=</span> <span class='number'>1</span>;
             <span class='kw'>if</span> <span class='op'>*</span><span class='ident'>ix</span> <span class='op'>==</span> <span class='ident'>dim</span> {
                 <span class='op'>*</span><span class='ident'>ix</span> <span class='op'>=</span> <span class='number'>0</span>;
             } <span class='kw'>else</span> {
-                <span class='ident'>done</span> <span class='op'>=</span> <span class='boolvalue'>true</span>;
+                <span class='ident'>done</span> <span class='op'>=</span> <span class='bool-val'>true</span>;
                 <span class='kw'>break</span>;
             }
         }

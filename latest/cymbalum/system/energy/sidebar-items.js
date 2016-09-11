@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["EnergyEvaluator","An helper struct to evaluate energy components of a system."]]});

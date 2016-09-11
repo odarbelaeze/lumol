@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["read_config","Read a whole simulation input file."]]});

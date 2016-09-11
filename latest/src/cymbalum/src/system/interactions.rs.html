@@ -376,6 +376,7 @@
 <span id="332">332</span>
 <span id="333">333</span>
 <span id="334">334</span>
+<span id="335">335</span>
 </pre><pre class='rust '>
 <span class='comment'>// Cymbalum, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -491,12 +492,12 @@
         <span class='self'>self</span>.<span class='ident'>kinds</span>.<span class='ident'>kind</span>(<span class='ident'>name</span>)
     }
 
-    <span class='doccomment'>/// Add the `potential` pair interaction to the pair `(i, j)`</span>
+    <span class='doccomment'>/// Add the `potential` pair interaction for the pair `(i, j)`</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_pair</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>i</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>j</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>potential</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PairPotential</span><span class='op'>&gt;</span>) {
         <span class='self'>self</span>.<span class='ident'>add_pair_with_restriction</span>(<span class='ident'>i</span>, <span class='ident'>j</span>, <span class='ident'>potential</span>, <span class='ident'>PairRestriction</span>::<span class='prelude-val'>None</span>);
     }
 
-    <span class='doccomment'>/// Add the `potential` pair interaction to the pair `(i, j)`, with the</span>
+    <span class='doccomment'>/// Add the `potential` pair interaction for the pair `(i, j)`, with the</span>
     <span class='doccomment'>/// restriction scheme `restrict`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_pair_with_restriction</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>i</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>j</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>potential</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PairPotential</span><span class='op'>&gt;</span>, <span class='ident'>restrict</span>: <span class='ident'>PairRestriction</span>) {
         <span class='kw'>let</span> (<span class='ident'>i</span>, <span class='ident'>j</span>) <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>i</span>), <span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>j</span>));
@@ -505,7 +506,7 @@
         <span class='ident'>pairs</span>.<span class='ident'>push</span>((<span class='ident'>potential</span>, <span class='ident'>restrict</span>));
     }
 
-    <span class='doccomment'>/// Add the `potential` bonded interaction to the pair `(i, j)`</span>
+    <span class='doccomment'>/// Add the `potential` bonded interaction for the pair `(i, j)`</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_bond</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>i</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>j</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>potential</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PairPotential</span><span class='op'>&gt;</span>) {
         <span class='kw'>let</span> (<span class='ident'>i</span>, <span class='ident'>j</span>) <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>i</span>), <span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>j</span>));
         <span class='kw'>let</span> (<span class='ident'>i</span>, <span class='ident'>j</span>) <span class='op'>=</span> <span class='ident'>sort_pair</span>(<span class='ident'>i</span>, <span class='ident'>j</span>);
@@ -513,7 +514,7 @@
         <span class='ident'>bonds</span>.<span class='ident'>push</span>(<span class='ident'>potential</span>);
     }
 
-    <span class='doccomment'>/// Add the `potential` angle interaction to the angle `(i, j, k)`</span>
+    <span class='doccomment'>/// Add the `potential` angle interaction for the angle `(i, j, k)`</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_angle</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>i</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>j</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>k</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>potential</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>AnglePotential</span><span class='op'>&gt;</span>) {
         <span class='kw'>let</span> (<span class='ident'>i</span>, <span class='ident'>j</span>, <span class='ident'>k</span>) <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>i</span>), <span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>j</span>), <span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>k</span>));
         <span class='kw'>let</span> (<span class='ident'>i</span>, <span class='ident'>j</span>, <span class='ident'>k</span>) <span class='op'>=</span> <span class='ident'>sort_angle</span>(<span class='ident'>i</span>, <span class='ident'>j</span>, <span class='ident'>k</span>);
@@ -521,7 +522,8 @@
         <span class='ident'>angles</span>.<span class='ident'>push</span>(<span class='ident'>potential</span>);
     }
 
-    <span class='doccomment'>/// Add the `potential` dihedral interaction to the dihedral `(i, j, k, m)`</span>
+    <span class='doccomment'>/// Add the `potential` dihedral interaction for the dihedral angle `(i, j,</span>
+    <span class='doccomment'>/// k, m)`</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_dihedral</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>i</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>j</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>k</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>m</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>potential</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>DihedralPotential</span><span class='op'>&gt;</span>) {
         <span class='kw'>let</span> (<span class='ident'>i</span>, <span class='ident'>j</span>, <span class='ident'>k</span>, <span class='ident'>m</span>) <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>i</span>), <span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>j</span>), <span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>k</span>), <span class='self'>self</span>.<span class='ident'>get_kind</span>(<span class='ident'>m</span>));
         <span class='kw'>let</span> (<span class='ident'>i</span>, <span class='ident'>j</span>, <span class='ident'>k</span>, <span class='ident'>m</span>) <span class='op'>=</span> <span class='ident'>sort_dihedral</span>(<span class='ident'>i</span>, <span class='ident'>j</span>, <span class='ident'>k</span>, <span class='ident'>m</span>);

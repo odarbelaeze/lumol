@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["guess_bonds","Guess the bonds in a system"],["read_molecule","Read a the first molecule from the file at `path`. If no bond information exists in the file, bonds are guessed."]],"struct":[["Trajectory","A Trajectory is a file containing one or more successives simulation steps"]]});

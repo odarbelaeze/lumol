@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Particle","The Particle type hold basic data about a particle in the system. It is self contained, so that it will be easy to send data between parrallels processes."],["ParticleKind","A particle kind. Particles with the same name will have the same kind. This is used for faster potential lookup."]]});

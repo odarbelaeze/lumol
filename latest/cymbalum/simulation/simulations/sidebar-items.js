@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Simulation","The Simulation struct holds all the needed algorithms for running the simulation. It should be use together with a `System` to perform the simulation."]]});

@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Array2","Two dimmensional array, based on ndarray."],["Array3","Three dimmensional array, based on ndarray"]]});

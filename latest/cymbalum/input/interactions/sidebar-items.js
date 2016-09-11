@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["read_interactions","Read interactions from the TOML file at `path`, and add them to the `system`. For a full documentation of the input files syntax, see the user manual."]],"trait":[["FromTomlWithPairs","Convert a TOML table and a `PairPotential` to a Rust type. This is intended to be used by potential computation mainly."]]});

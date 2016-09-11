@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.0/src/shape_builder.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.2/src/shape_builder.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>shape_builder.rs.html -- source</title>
@@ -152,7 +152,7 @@
     <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>d</span>: <span class='ident'>D</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='ident'>Shape</span> {
             <span class='ident'>dim</span>: <span class='ident'>d</span>,
-            <span class='ident'>is_c</span>: <span class='boolvalue'>true</span>,
+            <span class='ident'>is_c</span>: <span class='bool-val'>true</span>,
         }
     }
 }
@@ -164,7 +164,7 @@
         <span class='ident'>StrideShape</span> {
             <span class='ident'>strides</span>: <span class='ident'>d</span>.<span class='ident'>default_strides</span>(),
             <span class='ident'>dim</span>: <span class='ident'>d</span>,
-            <span class='ident'>custom</span>: <span class='boolvalue'>false</span>,
+            <span class='ident'>custom</span>: <span class='bool-val'>false</span>,
         }
     }
 }
@@ -178,7 +178,7 @@
         <span class='ident'>StrideShape</span> {
             <span class='ident'>strides</span>: <span class='ident'>st</span>,
             <span class='ident'>dim</span>: <span class='ident'>d</span>,
-            <span class='ident'>custom</span>: <span class='boolvalue'>false</span>,
+            <span class='ident'>custom</span>: <span class='bool-val'>false</span>,
         }
     }
 }
@@ -187,7 +187,7 @@
     <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>Dimension</span>
 {
     <span class='kw'>type</span> <span class='ident'>Dim</span> <span class='op'>=</span> <span class='ident'>D</span>;
-    <span class='kw'>fn</span> <span class='ident'>f</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Shape</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> { <span class='self'>self</span>.<span class='ident'>set_f</span>(<span class='boolvalue'>true</span>) }
+    <span class='kw'>fn</span> <span class='ident'>f</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Shape</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> { <span class='self'>self</span>.<span class='ident'>set_f</span>(<span class='bool-val'>true</span>) }
     <span class='kw'>fn</span> <span class='ident'>set_f</span>(<span class='self'>self</span>, <span class='ident'>is_f</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>Shape</span><span class='op'>&lt;</span><span class='ident'>D</span><span class='op'>&gt;</span> {
         <span class='ident'>Shape</span>::<span class='ident'>from</span>(<span class='self'>self</span>).<span class='ident'>set_f</span>(<span class='ident'>is_f</span>)
     }
@@ -200,7 +200,7 @@
     <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>Dimension</span>
 {
     <span class='kw'>type</span> <span class='ident'>Dim</span> <span class='op'>=</span> <span class='ident'>D</span>;
-    <span class='kw'>fn</span> <span class='ident'>f</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> { <span class='self'>self</span>.<span class='ident'>set_f</span>(<span class='boolvalue'>true</span>) }
+    <span class='kw'>fn</span> <span class='ident'>f</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> { <span class='self'>self</span>.<span class='ident'>set_f</span>(<span class='bool-val'>true</span>) }
     <span class='kw'>fn</span> <span class='ident'>set_f</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>is_f</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span> {
         <span class='self'>self</span>.<span class='ident'>is_c</span> <span class='op'>=</span> <span class='op'>!</span><span class='ident'>is_f</span>;
         <span class='self'>self</span>
@@ -209,7 +209,7 @@
         <span class='ident'>StrideShape</span> {
             <span class='ident'>dim</span>: <span class='self'>self</span>.<span class='ident'>dim</span>,
             <span class='ident'>strides</span>: <span class='ident'>st</span>,
-            <span class='ident'>custom</span>: <span class='boolvalue'>true</span>,
+            <span class='ident'>custom</span>: <span class='bool-val'>true</span>,
         }
     }
 }

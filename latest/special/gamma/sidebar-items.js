@@ -1,1 +1,0 @@
-initSidebarItems({"trait":[["Gamma","Gamma functions."]]});

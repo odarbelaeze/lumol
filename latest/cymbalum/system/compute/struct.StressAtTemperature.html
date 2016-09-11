@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-4735' class='srclink' href='../../../src/cymbalum/src/system/compute.rs.html#233-236' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-4700' class='srclink' href='../../../src/cymbalum/src/system/compute.rs.html#233-236' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct StressAtTemperature {
     pub temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>,
 }</pre><div class='docblock'><p>Compute the stress tensor of the system from the virial equation, at the
@@ -55,10 +55,9 @@ given temperature. The stress tensor is defined by
 $$ \sigma = \sigma = \frac{1}{V} (\sum_i m_i v_i \otimes v_i + \sum_i \sum_{j &gt; i} \vec r_{ij} \otimes \vec f_{ij}) $$
 but here the kinetic energy term is replaced by it average at the given
 temperature.</p>
-</div><h2 class='fields'>Fields</h2>
-<table><tr class='stab '>
-                             <td id='structfield.temperature'><code>temperature</code></td><td><div class='docblock'><p>Temperature for the stress tensor computation</p>
-</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/system/compute/trait.Compute.html' title='cymbalum::system::compute::Compute'>Compute</a> for <a class='struct' href='../../../cymbalum/system/compute/struct.StressAtTemperature.html' title='cymbalum::system::compute::StressAtTemperature'>StressAtTemperature</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4737' class='srclink' href='../../../src/cymbalum/src/system/compute.rs.html#238-248' title='goto source code'>[src]</a></span></h3>
+</div><h2 class='fields'>Fields</h2><span id='structfield.temperature' class='structfield'><code>temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code>
+                           </span><span class='stab '></span><div class='docblock'><p>Temperature for the stress tensor computation</p>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../cymbalum/system/compute/trait.Compute.html' title='cymbalum::system::compute::Compute'>Compute</a> for <a class='struct' href='../../../cymbalum/system/compute/struct.StressAtTemperature.html' title='cymbalum::system::compute::StressAtTemperature'>StressAtTemperature</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4702' class='srclink' href='../../../src/cymbalum/src/system/compute.rs.html#238-248' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='associatedtype.Output' class='type'><code>type <a href='../../../cymbalum/system/compute/trait.Compute.html#associatedtype.Output' class='type'>Output</a> = <a class='struct' href='../../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>
 <div class='docblock'><p>The data type of the property</p>
 </div><h4 id='method.compute' class='method'><code>fn <a href='../../../cymbalum/system/compute/trait.Compute.html#tymethod.compute' class='fnname'>compute</a>(&amp;self, system: &amp;<a class='struct' href='../../../cymbalum/system/struct.System.html' title='cymbalum::system::System'>System</a>) -&gt; <a class='struct' href='../../../cymbalum/types/struct.Matrix3.html' title='cymbalum::types::Matrix3'>Matrix3</a></code></h4>

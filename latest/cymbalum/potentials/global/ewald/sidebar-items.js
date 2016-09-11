@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Ewald","Ewald summation of the coulombic interactions."]]});

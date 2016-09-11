@@ -1,1 +1,0 @@
-initSidebarItems({"trait":[["Data","Array representation trait."],["DataClone","Array representation trait."],["DataMut","Array representation trait."],["DataOwned","Array representation trait."],["DataShared","Array representation trait."]]});
