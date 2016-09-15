@@ -47,13 +47,13 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1798' class='srclink' href='../../src/cymbalum/src/potentials/mod.rs.html#4-74' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1798' class='srclink' href='../../src/cymbalum/src/potentials/mod.rs.html#4-120' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Interaction potentials for energy and forces computations</p>
 
 <h1 id='potential-functions' class='section-header'><a href='#potential-functions'>Potential functions</a></h1>
 <p>A potential function is defined as a parametric function giving the energy
 and the force acting on a specific particle. These function are represented
-by the <a href="trait.PotentialFunction.html"><code>PotentialFunction</code></a> trait, and allow to compute
+by the <a href="trait.Potential.html"><code>Potential</code></a> trait, and allow to compute
 the energy or force norm corresponding to a scalar variable. This scalar
 variable will be the distance for non-bonded pair interactions; the angle
 for covalent angles interactions, <em>etc.</em></p>
@@ -77,7 +77,7 @@ thing to do is to implement the corresponding trait.</p>
 <span class='kw'>struct</span> <span class='ident'>OnePotential</span>;
 
 <span class='comment'>// OnePotential is a potential function</span>
-<span class='kw'>impl</span> <span class='ident'>PotentialFunction</span> <span class='kw'>for</span> <span class='ident'>OnePotential</span> {
+<span class='kw'>impl</span> <span class='ident'>Potential</span> <span class='kw'>for</span> <span class='ident'>OnePotential</span> {
     <span class='kw'>fn</span> <span class='ident'>energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, _: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {<span class='number'>1.0</span>}
     <span class='kw'>fn</span> <span class='ident'>force</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, _: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {<span class='number'>0.0</span>}
 }
@@ -100,13 +100,6 @@ potentials, that are used to compute charges-charges interactions.</p>
                                   title='cymbalum::potentials::CosineHarmonic'>CosineHarmonic</a></td>
                            <td class='docblock short'>
                                 <p>Cosine harmonic potential.</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class='struct' href='struct.CutoffComputation.html'
-                                  title='cymbalum::potentials::CutoffComputation'>CutoffComputation</a></td>
-                           <td class='docblock short'>
-                                <p>Computation of a potential with a cutoff.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -135,6 +128,17 @@ potentials, that are used to compute charges-charges interactions.</p>
                                   title='cymbalum::potentials::NullPotential'>NullPotential</a></td>
                            <td class='docblock short'>
                                 <p>The <code>NullPotential</code> always returns 0 as energy and force.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.PairInteraction.html'
+                                  title='cymbalum::potentials::PairInteraction'>PairInteraction</a></td>
+                           <td class='docblock short'>
+                                <p>A non-bonded interaction between two particle. The potential <code>T</code> is
+associated with a <a href="enum.PairRestriction.html">pair restriction</a>. For all non-bonded
+pairs, the potential is computed up to a cutoff distance. An additional
+shifting of the potential can be used in molecular dynamics, to ensure that
+the energy is continuous at the cutoff distance.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -182,6 +186,53 @@ potentials, that are used to compute charges-charges interactions.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
+                           <td><a class='trait' href='trait.BondPotential.html'
+                                  title='cymbalum::potentials::BondPotential'>BondPotential</a></td>
+                           <td class='docblock short'>
+                                <p>Potential that can be used for molecular bonds</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.BoxCloneAngle.html'
+                                  title='cymbalum::potentials::BoxCloneAngle'>BoxCloneAngle</a></td>
+                           <td class='docblock short'>
+                                <p>This is an internal implementation detail for cloning Box<Trait>,
+where Trait is used as a trait object.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.BoxCloneBond.html'
+                                  title='cymbalum::potentials::BoxCloneBond'>BoxCloneBond</a></td>
+                           <td class='docblock short'>
+                                <p>This is an internal implementation detail for cloning Box<Trait>,
+where Trait is used as a trait object.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.BoxCloneDihedral.html'
+                                  title='cymbalum::potentials::BoxCloneDihedral'>BoxCloneDihedral</a></td>
+                           <td class='docblock short'>
+                                <p>This is an internal implementation detail for cloning Box<Trait>,
+where Trait is used as a trait object.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.BoxClonePair.html'
+                                  title='cymbalum::potentials::BoxClonePair'>BoxClonePair</a></td>
+                           <td class='docblock short'>
+                                <p>This is an internal implementation detail for cloning Box<Trait>,
+where Trait is used as a trait object.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.BoxClonePotential.html'
+                                  title='cymbalum::potentials::BoxClonePotential'>BoxClonePotential</a></td>
+                           <td class='docblock short'>
+                                <p>This is an internal implementation detail for cloning Box<Trait>,
+where Trait is used as a trait object.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='trait' href='trait.Computation.html'
                                   title='cymbalum::potentials::Computation'>Computation</a></td>
                            <td class='docblock short'>
@@ -213,16 +264,23 @@ potentials, that are used to compute charges-charges interactions.</p>
                            <td><a class='trait' href='trait.PairPotential.html'
                                   title='cymbalum::potentials::PairPotential'>PairPotential</a></td>
                            <td class='docblock short'>
-                                <p>Potential that can be used for two body interactions, either covalent or
-non-covalent.</p>
+                                <p>Potential that can be used for non-bonded two body interactions</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='trait' href='trait.PotentialFunction.html'
-                                  title='cymbalum::potentials::PotentialFunction'>PotentialFunction</a></td>
+                           <td><a class='trait' href='trait.Potential.html'
+                                  title='cymbalum::potentials::Potential'>Potential</a></td>
                            <td class='docblock short'>
                                 <p>A set of two parametric functions which takes a single scalar variable and
 return the corresponding energy or norm of the force.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.Virial.html'
+                                  title='cymbalum::potentials::Virial'>Virial</a></td>
+                           <td class='docblock short'>
+                                <p>Computation of virial contribution for a potential. The provided fucntion
+only apply to two-body virial contributions.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>

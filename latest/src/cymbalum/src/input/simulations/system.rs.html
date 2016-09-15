@@ -390,7 +390,7 @@
         <span class='kw'>let</span> <span class='ident'>last</span> <span class='op'>=</span> <span class='ident'>system</span>.<span class='ident'>size</span>();
         <span class='ident'>system</span>.<span class='ident'>add_particle</span>(<span class='ident'>Particle</span>::<span class='ident'>new</span>(<span class='string'>&quot;A&quot;</span>));
         <span class='ident'>system</span>.<span class='ident'>add_particle</span>(<span class='ident'>Particle</span>::<span class='ident'>new</span>(<span class='string'>&quot;B&quot;</span>));
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>system</span>.<span class='ident'>pair_potentials</span>(<span class='ident'>last</span>, <span class='ident'>last</span> <span class='op'>+</span> <span class='number'>1</span>).<span class='ident'>len</span>(), <span class='number'>10</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>system</span>.<span class='ident'>pair_potentials</span>(<span class='ident'>last</span>, <span class='ident'>last</span> <span class='op'>+</span> <span class='number'>1</span>).<span class='ident'>len</span>(), <span class='number'>11</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>

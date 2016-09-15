@@ -47,17 +47,14 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2654' class='srclink' href='../../src/cymbalum/src/system/mod.rs.html#4-48' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-2715' class='srclink' href='../../src/cymbalum/src/system/mod.rs.html#4-41' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>The <code>system</code> module provide a way to store data about a simulated system.
 These systems are represented by an <code>System</code> instance, made of a list of
 <code>Particle</code>, an enclosing <code>UnitCell</code> and some interactions.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use self::<a class='mod'
                                        href='./velocities/index.html'>velocities</a>::<a class='trait' href='../../cymbalum/system/velocities/trait.InitVelocities.html' title='cymbalum::system::velocities::InitVelocities'>InitVelocities</a>;</code></td></tr><tr><td><code>pub use self::velocities::{<a class='struct' href='../../cymbalum/system/velocities/struct.BoltzmannVelocities.html' title='cymbalum::system::velocities::BoltzmannVelocities'>BoltzmannVelocities</a>, <a class='struct' href='../../cymbalum/system/velocities/struct.UniformVelocities.html' title='cymbalum::system::velocities::UniformVelocities'>UniformVelocities</a>};</code></td></tr><tr><td><code>pub use self::<a class='mod'
-                                       href='./compute/index.html'>compute</a>::<a class='trait' href='../../cymbalum/system/compute/trait.Compute.html' title='cymbalum::system::compute::Compute'>Compute</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
-                                       href='./compute/index.html'>compute</a>::<a class='struct' href='../../cymbalum/system/compute/struct.Forces.html' title='cymbalum::system::compute::Forces'>Forces</a>;</code></td></tr><tr><td><code>pub use self::compute::{<a class='struct' href='../../cymbalum/system/compute/struct.PotentialEnergy.html' title='cymbalum::system::compute::PotentialEnergy'>PotentialEnergy</a>, <a class='struct' href='../../cymbalum/system/compute/struct.KineticEnergy.html' title='cymbalum::system::compute::KineticEnergy'>KineticEnergy</a>, <a class='struct' href='../../cymbalum/system/compute/struct.TotalEnergy.html' title='cymbalum::system::compute::TotalEnergy'>TotalEnergy</a>};</code></td></tr><tr><td><code>pub use self::<a class='mod'
-                                       href='./compute/index.html'>compute</a>::<a class='struct' href='../../cymbalum/system/compute/struct.Temperature.html' title='cymbalum::system::compute::Temperature'>Temperature</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
-                                       href='./compute/index.html'>compute</a>::<a class='struct' href='../../cymbalum/system/compute/struct.Volume.html' title='cymbalum::system::compute::Volume'>Volume</a>;</code></td></tr><tr><td><code>pub use self::compute::{<a class='struct' href='../../cymbalum/system/compute/struct.Virial.html' title='cymbalum::system::compute::Virial'>Virial</a>, <a class='struct' href='../../cymbalum/system/compute/struct.Stress.html' title='cymbalum::system::compute::Stress'>Stress</a>, <a class='struct' href='../../cymbalum/system/compute/struct.Pressure.html' title='cymbalum::system::compute::Pressure'>Pressure</a>};</code></td></tr><tr><td><code>pub use self::compute::{<a class='struct' href='../../cymbalum/system/compute/struct.StressAtTemperature.html' title='cymbalum::system::compute::StressAtTemperature'>StressAtTemperature</a>, <a class='struct' href='../../cymbalum/system/compute/struct.PressureAtTemperature.html' title='cymbalum::system::compute::PressureAtTemperature'>PressureAtTemperature</a>};</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+                                       href='./compute/index.html'>compute</a>::<a class='trait' href='../../cymbalum/system/compute/trait.Compute.html' title='cymbalum::system::compute::Compute'>Compute</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='mod' href='compute/index.html'
@@ -221,13 +218,6 @@ bonds and particles (see <code>System::moltype</code> for more information).</p>
                            </td>
                        </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table>
-                       <tr class=' module-item'>
-                           <td><a class='type' href='type.PairInteraction.html'
-                                  title='cymbalum::system::PairInteraction'>PairInteraction</a></td>
-                           <td class='docblock short'>
-                                <p>Type associating a potential and a pair restriction</p>
-                           </td>
-                       </tr>
                        <tr class=' module-item'>
                            <td><a class='type' href='type.Permutations.html'
                                   title='cymbalum::system::Permutations'>Permutations</a></td>

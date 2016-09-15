@@ -83,13 +83,6 @@
 <span id="39">39</span>
 <span id="40">40</span>
 <span id="41">41</span>
-<span id="42">42</span>
-<span id="43">43</span>
-<span id="44">44</span>
-<span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
 </pre><pre class='rust '>
 <span class='comment'>// Cymbalum, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -119,7 +112,6 @@
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>molecules</span>::<span class='ident'>moltype</span>;
 
 <span class='kw'>mod</span> <span class='ident'>interactions</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>interactions</span>::<span class='ident'>PairInteraction</span>;
 
 <span class='kw'>mod</span> <span class='ident'>energy</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>energy</span>::<span class='ident'>EnergyEvaluator</span>;
@@ -133,12 +125,6 @@
 
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>compute</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>compute</span>::<span class='ident'>Compute</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>compute</span>::<span class='ident'>Forces</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>compute</span>::{<span class='ident'>PotentialEnergy</span>, <span class='ident'>KineticEnergy</span>, <span class='ident'>TotalEnergy</span>};
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>compute</span>::<span class='ident'>Temperature</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>compute</span>::<span class='ident'>Volume</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>compute</span>::{<span class='ident'>Virial</span>, <span class='ident'>Stress</span>, <span class='ident'>Pressure</span>};
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>compute</span>::{<span class='ident'>StressAtTemperature</span>, <span class='ident'>PressureAtTemperature</span>};
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

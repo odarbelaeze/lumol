@@ -159,73 +159,16 @@
 <span id="115">115</span>
 <span id="116">116</span>
 <span id="117">117</span>
-<span id="118">118</span>
-<span id="119">119</span>
-<span id="120">120</span>
-<span id="121">121</span>
-<span id="122">122</span>
-<span id="123">123</span>
-<span id="124">124</span>
-<span id="125">125</span>
-<span id="126">126</span>
-<span id="127">127</span>
-<span id="128">128</span>
-<span id="129">129</span>
-<span id="130">130</span>
-<span id="131">131</span>
-<span id="132">132</span>
-<span id="133">133</span>
-<span id="134">134</span>
-<span id="135">135</span>
-<span id="136">136</span>
-<span id="137">137</span>
-<span id="138">138</span>
-<span id="139">139</span>
-<span id="140">140</span>
-<span id="141">141</span>
-<span id="142">142</span>
-<span id="143">143</span>
-<span id="144">144</span>
-<span id="145">145</span>
-<span id="146">146</span>
-<span id="147">147</span>
-<span id="148">148</span>
-<span id="149">149</span>
-<span id="150">150</span>
-<span id="151">151</span>
-<span id="152">152</span>
-<span id="153">153</span>
-<span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
-<span id="159">159</span>
-<span id="160">160</span>
-<span id="161">161</span>
-<span id="162">162</span>
-<span id="163">163</span>
-<span id="164">164</span>
-<span id="165">165</span>
-<span id="166">166</span>
-<span id="167">167</span>
-<span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
 </pre><pre class='rust '>
 <span class='comment'>// Cymbalum, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
 
-<span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>PotentialFunction</span>, <span class='ident'>PairPotential</span>};
+<span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>Potential</span>, <span class='ident'>PairPotential</span>};
 
 <span class='doccomment'>/// Methods for energy and forces computation.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// A potential computation is a way of computing a potential given its</span>
-<span class='doccomment'>/// expression (represented by a `PotentialFunction`). The same potential can be</span>
+<span class='doccomment'>/// expression (represented by a `Potential`). The same potential can be</span>
 <span class='doccomment'>/// computed either direcly, or using a cutoff, or by a table interpolation, ...</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Computation</span>: <span class='ident'>Sync</span> <span class='op'>+</span> <span class='ident'>Send</span> {
     <span class='doccomment'>/// Compute the energy value at `r`</span>
@@ -235,7 +178,7 @@
     <span class='kw'>fn</span> <span class='ident'>compute_force</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>;
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>P</span>: <span class='ident'>Computation</span> <span class='op'>+</span> <span class='ident'>Clone</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> <span class='ident'>PotentialFunction</span> <span class='kw'>for</span> <span class='ident'>P</span> {
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>P</span>: <span class='ident'>Computation</span> <span class='op'>+</span> <span class='ident'>Clone</span> <span class='op'>+</span> <span class='lifetime'>&#39;static</span><span class='op'>&gt;</span> <span class='ident'>Potential</span> <span class='kw'>for</span> <span class='ident'>P</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span> <span class='kw'>fn</span> <span class='ident'>energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>:<span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
         <span class='self'>self</span>.<span class='ident'>compute_energy</span>(<span class='ident'>r</span>)
     }
@@ -245,52 +188,6 @@
     }
 }
 
-<span class='comment'>/******************************************************************************/</span>
-<span class='doccomment'>/// Computation of a potential with a cutoff.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// Energy is shifted to ensure `E(rc) = 0`, where `rc` is the cutoff distance.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>CutoffComputation</span> {
-    <span class='doccomment'>/// Potential to compute</span>
-    <span class='ident'>potential</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PairPotential</span><span class='op'>&gt;</span>,
-    <span class='doccomment'>/// Cutoff distance</span>
-    <span class='ident'>cutoff</span>: <span class='ident'>f64</span>,
-    <span class='doccomment'>/// Energy at cutoff</span>
-    <span class='ident'>delta</span>: <span class='ident'>f64</span>,
-}
-
-<span class='kw'>impl</span> <span class='ident'>CutoffComputation</span> {
-    <span class='doccomment'>/// Create a new `CutoffComputation` for `potential`, with cutoff distance</span>
-    <span class='doccomment'>/// of `cutoff`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>potential</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PairPotential</span><span class='op'>&gt;</span>, <span class='ident'>cutoff</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>CutoffComputation</span> {
-        <span class='kw'>let</span> <span class='ident'>delta</span> <span class='op'>=</span> <span class='ident'>potential</span>.<span class='ident'>energy</span>(<span class='ident'>cutoff</span>);
-        <span class='ident'>CutoffComputation</span>{<span class='ident'>potential</span>: <span class='ident'>potential</span>, <span class='ident'>cutoff</span>: <span class='ident'>cutoff</span>, <span class='ident'>delta</span>: <span class='ident'>delta</span>}
-    }
-}
-
-<span class='kw'>impl</span> <span class='ident'>Computation</span> <span class='kw'>for</span> <span class='ident'>CutoffComputation</span> {
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>compute_energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
-        <span class='kw'>if</span> <span class='ident'>r</span> <span class='op'>&gt;</span> <span class='self'>self</span>.<span class='ident'>cutoff</span> {
-            <span class='kw'>return</span> <span class='number'>0.0</span>;
-        } <span class='kw'>else</span> {
-            <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>potential</span>.<span class='ident'>energy</span>(<span class='ident'>r</span>) <span class='op'>-</span> <span class='self'>self</span>.<span class='ident'>delta</span>;
-        }
-    }
-
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>compute_force</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
-        <span class='kw'>if</span> <span class='ident'>r</span> <span class='op'>&gt;</span> <span class='self'>self</span>.<span class='ident'>cutoff</span> {
-            <span class='kw'>return</span> <span class='number'>0.0</span>;
-        } <span class='kw'>else</span> {
-            <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>potential</span>.<span class='ident'>force</span>(<span class='ident'>r</span>);
-        }
-    }
-}
-
-<span class='kw'>impl</span> <span class='ident'>PairPotential</span> <span class='kw'>for</span> <span class='ident'>CutoffComputation</span> {}
-
-<span class='comment'>/******************************************************************************/</span>
 <span class='doccomment'>/// Computation of a potential using tabulated values.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// This can be faster than direct computation for smooth potentials, but will</span>
@@ -368,17 +265,6 @@
 <span class='kw'>mod</span> <span class='ident'>test</span> {
     <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
     <span class='kw'>use</span> <span class='ident'>potentials</span>::<span class='ident'>Harmonic</span>;
-
-    <span class='attribute'>#[<span class='ident'>test</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>cutoff</span>() {
-        <span class='kw'>let</span> <span class='ident'>cutoff</span> <span class='op'>=</span> <span class='ident'>CutoffComputation</span>::<span class='ident'>new</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>Harmonic</span>{<span class='ident'>k</span>: <span class='number'>50.0</span>, <span class='ident'>x0</span>: <span class='number'>2.0</span>}), <span class='number'>4.0</span>);
-
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cutoff</span>.<span class='ident'>compute_force</span>(<span class='number'>2.5</span>), <span class='op'>-</span><span class='number'>25.0</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cutoff</span>.<span class='ident'>compute_energy</span>(<span class='number'>2.5</span>), <span class='op'>-</span><span class='number'>93.75</span>);
-
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cutoff</span>.<span class='ident'>compute_force</span>(<span class='number'>4.1</span>), <span class='number'>0.0</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cutoff</span>.<span class='ident'>compute_energy</span>(<span class='number'>4.1</span>), <span class='number'>0.0</span>);
-    }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>table</span>() {

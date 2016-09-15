@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="API documentation for the Rust `PairInteraction` type in crate `cymbalum`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang, PairInteraction">
+    <meta name="description" content="API documentation for the Rust `BoxClonePair` trait in crate `cymbalum`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, BoxClonePair">
 
-    <title>cymbalum::system::PairInteraction - Rust</title>
+    <title>cymbalum::potentials::BoxClonePair - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
@@ -28,7 +28,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>system</a></p><script>window.sidebarCurrent = {name: 'PairInteraction', ty: 'type', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>potentials</a></p><script>window.sidebarCurrent = {name: 'BoxClonePair', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,14 +42,27 @@
         </form>
     </nav>
 
-    <section id='main' class="content type">
-<h1 class='fqn'><span class='in-band'><a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>system</a>::<wbr><a class='type' href=''>PairInteraction</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>cymbalum</a>::<wbr><a href='index.html'>potentials</a>::<wbr><a class='trait' href=''>BoxClonePair</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-3805' class='srclink' href='../../src/cymbalum/src/system/interactions.rs.html#70' title='goto source code'>[src]</a></span></h1>
-<pre class='rust typedef'>type PairInteraction = <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/trait.PairPotential.html' title='cymbalum::potentials::PairPotential'>PairPotential</a>&gt;, <a class='enum' href='../../cymbalum/potentials/enum.PairRestriction.html' title='cymbalum::potentials::PairRestriction'>PairRestriction</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>;</pre><div class='docblock'><p>Type associating a potential and a pair restriction</p>
-</div></section>
+               </span><a id='src-1827' class='srclink' href='../../src/cymbalum/src/utils/macros.rs.html#20-23' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait BoxClonePair {
+    fn <a href='#tymethod.box_clone_pair' class='fnname'>box_clone_pair</a>(&amp;self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/trait.PairPotential.html' title='cymbalum::potentials::PairPotential'>PairPotential</a>&gt;;
+}</pre><div class='docblock'><p>This is an internal implementation detail for cloning Box<Trait>,
+where Trait is used as a trait object.</p>
+</div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.box_clone_pair' class='method stab '><code>fn <a href='#tymethod.box_clone_pair' class='fnname'>box_clone_pair</a>(&amp;self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../cymbalum/potentials/trait.PairPotential.html' title='cymbalum::potentials::PairPotential'>PairPotential</a>&gt;</code></h3><div class='docblock'><p>Get a cloned of self as a boxed trait.</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><code>impl&lt;T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='../../cymbalum/potentials/trait.PairPotential.html' title='cymbalum::potentials::PairPotential'>PairPotential</a> + 'static&gt; BoxClonePair for T</code></li>
+</ul><script type="text/javascript" async
+                         src="../../implementors/cymbalum/potentials/trait.BoxClonePair.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

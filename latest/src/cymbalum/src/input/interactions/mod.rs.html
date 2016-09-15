@@ -200,6 +200,16 @@
 <span id="156">156</span>
 <span id="157">157</span>
 <span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
 </pre><pre class='rust '>
 <span class='comment'>// Cymbalum, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -221,7 +231,7 @@
 <span class='kw'>mod</span> <span class='ident'>angles</span>;
 <span class='kw'>mod</span> <span class='ident'>coulomb</span>;
 
-<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>pairs</span>::{<span class='ident'>TwoBody</span>, <span class='ident'>read_2body</span>};
+<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>pairs</span>::{<span class='ident'>read_pairs</span>, <span class='ident'>read_bonds</span>};
 <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>angles</span>::{<span class='ident'>read_angles</span>, <span class='ident'>read_dihedrals</span>};
 <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>coulomb</span>::{<span class='ident'>read_coulomb</span>, <span class='ident'>set_charges</span>};
 
@@ -265,14 +275,24 @@
         <span class='kw'>let</span> <span class='ident'>pairs</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>pairs</span>.<span class='ident'>as_slice</span>().<span class='ident'>ok_or</span>(
             <span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='string'>&quot;The &#39;pairs&#39; section must be an array&quot;</span>)
         ));
-        <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>read_2body</span>(<span class='ident'>system</span>, <span class='ident'>pairs</span>, <span class='ident'>TwoBody</span>::<span class='ident'>Pairs</span>));
+
+        <span class='kw'>let</span> <span class='ident'>cutoff</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>global</span>) <span class='op'>=</span> <span class='ident'>config</span>.<span class='ident'>get</span>(<span class='string'>&quot;global&quot;</span>) {
+            <span class='kw'>let</span> <span class='ident'>global</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>global</span>.<span class='ident'>as_table</span>().<span class='ident'>ok_or</span>(<span class='ident'>Error</span>::<span class='ident'>from</span>(
+                <span class='string'>&quot;&#39;global&#39; section must be a table&quot;</span>
+            )));
+            <span class='ident'>global</span>.<span class='ident'>get</span>(<span class='string'>&quot;cutoff&quot;</span>)
+        } <span class='kw'>else</span> {
+            <span class='prelude-val'>None</span>
+        };
+
+        <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>read_pairs</span>(<span class='ident'>system</span>, <span class='ident'>pairs</span>, <span class='ident'>cutoff</span>));
     }
 
     <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>bonds</span>) <span class='op'>=</span> <span class='ident'>config</span>.<span class='ident'>get</span>(<span class='string'>&quot;bonds&quot;</span>) {
         <span class='kw'>let</span> <span class='ident'>bonds</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>bonds</span>.<span class='ident'>as_slice</span>().<span class='ident'>ok_or</span>(
             <span class='ident'>Error</span>::<span class='ident'>from</span>(<span class='string'>&quot;The &#39;bonds&#39; section must be an array&quot;</span>)
         ));
-        <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>read_2body</span>(<span class='ident'>system</span>, <span class='ident'>bonds</span>, <span class='ident'>TwoBody</span>::<span class='ident'>Bonds</span>));
+        <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>read_bonds</span>(<span class='ident'>system</span>, <span class='ident'>bonds</span>));
     }
 
     <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>angles</span>) <span class='op'>=</span> <span class='ident'>config</span>.<span class='ident'>get</span>(<span class='string'>&quot;angles&quot;</span>) {
