@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.2/src/dimension.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.4/src/dimension.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>dimension.rs.html -- source</title>
@@ -882,6 +882,24 @@
 <span id="838">838</span>
 <span id="839">839</span>
 <span id="840">840</span>
+<span id="841">841</span>
+<span id="842">842</span>
+<span id="843">843</span>
+<span id="844">844</span>
+<span id="845">845</span>
+<span id="846">846</span>
+<span id="847">847</span>
+<span id="848">848</span>
+<span id="849">849</span>
+<span id="850">850</span>
+<span id="851">851</span>
+<span id="852">852</span>
+<span id="853">853</span>
+<span id="854">854</span>
+<span id="855">855</span>
+<span id="856">856</span>
+<span id="857">857</span>
+<span id="858">858</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014-2016 bluss and ndarray developers.</span>
 <span class='comment'>//</span>
@@ -1009,7 +1027,7 @@
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ***Don&#39;t implement or call methods in this trait, its interface is internal</span>
 <span class='doccomment'>/// to the crate and will evolve at will.***</span>
-<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>Dimension</span> : <span class='ident'>Clone</span> <span class='op'>+</span> <span class='ident'>Eq</span> <span class='op'>+</span> <span class='ident'>Debug</span> <span class='op'>+</span> <span class='ident'>Send</span> <span class='op'>+</span> <span class='ident'>Sync</span> {
+<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>Dimension</span> : <span class='ident'>Clone</span> <span class='op'>+</span> <span class='ident'>Eq</span> <span class='op'>+</span> <span class='ident'>Debug</span> <span class='op'>+</span> <span class='ident'>Send</span> <span class='op'>+</span> <span class='ident'>Sync</span> <span class='op'>+</span> <span class='ident'>Default</span> {
     <span class='doccomment'>/// `SliceArg` is the type which is used to specify slicing for this</span>
     <span class='doccomment'>/// dimension.</span>
     <span class='doccomment'>///</span>
@@ -1524,6 +1542,8 @@
 }
 
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>impl_shrink</span>(
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>_a</span>:<span class='ident'>ident</span>, ) <span class='op'>=&gt;</span> {}; <span class='comment'>// implement this case manually below</span>
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>_a</span>:<span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>_b</span>:<span class='ident'>ident</span>, ) <span class='op'>=&gt;</span> {}; <span class='comment'>// implement this case manually below</span>
     (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>from</span>:<span class='ident'>ident</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>more</span>:<span class='ident'>ident</span>,)<span class='op'>*</span>) <span class='op'>=&gt;</span> (
 <span class='kw'>impl</span> <span class='ident'>RemoveAxis</span> <span class='kw'>for</span> (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>from</span> $(,<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>more</span>)<span class='op'>*</span>)
 {
@@ -1549,6 +1569,22 @@
 }
     )
 );
+
+<span class='kw'>impl</span> <span class='ident'>RemoveAxis</span> <span class='kw'>for</span> <span class='ident'>Ix</span> {
+    <span class='kw'>type</span> <span class='ident'>Smaller</span> <span class='op'>=</span> ();
+    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>remove_axis</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, _: <span class='ident'>Axis</span>) { }
+}
+
+<span class='kw'>impl</span> <span class='ident'>RemoveAxis</span> <span class='kw'>for</span> (<span class='ident'>Ix</span>, <span class='ident'>Ix</span>) {
+    <span class='kw'>type</span> <span class='ident'>Smaller</span> <span class='op'>=</span> <span class='ident'>Ix</span>;
+    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>remove_axis</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>axis</span>: <span class='ident'>Axis</span>) <span class='op'>-&gt;</span> <span class='ident'>Ix</span> {
+        <span class='kw'>let</span> <span class='ident'>axis</span> <span class='op'>=</span> <span class='ident'>axis</span>.<span class='ident'>axis</span>();
+        <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='ident'>axis</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>ndim</span>());
+        <span class='kw'>if</span> <span class='ident'>axis</span> <span class='op'>==</span> <span class='number'>0</span> { <span class='self'>self</span>.<span class='number'>1</span> } <span class='kw'>else</span> { <span class='self'>self</span>.<span class='number'>0</span> }
+    }
+}
 
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>impl_shrink_recursive</span>(
     (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>ix</span>:<span class='ident'>ident</span>, ) <span class='op'>=&gt;</span> (<span class='macro'>impl_shrink</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>ix</span>,););

@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="highlight.css">
 
-        <link rel="stylesheet" href="static/css/cymbalum.css">
+        <link rel="stylesheet" href="static/css/lumol.css">
 
         <!-- MathJax -->
         <script type="text/x-mathjax-config">
@@ -42,7 +42,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="engine/intro.html" class="active"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="engine/system.html"><strong>1.1.</strong> System</a></li><li><a href="engine/simulation.html"><strong>1.2.</strong> Simulation</a></li></ul></li><li><strong>2.</strong> Tutorial: using Cymbalum</li><li><ul class="section"><li><strong>2.1.</strong> Monte-Carlo of argon</li><li><strong>2.2.</strong> Molecular dynamics of water</li><li><strong>2.3.</strong> Gibbs simulation of ethane</li><li><strong>2.4.</strong> Hello Sodium Chloride</li><li><strong>2.5.</strong> Adsorption in zeolites</li></ul></li><li><a href="input/intro.html"><strong>3.</strong> Input files reference</a></li><li><ul class="section"><li><a href="input/systems.html"><strong>3.1.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>3.2.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>3.3.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>3.4.</strong> Simulations</a></li><li><a href="input/md.html"><strong>3.5.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>3.6.</strong> Monte-Carlo</a></li><li><a href="input/units.html"><strong>3.7.</strong> Units</a></li></ul></li><li><strong>4.</strong> Tutorial: extending Cymbalum</li><li><ul class="section"><li><strong>4.1.</strong> Adding potentials</li><li><strong>4.2.</strong> Adding outputs</li><li><strong>4.3.</strong> Extending Molecular dynamics</li><li><strong>4.4.</strong> Extending Monte-Carlo</li><li><strong>4.5.</strong> Adding propagators</li></ul></li></ul>
+            <ul class="chapter"><li><a href="engine/intro.html" class="active"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="engine/system.html"><strong>1.1.</strong> System</a></li><li><a href="engine/simulation.html"><strong>1.2.</strong> Simulation</a></li></ul></li><li><strong>2.</strong> Tutorial: using Lumol</li><li><ul class="section"><li><strong>2.1.</strong> Monte-Carlo of argon</li><li><strong>2.2.</strong> Molecular dynamics of water</li><li><strong>2.3.</strong> Gibbs simulation of ethane</li><li><strong>2.4.</strong> Hello Sodium Chloride</li><li><strong>2.5.</strong> Adsorption in zeolites</li></ul></li><li><a href="input/intro.html"><strong>3.</strong> Input files reference</a></li><li><ul class="section"><li><a href="input/systems.html"><strong>3.1.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>3.2.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>3.3.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>3.4.</strong> Simulations</a></li><li><a href="input/md.html"><strong>3.5.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>3.6.</strong> Monte-Carlo</a></li><li><a href="input/units.html"><strong>3.7.</strong> Units</a></li></ul></li><li><strong>4.</strong> Tutorial: extending Lumol</li><li><ul class="section"><li><strong>4.1.</strong> Adding potentials</li><li><strong>4.2.</strong> Adding outputs</li><li><strong>4.3.</strong> Extending Molecular dynamics</li><li><strong>4.4.</strong> Extending Monte-Carlo</li><li><strong>4.5.</strong> Adding propagators</li></ul></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -61,8 +61,8 @@
                 </div>
 
                 <div id="content" class="content">
-                    <h1>Welcome to Cymbalum user manual!</h1>
-<p>Cymbalum is a flexible and extensible molecular simulation engine. That means:</p>
+                    <h1>Welcome to Lumol user manual!</h1>
+<p>Lumol is a flexible and extensible molecular simulation engine. That means:</p>
 <ul>
 <li>You can use it to drive classical molecular simulations; from Monte-Carlo to
 molecular dynamics and energy minimization;</li>
@@ -70,10 +70,10 @@ molecular dynamics and energy minimization;</li>
 <li>You can <em>easily</em> extend the engine with new algorithms, and hook into its
 internals.</li>
 </ul>
-<p>This user manual describes how to use Cymbalum either as a command line tool or
+<p>This user manual describes how to use Lumol either as a command line tool or
 a library.</p>
 <h2>Systems and Simulations</h2>
-<p>The two main concepts in Cymbalum are a <code>System</code> and a <code>Simulation</code>. A <code>System</code>
+<p>The two main concepts in Lumol are a <code>System</code> and a <code>Simulation</code>. A <code>System</code>
 contains all the simulated system data: atomic names, positions and velocities,
 force-field, simulation box. On the other hand, a <code>Simulation</code> contains
 everything needed to run a simulation with a system, <em>i.e.</em> algorithms and
