@@ -43,7 +43,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="intro.html"><strong>1.</strong> Introduction</a></li><li><a href="installation.html" class="active"><strong>2.</strong> Installation</a></li><li><strong>3.</strong> First simulations</li><li><ul class="section"><li><strong>3.1.</strong> Monte-Carlo of argon</li><li><strong>3.2.</strong> Molecular dynamics of water</li><li><strong>3.3.</strong> Gibbs simulation of ethane</li><li><strong>3.4.</strong> Hello Sodium Chloride</li><li><strong>3.5.</strong> Adsorption in zeolites</li></ul></li><li><strong>4.</strong> Conceptual guides</li><li><ul class="section"><li><a href="concepts/system.html"><strong>4.1.</strong> System</a></li><li><a href="concepts/simulation.html"><strong>4.2.</strong> Simulation</a></li><li><a href="concepts/units.html"><strong>4.3.</strong> Units</a></li></ul></li><li><a href="input/intro.html"><strong>5.</strong> Input files</a></li><li><ul class="section"><li><strong>5.1.</strong> TOML syntax</li><li><a href="input/systems.html"><strong>5.2.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>5.3.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>5.4.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>5.5.</strong> Simulations</a></li><li><a href="input/md.html"><strong>5.6.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>5.7.</strong> Monte-Carlo</a></li></ul></li><li><strong>6.</strong> Advanced tutorials</li><li><ul class="section"><li><strong>6.1.</strong> Adding potentials</li><li><strong>6.2.</strong> Adding outputs</li><li><strong>6.3.</strong> Extending Molecular dynamics</li><li><strong>6.4.</strong> Extending Monte-Carlo</li><li><strong>6.5.</strong> Adding propagators</li></ul></li></ul>
+            <ul class="chapter"><li><a href="intro.html"><strong>1.</strong> Introduction</a></li><li><a href="installation.html" class="active"><strong>2.</strong> Installation</a></li><li><a href="tutorial/intro.html"><strong>3.</strong> First simulations</a></li><li><ul class="section"><li><a href="tutorial/argon.html"><strong>3.1.</strong> Monte-Carlo of Argon</a></li><li><a href="tutorial/nacl.html"><strong>3.2.</strong> Hello Sodium Chloride</a></li><li><a href="tutorial/water.html"><strong>3.3.</strong> Molecular dynamics of water</a></li><li><strong>3.4.</strong> Gibbs simulation of ethane</li><li><strong>3.5.</strong> Adsorption in zeolites</li></ul></li><li><strong>4.</strong> Conceptual guides</li><li><ul class="section"><li><a href="concepts/system.html"><strong>4.1.</strong> System</a></li><li><a href="concepts/simulation.html"><strong>4.2.</strong> Simulation</a></li><li><a href="concepts/units.html"><strong>4.3.</strong> Units</a></li></ul></li><li><a href="input/intro.html"><strong>5.</strong> Input files</a></li><li><ul class="section"><li><strong>5.1.</strong> TOML syntax</li><li><a href="input/systems.html"><strong>5.2.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>5.3.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>5.4.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>5.5.</strong> Simulations</a></li><li><a href="input/md.html"><strong>5.6.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>5.7.</strong> Monte-Carlo</a></li></ul></li><li><strong>6.</strong> Advanced tutorials</li><li><ul class="section"><li><strong>6.1.</strong> Adding potentials</li><li><strong>6.2.</strong> Adding outputs</li><li><strong>6.3.</strong> Extending Molecular dynamics</li><li><strong>6.4.</strong> Extending Monte-Carlo</li><li><strong>6.5.</strong> Adding propagators</li></ul></li><li><a href="faq.html"><strong>7.</strong> FAQ</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -63,30 +63,25 @@
 
                 <div id="content" class="content">
                     <h1>Installation</h1>
-<p>Lumol is written in the Rust programming language. To compile it, we need a
-stable Rust compiler. We can simply install Lumol using <em>cargo</em>, the Rust
-package manager. You can use Lumol as a command line tool or as a library.</p>
-<h2>Installation as command line tool</h2>
-<p>Via cargo:</p>
-<pre><code>cargo install --git https://github.com/Luthaf/lumol
+<p>Lumol is written in <a href="https://www.rust-lang.org/">Rust</a> (<a href="faq.html#Why%20is%20Lumol%20written%20in%20Rust?">why?</a>), and you will need a Rust
+compiler to compile it. You can download one from <a href="https://www.rust-lang.org/downloads.html">here</a>, or
+using your package manager (Rust is available on Fedora, and with Homebrew).
+Lumol also depends on some C++ libraries, so you will need a C++ compiler and
+cmake to be installed.</p>
+<p>Lumol is tested on Linux and OsX, and should build on Windows without any issue.
+You will need a C++11 capable compiler on Windows (MSVC &gt; 15 or Mingw with gcc &gt;
+4.9). Be sure to pick the corresponding version of the Rust compiler.</p>
+<p>When all the dependencies are installed on you system, you can install the
+latest release of Lumol using:</p>
+<pre><code>cargo install lumol
 </code></pre>
-<p>This will produce the binary named <code>cymba</code> in ~/.cargo/bin.</p>
-<h2>Installation as library</h2>
-<p>To use Lumol as library the easiest way is to clone it from github.</p>
-<pre><code>git clone https://github.com/Luthaf/lumol
-cd lumol
-cargo build
+<p>and the latest development version with:</p>
+<pre><code>cargo install --git https://github.com/lumol-org/lumol
 </code></pre>
-<p>We provide some examples in the examples directory. You can build them by
-running <code>cargo test --release --no-run</code>. To run examples, change to the examples
-directory and run the binaries.</p>
-<p>We also have unit and integration tests that you can run.</p>
-<pre><code># Run only the unit test
-cargo test --lib
-# Run all the tests in release mode.
-cargo test --release
-</code></pre>
-<p>Any failing test is an issue, please report it!</p>
+<p>Both of these commands will download and install the command line interface for
+Lumol in <code>~/.cargo/bin/lumol</code>, where <code>~</code> is your home directory. You may want to
+add <code>~/.cargo/bin</code> to your PATH or move the <code>lumol</code> binary in another directory
+accessible in your PATH.</p>
 
                 </div>
 
@@ -98,7 +93,7 @@ cargo test --release
                 
 
                 
-                    <a href="concepts/system.html" class="mobile-nav-chapters next">
+                    <a href="tutorial/intro.html" class="mobile-nav-chapters next">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -112,7 +107,7 @@ cargo test --release
             
 
             
-                <a href="concepts/system.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                <a href="tutorial/intro.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
                     <i class="fa fa-angle-right"></i>
                 </a>
             
