@@ -42,7 +42,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="engine/intro.html" class="active"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="engine/system.html"><strong>1.1.</strong> System</a></li><li><a href="engine/simulation.html"><strong>1.2.</strong> Simulation</a></li></ul></li><li><strong>2.</strong> Tutorial: using Lumol</li><li><ul class="section"><li><strong>2.1.</strong> Monte-Carlo of argon</li><li><strong>2.2.</strong> Molecular dynamics of water</li><li><strong>2.3.</strong> Gibbs simulation of ethane</li><li><strong>2.4.</strong> Hello Sodium Chloride</li><li><strong>2.5.</strong> Adsorption in zeolites</li></ul></li><li><a href="input/intro.html"><strong>3.</strong> Input files reference</a></li><li><ul class="section"><li><a href="input/systems.html"><strong>3.1.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>3.2.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>3.3.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>3.4.</strong> Simulations</a></li><li><a href="input/md.html"><strong>3.5.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>3.6.</strong> Monte-Carlo</a></li><li><a href="input/units.html"><strong>3.7.</strong> Units</a></li></ul></li><li><strong>4.</strong> Tutorial: extending Lumol</li><li><ul class="section"><li><strong>4.1.</strong> Adding potentials</li><li><strong>4.2.</strong> Adding outputs</li><li><strong>4.3.</strong> Extending Molecular dynamics</li><li><strong>4.4.</strong> Extending Monte-Carlo</li><li><strong>4.5.</strong> Adding propagators</li></ul></li></ul>
+            <ul class="chapter"><li><a href="intro.html" class="active"><strong>1.</strong> Introduction</a></li><li><a href="installation.html"><strong>2.</strong> Installation</a></li><li><strong>3.</strong> First simulations</li><li><ul class="section"><li><strong>3.1.</strong> Monte-Carlo of argon</li><li><strong>3.2.</strong> Molecular dynamics of water</li><li><strong>3.3.</strong> Gibbs simulation of ethane</li><li><strong>3.4.</strong> Hello Sodium Chloride</li><li><strong>3.5.</strong> Adsorption in zeolites</li></ul></li><li><strong>4.</strong> Conceptual guides</li><li><ul class="section"><li><a href="concepts/system.html"><strong>4.1.</strong> System</a></li><li><a href="concepts/simulation.html"><strong>4.2.</strong> Simulation</a></li><li><a href="concepts/units.html"><strong>4.3.</strong> Units</a></li></ul></li><li><a href="input/intro.html"><strong>5.</strong> Input files</a></li><li><ul class="section"><li><strong>5.1.</strong> TOML syntax</li><li><a href="input/systems.html"><strong>5.2.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>5.3.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>5.4.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>5.5.</strong> Simulations</a></li><li><a href="input/md.html"><strong>5.6.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>5.7.</strong> Monte-Carlo</a></li></ul></li><li><strong>6.</strong> Advanced tutorials</li><li><ul class="section"><li><strong>6.1.</strong> Adding potentials</li><li><strong>6.2.</strong> Adding outputs</li><li><strong>6.3.</strong> Extending Molecular dynamics</li><li><strong>6.4.</strong> Extending Monte-Carlo</li><li><strong>6.5.</strong> Adding propagators</li></ul></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -61,23 +61,32 @@
                 </div>
 
                 <div id="content" class="content">
-                    <h1>Welcome to Lumol user manual!</h1>
-<p>Lumol is a flexible and extensible molecular simulation engine. That means:</p>
+                    <h1>The Lumol user manual</h1>
+<p>Welcome to the Lumol user manual. In this book we teach you how to use Lumol to
+set up and run classical molecular simulations. We designed Lumol to be
+<em>flexible</em> and <em>extensible</em>; you are able to customize your simulation to suit
+your needs and use it as a platform to implement your own algorithms and
+customized potential functions in an <em>easy</em> way. You can use Lumol as a command
+line tool as well as a library in your own code.</p>
+<p>Excited? Then let's start with an overview of this book:</p>
 <ul>
-<li>You can use it to drive classical molecular simulations; from Monte-Carlo to
-molecular dynamics and energy minimization;</li>
-<li>You have full control over the simulation steps, and the simulated system;</li>
-<li>You can <em>easily</em> extend the engine with new algorithms, and hook into its
-internals.</li>
+<li><a href="installation.html">Installation</a>: Where to get and how to install Lumol.</li>
+<li><a href="">The first simulations</a>: Step-by-step tutorials on
+how to perform basic molecular dynamics and Monte-Carlo simulations.</li>
+<li><a href="concepts/intro.html">Conceptual guides</a>: Learn about the details. How are
+systems assembled? How do system propagators work?</li>
+<li><a href="input/intro.html">Input files reference</a>: The complete reference for the
+input files needed to perform simulations;</li>
+<li><a href="">Advanced Tutorials</a>: Extending and customizing Lumol.</li>
 </ul>
-<p>This user manual describes how to use Lumol either as a command line tool or
-a library.</p>
+<p><strong>Note</strong>: Lumol is actively developed and should be considered as alpha software.
+As the code is likely to change so is this documentation.</p>
 <h2>Systems and Simulations</h2>
-<p>The two main concepts in Lumol are a <code>System</code> and a <code>Simulation</code>. A <code>System</code>
-contains all the simulated system data: atomic names, positions and velocities,
-force-field, simulation box. On the other hand, a <code>Simulation</code> contains
-everything needed to run a simulation with a system, <em>i.e.</em> algorithms and
-associated data.</p>
+<p>Lumol mainly consists of two building blocks: the <code>System</code> and the <code>Simulation</code>.
+The <code>System</code> contains general informations about the system, such as atomic
+names, positions and velocities, force-field, simulation box. On the other hand,
+a <code>Simulation</code> contains everything needed to run a simulation with a system,
+<em>i.e.</em> algorithms and associated data.</p>
 <p>A <code>System</code> is usually used in combination with one <code>Simulation</code> to explore the
 properties of the system. Sometimes multiple systems can be associated with the
 same simulation (in Gibbs ensemble Monte-Carlo or in parallel tempering); and
@@ -90,7 +99,7 @@ running an energy minimization before a molecular dynamics run.</p>
                 
 
                 
-                    <a href="engine/system.html" class="mobile-nav-chapters next">
+                    <a href="installation.html" class="mobile-nav-chapters next">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -100,7 +109,7 @@ running an energy minimization before a molecular dynamics run.</p>
             
 
             
-                <a href="engine/system.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                <a href="installation.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
                     <i class="fa fa-angle-right"></i>
                 </a>
             

@@ -43,7 +43,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="engine/intro.html"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="engine/system.html"><strong>1.1.</strong> System</a></li><li><a href="engine/simulation.html"><strong>1.2.</strong> Simulation</a></li></ul></li><li><strong>2.</strong> Tutorial: using Lumol</li><li><ul class="section"><li><strong>2.1.</strong> Monte-Carlo of argon</li><li><strong>2.2.</strong> Molecular dynamics of water</li><li><strong>2.3.</strong> Gibbs simulation of ethane</li><li><strong>2.4.</strong> Hello Sodium Chloride</li><li><strong>2.5.</strong> Adsorption in zeolites</li></ul></li><li><a href="input/intro.html"><strong>3.</strong> Input files reference</a></li><li><ul class="section"><li><a href="input/systems.html"><strong>3.1.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>3.2.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>3.3.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>3.4.</strong> Simulations</a></li><li><a href="input/md.html"><strong>3.5.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>3.6.</strong> Monte-Carlo</a></li><li><a href="input/units.html"><strong>3.7.</strong> Units</a></li></ul></li><li><strong>4.</strong> Tutorial: extending Lumol</li><li><ul class="section"><li><strong>4.1.</strong> Adding potentials</li><li><strong>4.2.</strong> Adding outputs</li><li><strong>4.3.</strong> Extending Molecular dynamics</li><li><strong>4.4.</strong> Extending Monte-Carlo</li><li><strong>4.5.</strong> Adding propagators</li></ul></li></ul>
+            <ul class="chapter"><li><a href="intro.html"><strong>1.</strong> Introduction</a></li><li><a href="installation.html"><strong>2.</strong> Installation</a></li><li><strong>3.</strong> First simulations</li><li><ul class="section"><li><strong>3.1.</strong> Monte-Carlo of argon</li><li><strong>3.2.</strong> Molecular dynamics of water</li><li><strong>3.3.</strong> Gibbs simulation of ethane</li><li><strong>3.4.</strong> Hello Sodium Chloride</li><li><strong>3.5.</strong> Adsorption in zeolites</li></ul></li><li><strong>4.</strong> Conceptual guides</li><li><ul class="section"><li><a href="concepts/system.html"><strong>4.1.</strong> System</a></li><li><a href="concepts/simulation.html"><strong>4.2.</strong> Simulation</a></li><li><a href="concepts/units.html"><strong>4.3.</strong> Units</a></li></ul></li><li><a href="input/intro.html"><strong>5.</strong> Input files</a></li><li><ul class="section"><li><strong>5.1.</strong> TOML syntax</li><li><a href="input/systems.html"><strong>5.2.</strong> Systems</a></li><li><a href="input/interactions.html"><strong>5.3.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>5.4.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>5.5.</strong> Simulations</a></li><li><a href="input/md.html"><strong>5.6.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>5.7.</strong> Monte-Carlo</a></li></ul></li><li><strong>6.</strong> Advanced tutorials</li><li><ul class="section"><li><strong>6.1.</strong> Adding potentials</li><li><strong>6.2.</strong> Adding outputs</li><li><strong>6.3.</strong> Extending Molecular dynamics</li><li><strong>6.4.</strong> Extending Monte-Carlo</li><li><strong>6.5.</strong> Adding propagators</li></ul></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -62,28 +62,62 @@
                 </div>
 
                 <div id="content" class="content">
-                    <h1>Welcome to Lumol user manual!</h1>
-<p>Lumol is a flexible and extensible molecular simulation engine. That means:</p>
+                    <h1>The Lumol user manual</h1>
+<p>Welcome to the Lumol user manual. In this book we teach you how to use Lumol to
+set up and run classical molecular simulations. We designed Lumol to be
+<em>flexible</em> and <em>extensible</em>; you are able to customize your simulation to suit
+your needs and use it as a platform to implement your own algorithms and
+customized potential functions in an <em>easy</em> way. You can use Lumol as a command
+line tool as well as a library in your own code.</p>
+<p>Excited? Then let's start with an overview of this book:</p>
 <ul>
-<li>You can use it to drive classical molecular simulations; from Monte-Carlo to
-molecular dynamics and energy minimization;</li>
-<li>You have full control over the simulation steps, and the simulated system;</li>
-<li>You can <em>easily</em> extend the engine with new algorithms, and hook into its
-internals.</li>
+<li><a href="installation.html">Installation</a>: Where to get and how to install Lumol.</li>
+<li><a href="">The first simulations</a>: Step-by-step tutorials on
+how to perform basic molecular dynamics and Monte-Carlo simulations.</li>
+<li><a href="concepts/intro.html">Conceptual guides</a>: Learn about the details. How are
+systems assembled? How do system propagators work?</li>
+<li><a href="input/intro.html">Input files reference</a>: The complete reference for the
+input files needed to perform simulations;</li>
+<li><a href="">Advanced Tutorials</a>: Extending and customizing Lumol.</li>
 </ul>
-<p>This user manual describes how to use Lumol either as a command line tool or
-a library.</p>
+<p><strong>Note</strong>: Lumol is actively developed and should be considered as alpha software.
+As the code is likely to change so is this documentation.</p>
 <h2>Systems and Simulations</h2>
-<p>The two main concepts in Lumol are a <code>System</code> and a <code>Simulation</code>. A <code>System</code>
-contains all the simulated system data: atomic names, positions and velocities,
-force-field, simulation box. On the other hand, a <code>Simulation</code> contains
-everything needed to run a simulation with a system, <em>i.e.</em> algorithms and
-associated data.</p>
+<p>Lumol mainly consists of two building blocks: the <code>System</code> and the <code>Simulation</code>.
+The <code>System</code> contains general informations about the system, such as atomic
+names, positions and velocities, force-field, simulation box. On the other hand,
+a <code>Simulation</code> contains everything needed to run a simulation with a system,
+<em>i.e.</em> algorithms and associated data.</p>
 <p>A <code>System</code> is usually used in combination with one <code>Simulation</code> to explore the
 properties of the system. Sometimes multiple systems can be associated with the
 same simulation (in Gibbs ensemble Monte-Carlo or in parallel tempering); and
 sometimes multiple simulations can be associated with the same system, when
 running an energy minimization before a molecular dynamics run.</p>
+<h1>Installation</h1>
+<p>Lumol is written in the Rust programming language. To compile it, we need a
+stable Rust compiler. We can simply install Lumol using <em>cargo</em>, the Rust
+package manager. You can use Lumol as a command line tool or as a library.</p>
+<h2>Installation as command line tool</h2>
+<p>Via cargo:</p>
+<pre><code>cargo install --git https://github.com/Luthaf/lumol
+</code></pre>
+<p>This will produce the binary named <code>cymba</code> in ~/.cargo/bin.</p>
+<h2>Installation as library</h2>
+<p>To use Lumol as library the easiest way is to clone it from github.</p>
+<pre><code>git clone https://github.com/Luthaf/lumol
+cd lumol
+cargo build
+</code></pre>
+<p>We provide some examples in the examples directory. You can build them by
+running <code>cargo test --release --no-run</code>. To run examples, change to the examples
+directory and run the binaries.</p>
+<p>We also have unit and integration tests that you can run.</p>
+<pre><code># Run only the unit test
+cargo test --lib
+# Run all the tests in release mode.
+cargo test --release
+</code></pre>
+<p>Any failing test is an issue, please report it!</p>
 <h1>System</h1>
 <p>A <code>System</code> contains all the data about the physical system we are simulating.
 It contains four types of data:</p>
@@ -134,40 +168,82 @@ If the simulation is not finished, the system is propagated for one more step.</
 update the system at each simulation step. Currently, three propagators exists:
 a molecular dynamics one, a Monte-Carlo one and a minimizer, for energy
 minimization.</p>
-<h1>Input files syntax reference</h1>
-<p>Lumol input files uses the <a href="https://github.com/toml-lang/toml">TOML</a> format, a simple and minimalist
+<h1>Units</h1>
+<p>Lumol features a set of internal units and offers facilities to convert
+from and to this set of internal units.</p>
+<p>The internal unit system is the following:</p>
+<ul>
+<li>Angstrom (<code>A</code>) for distances;</li>
+<li>Femto-second (<code>fs</code>) for time;</li>
+<li>Unified atomic mass unit (<code>u</code> or <code>Da</code>) for mass;</li>
+<li>Kelvin (<code>K</code>) for temperature;</li>
+<li>Number of particles for quantity of matter;</li>
+<li>Radian (<code>rad</code>) for angles;</li>
+</ul>
+<p>Any other internal unit is derived from this set:</p>
+<ul>
+<li>The internal unit of energy is <code>u A^2 fs^-2</code>;</li>
+<li>The internal unit of force is <code>u A fs^-2</code>;</li>
+<li>The internal unit of pressure is <code>u A^-1 fs^-2</code>;</li>
+<li><em>etc.</em></li>
+</ul>
+<p>Lumol knows how to convert any value in these internal unit to others units.
+The accepted units are:</p>
+<table><thead><tr><td> Quantity    </td><td> Accepted units                    </td></tr></thead>
+<tr><td> Distance    </td><td> A, Å, nm, pm, fm, m, bohr   </td></tr>
+<tr><td> Time        </td><td> fs, ps, ns                        </td></tr>
+<tr><td> Mass        </td><td> u, Da, kDa, g, kg                 </td></tr>
+<tr><td> Matter      </td><td> mol                               </td></tr>
+<tr><td> Angle       </td><td> rad, deg                          </td></tr>
+<tr><td> Energy      </td><td> J, kJ, kcal, eV, H, Ry            </td></tr>
+<tr><td> Force       </td><td> N                                 </td></tr>
+<tr><td> Pressure    </td><td> Pa, kPa, MPa, bar, atm            </td></tr>
+</table>
+<p>In the input files, the units are specified as strings, and must be spelled
+exactly as in the above table. They can be combined with other units using <code>*</code>
+for multiplication, <code>/</code> for division, and  <code>^</code> for exponents. Parentheses can be
+used to group sub-units together. Some valid unit strings are <code>kcal/mol</code>, <code>(J / mol) * A^-2</code>, and <code>m*fs^-1</code>.</p>
+<h1>Input files</h1>
+<p>An input file contains all information that you need to run a simulation.
+It is usually organized in three main sections: <strong>input</strong>, <strong>systems</strong> and
+<strong>simulations</strong>.</p>
+<ul>
+<li>The <a href="input/intro.html#Input%20metadata">input</a> section contains metadata about
+the input itself (i.e. a version number).</li>
+<li>The <a href="input/systems.html">systems</a> section contains information about the
+intial configuration, the interactions between atoms and the simulation cell.</li>
+<li>The <a href="input/simulations.html">simulations</a> section defines how your system will
+propagate. You can generally choose between molecular dynamics (MD) or Monte-
+Carlo (MC).</li>
+</ul>
+<p>Interactions (often also called <em>force field</em>) are the heart of every simulation
+since they encapsulate the physical behaviour of atoms by defining how they
+interact with each other. You can specify interactions within the main input
+file as a part of the <code>systems</code> section, but since your system can contain a
+huge number of interactions it is often more convenient to create a separate
+input file. Doing so has two advantages. First, it will keep your main input
+file short and readable and second, you can simply reuse your force field input
+for different simulations (you can even build your own force fields library). We
+talk more about standalone input files for interactions on this
+<a href="input/interactions.html">page</a>.</p>
+<h2>Format</h2>
+<p>Lumol input files use the <a href="https://github.com/toml-lang/toml">TOML</a> format, a simple and minimalistic
 configuration format based on <code>key = value</code> pairs. You can read an introduction
 to the TOML format <a href="https://github.com/toml-lang/toml">here</a>.</p>
-<p>The input file describe everything needed for running a simulation: which system
-to use, with which force field, and how to propagate the simulation. They
-usually contain three main sections:</p>
-<ul>
-<li>The <a href="input/intro.html#Input%20metadata">input</a> section describe metadata about
-the input itself;</li>
-<li>The <a href="input/systems.html">systems</a> section describe the system to use in the
-simulation;</li>
-<li>The <a href="input/simulations.html">simulations</a> section describe how to update the
-system during the simulation;</li>
-</ul>
-<p>Interactions between particles in the system are a bit special: they can either
-be specified in they own input file (to be reused in multiple simulations); or
-be part of the <code>[[systems]]</code> section. This <a href="input/interactions.html">page</a>
-describe the standalone input for interactions.</p>
 <h2>Input metadata</h2>
 <p>All input files must contain an <code>[input]</code> section looking like this:</p>
 <pre><code class="language-toml">[input]
 version = 1
 </code></pre>
-<p>The purpose of the <code>version</code> key is to make changes to the input file format,
-while keeping compatibility with the previous input format. Please note that
-while Lumol have not reach version 1.0, no guarantee is made on input file
-compatibility.</p>
+<p>Introducing a <code>version</code> key helps us to make changes to the input file format
+while keeping compatibility with previous formats. Please note that
+Lumol is not in version 1.0 yet and we currently cannot guarantee compatibility
+for input files.</p>
 <h2>Units in input</h2>
 <p>The unit of a value can be defined by a specific string, which will be parsed
-and converted to the <a href="input/units.html">internal unit system</a>.
+and converted to the <a href="concepts/units.html">internal unit system</a>.
 If there is no unit in the string, the internal unit for this type is used.
-No consistency check is performed, and it is up to the code users to check the
-given units.</p>
+No consistency check is performed, and it is up to you to check the given units.</p>
 <pre><code class="language-toml"># Here, 'cutoff' is a distance
 
 # OK
@@ -184,115 +260,205 @@ cutoff = &quot;8 ps&quot;
 cutoff = 8.0   
 </code></pre>
 <h1>Systems</h1>
-<p>The system to use in a simulation must be specified in the <code>[[systems]]</code> section
-of the input file. The minimal input file contains only the <code>file</code> key, giving
-the path to a file to read to get the system.</p>
-<pre><code class="language-toml">[[systems]]
-file = &quot;data/CO2.pdb&quot;
-</code></pre>
-<p>The program read the file, and use information from this file to build the
-system. If the file is a trajectory containing multiple steps, the first frame
-is used. File reading is provided by <a href="http://chemfiles.github.io/">chemfiles</a>,
-and supported formats are documented <a href="http://chemfiles.readthedocs.io/en/latest/formats.html">here</a>.</p>
-<p>Additional keys allow to change the system after it is read from the file.</p>
-<h2>Setting the topology</h2>
-<p>When using a simple <code>.xyz</code> file as the system definition, no bonding information
-are present in the system. There are two ways to add bonding informations:</p>
+<p>Let's talk about how you can set up your system. The system contains information
+about:</p>
 <ul>
-<li>Use the <code>topology</code> key to give a file containing topological informations
+<li>the configuration, i.e. the positions (and velocities) of your atoms;</li>
+<li>which atoms are connected (bonded) to form molecules;</li>
+<li>how atoms will interact with each othe;</li>
+<li>and the simulation cell (i.e. volume).</li>
+</ul>
+<p>All these details are listed after the <code>[[systems]]</code> keyword. The double
+brackets indicate arrays of tables in TOML. Don't get confused too much, we will
+talk about these in more detail while we go through the different parts of the
+input file.</p>
+<h2>Setting the initial configuration</h2>
+<p>A convenient way to get initial atom positions is by reading them from a
+file using the <code>file</code> key:</p>
 <pre><code class="language-toml">[[systems]]
+file = &quot;data/water.pdb&quot;
+</code></pre>
+<p>Lumol will read the file to build the system accordingly. If the file is a
+trajectory containing multiple steps, the first frame is used. Under the hood,
+we utilize <a href="http://chemfiles.github.io/">chemfiles</a> to parse the data. You can
+read about available file formats in the <a href="http://chemfiles.readthedocs.io/en/latest/formats.html">chemfiles documentation</a>.</p>
+<h2>Setting the topology</h2>
+<p>You might want to use simple file formats such as <code>*.xyz</code> that don't specify
+bonding information. You can do that by adding the bonding information
+separately from your configuration file.</p>
+<ul>
+<li>
+<p>Use the <code>topology</code> key to provide a file containing topological details.</p>
+<pre><code class="language-toml">[[systems]]
+# the *.xyz format has no bonding information
 file = &quot;water.xyz&quot;
+# the *.pdb format specifies connections between atoms
 topology = &quot;topology.pdb&quot;
 </code></pre>
+<p>where <code>topology.pdb</code> (here for water) may look like:</p>
+<pre><code>HEADER    water
+COMPND
+SOURCE
+HETATM    1  H    ...
+HETATM    2  H    ...
+HETATM    3  O    ...
+CONECT    1    3
+CONECT    2    3
+CONECT    3    1    2
+END
+</code></pre>
+<p>with <code>CONECT</code> entries detailing for bonding information.</p>
+<p>Often, you can get ready-to-use topology files from databases or create your
+own topologies. If you want to know more about the Protein Data Bank (PDB)
+format have a look at the <a href="http://wwpdb.org/">PDB website</a>;</p>
 </li>
-<li>Use the <code>guess_bonds</code> key, to use a distance-based algorithm to guess the
-bonds in the system. The algorithm used is the same as the one in <a href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a>.
-You should always check if the bonding informations guessed by the algorithm
-is coherent with your system.
+<li>
+<p>The second option is to use the <code>guess_bonds</code> key to utilize a distance-based
+algorithm that will guess the bonds in the system. The algorithm is the same
+as the one in <a href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a>. You should always check and confirm that the
+bondings guessed by the algorithm are coherent with your system.</p>
 <pre><code class="language-toml">[[systems]]
 file = &quot;water.xyz&quot;
 guess_bonds = true
 </code></pre>
+<p>Note that <code>guess_bonds</code> takes a boolean as argument: there are no quotation
+marks around <code>true</code>. Also, TOML is case sensitive, i.e. writing
+<code>guess_bonds = True</code> will throw an error.</p>
 </li>
 </ul>
 <h2>Setting the unit cell</h2>
-<p>The <code>cell</code> key can be used to set the unit cell of the system in three different
-ways:</p>
+<p>To set up the (initial) simulation cell you use the <code>cell</code> key.
+We offer three different ways to set the cell:</p>
 <ul>
-<li><code>cell = &lt;length&gt;</code> will set the unit cell to a cubic cell with the given side
-length. <code>&lt;length&gt;</code> should be a numeric value in Angstrom.
+<li>
+<p><code>cell = &lt;length&gt;</code> creates a cubic unit cell with the given side
+length. <code>&lt;length&gt;</code> should be a numeric value (no quotation marks) in Angstrom.</p>
 <pre><code class="language-toml">[[systems]]
 file = &quot;water.xyz&quot;
+topology = &quot;topology.pdb&quot;
 cell = 40
 </code></pre>
 </li>
-<li><code>cell = [&lt;a&gt;, &lt;b&gt;, &lt;c&gt;]</code> will set the unit cell to a orthorhombic cell with<br />
-the given side lengths. <code>&lt;a&gt;</code>, <code>&lt;b&gt;</code>, and <code>&lt;c&gt;</code> should be numeric values in
-Angstrom.
+<li>
+<p><code>cell = [&lt;a&gt;, &lt;b&gt;, &lt;c&gt;]</code> creates an orthorhombic unit cell.
+You should provide the lengths of the cell, <code>&lt;a&gt;</code>, <code>&lt;b&gt;</code>, and <code>&lt;c&gt;</code> as numeric
+values in Angstrom.</p>
 <pre><code class="language-toml">[[systems]]
 file = &quot;water.xyz&quot;
+topology = &quot;topology.pdb&quot;
 cell = [24, 24, 76]
 </code></pre>
 </li>
-<li><code>cell = [&lt;a&gt;, &lt;b&gt;, &lt;c&gt;, &lt;alpha&gt;, &lt;beta&gt;, &lt;gamma&gt;]</code> will set the unit cell to a
-triclinic cell with the given side lengths and angles. <code>&lt;a&gt;</code>, <code>&lt;b&gt;</code>, and <code>&lt;c&gt;</code>
-should be numeric values in Angstrom; and <code>&lt;alpha&gt;</code>, <code>&lt;beta&gt;</code>, and <code>&lt;gamma&gt;</code>
-numeric values in degree.
+<li>
+<p><code>cell = [&lt;a&gt;, &lt;b&gt;, &lt;c&gt;, &lt;alpha&gt;, &lt;beta&gt;, &lt;gamma&gt;]</code> creates a triclinic unit
+cell with the given side lengths and angles. <code>&lt;a&gt;</code>, <code>&lt;b&gt;</code>, and <code>&lt;c&gt;</code>
+should be numeric values in Angstrom and <code>&lt;alpha&gt;</code>, <code>&lt;beta&gt;</code>, and <code>&lt;gamma&gt;</code>
+numeric values in degree.</p>
 <pre><code class="language-toml">[[systems]]
 file = &quot;water.xyz&quot;
-cell = [24, 24, 22, 90, 82.33, 110.4]
+topology = &quot;topology.pdb&quot;
+cell = [24., 24., 22., 90., 82.33, 110.4]
 </code></pre>
+<p>Note that in an TOML array, all values have to have the same type.
+<code>cell = [24, 24, 76]</code> will work since we use all integer values, while
+<code>cell = [24., 24., 76]</code> will throw an error.</p>
 </li>
 </ul>
 <h2>Initializing velocities</h2>
-<p>For molecular dynamics simulations, the <code>velocities</code> key can be used to
-initialize the velocities in the system. The syntax is the following:</p>
+<p>For molecular dynamics (MD) simulations you need initial positions and initial
+velocities of all atoms in your system. Use the <code>velocities</code> key to initialize
+the velocities in the following way:</p>
 <pre><code class="language-toml">[[systems]]
-file = &quot;data/CO2.pdb&quot;
+file = &quot;data/water.xyz&quot;
+topology = &quot;topology.pdb&quot;
 velocities = {init = &quot;300 K&quot;}
 </code></pre>
-<p>Where <code>init</code> key refers to a temperature string. The velocities will the be
-initialized from a Boltzmann distribution at this temperature.</p>
+<p>where the <code>init</code> key will take the temperature as <em>string</em>. The velocities will
+be initialized from a Boltzmann distribution at the given temperature.
+Monte-Carlo simulations will not make any use of velocities since transition
+probabilities (i.e. how the system evolves) are based on the positions (and the
+underlying interactions) only.</p>
 <h2>Specifying interactions</h2>
-<p>Interactions between atoms can be specified in two ways: either inside the main
-input file, or as a separated file.</p>
-<p>If the <code>potentials</code> key contains a string, this string is interpreted as the
-path to another input file containing only interactions definitions, as
-documented <a href="input/interactions.html">here</a>.</p>
-<pre><code class="language-toml">[[systems]]
-file = &quot;polymer.pdb&quot;
-potentials = &quot;potentials.toml&quot;
-</code></pre>
-<p>If the <code>potentials</code> key is actually a sub-table of <code>systems</code>, then the different
-sections for interactions input (<code>pairs</code>, <code>charges</code>, <code>angles</code>, ...) are looked
-inside this table. They use the same syntax as in <a href="input/interactions.html">standalone
-input</a>.</p>
-<pre><code class="language-toml">[[systems]]
-file = &quot;polymer.pdb&quot;
+<p>Interactions between atoms are formulated via potentials; functions that give us
+information about energies and forces acting between atoms. We distinguish
+between <em>inter</em>- and <em>intramolecular</em> potentials. For an overview of available
+potential functions, have a look at [here][potentials].</p>
+<p>You can specify interactions between atoms in two ways: either inside the main
+input file or in a separate file. As example we will use a flexible SPC water
+model and put it directly into our main input file:</p>
+<pre><code class="language-toml"># system configuration: initial positions, topology and cell
+[[systems]]
+file = &quot;data/water.xyz&quot;
+topology = &quot;topology.pdb&quot;
+cell = 40
+
+# intermolecular potentials
+[[systems.potentials.pairs]]
+atoms = [&quot;O&quot;, &quot;O&quot;]
+lj = {sigma = &quot;3.165 A&quot;, epsilon = &quot;0.155 kcal/mol&quot;}
 
 [[systems.potentials.pairs]]
-atoms = [&quot;C&quot;, &quot;O&quot;]
-lj = {sigma = &quot;3 A&quot;, epsilon = &quot;0.5 kJ/mol&quot;}
+atoms = [&quot;H&quot;, &quot;H&quot;]
+null = {}
+
+[[systems.potentials.pairs]]
+atoms = [&quot;O&quot;, &quot;H&quot;]
+null = {}
+
+# intramolecular potentials
+[[systems.potentials.bonds]]
+atoms = [&quot;O&quot;, &quot;H&quot;]
+harmonic = {k = &quot;1059.162 kcal/mol/A^2&quot;, x0 = &quot;1.012 A&quot;}
 
 [[systems.potentials.angles]]
-atoms = [&quot;O&quot;, &quot;C&quot;, &quot;O&quot;]
-harmonic = {x0 = &quot;109 deg&quot;, k = &quot;5 kJ/mol/deg&quot;}
+atoms = [&quot;H&quot;, &quot;O&quot;, &quot;H&quot;]
+harmonic = {k = &quot;75.90 kcal/mol/deg^2&quot;, x0 = &quot;113.24 deg&quot;}
+
+# additional interactions omitted
 </code></pre>
+<p>As you can see, there is a lot of bracket notation going on here. First, in
+<code>[[systems.potentials.xxx]]</code>, the <code>potentials</code> key is actually a nested table of
+<code>systems</code> indicated by the dot notation. Accordingly, <code>pairs</code>, <code>bonds</code>,
+<code>angles</code>, etc. are nested tables of <code>potentials</code>. Second, <code>harmonic = {k = &quot;75.90 kcal/mol/deg&quot;, x0 = &quot;113.24 deg&quot;}</code> is the notation for an inline table.</p>
+<p>Input files can get very big and hard to read when you simulate complex systems
+with a large number of different atoms. In these scenarios it may be better to
+define a separate input file for your interactions like so:</p>
+<pre><code class="language-toml">[[systems]]
+file = &quot;data/water.xyz&quot;
+topology = &quot;topology.pdb&quot;
+cell = 40
+potentials = &quot;water.toml&quot;
+</code></pre>
+<p>Here, the <code>potentials</code> key contains a string that is interpreted as the path to
+another input file containing only definitions of interactions. We will give
+examples of interaction input files <a href="input/interactions.html">here</a> along with available
+keywords.</p>
 <h1>Interactions</h1>
-<p>An interaction is the association of atomic types, a potential function and
-optionally restrictions and mode of computation. Input files for interaction
-contains all this information, ordered in multiple sections. The <code>pairs</code>,
-<code>bonds</code>, <code>angles</code> and <code>dihedrals</code> sections are arrays of interactions, listing
-possible atomic combinations and associated potentials. The <code>coulomb</code> section
-contains information about the treatment of long-range electrostatic
-interactions, and the <code>charges</code> section defines the partial charges of the
-atoms.</p>
+<p>Interactions describe the energies between atoms - or more general - between
+interaction sites. These energies arrise due to covalent bonding of atoms to
+form molecules,  short-range van der Waals or long-range coulombic energies. To
+describe interactions we use <em>potentials</em> which are functions  that take a set
+of parameters and geometrical coordinates (for example distances  or angles) as
+input and yield energies and forces. A set of potential functions  and
+parameters to describe energies and forces of a molecule is also often called
+<em>force field</em>. We will use the terms interactions and force field
+interchangeably.</p>
+<p>To be more specific, we distinguish between the following contributions:</p>
+<ul>
+<li><code>pairs</code> are van der Waals interactions between pairs of atoms,</li>
+<li><code>bonds</code> describe the energy between covalently bonded atoms,</li>
+<li><code>angles</code> and <code>dihedrals</code> describe energy contributions due to bending and
+twisting of covalently bonded atoms,</li>
+<li><code>coulomb</code> and <code>charges</code> describe long-range contributions due to electrostatic
+interactions.</li>
+</ul>
+<p>Information about interactions for <code>pairs</code>, <code>bonds</code>, <code>angles</code> and <code>dihedrals</code>
+are organised as arrays of TOML tables. The <code>coulomb</code> section contains
+information about the treatment of long-range electrostatic interactions and the
+<code>charges</code> section defines the partial charges of the atoms.</p>
 <p>An example of an input file for the f-SPC model of water is given bellow:</p>
 <pre><code class="language-toml">[input]
 version = 1
-
-[global]
-cutoff = &quot;12.5 A&quot;
 
 [[pairs]]
 atoms = [&quot;O&quot;, &quot;O&quot;]
@@ -322,77 +488,36 @@ ewald = {cutoff = &quot;10 A&quot;, kmax = 7}
 O = -0.82
 H = 0.41
 </code></pre>
-<h2>Pairs and molecular interactions</h2>
+<h2>van der Waals and covalent interactions</h2>
 <p>The <code>pairs</code>, <code>bonds</code>, <code>angles</code> and <code>dihedrals</code> sections are arrays, in which
 every entry must contain at least two keys: the <code>atoms</code> key, and a
-<a href="input/potentials.html#Available%20potentials">potential</a> key. The <code>atoms</code> key
-specifies the atom types to which the interaction should be applied and should
-contain two atoms for <code>pairs</code> and <code>bonds</code>, three atoms for <code>angles</code> and four
+<a href="input/potentials.html#Available%20potentials">potential</a> key. With the <code>atoms</code>
+key you can specify the two atom types to which the interaction should be
+applied. The number of atoms depends on the type of interaction: You have to
+provide two atoms for <code>pairs</code> and <code>bonds</code>, three atoms for <code>angles</code> and four
 atoms for <code>dihedrals</code>.</p>
-<p>For example, to use a harmonic bond potential for all <code>C-H</code> bonds:</p>
+<p>For example you can use a <code>harmonic</code> bond potential for all your <code>C-H</code> bonds:</p>
 <pre><code class="language-toml">[[bonds]]
 atoms = [&quot;C&quot;, &quot;H&quot;]
 harmonic = {x0 = &quot;3.405 A&quot;, k = &quot;2385 kcal/mol/A^2&quot;}
 </code></pre>
-<p>Within the <code>pairs</code> section, additional information about how to compute the
-pair potential can be given:</p>
-<ul>
-<li>A <a href="input/potentials.html#Restrictions">restriction</a> restrict the potential
-to a subset of the pairs in the system with the <code>restriction</code> keyword;</li>
-<li>A different <a href="input/potentials.html#Potential%20computations">computation method</a> can be specified with the
-<code>computation</code> keyword;</li>
-<li>A different <a href="input/interactions.html#Cutoff%20treatment%20for%20pair%20interactions">cutoff treatment</a> is
-specified by the <code>cutoff</code> keyword.</li>
-</ul>
+<h3>Restrictions</h3>
+<p>In some force fields, neighbouring atoms in molecules may interact solely via
+covalent potentials (and not van der Waals or electrostatic). In this case, we
+have to <em>exclude</em> interactions between neighbours in molecules. You can do that
+(and more) in the <code>pairs</code> section by specifying a
+<a href="input/potentials.html#Restrictions">restriction</a> using the <code>restriction</code> key.</p>
 <pre><code class="language-toml">[[pairs]]
 atoms = [&quot;Ar&quot;, &quot;Ar&quot;]
 lj = {sigma = &quot;3.405 A&quot;, epsilon = &quot;0.2385 kcal/mol&quot;}
-computation = {table = {n = 2000, max = &quot;20.0 A&quot;}}
 restriction  = &quot;IntraMolecular&quot;
 </code></pre>
-<h3>Cutoff treatment for pair interactions</h3>
-<p>Two different cutoff treatments are available for pair interactions: a simple
-cutoff distance, or a shifted potential with a cutoff. With a simple cutoff the
-potential is only set to zero after the cutoff distance. With a shifted
-potential, the potential energy is shifted so that it is zero at the cutoff
-distance and after. This mean that the energy is continuous for the shifted
-potential, which is a desirable property for molecular dynamics stability.</p>
-<p>In the input files, a simple cutoff can be used with <code>cutoff = &quot;8 A&quot;</code>, and a
-shifted potential can be used with <code>cutoff = {shifted = &quot;8 A&quot;}</code>. The cutoff treatment can be set either globally in the <code>[global]</code> table:</p>
-<pre><code class="language-toml">[input]
-version = 1
-
-[global]
-cutoff = &quot;8 A&quot;
-
-[[pairs]]
-# ...
-# All pairs interaction will use a 8 A cutoff, unless specified otherwise.
-</code></pre>
-<p>or specifically for each pair interaction:</p>
-<pre><code class="language-toml">[input]
-version = 1
-
-[[pairs]]
-cutoff = &quot;8 A&quot;
-# ...
-
-[[pairs]]
-cutoff = {shifted: &quot;7 A&quot;}
-# ...
-
-[[pairs]]
-cutoff = &quot;12 A&quot;
-# ...
-</code></pre>
-<p>If a global cutoff is defined, defining another cutoff in a <code>pairs</code> section
-will override the global cutoff.</p>
 <h2>Coulombic interactions</h2>
 <p>The method for treatment of electrostatic interactions is specified in the
 <code>coulomb</code> section. There are multiple available solvers for <a href="input/potentials.html#Electrostatic%20interactions">electrostatic
 interactions</a>. Optionally,
-an additional <a href="input/potentials.html#Restrictions">restriction</a> can be
-specified with the <code>restriction</code> key.</p>
+an additional <a href="input/potentials.html#Restrictions">restriction</a> can be specified
+with the <code>restriction</code> key.</p>
 <pre><code class="language-toml">[coulomb]
 ewald = {cutoff = &quot;10 A&quot;, kmax = 7}
 restriction  = &quot;exclude13&quot;
@@ -557,10 +682,26 @@ table interpolation, <em>etc.</em> This is the purpose of computation. The defau
 is to use the mathematical function corresponding to a potential to compute it.
 To use another computation, the <code>computation</code> keyword can be used in the
 <code>[[pairs]]</code> section.</p>
+<h2>Cutoff computation</h2>
+<p>It is possible to use a cutoff radius $rc$ to compute a potential $U(r)$ such
+that:</p>
+<p>$$ V(r) = \begin{cases}
+U(r) - U(rc) &amp; r &lt;= rc \\
+0 &amp; r &gt; rc
+\end{cases}$$</p>
+<p>The potential $U$ is additionally shifted to make sure it is continuous at $r =
+rc$. This is important for molecular dynamics, where a discontinuity means an
+infinite force in the integration. You can choose the <code>cutoff</code> value in the
+input:</p>
+<pre><code class="language-toml">[[pairs]]
+atoms = [&quot;O&quot;, &quot;O&quot;]
+lj = {sigma = &quot;3 A&quot;, epsilon = &quot;123 kJ/mol&quot;}
+computation = {cutoff = &quot;8 A&quot;}
+</code></pre>
 <h2>Table interpolation</h2>
-<p>A way to compute a potential is to pre-compute it on a regularly spaced grid,
-and then to interpolate values for points in the grid. In some cases, this can
-be faster than recomputing the function every time.</p>
+<p>Another way to compute a potential is to pre-compute it on a regularly spaced
+grid, and then to interpolate values for points in the grid. In some cases, this
+can be faster than recomputing the function every time.</p>
 <p>This can be done with the <code>table</code> computation, which does a linear interpolation
 in regularly spaced values in the <code>[0, max)</code> segment. You need to provide the
 <code>max</code> value, and the number of points <code>n</code> for the interpolation:</p>
@@ -811,41 +952,6 @@ moves = [
     {type = &quot;Rotate&quot;, delta = &quot;3 deg&quot;, frequency = 2},
 ]
 </code></pre>
-<h1>Units</h1>
-<p>Lumol features a set of internal units and offers facilities to convert
-from and to this set of internal units.</p>
-<p>The internal unit system is the following:</p>
-<ul>
-<li>Angstrom (<code>A</code>) for distances;</li>
-<li>Femto-second (<code>fs</code>) for time;</li>
-<li>Unified atomic mass unit (<code>u</code> or <code>Da</code>) for mass;</li>
-<li>Kelvin (<code>K</code>) for temperature;</li>
-<li>Number of particles for quantity of matter;</li>
-<li>Radian (<code>rad</code>) for angles;</li>
-</ul>
-<p>Any other internal unit is derived from this set:</p>
-<ul>
-<li>The internal unit of energy is <code>u A^2 fs^-2</code>;</li>
-<li>The internal unit of force is <code>u A fs^-2</code>;</li>
-<li>The internal unit of pressure is <code>u A^-1 fs^-2</code>;</li>
-<li><em>etc.</em></li>
-</ul>
-<p>Lumol knows how to convert any value in these internal unit to others units.
-The accepted units are:</p>
-<table><thead><tr><td> Quantity    </td><td> Accepted units                    </td></tr></thead>
-<tr><td> Distance    </td><td> A, Å, nm, pm, fm, m, bohr   </td></tr>
-<tr><td> Time        </td><td> fs, ps, ns                        </td></tr>
-<tr><td> Mass        </td><td> u, Da, kDa, g, kg                 </td></tr>
-<tr><td> Matter      </td><td> mol                               </td></tr>
-<tr><td> Angle       </td><td> rad, deg                          </td></tr>
-<tr><td> Energy      </td><td> J, kJ, kcal, eV, H, Ry            </td></tr>
-<tr><td> Force       </td><td> N                                 </td></tr>
-<tr><td> Pressure    </td><td> Pa, kPa, MPa, bar, atm            </td></tr>
-</table>
-<p>In the input files, the units are specified as strings, and must be spelled
-exactly as in the above table. They can be combined with other units using <code>*</code>
-for multiplication, <code>/</code> for division, and  <code>^</code> for exponents. Parentheses can be
-used to group sub-units together. Some valid unit strings are <code>kcal/mol</code>, <code>(J / mol) * A^-2</code>, and <code>m*fs^-1</code>.</p>
 
                 </div>
 

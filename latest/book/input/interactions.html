@@ -43,7 +43,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li><a href="engine/intro.html"><strong>1.</strong> Introduction</a></li><li><ul class="section"><li><a href="engine/system.html"><strong>1.1.</strong> System</a></li><li><a href="engine/simulation.html"><strong>1.2.</strong> Simulation</a></li></ul></li><li><strong>2.</strong> Tutorial: using Lumol</li><li><ul class="section"><li><strong>2.1.</strong> Monte-Carlo of argon</li><li><strong>2.2.</strong> Molecular dynamics of water</li><li><strong>2.3.</strong> Gibbs simulation of ethane</li><li><strong>2.4.</strong> Hello Sodium Chloride</li><li><strong>2.5.</strong> Adsorption in zeolites</li></ul></li><li><a href="input/intro.html"><strong>3.</strong> Input files reference</a></li><li><ul class="section"><li><a href="input/systems.html"><strong>3.1.</strong> Systems</a></li><li><a href="input/interactions.html" class="active"><strong>3.2.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>3.3.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>3.4.</strong> Simulations</a></li><li><a href="input/md.html"><strong>3.5.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>3.6.</strong> Monte-Carlo</a></li><li><a href="input/units.html"><strong>3.7.</strong> Units</a></li></ul></li><li><strong>4.</strong> Tutorial: extending Lumol</li><li><ul class="section"><li><strong>4.1.</strong> Adding potentials</li><li><strong>4.2.</strong> Adding outputs</li><li><strong>4.3.</strong> Extending Molecular dynamics</li><li><strong>4.4.</strong> Extending Monte-Carlo</li><li><strong>4.5.</strong> Adding propagators</li></ul></li></ul>
+            <ul class="chapter"><li><a href="intro.html"><strong>1.</strong> Introduction</a></li><li><a href="installation.html"><strong>2.</strong> Installation</a></li><li><strong>3.</strong> First simulations</li><li><ul class="section"><li><strong>3.1.</strong> Monte-Carlo of argon</li><li><strong>3.2.</strong> Molecular dynamics of water</li><li><strong>3.3.</strong> Gibbs simulation of ethane</li><li><strong>3.4.</strong> Hello Sodium Chloride</li><li><strong>3.5.</strong> Adsorption in zeolites</li></ul></li><li><strong>4.</strong> Conceptual guides</li><li><ul class="section"><li><a href="concepts/system.html"><strong>4.1.</strong> System</a></li><li><a href="concepts/simulation.html"><strong>4.2.</strong> Simulation</a></li><li><a href="concepts/units.html"><strong>4.3.</strong> Units</a></li></ul></li><li><a href="input/intro.html"><strong>5.</strong> Input files</a></li><li><ul class="section"><li><strong>5.1.</strong> TOML syntax</li><li><a href="input/systems.html"><strong>5.2.</strong> Systems</a></li><li><a href="input/interactions.html" class="active"><strong>5.3.</strong> Interactions</a></li><li><a href="input/potentials.html"><strong>5.4.</strong> Potentials</a></li><li><a href="input/simulations.html"><strong>5.5.</strong> Simulations</a></li><li><a href="input/md.html"><strong>5.6.</strong> Molecular dynamics</a></li><li><a href="input/mc.html"><strong>5.7.</strong> Monte-Carlo</a></li></ul></li><li><strong>6.</strong> Advanced tutorials</li><li><ul class="section"><li><strong>6.1.</strong> Adding potentials</li><li><strong>6.2.</strong> Adding outputs</li><li><strong>6.3.</strong> Extending Molecular dynamics</li><li><strong>6.4.</strong> Extending Monte-Carlo</li><li><strong>6.5.</strong> Adding propagators</li></ul></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -63,20 +63,31 @@
 
                 <div id="content" class="content">
                     <h1>Interactions</h1>
-<p>An interaction is the association of atomic types, a potential function and
-optionally restrictions and mode of computation. Input files for interaction
-contains all this information, ordered in multiple sections. The <code>pairs</code>,
-<code>bonds</code>, <code>angles</code> and <code>dihedrals</code> sections are arrays of interactions, listing
-possible atomic combinations and associated potentials. The <code>coulomb</code> section
-contains information about the treatment of long-range electrostatic
-interactions, and the <code>charges</code> section defines the partial charges of the
-atoms.</p>
+<p>Interactions describe the energies between atoms - or more general - between
+interaction sites. These energies arrise due to covalent bonding of atoms to
+form molecules,  short-range van der Waals or long-range coulombic energies. To
+describe interactions we use <em>potentials</em> which are functions  that take a set
+of parameters and geometrical coordinates (for example distances  or angles) as
+input and yield energies and forces. A set of potential functions  and
+parameters to describe energies and forces of a molecule is also often called
+<em>force field</em>. We will use the terms interactions and force field
+interchangeably.</p>
+<p>To be more specific, we distinguish between the following contributions:</p>
+<ul>
+<li><code>pairs</code> are van der Waals interactions between pairs of atoms,</li>
+<li><code>bonds</code> describe the energy between covalently bonded atoms,</li>
+<li><code>angles</code> and <code>dihedrals</code> describe energy contributions due to bending and
+twisting of covalently bonded atoms,</li>
+<li><code>coulomb</code> and <code>charges</code> describe long-range contributions due to electrostatic
+interactions.</li>
+</ul>
+<p>Information about interactions for <code>pairs</code>, <code>bonds</code>, <code>angles</code> and <code>dihedrals</code>
+are organised as arrays of TOML tables. The <code>coulomb</code> section contains
+information about the treatment of long-range electrostatic interactions and the
+<code>charges</code> section defines the partial charges of the atoms.</p>
 <p>An example of an input file for the f-SPC model of water is given bellow:</p>
 <pre><code class="language-toml">[input]
 version = 1
-
-[global]
-cutoff = &quot;12.5 A&quot;
 
 [[pairs]]
 atoms = [&quot;O&quot;, &quot;O&quot;]
@@ -106,77 +117,36 @@ ewald = {cutoff = &quot;10 A&quot;, kmax = 7}
 O = -0.82
 H = 0.41
 </code></pre>
-<h2>Pairs and molecular interactions</h2>
+<h2>van der Waals and covalent interactions</h2>
 <p>The <code>pairs</code>, <code>bonds</code>, <code>angles</code> and <code>dihedrals</code> sections are arrays, in which
 every entry must contain at least two keys: the <code>atoms</code> key, and a
-<a href="input/potentials.html#Available%20potentials">potential</a> key. The <code>atoms</code> key
-specifies the atom types to which the interaction should be applied and should
-contain two atoms for <code>pairs</code> and <code>bonds</code>, three atoms for <code>angles</code> and four
+<a href="input/potentials.html#Available%20potentials">potential</a> key. With the <code>atoms</code>
+key you can specify the two atom types to which the interaction should be
+applied. The number of atoms depends on the type of interaction: You have to
+provide two atoms for <code>pairs</code> and <code>bonds</code>, three atoms for <code>angles</code> and four
 atoms for <code>dihedrals</code>.</p>
-<p>For example, to use a harmonic bond potential for all <code>C-H</code> bonds:</p>
+<p>For example you can use a <code>harmonic</code> bond potential for all your <code>C-H</code> bonds:</p>
 <pre><code class="language-toml">[[bonds]]
 atoms = [&quot;C&quot;, &quot;H&quot;]
 harmonic = {x0 = &quot;3.405 A&quot;, k = &quot;2385 kcal/mol/A^2&quot;}
 </code></pre>
-<p>Within the <code>pairs</code> section, additional information about how to compute the
-pair potential can be given:</p>
-<ul>
-<li>A <a href="input/potentials.html#Restrictions">restriction</a> restrict the potential
-to a subset of the pairs in the system with the <code>restriction</code> keyword;</li>
-<li>A different <a href="input/potentials.html#Potential%20computations">computation method</a> can be specified with the
-<code>computation</code> keyword;</li>
-<li>A different <a href="input/interactions.html#Cutoff%20treatment%20for%20pair%20interactions">cutoff treatment</a> is
-specified by the <code>cutoff</code> keyword.</li>
-</ul>
+<h3>Restrictions</h3>
+<p>In some force fields, neighbouring atoms in molecules may interact solely via
+covalent potentials (and not van der Waals or electrostatic). In this case, we
+have to <em>exclude</em> interactions between neighbours in molecules. You can do that
+(and more) in the <code>pairs</code> section by specifying a
+<a href="input/potentials.html#Restrictions">restriction</a> using the <code>restriction</code> key.</p>
 <pre><code class="language-toml">[[pairs]]
 atoms = [&quot;Ar&quot;, &quot;Ar&quot;]
 lj = {sigma = &quot;3.405 A&quot;, epsilon = &quot;0.2385 kcal/mol&quot;}
-computation = {table = {n = 2000, max = &quot;20.0 A&quot;}}
 restriction  = &quot;IntraMolecular&quot;
 </code></pre>
-<h3>Cutoff treatment for pair interactions</h3>
-<p>Two different cutoff treatments are available for pair interactions: a simple
-cutoff distance, or a shifted potential with a cutoff. With a simple cutoff the
-potential is only set to zero after the cutoff distance. With a shifted
-potential, the potential energy is shifted so that it is zero at the cutoff
-distance and after. This mean that the energy is continuous for the shifted
-potential, which is a desirable property for molecular dynamics stability.</p>
-<p>In the input files, a simple cutoff can be used with <code>cutoff = &quot;8 A&quot;</code>, and a
-shifted potential can be used with <code>cutoff = {shifted = &quot;8 A&quot;}</code>. The cutoff treatment can be set either globally in the <code>[global]</code> table:</p>
-<pre><code class="language-toml">[input]
-version = 1
-
-[global]
-cutoff = &quot;8 A&quot;
-
-[[pairs]]
-# ...
-# All pairs interaction will use a 8 A cutoff, unless specified otherwise.
-</code></pre>
-<p>or specifically for each pair interaction:</p>
-<pre><code class="language-toml">[input]
-version = 1
-
-[[pairs]]
-cutoff = &quot;8 A&quot;
-# ...
-
-[[pairs]]
-cutoff = {shifted: &quot;7 A&quot;}
-# ...
-
-[[pairs]]
-cutoff = &quot;12 A&quot;
-# ...
-</code></pre>
-<p>If a global cutoff is defined, defining another cutoff in a <code>pairs</code> section
-will override the global cutoff.</p>
 <h2>Coulombic interactions</h2>
 <p>The method for treatment of electrostatic interactions is specified in the
 <code>coulomb</code> section. There are multiple available solvers for <a href="input/potentials.html#Electrostatic%20interactions">electrostatic
 interactions</a>. Optionally,
-an additional <a href="input/potentials.html#Restrictions">restriction</a> can be
-specified with the <code>restriction</code> key.</p>
+an additional <a href="input/potentials.html#Restrictions">restriction</a> can be specified
+with the <code>restriction</code> key.</p>
 <pre><code class="language-toml">[coulomb]
 ewald = {cutoff = &quot;10 A&quot;, kmax = 7}
 restriction  = &quot;exclude13&quot;
