@@ -576,6 +576,16 @@ cell = 40
 </code></pre>
 </li>
 <li>
+<p><code>cell = []</code> create an infinite unit cell, without boundaries. This can be
+used when periodic boundary conditions are undesirables, for example to
+simulate aggregats in the void;</p>
+<pre><code class="language-toml">[[systems]]
+file = &quot;water.xyz&quot;
+topology = &quot;topology.pdb&quot;
+cell = []
+</code></pre>
+</li>
+<li>
 <p><code>cell = [&lt;a&gt;, &lt;b&gt;, &lt;c&gt;]</code> creates an orthorhombic unit cell.
 You should provide the lengths of the cell, <code>&lt;a&gt;</code>, <code>&lt;b&gt;</code>, and <code>&lt;c&gt;</code> as numeric
 values in Angstrom.</p>

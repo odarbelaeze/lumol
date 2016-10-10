@@ -409,12 +409,6 @@
 <span id="365">365</span>
 <span id="366">366</span>
 <span id="367">367</span>
-<span id="368">368</span>
-<span id="369">369</span>
-<span id="370">370</span>
-<span id="371">371</span>
-<span id="372">372</span>
-<span id="373">373</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -692,8 +686,8 @@
 <span class='kw'>mod</span> <span class='ident'>tests</span> {
     <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
     <span class='kw'>use</span> <span class='ident'>system</span>::{<span class='ident'>System</span>, <span class='ident'>UnitCell</span>};
-    <span class='kw'>use</span> <span class='ident'>utils</span>::<span class='ident'>system_from_xyz</span>;
-    <span class='kw'>use</span> <span class='ident'>input</span>::<span class='ident'>read_interactions_string</span>;
+    <span class='kw'>use</span> <span class='ident'>potentials</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='ident'>utils</span>::{<span class='ident'>system_from_xyz</span>, <span class='ident'>unit_from</span>};
     <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>Vector3D</span>;
 
     <span class='kw'>fn</span> <span class='ident'>testing_system</span>() <span class='op'>-&gt;</span> <span class='ident'>System</span> {
@@ -706,45 +700,39 @@
         <span class='ident'>system</span>.<span class='ident'>set_cell</span>(<span class='ident'>UnitCell</span>::<span class='ident'>cubic</span>(<span class='number'>10.0</span>));
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>system</span>.<span class='ident'>molecules</span>().<span class='ident'>len</span>() <span class='op'>==</span> <span class='number'>1</span>);
 
-        <span class='ident'>read_interactions_string</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>system</span>, <span class='string'>r#&quot;
-        [input]
-        version = 1
+        <span class='ident'>system</span>.<span class='ident'>interactions_mut</span>().<span class='ident'>add_pair</span>(<span class='string'>&quot;H&quot;</span>, <span class='string'>&quot;H&quot;</span>, <span class='ident'>PairInteraction</span>::<span class='ident'>new</span>(
+            <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>LennardJones</span>{<span class='ident'>sigma</span>: <span class='number'>3.0</span>, <span class='ident'>epsilon</span>: <span class='ident'>unit_from</span>(<span class='number'>0.5</span>, <span class='string'>&quot;kJ/mol&quot;</span>)}), <span class='number'>3.0</span>
+        ));
 
-        [global]
-        cutoff = &quot;3 A&quot;
+        <span class='ident'>system</span>.<span class='ident'>interactions_mut</span>().<span class='ident'>add_pair</span>(<span class='string'>&quot;O&quot;</span>, <span class='string'>&quot;O&quot;</span>, <span class='ident'>PairInteraction</span>::<span class='ident'>new</span>(
+            <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>NullPotential</span>), <span class='number'>3.0</span>
+        ));
 
-        # Values are completely random, just having a bit of all the types
-        [[pairs]]
-        atoms = [&quot;H&quot;, &quot;H&quot;]
-        lj = {sigma = &quot;3.0 A&quot;, epsilon = &quot;0.2 kJ/mol&quot;}
+        <span class='ident'>system</span>.<span class='ident'>interactions_mut</span>().<span class='ident'>add_pair</span>(<span class='string'>&quot;O&quot;</span>, <span class='string'>&quot;H&quot;</span>, <span class='ident'>PairInteraction</span>::<span class='ident'>new</span>(
+            <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>LennardJones</span>{<span class='ident'>sigma</span>: <span class='number'>1.0</span>, <span class='ident'>epsilon</span>: <span class='ident'>unit_from</span>(<span class='number'>0.3</span>, <span class='string'>&quot;kJ/mol&quot;</span>)}), <span class='number'>3.0</span>
+        ));
 
-        [[pairs]]
-        atoms = [&quot;O&quot;, &quot;O&quot;]
-        null = {}
+        <span class='ident'>system</span>.<span class='ident'>interactions_mut</span>().<span class='ident'>add_bond</span>(<span class='string'>&quot;O&quot;</span>, <span class='string'>&quot;H&quot;</span>,
+            <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>Harmonic</span>{<span class='ident'>x0</span>: <span class='number'>3.4</span>, <span class='ident'>k</span>: <span class='ident'>unit_from</span>(<span class='number'>522.0</span>, <span class='string'>&quot;kJ/mol/A^2&quot;</span>)})
+        );
 
-        [[pairs]]
-        atoms = [&quot;O&quot;, &quot;H&quot;]
-        lj = {sigma = &quot;1.0 A&quot;, epsilon = &quot;0.33 kJ/mol&quot;}
+        <span class='ident'>system</span>.<span class='ident'>interactions_mut</span>().<span class='ident'>add_angle</span>(<span class='string'>&quot;O&quot;</span>, <span class='string'>&quot;O&quot;</span>, <span class='string'>&quot;H&quot;</span>,
+            <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>Harmonic</span>{<span class='ident'>x0</span>: <span class='ident'>f64</span>::<span class='ident'>to_radians</span>(<span class='number'>120.0</span>), <span class='ident'>k</span>: <span class='ident'>unit_from</span>(<span class='number'>150.0</span>, <span class='string'>&quot;kJ/mol/deg^2&quot;</span>)})
+        );
 
-        [[bonds]]
-        atoms = [&quot;O&quot;, &quot;H&quot;]
-        harmonic = {x0 = &quot;3.4 A&quot;, k = &quot;522 kJ/mol/A^2&quot;}
+        <span class='ident'>system</span>.<span class='ident'>interactions_mut</span>().<span class='ident'>add_dihedral</span>(<span class='string'>&quot;H&quot;</span>, <span class='string'>&quot;O&quot;</span>, <span class='string'>&quot;O&quot;</span>, <span class='string'>&quot;H&quot;</span>,
+            <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>Harmonic</span>{<span class='ident'>x0</span>: <span class='ident'>f64</span>::<span class='ident'>to_radians</span>(<span class='number'>180.0</span>), <span class='ident'>k</span>: <span class='ident'>unit_from</span>(<span class='number'>800.0</span>, <span class='string'>&quot;kJ/mol/deg^2&quot;</span>)})
+        );
 
-        [[angles]]
-        atoms = [&quot;O&quot;, &quot;O&quot;, &quot;H&quot;]
-        harmonic = {x0 = &quot;120 deg&quot;, k = &quot;150 kJ/mol/deg^2&quot;}
+        <span class='ident'>system</span>.<span class='ident'>interactions_mut</span>().<span class='ident'>set_coulomb</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>Wolf</span>::<span class='ident'>new</span>(<span class='number'>8.0</span>)));
 
-        [[dihedrals]]
-        atoms = [&quot;H&quot;, &quot;O&quot;, &quot;O&quot;, &quot;H&quot;]
-        harmonic = {x0 = &quot;180 deg&quot;, k = &quot;800 kJ/mol/deg^2&quot;}
-
-        [coulomb]
-        wolf = {cutoff = &quot;8 A&quot;}
-
-        [charges]
-        O = -0.5
-        H = 0.5
-        &quot;#</span>).<span class='ident'>unwrap</span>();
+        <span class='kw'>for</span> <span class='ident'>atom</span> <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>system</span> {
+            <span class='kw'>if</span> <span class='ident'>atom</span>.<span class='ident'>name</span>() <span class='op'>==</span> <span class='string'>&quot;O&quot;</span> {
+                <span class='ident'>atom</span>.<span class='ident'>charge</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>0.5</span>;
+            } <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>atom</span>.<span class='ident'>name</span>() <span class='op'>==</span> <span class='string'>&quot;H&quot;</span> {
+                <span class='ident'>atom</span>.<span class='ident'>charge</span> <span class='op'>=</span> <span class='number'>0.5</span>;
+            }
+        }
 
         <span class='kw'>return</span> <span class='ident'>system</span>;
     }
@@ -776,7 +764,7 @@
         <span class='macro'>assert_approx_eq</span><span class='macro'>!</span>(<span class='ident'>cost</span>, <span class='ident'>new_e</span> <span class='op'>-</span> <span class='ident'>old_e</span>, <span class='number'>1e-14</span>);
 
         <span class='ident'>cache</span>.<span class='ident'>update</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>system</span>);
-        <span class='macro'>assert_approx_eq</span><span class='macro'>!</span>(<span class='ident'>cache</span>.<span class='ident'>energy</span>(), <span class='ident'>new_e</span>);
+        <span class='macro'>assert_approx_eq</span><span class='macro'>!</span>(<span class='ident'>cache</span>.<span class='ident'>energy</span>(), <span class='ident'>new_e</span>, <span class='number'>1e-14</span>);
 
         <span class='comment'>// Check that the cache is really updated</span>
         <span class='kw'>let</span> <span class='ident'>old_e</span> <span class='op'>=</span> <span class='ident'>new_e</span>;

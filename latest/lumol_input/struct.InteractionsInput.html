@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `InteractionsInput` struct in crate `lumol_input`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, InteractionsInput">
+
+    <title>lumol_input::InteractionsInput - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>lumol_input</a></p><script>window.sidebarCurrent = {name: 'InteractionsInput', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>lumol_input</a>::<wbr><a class='struct' href=''>InteractionsInput</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-644' class='srclink' href='../src/lumol_input/src/interactions/mod.rs.html#22-25' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct InteractionsInput {
+    // some fields omitted
+}</pre><div class='docblock'><p>An interaction input file for Lumol.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../lumol_input/struct.InteractionsInput.html' title='lumol_input::InteractionsInput'>InteractionsInput</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-317' class='srclink' href='../src/lumol_input/src/interactions/pairs.rs.html#18-139' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.read_pairs' class='method'><code>fn <a href='#method.read_pairs' class='fnname'>read_pairs</a>(&amp;self, system: &amp;mut <a class='struct' href='../lumol/system/systems/struct.System.html' title='lumol::system::systems::System'>System</a>) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Read the &quot;pairs&quot; section from the potential configuration. This is an
+internal function, public because of the code organization.</p>
+</div><h4 id='method.read_bonds' class='method'><code>fn <a href='#method.read_bonds' class='fnname'>read_bonds</a>(&amp;self, system: &amp;mut <a class='struct' href='../lumol/system/systems/struct.System.html' title='lumol::system::systems::System'>System</a>) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Read the &quot;bonds&quot; section from the potential configuration. This is an
+internal function, public because of the code organization.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../lumol_input/struct.InteractionsInput.html' title='lumol_input::InteractionsInput'>InteractionsInput</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-467' class='srclink' href='../src/lumol_input/src/interactions/angles.rs.html#14-85' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.read_angles' class='method'><code>fn <a href='#method.read_angles' class='fnname'>read_angles</a>(&amp;self, system: &amp;mut <a class='struct' href='../lumol/system/systems/struct.System.html' title='lumol::system::systems::System'>System</a>) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Read the &quot;angles&quot; section from the potential configuration. This is an
+internal function, public because of the code organization.</p>
+</div><h4 id='method.read_dihedrals' class='method'><code>fn <a href='#method.read_dihedrals' class='fnname'>read_dihedrals</a>(&amp;self, system: &amp;mut <a class='struct' href='../lumol/system/systems/struct.System.html' title='lumol::system::systems::System'>System</a>) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Read the &quot;dihedrals&quot; section from the potential configuration. This is
+an internal function, public because of the code organization.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../lumol_input/struct.InteractionsInput.html' title='lumol_input::InteractionsInput'>InteractionsInput</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-581' class='srclink' href='../src/lumol_input/src/interactions/coulomb.rs.html#13-104' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.read_coulomb' class='method'><code>fn <a href='#method.read_coulomb' class='fnname'>read_coulomb</a>(&amp;self, system: &amp;mut <a class='struct' href='../lumol/system/systems/struct.System.html' title='lumol::system::systems::System'>System</a>) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Read the &quot;coulomb&quot; section from the potential configuration. This is an
+internal function, public because of the code organization.</p>
+</div><h4 id='method.read_charges' class='method'><code>fn <a href='#method.read_charges' class='fnname'>read_charges</a>(&amp;self, system: &amp;mut <a class='struct' href='../lumol/system/systems/struct.System.html' title='lumol::system::systems::System'>System</a>) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Read the &quot;charges&quot; from the potential configuration. This is an internal
+function, public because of the code organization.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../lumol_input/struct.InteractionsInput.html' title='lumol_input::InteractionsInput'>InteractionsInput</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-646' class='srclink' href='../src/lumol_input/src/interactions/mod.rs.html#27-66' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>&lt;P:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/std/path/struct.Path.html' title='std::path::Path'>Path</a>&gt;&gt;(path: P) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;<a class='struct' href='../lumol_input/struct.InteractionsInput.html' title='lumol_input::InteractionsInput'>InteractionsInput</a>&gt;</code></h4>
+<div class='docblock'><p>Read interactions from the TOML formated file at <code>path</code>.</p>
+</div><h4 id='method.from_string' class='method'><code>fn <a href='#method.from_string' class='fnname'>from_string</a>(string: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;<a class='struct' href='../lumol_input/struct.InteractionsInput.html' title='lumol_input::InteractionsInput'>InteractionsInput</a>&gt;</code></h4>
+<div class='docblock'><p>Read the interactions from a TOML formated string.</p>
+</div><h4 id='method.from_toml' class='method'><code>fn <a href='#method.from_toml' class='fnname'>from_toml</a>(config: <a class='type' href='../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;<a class='struct' href='../lumol_input/struct.InteractionsInput.html' title='lumol_input::InteractionsInput'>InteractionsInput</a>&gt;</code></h4>
+<div class='docblock'><p>Read the interactions from a TOML table. This is an internal function,
+public because of the code organization.</p>
+</div><h4 id='method.read' class='method'><code>fn <a href='#method.read' class='fnname'>read</a>(&amp;self, system: &amp;mut <a class='struct' href='../lumol/system/systems/struct.System.html' title='lumol::system::systems::System'>System</a>) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Read the interactions from this input into the <code>system</code>.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "lumol_input";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

@@ -47,12 +47,12 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-49' class='srclink' href='../src/lumol/src/logging.rs.html#74-78' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-48' class='srclink' href='../src/lumol/src/logging.rs.html#74-78' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Logger {
     // some fields omitted
 }</pre><div class='docblock'><p>Logger with capacity to write to the standard output stream, the standard
 error stream or a file.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../lumol/struct.Logger.html' title='lumol::Logger'>Logger</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-65' class='srclink' href='../src/lumol/src/logging.rs.html#84-175' title='goto source code'>[src]</a></span></h3>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../lumol/struct.Logger.html' title='lumol::Logger'>Logger</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-64' class='srclink' href='../src/lumol/src/logging.rs.html#84-175' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.stdout' class='method'><code>fn <a href='#method.stdout' class='fnname'>stdout</a>()</code></h4>
 <div class='docblock'><p>Initialize the global logger to use the standard output stream.</p>
 </div><h4 id='method.stdout_at_level' class='method'><code>fn <a href='#method.stdout_at_level' class='fnname'>stdout_at_level</a>(level: <a class='enum' href='../lumol/enum.LogLevel.html' title='lumol::LogLevel'>LogLevel</a>)</code></h4>
@@ -76,7 +76,7 @@ maximum log level is set to <code>level</code>.</p>
 <div class='docblock'><p>Is the log events target the screen?</p>
 </div><h4 id='method.is_file' class='method'><code>fn <a href='#method.is_file' class='fnname'>is_file</a>() -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
 <div class='docblock'><p>Is the log events target a file?</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../log/trait.Log.html' title='log::Log'>Log</a> for <a class='struct' href='../lumol/struct.Logger.html' title='lumol::Logger'>Logger</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-127' class='srclink' href='../src/lumol/src/logging.rs.html#193-231' title='goto source code'>[src]</a></span></h3>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../log/trait.Log.html' title='log::Log'>Log</a> for <a class='struct' href='../lumol/struct.Logger.html' title='lumol::Logger'>Logger</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-126' class='srclink' href='../src/lumol/src/logging.rs.html#193-231' title='goto source code'>[src]</a></span></h3>
 <div class='docblock'><p>Implements Log trait for Logger</p>
 </div><div class='impl-items'><h4 id='method.enabled' class='method'><code>fn <a href='../log/trait.Log.html#tymethod.enabled' class='fnname'>enabled</a>(&amp;self, metadata: &amp;<a class='struct' href='../log/struct.LogMetadata.html' title='log::LogMetadata'>LogMetadata</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
 <div class='docblock'><p>Determines if a log message with the specified metadata would be logged. <a href="../log/trait.Log.html#tymethod.enabled">Read more</a></p>
