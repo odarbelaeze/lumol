@@ -47,13 +47,13 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-4818' class='srclink' href='../../src/lumol/src/simulation/simulations.rs.html#53-56' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-4834' class='srclink' href='../../src/lumol/src/simulation/simulations.rs.html#54-57' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Simulation {
     // some fields omitted
 }</pre><div class='docblock'><p>The Simulation struct holds all the needed algorithms for running the
 simulation. It should be use together with a <code>System</code> to perform the
 simulation.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../lumol/simulation/struct.Simulation.html' title='lumol::simulation::Simulation'>Simulation</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4821' class='srclink' href='../../src/lumol/src/simulation/simulations.rs.html#58-105' title='goto source code'>[src]</a></span></h3>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../lumol/simulation/struct.Simulation.html' title='lumol::simulation::Simulation'>Simulation</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-4837' class='srclink' href='../../src/lumol/src/simulation/simulations.rs.html#59-114' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(propagator: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../lumol/simulation/propagator/trait.Propagator.html' title='lumol::simulation::propagator::Propagator'>Propagator</a>&gt;) -&gt; <a class='struct' href='../../lumol/simulation/struct.Simulation.html' title='lumol::simulation::Simulation'>Simulation</a></code></h4>
 <div class='docblock'><p>Create a new Simulation from a Propagator.</p>
 </div><h4 id='method.run' class='method'><code>fn <a href='#method.run' class='fnname'>run</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../lumol/system/struct.System.html' title='lumol::system::System'>System</a>, nsteps: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></h4>

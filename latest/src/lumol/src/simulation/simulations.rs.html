@@ -147,14 +147,24 @@
 <span id="103">103</span>
 <span id="104">104</span>
 <span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
 
 <span class='kw'>use</span> <span class='ident'>system</span>::<span class='ident'>System</span>;
 
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>Propagator</span>;
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>Output</span>;
+<span class='kw'>use</span> <span class='ident'>simulation</span>::<span class='ident'>Propagator</span>;
+<span class='kw'>use</span> <span class='ident'>simulation</span>::<span class='ident'>TemperatureStrategy</span>;
+<span class='kw'>use</span> <span class='ident'>simulation</span>::<span class='ident'>Output</span>;
 
 <span class='doccomment'>/// Writting an output at a given frequency</span>
 <span class='kw'>struct</span> <span class='ident'>OutputFrequency</span> {
@@ -216,6 +226,14 @@
 
     <span class='doccomment'>/// Run the simulation on System for `nsteps` steps.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>run</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>system</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>System</span>, <span class='ident'>nsteps</span>: <span class='ident'>usize</span>) {
+        <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>propagator</span>.<span class='ident'>temperature_strategy</span>() {
+            <span class='ident'>TemperatureStrategy</span>::<span class='ident'>External</span>(<span class='ident'>temperature</span>) <span class='op'>=&gt;</span> {
+                <span class='ident'>system</span>.<span class='ident'>external_temperature</span>(<span class='prelude-val'>Some</span>(<span class='ident'>temperature</span>))
+            }
+            <span class='ident'>TemperatureStrategy</span>::<span class='ident'>Velocities</span> <span class='op'>=&gt;</span> <span class='ident'>system</span>.<span class='ident'>external_temperature</span>(<span class='prelude-val'>None</span>),
+            <span class='ident'>TemperatureStrategy</span>::<span class='prelude-val'>None</span> <span class='op'>=&gt;</span> {}
+        }
+
         <span class='self'>self</span>.<span class='ident'>setup</span>(<span class='ident'>system</span>);
         <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='number'>0</span>..<span class='ident'>nsteps</span> {
             <span class='self'>self</span>.<span class='ident'>propagator</span>.<span class='ident'>propagate</span>(<span class='ident'>system</span>);

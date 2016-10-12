@@ -550,6 +550,15 @@
 <span id="506">506</span>
 <span id="507">507</span>
 <span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -995,22 +1004,28 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>pressure_at_temperature</span>() {
-        <span class='kw'>let</span> <span class='ident'>system</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='ident'>test_pairs_system</span>();
-        <span class='kw'>let</span> <span class='ident'>pressure</span> <span class='op'>=</span> <span class='ident'>PressureAtTemperature</span>{<span class='ident'>temperature</span>: <span class='number'>550.0</span>}.<span class='ident'>compute</span>(<span class='ident'>system</span>);
+        <span class='kw'>let</span> <span class='ident'>system</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>test_pairs_system</span>();
 
+        <span class='kw'>let</span> <span class='ident'>temperature</span> <span class='op'>=</span> <span class='number'>550.0</span>;
         <span class='kw'>let</span> <span class='ident'>force</span> <span class='op'>=</span> <span class='ident'>unit_from</span>(<span class='number'>30.0</span>, <span class='string'>&quot;kJ/mol/A&quot;</span>);
         <span class='kw'>let</span> <span class='ident'>virial</span> <span class='op'>=</span> <span class='op'>-</span><span class='ident'>force</span> <span class='op'>*</span> <span class='number'>1.3</span>;
         <span class='kw'>let</span> <span class='ident'>natoms</span> <span class='op'>=</span> <span class='number'>2.0</span>;
-        <span class='kw'>let</span> <span class='ident'>temperature</span> <span class='op'>=</span> <span class='number'>550.0</span>;
         <span class='kw'>let</span> <span class='ident'>volume</span> <span class='op'>=</span> <span class='number'>1000.0</span>;
+
+        <span class='comment'>// Direct computation</span>
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>natoms</span> <span class='op'>*</span> <span class='ident'>K_BOLTZMANN</span> <span class='op'>*</span> <span class='ident'>temperature</span> <span class='op'>/</span> <span class='ident'>volume</span> <span class='op'>+</span> <span class='ident'>virial</span> <span class='op'>/</span> (<span class='number'>3.0</span> <span class='op'>*</span> <span class='ident'>volume</span>);
-
+        <span class='kw'>let</span> <span class='ident'>pressure</span> <span class='op'>=</span> <span class='ident'>PressureAtTemperature</span>{<span class='ident'>temperature</span>: <span class='ident'>temperature</span>}.<span class='ident'>compute</span>(<span class='ident'>system</span>);
         <span class='macro'>assert_approx_eq</span><span class='macro'>!</span>(<span class='ident'>pressure</span>, <span class='ident'>expected</span>, <span class='number'>1e-9</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pressure</span>, <span class='ident'>system</span>.<span class='ident'>pressure_at_temperature</span>(<span class='number'>550.0</span>));
 
+        <span class='comment'>// Computation with the real system temperature</span>
         <span class='kw'>let</span> <span class='ident'>pressure</span> <span class='op'>=</span> <span class='ident'>PressureAtTemperature</span>{<span class='ident'>temperature</span>: <span class='ident'>system</span>.<span class='ident'>temperature</span>()};
-        <span class='kw'>let</span> <span class='ident'>exact</span> <span class='op'>=</span> <span class='ident'>pressure</span>.<span class='ident'>compute</span>(<span class='ident'>system</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>exact</span>, <span class='ident'>system</span>.<span class='ident'>pressure</span>());
+        <span class='kw'>let</span> <span class='ident'>pressure</span> <span class='op'>=</span> <span class='ident'>pressure</span>.<span class='ident'>compute</span>(<span class='ident'>system</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pressure</span>, <span class='ident'>system</span>.<span class='ident'>pressure</span>());
+
+        <span class='comment'>// Computation with an external temperature for the system</span>
+        <span class='kw'>let</span> <span class='ident'>pressure</span> <span class='op'>=</span> <span class='ident'>PressureAtTemperature</span>{<span class='ident'>temperature</span>: <span class='ident'>temperature</span>}.<span class='ident'>compute</span>(<span class='ident'>system</span>);
+        <span class='ident'>system</span>.<span class='ident'>external_temperature</span>(<span class='prelude-val'>Some</span>(<span class='ident'>temperature</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pressure</span>, <span class='ident'>system</span>.<span class='ident'>pressure</span>());
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -1023,13 +1038,16 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>stress_at_temperature</span>() {
-        <span class='kw'>let</span> <span class='ident'>system</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='ident'>test_pairs_system</span>();
-        <span class='kw'>let</span> <span class='ident'>stress</span> <span class='op'>=</span> <span class='ident'>StressAtTemperature</span>{<span class='ident'>temperature</span>: <span class='number'>550.0</span>}.<span class='ident'>compute</span>(<span class='ident'>system</span>);
-        <span class='kw'>let</span> <span class='ident'>pressure</span> <span class='op'>=</span> <span class='ident'>PressureAtTemperature</span>{<span class='ident'>temperature</span>: <span class='number'>550.0</span>}.<span class='ident'>compute</span>(<span class='ident'>system</span>);
+        <span class='kw'>let</span> <span class='ident'>system</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>test_pairs_system</span>();
+        <span class='kw'>let</span> <span class='ident'>temperature</span> <span class='op'>=</span> <span class='number'>550.0</span>;
+        <span class='kw'>let</span> <span class='ident'>stress</span> <span class='op'>=</span> <span class='ident'>StressAtTemperature</span>{<span class='ident'>temperature</span>: <span class='ident'>temperature</span>}.<span class='ident'>compute</span>(<span class='ident'>system</span>);
+        <span class='kw'>let</span> <span class='ident'>pressure</span> <span class='op'>=</span> <span class='ident'>PressureAtTemperature</span>{<span class='ident'>temperature</span>: <span class='ident'>temperature</span>}.<span class='ident'>compute</span>(<span class='ident'>system</span>);
 
         <span class='kw'>let</span> <span class='ident'>trace</span> <span class='op'>=</span> (<span class='ident'>stress</span>[(<span class='number'>0</span>, <span class='number'>0</span>)] <span class='op'>+</span> <span class='ident'>stress</span>[(<span class='number'>1</span>, <span class='number'>1</span>)] <span class='op'>+</span> <span class='ident'>stress</span>[(<span class='number'>2</span>, <span class='number'>2</span>)]) <span class='op'>/</span> <span class='number'>3.0</span>;
         <span class='macro'>assert_approx_eq</span><span class='macro'>!</span>(<span class='ident'>trace</span>, <span class='ident'>pressure</span>, <span class='number'>1e-9</span>);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stress</span>, <span class='ident'>system</span>.<span class='ident'>stress_at_temperature</span>(<span class='number'>550.0</span>));
+
+        <span class='ident'>system</span>.<span class='ident'>external_temperature</span>(<span class='prelude-val'>Some</span>(<span class='ident'>temperature</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>stress</span>, <span class='ident'>system</span>.<span class='ident'>stress</span>());
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>

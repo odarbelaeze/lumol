@@ -47,9 +47,20 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-4784' class='srclink' href='../../../src/lumol/src/simulation/propagator.rs.html#4-20' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-4791' class='srclink' href='../../../src/lumol/src/simulation/propagator.rs.html#4-36' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>A propagator is responsible for updating the system during a simulation</p>
-</div><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+</div><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.TemperatureStrategy.html'
+                                  title='lumol::simulation::propagator::TemperatureStrategy'>TemperatureStrategy</a></td>
+                           <td class='docblock short'>
+                                <p>Possible temperature computation strategies. Different propagators needs
+different ways to compute the temperature: Monte-Carlo temperature is a
+constant of the simulation, whereas for molecular dynamics we use the
+instantaneous velocities.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.Propagator.html'

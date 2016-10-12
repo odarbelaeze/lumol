@@ -236,6 +236,10 @@
 <span id="192">192</span>
 <span id="193">193</span>
 <span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -245,7 +249,7 @@
 
 <span class='kw'>use</span> <span class='ident'>constants</span>::<span class='ident'>K_BOLTZMANN</span>;
 <span class='kw'>use</span> <span class='ident'>system</span>::{<span class='ident'>System</span>, <span class='ident'>EnergyCache</span>};
-<span class='kw'>use</span> <span class='ident'>simulation</span>::<span class='ident'>Propagator</span>;
+<span class='kw'>use</span> <span class='ident'>simulation</span>::{<span class='ident'>Propagator</span>, <span class='ident'>TemperatureStrategy</span>};
 
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>MCMove</span>;
 
@@ -348,6 +352,10 @@
 }
 
 <span class='kw'>impl</span> <span class='ident'>Propagator</span> <span class='kw'>for</span> <span class='ident'>MonteCarlo</span> {
+    <span class='kw'>fn</span> <span class='ident'>temperature_strategy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>TemperatureStrategy</span> {
+        <span class='ident'>TemperatureStrategy</span>::<span class='ident'>External</span>(<span class='self'>self</span>.<span class='ident'>temperature</span>())
+    }
+
     <span class='kw'>fn</span> <span class='ident'>setup</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>system</span>: <span class='kw-2'>&amp;</span><span class='ident'>System</span>) {
         <span class='self'>self</span>.<span class='ident'>normalize_frequencies</span>();
         <span class='self'>self</span>.<span class='ident'>cache</span>.<span class='ident'>init</span>(<span class='ident'>system</span>);

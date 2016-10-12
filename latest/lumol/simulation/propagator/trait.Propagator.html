@@ -47,8 +47,9 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-4786' class='srclink' href='../../../src/lumol/src/simulation/propagator.rs.html#10-20' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-4798' class='srclink' href='../../../src/lumol/src/simulation/propagator.rs.html#23-36' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Propagator {
+    fn <a href='#tymethod.temperature_strategy' class='fnname'>temperature_strategy</a>(&amp;self) -&gt; <a class='enum' href='../../../lumol/simulation/propagator/enum.TemperatureStrategy.html' title='lumol::simulation::propagator::TemperatureStrategy'>TemperatureStrategy</a>;
     fn <a href='#tymethod.propagate' class='fnname'>propagate</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/system/struct.System.html' title='lumol::system::System'>System</a>);
 
     fn <a href='#method.setup' class='fnname'>setup</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../lumol/system/struct.System.html' title='lumol::system::System'>System</a>) { ... }
@@ -59,12 +60,13 @@ should propagate the simulation for one step.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.propagate' class='method stab '><code>fn <a href='#tymethod.propagate' class='fnname'>propagate</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/system/struct.System.html' title='lumol::system::System'>System</a>)</code></h3><div class='docblock'><p>Propagate the system for one simulation step.</p>
+        <h3 id='tymethod.temperature_strategy' class='method stab '><code>fn <a href='#tymethod.temperature_strategy' class='fnname'>temperature_strategy</a>(&amp;self) -&gt; <a class='enum' href='../../../lumol/simulation/propagator/enum.TemperatureStrategy.html' title='lumol::simulation::propagator::TemperatureStrategy'>TemperatureStrategy</a></code></h3><div class='docblock'><p>Get the temperature computation strategy for this propagator</p>
+</div><h3 id='tymethod.propagate' class='method stab '><code>fn <a href='#tymethod.propagate' class='fnname'>propagate</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/system/struct.System.html' title='lumol::system::System'>System</a>)</code></h3><div class='docblock'><p>Propagate the system for one simulation step.</p>
 </div></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
         <h3 id='method.setup' class='method stab '><code>fn <a href='#method.setup' class='fnname'>setup</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../lumol/system/struct.System.html' title='lumol::system::System'>System</a>)</code></h3><div class='docblock'><p>Setup code, preparing all the meta-informations needed about the
-simulation</p>
+simulation.</p>
 </div><h3 id='method.finish' class='method stab '><code>fn <a href='#method.finish' class='fnname'>finish</a>(&amp;mut self, _: &amp;<a class='struct' href='../../../lumol/system/struct.System.html' title='lumol::system::System'>System</a>)</code></h3><div class='docblock'><p>Finish the simulation, and maybe output some informations about it</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>

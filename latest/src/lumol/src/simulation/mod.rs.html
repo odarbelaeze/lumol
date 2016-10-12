@@ -64,6 +64,7 @@
 <span id="20">20</span>
 <span id="21">21</span>
 <span id="22">22</span>
+<span id="23">23</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -71,6 +72,7 @@
 <span class='doccomment'>//! Types and traits for representing simulation algorithms</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>propagator</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>propagator</span>::<span class='ident'>Propagator</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>propagator</span>::<span class='ident'>TemperatureStrategy</span>;
 
 <span class='kw'>mod</span> <span class='ident'>simulations</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>simulations</span>::<span class='ident'>Simulation</span>;
