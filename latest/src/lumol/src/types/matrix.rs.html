@@ -496,6 +496,108 @@
 <span id="452">452</span>
 <span id="453">453</span>
 <span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
+<span id="549">549</span>
+<span id="550">550</span>
+<span id="551">551</span>
+<span id="552">552</span>
+<span id="553">553</span>
+<span id="554">554</span>
+<span id="555">555</span>
+<span id="556">556</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -505,7 +607,64 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::{<span class='ident'>AddAssign</span>, <span class='ident'>SubAssign</span>, <span class='ident'>MulAssign</span>, <span class='ident'>DivAssign</span>};
 <span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>Vector3D</span>, <span class='ident'>Zero</span>, <span class='ident'>One</span>};
 
-<span class='doccomment'>/// 3x3 dimensional matrix type, implementing all usual operations</span>
+<span class='doccomment'>/// A 3x3 square matrix type.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// `Matrix3` implements all the usual arithmetics operations:</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// use lumol::{Matrix3, Vector3D, One};</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let one = Matrix3::one();</span>
+<span class='doccomment'>/// let a = Matrix3::new(</span>
+<span class='doccomment'>///     1.0, 0.0, 3.0,</span>
+<span class='doccomment'>///     0.0, 2.0, 5.6,</span>
+<span class='doccomment'>///     0.0, 0.0, 8.0</span>
+<span class='doccomment'>/// );</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let v = Vector3D::new(3.0, 2.0, 1.0);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// // Indexing</span>
+<span class='doccomment'>/// assert_eq!(a[0][0], 1.0);</span>
+<span class='doccomment'>/// assert_eq!(a[1][2], 5.6);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// // Addition</span>
+<span class='doccomment'>/// let c = a + one;</span>
+<span class='doccomment'>/// assert_eq!(c, Matrix3::new(</span>
+<span class='doccomment'>///     2.0, 0.0, 3.0,</span>
+<span class='doccomment'>///     0.0, 3.0, 5.6,</span>
+<span class='doccomment'>///     0.0, 0.0, 9.0</span>
+<span class='doccomment'>/// ));</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// // Subtraction</span>
+<span class='doccomment'>/// let c = a - one;</span>
+<span class='doccomment'>/// assert_eq!(c, Matrix3::new(</span>
+<span class='doccomment'>///     0.0, 0.0, 3.0,</span>
+<span class='doccomment'>///     0.0, 1.0, 5.6,</span>
+<span class='doccomment'>///     0.0, 0.0, 7.0</span>
+<span class='doccomment'>/// ));</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// // Multiplication</span>
+<span class='doccomment'>/// let c = a * one;  // matrix - matrix</span>
+<span class='doccomment'>/// assert_eq!(c, a);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let c = a * v;  // matrix - vector</span>
+<span class='doccomment'>/// assert_eq!(c, Vector3D::new(6.0, 9.6, 8.0));</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let c = 42.0 * one;  // matrix - scalar</span>
+<span class='doccomment'>/// assert_eq!(c, Matrix3::new(</span>
+<span class='doccomment'>///     42., 0.0, 0.0,</span>
+<span class='doccomment'>///     0.0, 42., 0.0,</span>
+<span class='doccomment'>///     0.0, 0.0, 42.</span>
+<span class='doccomment'>/// ));</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// // Division</span>
+<span class='doccomment'>/// let c = a / 2.0;</span>
+<span class='doccomment'>/// assert_eq!(c, Matrix3::new(</span>
+<span class='doccomment'>///     0.5, 0.0, 1.5,</span>
+<span class='doccomment'>///     0.0, 1.0, 2.8,</span>
+<span class='doccomment'>///     0.0, 0.0, 4.0</span>
+<span class='doccomment'>/// ));</span>
+<span class='doccomment'>/// ```</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Debug</span>, <span class='ident'>PartialEq</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Matrix3</span> {
     <span class='ident'>data</span> : [[<span class='ident'>f64</span>; <span class='number'>3</span>]; <span class='number'>3</span>]
@@ -513,6 +672,16 @@
 
 <span class='kw'>impl</span> <span class='ident'>Matrix3</span> {
     <span class='doccomment'>/// Create a new `Matrix3` specifying all its components</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::Matrix3;</span>
+    <span class='doccomment'>/// let matrix = Matrix3::new(</span>
+    <span class='doccomment'>///     0.0, 0.0, 3.0,</span>
+    <span class='doccomment'>///     0.0, 1.0, 5.6,</span>
+    <span class='doccomment'>///     0.0, 0.0, 7.0</span>
+    <span class='doccomment'>/// );</span>
+    <span class='doccomment'>/// assert_eq!(matrix[0][2], 3.0);</span>
+    <span class='doccomment'>/// ```</span>
     <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>too_many_arguments</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>m00</span>: <span class='ident'>f64</span>, <span class='ident'>m01</span>: <span class='ident'>f64</span>, <span class='ident'>m02</span>: <span class='ident'>f64</span>,
                <span class='ident'>m10</span>: <span class='ident'>f64</span>, <span class='ident'>m11</span>: <span class='ident'>f64</span>, <span class='ident'>m12</span>: <span class='ident'>f64</span>,
@@ -523,11 +692,46 @@
     }
 
     <span class='doccomment'>/// Compute the trace of the matrix</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::Matrix3;</span>
+    <span class='doccomment'>/// let matrix = Matrix3::new(</span>
+    <span class='doccomment'>///     0.0, 0.0, 3.0,</span>
+    <span class='doccomment'>///     0.0, 1.0, 5.6,</span>
+    <span class='doccomment'>///     0.0, 0.0, 7.0</span>
+    <span class='doccomment'>/// );</span>
+    <span class='doccomment'>/// assert_eq!(matrix.trace(), 8.0);</span>
+    <span class='doccomment'>/// ```</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>trace</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
         <span class='kw'>return</span> <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>0</span>)] <span class='op'>+</span> <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>1</span>)] <span class='op'>+</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>2</span>)];
     }
 
-    <span class='doccomment'>/// Computes the inverse of a matrix, which is assumed to exist</span>
+    <span class='doccomment'>/// Computes the inverse of a matrix</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::{Matrix3, One};</span>
+    <span class='doccomment'>/// // A diagonal matrix is trivially inversible</span>
+    <span class='doccomment'>/// let matrix = Matrix3::new(</span>
+    <span class='doccomment'>///     4.0, 0.0, 0.0,</span>
+    <span class='doccomment'>///     0.0, 1.0, 0.0,</span>
+    <span class='doccomment'>///     0.0, 0.0, 7.0</span>
+    <span class='doccomment'>/// );</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// let inverted = Matrix3::new(</span>
+    <span class='doccomment'>///     1.0 / 4.0, 0.0,    0.0,</span>
+    <span class='doccomment'>///        0.0,    1.0,    0.0,</span>
+    <span class='doccomment'>///        0.0,    0.0, 1.0 / 7.0</span>
+    <span class='doccomment'>/// );</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// assert_eq!(matrix.inverse(), inverted);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Panics</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// If the matrix is not inversible, *i.e.* if the matrix determinant</span>
+    <span class='doccomment'>/// equals zero.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>inverse</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix3</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>determinant</span> <span class='op'>=</span> <span class='number'>0.0</span>;
         <span class='ident'>determinant</span> <span class='op'>+=</span> <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>0</span>)] <span class='op'>*</span> (<span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>1</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>2</span>)] <span class='op'>-</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>1</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>2</span>)]);

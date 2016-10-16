@@ -417,6 +417,70 @@
 <span id="373">373</span>
 <span id="374">374</span>
 <span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -427,54 +491,120 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>PartialEq</span>;
 <span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>Matrix3</span>, <span class='ident'>Zero</span>};
 
-<span class='doccomment'>/// A simple 3-dimensional vector type, storing three `f64`.</span>
+<span class='doccomment'>/// A 3-dimensional vector type</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// A `Vector3D` implement all the arithmetics operations:</span>
-<span class='doccomment'>/// ```rust</span>
-<span class='doccomment'>/// // `u`, `v` and `w` are vectors. `a` and `b` are scalar</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// # use lumol::Vector3D;</span>
 <span class='doccomment'>/// let u = Vector3D::new(1.0, 2.0, 3.0);</span>
-<span class='doccomment'>/// let v = Vector3D::new(1.0, 2.0, 3.0);</span>
-<span class='doccomment'>/// let a = 42.0;</span>
+<span class='doccomment'>/// let v = Vector3D::new(4.0, -2.0, 1.0);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// // Indexing</span>
+<span class='doccomment'>/// assert_eq!(u[0], 1.0);</span>
+<span class='doccomment'>/// assert_eq!(u[1], 2.0);</span>
+<span class='doccomment'>/// assert_eq!(u[2], 3.0);</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// // Addition</span>
 <span class='doccomment'>/// let w = u + v;</span>
+<span class='doccomment'>/// assert_eq!(w, Vector3D::new(5.0, 0.0, 4.0));</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// // Substraction</span>
 <span class='doccomment'>/// let w = u - v;</span>
+<span class='doccomment'>/// assert_eq!(w, Vector3D::new(-3.0, 4.0, 2.0));</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// // Negation</span>
 <span class='doccomment'>/// let w = -u;</span>
+<span class='doccomment'>/// assert_eq!(w, Vector3D::new(-1.0, -2.0, -3.0));</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// // Cross product</span>
 <span class='doccomment'>/// let w = u ^ v;</span>
+<span class='doccomment'>/// assert_eq!(w, Vector3D::new(8.0, 11.0, -10.0));</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// // Multiplication</span>
-<span class='doccomment'>/// let w = a * u;</span>
-<span class='doccomment'>/// let w = v * a;</span>
+<span class='doccomment'>/// let w = 2.0 * u;</span>
+<span class='doccomment'>/// assert_eq!(w, Vector3D::new(2.0, 4.0, 6.0));</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let w = u * 3.0;</span>
+<span class='doccomment'>/// assert_eq!(w, Vector3D::new(3.0, 6.0, 9.0));</span>
+<span class='doccomment'>///</span>
 <span class='doccomment'>/// // Division</span>
-<span class='doccomment'>/// let w = u / a;</span>
+<span class='doccomment'>/// let w = u / 2.0;</span>
+<span class='doccomment'>/// assert_eq!(w, Vector3D::new(0.5, 1.0, 1.5));</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// // Dot product</span>
-<span class='doccomment'>/// let b = u * v;</span>
+<span class='doccomment'>/// let a = u * v;</span>
+<span class='doccomment'>/// assert_eq!(a, 3.0);</span>
 <span class='doccomment'>/// ```</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>, <span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Vector3D</span>([<span class='ident'>f64</span>; <span class='number'>3</span>]);
 
 <span class='kw'>impl</span> <span class='ident'>Vector3D</span> {
     <span class='doccomment'>/// Create a new `Vector3D` with components `x`, `y`, `z`</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::Vector3D;</span>
+    <span class='doccomment'>/// let vec = Vector3D::new(1.0, 0.0, -42.0);</span>
+    <span class='doccomment'>/// ```</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>x</span>: <span class='ident'>f64</span>, <span class='ident'>y</span>: <span class='ident'>f64</span>, <span class='ident'>z</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>Vector3D</span> {
         <span class='ident'>Vector3D</span>([<span class='ident'>x</span>, <span class='ident'>y</span>, <span class='ident'>z</span>])
     }
+
     <span class='doccomment'>/// Return the squared euclidean norm of a Vector3D</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::Vector3D;</span>
+    <span class='doccomment'>/// let vec = Vector3D::new(1.0, 0.0, -4.0);</span>
+    <span class='doccomment'>/// assert_eq!(vec.norm2(), 17.0);</span>
+    <span class='doccomment'>/// ```</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span> <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>norm2</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
         <span class='self'>self</span> <span class='op'>*</span> <span class='self'>self</span>
     }
+
     <span class='doccomment'>/// Return the euclidean norm of a Vector3D</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::Vector3D;</span>
+    <span class='doccomment'>/// # use std::f64;</span>
+    <span class='doccomment'>/// let vec = Vector3D::new(1.0, 0.0, -4.0);</span>
+    <span class='doccomment'>/// assert_eq!(vec.norm(), f64::sqrt(17.0));</span>
+    <span class='doccomment'>/// ```</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span> <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>norm</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
         <span class='ident'>f64</span>::<span class='ident'>sqrt</span>(<span class='self'>self</span>.<span class='ident'>norm2</span>())
     }
-    <span class='doccomment'>/// Normalize a Vector3D</span>
+
+    <span class='doccomment'>/// Normalize a `Vector3D`.</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::Vector3D;</span>
+    <span class='doccomment'>/// let vec = Vector3D::new(1.0, 0.0, -4.0);</span>
+    <span class='doccomment'>/// let n = vec.normalized();</span>
+    <span class='doccomment'>/// assert_eq!(n.norm(), 1.0);</span>
+    <span class='doccomment'>/// ```</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span> <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>normalized</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Vector3D</span> {
         <span class='self'>self</span> <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>norm</span>()
     }
-    <span class='doccomment'>/// Tensorial product between vectors</span>
+
+    <span class='doccomment'>/// Tensorial product between vectors. The tensorial product between the</span>
+    <span class='doccomment'>/// vectors `a` and `b` creates a `Matrix3` with component (i, j) equals to</span>
+    <span class='doccomment'>/// `a[i] * b[j]`.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::Vector3D;</span>
+    <span class='doccomment'>/// # use lumol::Matrix3;</span>
+    <span class='doccomment'>/// let a = Vector3D::new(1.0, 0.0, -4.0);</span>
+    <span class='doccomment'>/// let b = Vector3D::new(1.0, 2.0, 3.0);</span>
+    <span class='doccomment'>/// let matrix = Matrix3::new(</span>
+    <span class='doccomment'>///     1.0, 2.0, 3.0,</span>
+    <span class='doccomment'>///     0.0, 0.0, 0.0,</span>
+    <span class='doccomment'>///     -4.0, -8.0, -12.0</span>
+    <span class='doccomment'>/// );</span>
+    <span class='doccomment'>/// assert_eq!(a.tensorial(&amp;b), matrix);</span>
+    <span class='doccomment'>/// ```</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>tensorial</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='ident'>Vector3D</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix3</span> {
         <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='self'>self</span>[<span class='number'>0</span>] <span class='op'>*</span> <span class='ident'>other</span>[<span class='number'>0</span>], <span class='self'>self</span>[<span class='number'>0</span>] <span class='op'>*</span> <span class='ident'>other</span>[<span class='number'>1</span>], <span class='self'>self</span>[<span class='number'>0</span>] <span class='op'>*</span> <span class='ident'>other</span>[<span class='number'>2</span>],
                      <span class='self'>self</span>[<span class='number'>1</span>] <span class='op'>*</span> <span class='ident'>other</span>[<span class='number'>0</span>], <span class='self'>self</span>[<span class='number'>1</span>] <span class='op'>*</span> <span class='ident'>other</span>[<span class='number'>1</span>], <span class='self'>self</span>[<span class='number'>1</span>] <span class='op'>*</span> <span class='ident'>other</span>[<span class='number'>2</span>],
@@ -587,7 +717,6 @@
     }
 }
 
-<span class='doccomment'>/// This is provided for convenience only, and is slower than direct field access</span>
 <span class='kw'>impl</span> <span class='ident'>Index</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>Vector3D</span> {
     <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>f64</span>;
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
@@ -596,7 +725,6 @@
     }
 }
 
-<span class='doccomment'>/// This is provided for convenience only, and is slower than direct field access</span>
 <span class='kw'>impl</span> <span class='ident'>IndexMut</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>Vector3D</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>index_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>index</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>f64</span> {
