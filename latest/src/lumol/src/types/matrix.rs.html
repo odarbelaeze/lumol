@@ -598,6 +598,7 @@
 <span id="554">554</span>
 <span id="555">555</span>
 <span id="556">556</span>
+<span id="557">557</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -726,6 +727,7 @@
     <span class='doccomment'>/// );</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// assert_eq!(matrix.inverse(), inverted);</span>
+    <span class='doccomment'>/// assert_eq!(matrix * matrix.inverse(), Matrix3::one());</span>
     <span class='doccomment'>/// ```</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Panics</span>
@@ -733,11 +735,7 @@
     <span class='doccomment'>/// If the matrix is not inversible, *i.e.* if the matrix determinant</span>
     <span class='doccomment'>/// equals zero.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>inverse</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix3</span> {
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>determinant</span> <span class='op'>=</span> <span class='number'>0.0</span>;
-        <span class='ident'>determinant</span> <span class='op'>+=</span> <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>0</span>)] <span class='op'>*</span> (<span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>1</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>2</span>)] <span class='op'>-</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>1</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>2</span>)]);
-        <span class='ident'>determinant</span> <span class='op'>-=</span> <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>1</span>)] <span class='op'>*</span> (<span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>0</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>2</span>)] <span class='op'>-</span> <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>2</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>0</span>)]);
-        <span class='ident'>determinant</span> <span class='op'>+=</span> <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>2</span>)] <span class='op'>*</span> (<span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>0</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>1</span>)] <span class='op'>-</span> <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>1</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>0</span>)]);;
-
+        <span class='kw'>let</span> <span class='ident'>determinant</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>determinant</span>();
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>determinant</span> <span class='op'>!=</span> <span class='number'>0.0</span>, <span class='string'>&quot;The matrix is not inversible!&quot;</span>);
         <span class='kw'>let</span> <span class='ident'>invdet</span> <span class='op'>=</span> <span class='number'>1.0</span> <span class='op'>/</span> <span class='ident'>determinant</span>;
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>zero</span>();
@@ -751,6 +749,55 @@
         <span class='ident'>res</span>[(<span class='number'>2</span>, <span class='number'>1</span>)] <span class='op'>=</span> (<span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>0</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>1</span>)] <span class='op'>-</span> <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>0</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>1</span>)]) <span class='op'>*</span> <span class='ident'>invdet</span>;
         <span class='ident'>res</span>[(<span class='number'>2</span>, <span class='number'>2</span>)] <span class='op'>=</span> (<span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>0</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>1</span>)] <span class='op'>-</span> <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>0</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>1</span>)]) <span class='op'>*</span> <span class='ident'>invdet</span>;
         <span class='kw'>return</span> <span class='ident'>res</span>;
+    }
+
+    <span class='doccomment'>/// Computes the [determinant][Wiki] of a matrix</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// [Wiki]: https://en.wikipedia.org/wiki/Determinant</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::Matrix3;</span>
+    <span class='doccomment'>/// let matrix = Matrix3::new(</span>
+    <span class='doccomment'>///     4.0, 0.0, 0.0,</span>
+    <span class='doccomment'>///     0.0, 1.5, 0.0,</span>
+    <span class='doccomment'>///     0.0, 0.0, 7.0</span>
+    <span class='doccomment'>/// );</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// assert_eq!(matrix.determinant(), 4.0 * 1.5 * 7.0);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>determinant</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        ( <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>0</span>)] <span class='op'>*</span> (<span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>1</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>2</span>)] <span class='op'>-</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>1</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>2</span>)])
+        <span class='op'>-</span> <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>1</span>)] <span class='op'>*</span> (<span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>0</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>2</span>)] <span class='op'>-</span> <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>2</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>0</span>)])
+        <span class='op'>+</span> <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>2</span>)] <span class='op'>*</span> (<span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>0</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>1</span>)] <span class='op'>-</span> <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>1</span>)] <span class='op'>*</span> <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>0</span>)]))
+    }
+
+    <span class='doccomment'>/// Transpose this matrix into a new matrix</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::Matrix3;</span>
+    <span class='doccomment'>/// let matrix = Matrix3::new(</span>
+    <span class='doccomment'>///     1.0, 2.0, 4.0,</span>
+    <span class='doccomment'>///     0.0, 1.0, 3.0,</span>
+    <span class='doccomment'>///     0.0, 0.0, 1.0</span>
+    <span class='doccomment'>/// );</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// let transposed = Matrix3::new(</span>
+    <span class='doccomment'>///     1.0, 0.0, 0.0,</span>
+    <span class='doccomment'>///     2.0, 1.0, 0.0,</span>
+    <span class='doccomment'>///     4.0, 3.0, 1.0</span>
+    <span class='doccomment'>/// );</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// assert_eq!(matrix.transposed(), transposed);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>transposed</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix3</span> {
+        <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(
+            <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>0</span>)], <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>0</span>)], <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>0</span>)],
+            <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>1</span>)], <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>1</span>)], <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>1</span>)],
+            <span class='self'>self</span>[(<span class='number'>0</span>, <span class='number'>2</span>)], <span class='self'>self</span>[(<span class='number'>1</span>, <span class='number'>2</span>)], <span class='self'>self</span>[(<span class='number'>2</span>, <span class='number'>2</span>)]
+        )
     }
 }
 
@@ -939,10 +986,10 @@
     }
 }
 
-<span class='comment'>/******************************************************************************/</span>
-
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>tests</span> {
+    <span class='comment'>// TODO: remove most of these when we can generate coverage from doc tests</span>
+    <span class='comment'>// see https://github.com/rust-lang/rust/issues/36956</span>
     <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
     <span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>Vector3D</span>, <span class='ident'>Zero</span>, <span class='ident'>One</span>};
 
@@ -958,8 +1005,8 @@
         <span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>zero</span>();
         <span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>();
 
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>2</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>2</span> {
+        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
+            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
                 <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='number'>0.0</span>);
                 <span class='kw'>if</span> <span class='ident'>i</span> <span class='op'>==</span> <span class='ident'>j</span> {
                     <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>b</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='number'>1.0</span>);
@@ -970,31 +1017,19 @@
         }
     }
 
-
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>add</span>() {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>,
                                  <span class='number'>4.0</span>, <span class='number'>5.0</span>, <span class='number'>6.0</span>,
                                  <span class='number'>8.0</span>, <span class='number'>9.0</span>, <span class='number'>10.0</span>);
-        <span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>();
-        <span class='kw'>let</span> <span class='ident'>add</span> <span class='op'>=</span> <span class='ident'>a</span> <span class='op'>+</span> <span class='ident'>b</span>;
-
         <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>2.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>,
                                <span class='number'>4.0</span>, <span class='number'>6.0</span>, <span class='number'>6.0</span>,
                                <span class='number'>8.0</span>, <span class='number'>9.0</span>, <span class='number'>11.0</span>);
 
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>add</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>+</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>(), <span class='ident'>res</span>);
 
-        <span class='ident'>a</span> <span class='op'>+=</span> <span class='ident'>b</span>;
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
+        <span class='ident'>a</span> <span class='op'>+=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>();
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>, <span class='ident'>res</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -1002,25 +1037,14 @@
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>,
                                  <span class='number'>4.0</span>, <span class='number'>5.0</span>, <span class='number'>6.0</span>,
                                  <span class='number'>8.0</span>, <span class='number'>9.0</span>, <span class='number'>10.0</span>);
-        <span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>();
-        <span class='kw'>let</span> <span class='ident'>sub</span> <span class='op'>=</span> <span class='ident'>a</span> <span class='op'>-</span> <span class='ident'>b</span>;
-
         <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>0.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>,
                                <span class='number'>4.0</span>, <span class='number'>4.0</span>, <span class='number'>6.0</span>,
                                <span class='number'>8.0</span>, <span class='number'>9.0</span>, <span class='number'>9.0</span>);
 
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>sub</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>-</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>(), <span class='ident'>res</span>);
 
-        <span class='ident'>a</span> <span class='op'>-=</span> <span class='ident'>b</span>;
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
+        <span class='ident'>a</span> <span class='op'>-=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>();
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>, <span class='ident'>res</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -1028,27 +1052,14 @@
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>,
                                  <span class='number'>4.0</span>, <span class='number'>5.0</span>, <span class='number'>6.0</span>,
                                  <span class='number'>8.0</span>, <span class='number'>9.0</span>, <span class='number'>10.0</span>);
-        <span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='number'>2.0</span>;
-        <span class='kw'>let</span> <span class='ident'>mul_r</span> <span class='op'>=</span> <span class='ident'>a</span> <span class='op'>*</span> <span class='ident'>b</span>;
-        <span class='kw'>let</span> <span class='ident'>mul_l</span> <span class='op'>=</span> <span class='ident'>b</span> <span class='op'>*</span> <span class='ident'>a</span>;
-
         <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>2.0</span>, <span class='number'>4.0</span>, <span class='number'>6.0</span>,
                                <span class='number'>8.0</span>, <span class='number'>10.0</span>, <span class='number'>12.0</span>,
                                <span class='number'>16.0</span>, <span class='number'>18.0</span>, <span class='number'>20.0</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>*</span> <span class='number'>2.0</span>, <span class='ident'>res</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>2.0</span> <span class='op'>*</span> <span class='ident'>a</span>, <span class='ident'>res</span>);
 
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mul_r</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mul_l</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
-
-        <span class='ident'>a</span> <span class='op'>*=</span> <span class='ident'>b</span>;
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
+        <span class='ident'>a</span> <span class='op'>*=</span> <span class='number'>2.0</span>;
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>, <span class='ident'>res</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -1056,55 +1067,29 @@
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>,
                                  <span class='number'>4.0</span>, <span class='number'>5.0</span>, <span class='number'>6.0</span>,
                                  <span class='number'>8.0</span>, <span class='number'>9.0</span>, <span class='number'>10.0</span>);
-        <span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='number'>2.0</span>;
-        <span class='kw'>let</span> <span class='ident'>div</span> <span class='op'>=</span> <span class='ident'>a</span> <span class='op'>/</span> <span class='ident'>b</span>;
-
         <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>0.5</span>, <span class='number'>1.0</span>, <span class='number'>1.5</span>,
                                <span class='number'>2.0</span>, <span class='number'>2.5</span>, <span class='number'>3.0</span>,
                                <span class='number'>4.0</span>, <span class='number'>4.5</span>, <span class='number'>5.0</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>/</span> <span class='number'>2.0</span>, <span class='ident'>res</span>);
 
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>div</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
-
-        <span class='ident'>a</span> <span class='op'>/=</span> <span class='ident'>b</span>;
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
+        <span class='ident'>a</span> <span class='op'>/=</span> <span class='number'>2.0</span>;
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>, <span class='ident'>res</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>mul_matrix</span>() {
         <span class='kw'>let</span> <span class='ident'>unit</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>();
-        <span class='kw'>let</span> <span class='ident'>unit_sq</span> <span class='op'>=</span> <span class='ident'>unit</span> <span class='op'>*</span> <span class='ident'>unit</span>;
-
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>2.0</span>, <span class='number'>4.0</span>, <span class='number'>6.0</span>,
                                  <span class='number'>8.0</span>, <span class='number'>10.0</span>, <span class='number'>12.0</span>,
                                  <span class='number'>16.0</span>, <span class='number'>18.0</span>, <span class='number'>20.0</span>);
-        <span class='kw'>let</span> <span class='ident'>mul_r</span> <span class='op'>=</span> <span class='ident'>unit</span> <span class='op'>*</span> <span class='ident'>a</span>;
-        <span class='kw'>let</span> <span class='ident'>mul_l</span> <span class='op'>=</span> <span class='ident'>a</span> <span class='op'>*</span> <span class='ident'>unit</span>;
 
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='comment'>// One is the same as (One)*(One)</span>
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>unit</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>unit_sq</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-                <span class='comment'>// (One)*A is the same as A and A*(One)</span>
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mul_l</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>a</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mul_r</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>a</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>unit</span>, <span class='ident'>unit</span> <span class='op'>*</span> <span class='ident'>unit</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>unit</span> <span class='op'>*</span> <span class='ident'>a</span>, <span class='ident'>a</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>*</span> <span class='ident'>unit</span>, <span class='ident'>a</span>);
 
-        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>a</span>.<span class='ident'>clone</span>();
+        <span class='kw'>let</span> <span class='ident'>previous</span> <span class='op'>=</span> <span class='ident'>a</span>;
         <span class='ident'>a</span> <span class='op'>*=</span> <span class='ident'>unit</span>;
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>previous</span>, <span class='ident'>a</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -1114,45 +1099,62 @@
                              <span class='number'>8.0</span>, <span class='number'>9.0</span>, <span class='number'>10.0</span>);
 
         <span class='kw'>let</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>1.0</span>, <span class='number'>1.0</span>);
-        <span class='kw'>let</span> <span class='ident'>mul</span> <span class='op'>=</span> <span class='ident'>a</span> <span class='op'>*</span> <span class='ident'>vec</span>;
-        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='number'>6.0</span>, <span class='number'>15.0</span>, <span class='number'>27.0</span>);
-
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mul</span>[<span class='number'>0</span>], <span class='ident'>res</span>[<span class='number'>0</span>]);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mul</span>[<span class='number'>1</span>], <span class='ident'>res</span>[<span class='number'>1</span>]);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mul</span>[<span class='number'>2</span>], <span class='ident'>res</span>[<span class='number'>2</span>]);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>*</span> <span class='ident'>vec</span>, <span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='number'>6.0</span>, <span class='number'>15.0</span>, <span class='number'>27.0</span>));
 
         <span class='kw'>let</span> <span class='ident'>unit</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>();
         <span class='kw'>let</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='number'>567.45</span>, <span class='number'>356.8</span>, <span class='number'>215673.12</span>);
-        <span class='kw'>let</span> <span class='ident'>mul</span> <span class='op'>=</span> <span class='ident'>unit</span> <span class='op'>*</span> <span class='ident'>vec</span>;
-        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>vec</span>;
-
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mul</span>[<span class='number'>0</span>], <span class='ident'>res</span>[<span class='number'>0</span>]);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mul</span>[<span class='number'>1</span>], <span class='ident'>res</span>[<span class='number'>1</span>]);
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mul</span>[<span class='number'>2</span>], <span class='ident'>res</span>[<span class='number'>2</span>]);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>unit</span> <span class='op'>*</span> <span class='ident'>vec</span>, <span class='ident'>vec</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>inverse</span>() {
         <span class='kw'>let</span> <span class='ident'>one</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>();
-        <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>one</span>.<span class='ident'>inverse</span>();
-
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>one</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>res</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>one</span>, <span class='ident'>one</span>.<span class='ident'>inverse</span>());
 
         <span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>,
                              <span class='number'>2.0</span>, <span class='number'>5.0</span>, <span class='number'>3.0</span>,
                              <span class='number'>1.0</span>, <span class='number'>3.0</span>, <span class='number'>8.0</span>,);
-        <span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='ident'>a</span>.<span class='ident'>inverse</span>();
+        <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>a</span>.<span class='ident'>determinant</span>() <span class='op'>!=</span> <span class='number'>0.0</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>one</span>, <span class='ident'>a</span> <span class='op'>*</span> <span class='ident'>a</span>.<span class='ident'>inverse</span>());
+    }
 
-        <span class='kw'>let</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='ident'>a</span><span class='op'>*</span><span class='ident'>b</span>;
-        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>one</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)], <span class='ident'>c</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)]);
-            }
-        }
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>determinant</span>() {
+        <span class='kw'>let</span> <span class='ident'>one</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>();
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>one</span>.<span class='ident'>determinant</span>(), <span class='number'>1.0</span>);
+
+        <span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>,
+                             <span class='number'>2.0</span>, <span class='number'>5.0</span>, <span class='number'>3.0</span>,
+                             <span class='number'>1.0</span>, <span class='number'>3.0</span>, <span class='number'>8.0</span>,);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>.<span class='ident'>determinant</span>(), <span class='number'>8.0</span>);
+    }
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>trace</span>() {
+        <span class='kw'>let</span> <span class='ident'>one</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>();
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>one</span>.<span class='ident'>trace</span>(), <span class='number'>3.0</span>);
+
+        <span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>,
+                             <span class='number'>2.0</span>, <span class='number'>5.0</span>, <span class='number'>3.0</span>,
+                             <span class='number'>1.0</span>, <span class='number'>3.0</span>, <span class='number'>8.0</span>,);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>.<span class='ident'>trace</span>(), <span class='number'>14.0</span>);
+    }
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>transposed</span>() {
+        <span class='kw'>let</span> <span class='ident'>matrix</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(
+            <span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>4.0</span>,
+            <span class='number'>0.0</span>, <span class='number'>1.0</span>, <span class='number'>3.0</span>,
+            <span class='number'>0.0</span>, <span class='number'>0.0</span>, <span class='number'>1.0</span>
+        );
+
+        <span class='kw'>let</span> <span class='ident'>transposed</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(
+            <span class='number'>1.0</span>, <span class='number'>0.0</span>, <span class='number'>0.0</span>,
+            <span class='number'>2.0</span>, <span class='number'>1.0</span>, <span class='number'>0.0</span>,
+            <span class='number'>4.0</span>, <span class='number'>3.0</span>, <span class='number'>1.0</span>
+        );
+
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>matrix</span>.<span class='ident'>transposed</span>(), <span class='ident'>transposed</span>);
     }
 }
 </pre>

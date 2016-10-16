@@ -481,6 +481,19 @@
 <span id="437">437</span>
 <span id="438">438</span>
 <span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -746,7 +759,7 @@
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>tests</span> {
-    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>Vector3D</span>, <span class='ident'>Matrix3</span>};
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>add</span>() {
@@ -912,6 +925,19 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>[<span class='number'>0</span>], <span class='number'>1.0</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>[<span class='number'>1</span>], <span class='number'>1.0</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>[<span class='number'>2</span>], <span class='number'>1.0</span>);
+    }
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>tensorial</span>() {
+        <span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>0.0</span>, <span class='op'>-</span><span class='number'>4.0</span>);
+        <span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>);
+        <span class='kw'>let</span> <span class='ident'>matrix</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(
+            <span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>3.0</span>,
+            <span class='number'>0.0</span>, <span class='number'>0.0</span>, <span class='number'>0.0</span>,
+            <span class='op'>-</span><span class='number'>4.0</span>, <span class='op'>-</span><span class='number'>8.0</span>, <span class='op'>-</span><span class='number'>12.0</span>
+        );
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>.<span class='ident'>tensorial</span>(<span class='kw-2'>&amp;</span><span class='ident'>b</span>), <span class='ident'>matrix</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>b</span>.<span class='ident'>tensorial</span>(<span class='kw-2'>&amp;</span><span class='ident'>a</span>), <span class='ident'>matrix</span>.<span class='ident'>transposed</span>());
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
