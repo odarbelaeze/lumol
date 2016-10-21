@@ -87,7 +87,7 @@ to the simulation. In the input, if the <code>integrator</code> key is absent, t
 integrator is a Velocity-Verlet integrator.</p>
 <h3>Velocity-Verlet integrator</h3>
 <p>Velocity-Verlet is the most common NVE integrator for molecular dynamics. See
-this <a href="https://en.wikipedia.org/wiki/Verlet_integration#Velocity_Verlet">page</a> for more informations about the algorithm.</p>
+this <a href="https://en.wikipedia.org/wiki/Verlet_integration#Velocity_Verlet">page</a> for more information about the algorithm.</p>
 <p>In the input, it can be specified by using the <code>VelocityVerlet</code> integrator type:</p>
 <pre><code class="language-toml">[simulations.propagator]
 type = &quot;MolecularDynamics&quot;
@@ -96,7 +96,7 @@ integrator = {type = &quot;VelocityVerlet&quot;}
 </code></pre>
 <h3>Verlet integrator</h3>
 <p>Verlet algorithm is another simple NVE integrator. See this <a href="https://en.wikipedia.org/wiki/Verlet_integration#Basic_St.C3.B6rmer.E2.80.93Verlet">page</a> for
-more informations. Most of the time, the Velocity-Verlet algorithm is
+more information. Most of the time, the Velocity-Verlet algorithm is
 preferable, since it produces more precise velocities.</p>
 <p>In the input, it can be specified by using the <code>Verlet</code> integrator type:</p>
 <pre><code class="language-toml">[simulations.propagator]
@@ -117,7 +117,7 @@ integrator = {type = &quot;LeapFrog&quot;}
 <p>The Berendsen barostat integrator algorithm use the Berendsen barostat with a
 Velocity-Verlet integrator to achieve NPT integration. It must be use together
 with a thermostat, preferentially the Berendsen thermostat. See this
-<a href="http://www.sklogwiki.org/SklogWiki/index.php/Berendsen_barostat">page</a> for more informations about the algorithm.</p>
+<a href="http://www.sklogwiki.org/SklogWiki/index.php/Berendsen_barostat">page</a> for more information about the algorithm.</p>
 <p>This algorithm exists in two versions: an isotropic one and an anisotropic one.
 The isotropic version of the barostat scale all the cell parameter by the same
 value using the scalar pressure. The anisotropic version scale the different
@@ -149,7 +149,7 @@ of 1000 will yield an effective relaxation time of 2000 fs or 2 ps.</p>
 <p>Thermostats are algorithms used to maintain the temperature of a system at a
 given value. They are specified in the input by the <code>thermostat</code> key.</p>
 <h3>Berendsen thermostat</h3>
-<p>The Berendsen barostat is described <a href="http://www.sklogwiki.org/SklogWiki/index.php/Berendsen_thermostat">here</a>, and provide a
+<p>The Berendsen thermostat is described <a href="http://www.sklogwiki.org/SklogWiki/index.php/Berendsen_thermostat">here</a>, and provide a
 simple exponential relaxation of the temperature to a target value. In the
 input, it is declared with the <code>Berendsen</code> thermostat type, a target
 <code>temperature</code> value, and a <code>timestep</code>.</p>
@@ -161,9 +161,9 @@ thermostat = {type = &quot;Berendsen&quot;, temperature = &quot;400 K&quot;, tim
 <p>The time step is expressed in fraction of the main integration time step, like
 for the Berendsen barostat.</p>
 <h3>Rescaling thermostat</h3>
-<p>A rescaling thermostat is the simplest thermostating algorithm possible: it just
+<p>A rescaling thermostat is the simplest thermostat algorithm possible: it just
 rescale all the velocities to set the temperature to the wanted value. It can be
-useful for equilibrations, for a fast convergence. In the input, it is specified
+useful for equilibration as it converges quickly. In the input, it is specified
 by the <code>Rescale</code> thermostat type, a target <code>temperature</code> value, and a
 <code>tolerance</code> value. The tolerance value is optional, and is used to let the
 system fluctuate around the wanted temperature: while the instant temperature is

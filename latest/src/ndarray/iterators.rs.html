@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.6/src/iterators.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.7/src/iterators.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>iterators.rs.html -- source</title>
@@ -1031,6 +1031,14 @@
 <span id="987">987</span>
 <span id="988">988</span>
 <span id="989">989</span>
+<span id="990">990</span>
+<span id="991">991</span>
+<span id="992">992</span>
+<span id="993">993</span>
+<span id="994">994</span>
+<span id="995">995</span>
+<span id="996">996</span>
+<span id="997">997</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014-2016 bluss and ndarray developers.</span>
 <span class='comment'>//</span>
@@ -2003,6 +2011,14 @@
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>to_vec</span><span class='op'>&lt;</span><span class='ident'>I</span><span class='op'>&gt;</span>(<span class='ident'>iter</span>: <span class='ident'>I</span>) <span class='op'>-&gt;</span> <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>I</span>::<span class='ident'>Item</span><span class='op'>&gt;</span>
     <span class='kw'>where</span> <span class='ident'>I</span>: <span class='ident'>TrustedIterator</span> <span class='op'>+</span> <span class='ident'>ExactSizeIterator</span>
 {
+    <span class='ident'>to_vec_mapped</span>(<span class='ident'>iter</span>, <span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>x</span>)
+}
+
+<span class='doccomment'>/// Like Iterator::collect, but only for trusted length iterators</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>to_vec_mapped</span><span class='op'>&lt;</span><span class='ident'>I</span>, <span class='ident'>F</span>, <span class='ident'>B</span><span class='op'>&gt;</span>(<span class='ident'>iter</span>: <span class='ident'>I</span>, <span class='kw-2'>mut</span> <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>B</span><span class='op'>&gt;</span>
+    <span class='kw'>where</span> <span class='ident'>I</span>: <span class='ident'>TrustedIterator</span> <span class='op'>+</span> <span class='ident'>ExactSizeIterator</span>,
+          <span class='ident'>F</span>: <span class='ident'>FnMut</span>(<span class='ident'>I</span>::<span class='ident'>Item</span>) <span class='op'>-&gt;</span> <span class='ident'>B</span>,
+{
     <span class='comment'>// Use an `unsafe` block to do this efficiently.</span>
     <span class='comment'>// We know that iter will produce exactly .size() elements,</span>
     <span class='comment'>// and the loop can vectorize if it&#39;s clean (without branch to grow the vector).</span>
@@ -2010,14 +2026,14 @@
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>size</span>);
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>out_ptr</span> <span class='op'>=</span> <span class='ident'>result</span>.<span class='ident'>as_mut_ptr</span>();
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='number'>0</span>;
-    <span class='kw'>for</span> <span class='ident'>elt</span> <span class='kw'>in</span> <span class='ident'>iter</span> {
+    <span class='ident'>iter</span>.<span class='ident'>fold</span>((), <span class='op'>|</span>(), <span class='ident'>elt</span><span class='op'>|</span> {
         <span class='kw'>unsafe</span> {
-            <span class='ident'>ptr</span>::<span class='ident'>write</span>(<span class='ident'>out_ptr</span>, <span class='ident'>elt</span>);
+            <span class='ident'>ptr</span>::<span class='ident'>write</span>(<span class='ident'>out_ptr</span>, <span class='ident'>f</span>(<span class='ident'>elt</span>));
             <span class='ident'>len</span> <span class='op'>+=</span> <span class='number'>1</span>;
             <span class='ident'>result</span>.<span class='ident'>set_len</span>(<span class='ident'>len</span>);
             <span class='ident'>out_ptr</span> <span class='op'>=</span> <span class='ident'>out_ptr</span>.<span class='ident'>offset</span>(<span class='number'>1</span>);
         }
-    }
+    });
     <span class='macro'>debug_assert_eq</span><span class='macro'>!</span>(<span class='ident'>size</span>, <span class='ident'>result</span>.<span class='ident'>len</span>());
     <span class='ident'>result</span>
 }

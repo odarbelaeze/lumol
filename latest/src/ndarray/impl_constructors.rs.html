@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.6/src/impl_constructors.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.7/src/impl_constructors.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>impl_constructors.rs.html -- source</title>
@@ -344,7 +344,7 @@
 <span class='kw'>use</span> <span class='ident'>linspace</span>;
 <span class='kw'>use</span> <span class='ident'>error</span>::{<span class='self'>self</span>, <span class='ident'>ShapeError</span>, <span class='ident'>ErrorKind</span>};
 <span class='kw'>use</span> <span class='ident'>Indexes</span>;
-<span class='kw'>use</span> <span class='ident'>iterators</span>::<span class='ident'>to_vec</span>;
+<span class='kw'>use</span> <span class='ident'>iterators</span>::{<span class='ident'>to_vec</span>, <span class='ident'>to_vec_mapped</span>};
 
 <span class='doccomment'>/// Constructor methods for one-dimensional arrays.</span>
 <span class='doccomment'>///</span>
@@ -509,7 +509,7 @@
               <span class='ident'>F</span>: <span class='ident'>FnMut</span>(<span class='ident'>D</span>) <span class='op'>-&gt;</span> <span class='ident'>A</span>,
     {
         <span class='kw'>let</span> <span class='ident'>shape</span> <span class='op'>=</span> <span class='ident'>shape</span>.<span class='ident'>into</span>();
-        <span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='ident'>to_vec</span>(<span class='ident'>Indexes</span>::<span class='ident'>new</span>(<span class='ident'>shape</span>.<span class='ident'>dim</span>.<span class='ident'>clone</span>()).<span class='ident'>map</span>(<span class='ident'>f</span>));
+        <span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='ident'>to_vec_mapped</span>(<span class='ident'>Indexes</span>::<span class='ident'>new</span>(<span class='ident'>shape</span>.<span class='ident'>dim</span>.<span class='ident'>clone</span>()), <span class='ident'>f</span>);
         <span class='kw'>unsafe</span> { <span class='self'>Self</span>::<span class='ident'>from_shape_vec_unchecked</span>(<span class='ident'>shape</span>, <span class='ident'>v</span>) }
     }
 

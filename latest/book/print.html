@@ -84,7 +84,7 @@ input files needed to perform simulations;</li>
 As the code is likely to change so is this documentation.</p>
 <h2>Systems and Simulations</h2>
 <p>Lumol mainly consists of two building blocks: the <code>System</code> and the <code>Simulation</code>.
-The <code>System</code> contains general informations about the system, such as atomic
+The <code>System</code> contains general information about the system, such as atomic
 names, positions and velocities, force-field, simulation box. On the other hand,
 a <code>Simulation</code> contains everything needed to run a simulation with a system,
 <em>i.e.</em> algorithms and associated data.</p>
@@ -96,12 +96,12 @@ running an energy minimization before a molecular dynamics run.</p>
 <h1>Installation</h1>
 <p>Lumol is written in <a href="https://www.rust-lang.org/">Rust</a> (<a href="faq.html#Why%20is%20Lumol%20written%20in%20Rust?">why?</a>), and you will need a Rust
 compiler to compile it. You can download one from <a href="https://www.rust-lang.org/downloads.html">here</a>, or
-using your package manager (Rust is available on Fedora, and with Homebrew).
-Lumol also depends on some C++ libraries, so you will need a C++ compiler and
-cmake to be installed.</p>
-<p>Lumol is tested on Linux and OsX, and should build on Windows without any issue.
-You will need a C++11 capable compiler on Windows (MSVC &gt; 15 or Mingw with gcc &gt;
-4.9). Be sure to pick the corresponding version of the Rust compiler.</p>
+using your package manager (Rust is available on Fedora, and with Homebrew on OS
+X). Lumol also depends on some C++ libraries, so you will need a C++ compiler
+and CMake to be installed.</p>
+<p>Lumol is tested on Linux and OS X, and should build on Windows without any
+issue. You will need a C++11 capable compiler on Windows (MSVC &gt; 15 or Mingw
+with gcc &gt; 4.9). Be sure to pick the corresponding version of the Rust compiler.</p>
 <p>When all the dependencies are installed on you system, you can install the
 latest release of Lumol using:</p>
 <pre><code>cargo install lumol
@@ -119,7 +119,7 @@ and should re-use the examples input file to run your own simulations.</p>
 <h1>Monte-Carlo simulation of Argon</h1>
 <p>So let's run a simulation with Lumol. The easiest system to simulate is a
 Lennard-Jones fluid, which is a good model for noble gases fluids. Here we will
-simulate supercritical argon using Metropolis Monte-Carlo algorithm.</p>
+simulate super-critical argon using Metropolis Monte-Carlo algorithm.</p>
 <p>For this simulation, you will need the initial configuration available
 <a href="data/argon.xyz">here</a>. Download it and save it under the name <code>argon.xyz</code>.</p>
 <p>You will also need the input file available <a href="data/argon.toml">here</a>. Save it as
@@ -127,7 +127,7 @@ simulate supercritical argon using Metropolis Monte-Carlo algorithm.</p>
 with:</p>
 <pre><code>lumol argon.toml
 </code></pre>
-<p>The simulation should complete in a few second (8s on my system), and produce
+<p>The simulation should complete in a few second (8 s on my system), and produce
 two files: <code>energy.dat</code> and <code>trajectory.xyz</code>.</p>
 <h2>Input file anatomy</h2>
 <p>The input file is written using the TOML syntax, you can learn more about this
@@ -238,7 +238,7 @@ outputs = [
 ]
 </code></pre>
 <p>We are using here a molecular dynamics simulation of the NaCl crystal, and a
-timestep of 1fs for integration.</p>
+timestep of 1 fs for integration.</p>
 <pre><code class="language-toml">[simulations.propagator]
 type = &quot;MolecularDynamics&quot;
 timestep = &quot;1 fs&quot;
@@ -330,8 +330,8 @@ atoms = [&quot;H&quot;, &quot;O&quot;]
 null = {}
 </code></pre>
 <p>Then comes the bonds and angles definitions. These are the interactions used
-between bonded particles (or angles formed by two bonds and dihedrals formed by
-three bonds).</p>
+between bonded particles (or angles formed by two bonds and dihedral angles
+formed by three bonds).</p>
 <pre><code class="language-toml">[[bonds]]
 atoms = [&quot;O&quot;, &quot;H&quot;]
 harmonic = {k = &quot;1054.2 kcal/mol/A^2&quot;, x0 = &quot;1.0 A&quot;}
@@ -386,7 +386,7 @@ code for various potentials types:</p>
 <p>The flow of a simulation in Lumol is represented below.</p>
 <p><img src="static/img/simulation.svg#center" alt="Simulation flow graph" /></p>
 <p>First, it uses a system to setup any algorithms which uses system specific
-informations.</p>
+information.</p>
 <p>Then it propagate the system for one step, compute the physical properties as
 needed, and output these properties to the hard drive.</p>
 <p>If the simulation is finished (either the required number of steps has been
@@ -410,7 +410,7 @@ from and to this set of internal units.</p>
 <p>The internal unit system is the following:</p>
 <ul>
 <li>Angstrom (<code>A</code>) for distances;</li>
-<li>Femto-second (<code>fs</code>) for time;</li>
+<li>Femtosecond (<code>fs</code>) for time;</li>
 <li>Unified atomic mass unit (<code>u</code> or <code>Da</code>) for mass;</li>
 <li>Kelvin (<code>K</code>) for temperature;</li>
 <li>Number of particles for quantity of matter;</li>
@@ -447,7 +447,7 @@ It is usually organized in three main sections: <strong>input</strong>, <strong>
 <li>The <a href="input/intro.html#Input%20metadata">input</a> section contains metadata about
 the input itself (i.e. a version number).</li>
 <li>The <a href="input/systems.html">systems</a> section contains information about the
-intial configuration, the interactions between atoms and the simulation cell.</li>
+initial configuration, the interactions between atoms and the simulation cell.</li>
 <li>The <a href="input/simulations.html">simulations</a> section defines how your system will
 propagate. You can generally choose between molecular dynamics (MD) or Monte-
 Carlo (MC).</li>
@@ -463,7 +463,7 @@ for different simulations (you can even build your own force fields library). We
 talk more about standalone input files for interactions on this
 <a href="input/interactions.html">page</a>.</p>
 <h2>Format</h2>
-<p>Lumol input files use the <a href="https://github.com/toml-lang/toml">TOML</a> format, a simple and minimalistic
+<p>Lumol input files use the <a href="https://github.com/toml-lang/toml">TOML</a> format, a simple and minimalist
 configuration format based on <code>key = value</code> pairs. You can read an introduction
 to the TOML format <a href="https://github.com/toml-lang/toml">here</a>.</p>
 <h2>Input metadata</h2>
@@ -501,7 +501,7 @@ about:</p>
 <ul>
 <li>the configuration, i.e. the positions (and velocities) of your atoms;</li>
 <li>which atoms are connected (bonded) to form molecules;</li>
-<li>how atoms will interact with each othe;</li>
+<li>how atoms will interact with each other;</li>
 <li>and the simulation cell (i.e. volume).</li>
 </ul>
 <p>All these details are listed after the <code>[[systems]]</code> keyword. The double
@@ -551,14 +551,14 @@ format have a look at the <a href="http://wwpdb.org/">PDB website</a>;</p>
 <li>
 <p>The second option is to use the <code>guess_bonds</code> key to utilize a distance-based
 algorithm that will guess the bonds in the system. The algorithm is the same
-as the one in <a href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a>. You should always check and confirm that the
-bondings guessed by the algorithm are coherent with your system.</p>
+as the one in <a href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a>. You should always check and confirm that the bonds
+guessed by the algorithm are coherent with your system.</p>
 <pre><code class="language-toml">[[systems]]
 file = &quot;water.xyz&quot;
 guess_bonds = true
 </code></pre>
-<p>Note that <code>guess_bonds</code> takes a boolean as argument: there are no quotation
-marks around <code>true</code>. Also, TOML is case sensitive, i.e. writing
+<p>Note that <code>guess_bonds</code> takes a boolean value as argument: there are no
+quotation marks around <code>true</code>. Also, TOML is case sensitive, i.e. writing
 <code>guess_bonds = True</code> will throw an error.</p>
 </li>
 </ul>
@@ -578,7 +578,7 @@ cell = 40
 <li>
 <p><code>cell = []</code> create an infinite unit cell, without boundaries. This can be
 used when periodic boundary conditions are undesirables, for example to
-simulate aggregats in the void;</p>
+simulate aggregates in the void;</p>
 <pre><code class="language-toml">[[systems]]
 file = &quot;water.xyz&quot;
 topology = &quot;topology.pdb&quot;
@@ -681,8 +681,8 @@ examples of interaction input files <a href="input/interactions.html">here</a> a
 keywords.</p>
 <h1>Interactions</h1>
 <p>Interactions describe the energies between atoms - or more general - between
-interaction sites. These energies arrise due to covalent bonding of atoms to
-form molecules,  short-range van der Waals or long-range coulombic energies. To
+interaction sites. These energies arise due to covalent bonding of atoms to
+form molecules, short-range van der Waals or long-range coulombic energies. To
 describe interactions we use <em>potentials</em> which are functions  that take a set
 of parameters and geometrical coordinates (for example distances  or angles) as
 input and yield energies and forces. A set of potential functions  and
@@ -692,14 +692,14 @@ interchangeably.</p>
 <p>To be more specific, we distinguish between the following contributions:</p>
 <ul>
 <li><code>pairs</code> are van der Waals interactions between pairs of atoms,</li>
-<li><code>bonds</code> describe the energy between covalently bonded atoms,</li>
+<li><code>bonds</code> describe the energy between bonded atoms,</li>
 <li><code>angles</code> and <code>dihedrals</code> describe energy contributions due to bending and
-twisting of covalently bonded atoms,</li>
-<li><code>coulomb</code> and <code>charges</code> describe long-range contributions due to electrostatic
-interactions.</li>
+twisting of bonded atoms,</li>
+<li><code>coulomb</code> and <code>charges</code> describe long-range contributions due to
+electrostatic interactions.</li>
 </ul>
 <p>Information about interactions for <code>pairs</code>, <code>bonds</code>, <code>angles</code> and <code>dihedrals</code>
-are organised as arrays of TOML tables. The <code>coulomb</code> section contains
+are organized as arrays of TOML tables. The <code>coulomb</code> section contains
 information about the treatment of long-range electrostatic interactions and the
 <code>charges</code> section defines the partial charges of the atoms.</p>
 <p>An example of an input file for the f-SPC model of water is given bellow:</p>
@@ -945,7 +945,7 @@ lj = {sigma = &quot;3 A&quot;, epsilon = &quot;123 kJ/mol&quot;}
 computation = {cutoff = &quot;8 A&quot;}
 </code></pre>
 <h2>Table interpolation</h2>
-<p>Another way to compute a potential is to pre-compute it on a regularly spaced
+<p>Another way to compute a potential is to compute it on a regularly spaced
 grid, and then to interpolate values for points in the grid. In some cases, this
 can be faster than recomputing the function every time.</p>
 <p>This can be done with the <code>table</code> computation, which does a linear interpolation
@@ -957,7 +957,7 @@ lj = {sigma = &quot;3 A&quot;, epsilon = &quot;123 kJ/mol&quot;}
 computation = {table = {max = &quot;8 A&quot;, n = 5000}}
 </code></pre>
 <hr />
-<p>[Frenkel2002] Frenkel, D. &amp; Smit, B. <em>Understanding molecular simulation.</em>
+<p>[Frenkel2002] Frenkel, D. &amp; Smith, B. <em>Understanding molecular simulation.</em>
 (Academic press, 2002).</p>
 <p>[Wolf1999] Wolf, D., Keblinski, P., Phillpot, S. R. &amp; Eggebrecht, J. <em>Exact
 method for the simulation of Coulombic systems by spherically truncated,
@@ -1035,7 +1035,7 @@ to the simulation. In the input, if the <code>integrator</code> key is absent, t
 integrator is a Velocity-Verlet integrator.</p>
 <h3>Velocity-Verlet integrator</h3>
 <p>Velocity-Verlet is the most common NVE integrator for molecular dynamics. See
-this <a href="https://en.wikipedia.org/wiki/Verlet_integration#Velocity_Verlet">page</a> for more informations about the algorithm.</p>
+this <a href="https://en.wikipedia.org/wiki/Verlet_integration#Velocity_Verlet">page</a> for more information about the algorithm.</p>
 <p>In the input, it can be specified by using the <code>VelocityVerlet</code> integrator type:</p>
 <pre><code class="language-toml">[simulations.propagator]
 type = &quot;MolecularDynamics&quot;
@@ -1044,7 +1044,7 @@ integrator = {type = &quot;VelocityVerlet&quot;}
 </code></pre>
 <h3>Verlet integrator</h3>
 <p>Verlet algorithm is another simple NVE integrator. See this <a href="https://en.wikipedia.org/wiki/Verlet_integration#Basic_St.C3.B6rmer.E2.80.93Verlet">page</a> for
-more informations. Most of the time, the Velocity-Verlet algorithm is
+more information. Most of the time, the Velocity-Verlet algorithm is
 preferable, since it produces more precise velocities.</p>
 <p>In the input, it can be specified by using the <code>Verlet</code> integrator type:</p>
 <pre><code class="language-toml">[simulations.propagator]
@@ -1065,7 +1065,7 @@ integrator = {type = &quot;LeapFrog&quot;}
 <p>The Berendsen barostat integrator algorithm use the Berendsen barostat with a
 Velocity-Verlet integrator to achieve NPT integration. It must be use together
 with a thermostat, preferentially the Berendsen thermostat. See this
-<a href="http://www.sklogwiki.org/SklogWiki/index.php/Berendsen_barostat">page</a> for more informations about the algorithm.</p>
+<a href="http://www.sklogwiki.org/SklogWiki/index.php/Berendsen_barostat">page</a> for more information about the algorithm.</p>
 <p>This algorithm exists in two versions: an isotropic one and an anisotropic one.
 The isotropic version of the barostat scale all the cell parameter by the same
 value using the scalar pressure. The anisotropic version scale the different
@@ -1097,7 +1097,7 @@ of 1000 will yield an effective relaxation time of 2000 fs or 2 ps.</p>
 <p>Thermostats are algorithms used to maintain the temperature of a system at a
 given value. They are specified in the input by the <code>thermostat</code> key.</p>
 <h3>Berendsen thermostat</h3>
-<p>The Berendsen barostat is described <a href="http://www.sklogwiki.org/SklogWiki/index.php/Berendsen_thermostat">here</a>, and provide a
+<p>The Berendsen thermostat is described <a href="http://www.sklogwiki.org/SklogWiki/index.php/Berendsen_thermostat">here</a>, and provide a
 simple exponential relaxation of the temperature to a target value. In the
 input, it is declared with the <code>Berendsen</code> thermostat type, a target
 <code>temperature</code> value, and a <code>timestep</code>.</p>
@@ -1109,9 +1109,9 @@ thermostat = {type = &quot;Berendsen&quot;, temperature = &quot;400 K&quot;, tim
 <p>The time step is expressed in fraction of the main integration time step, like
 for the Berendsen barostat.</p>
 <h3>Rescaling thermostat</h3>
-<p>A rescaling thermostat is the simplest thermostating algorithm possible: it just
+<p>A rescaling thermostat is the simplest thermostat algorithm possible: it just
 rescale all the velocities to set the temperature to the wanted value. It can be
-useful for equilibrations, for a fast convergence. In the input, it is specified
+useful for equilibration as it converges quickly. In the input, it is specified
 by the <code>Rescale</code> thermostat type, a target <code>temperature</code> value, and a
 <code>tolerance</code> value. The tolerance value is optional, and is used to let the
 system fluctuate around the wanted temperature: while the instant temperature is
@@ -1153,14 +1153,14 @@ moves = [
 <p>All the Monte-Carlo moves are specified as inline tables, with the <code>type</code> key
 setting the type of move. They all accept an optional <code>frequency</code> value setting
 at which frequency the move should be selected. By default the frequency is 1,
-and the actual frequency will be the <code>frequency</code> value diveded by the sum of all
+and the actual frequency will be the <code>frequency</code> value divided by the sum of all
 the frequencies.</p>
 <p>Some moves acting a single molecule also accept a <code>molecule</code> key, giving the
 path to a file which <a href="chemfiles.github.io">chemfiles</a> can read. The molecule associated
 with the move will then be selected with the following algorithm:</p>
 <ul>
 <li>Read the first frame of the file;</li>
-<li>If the file does not contain any bonding informations, try to guess the bonds;</li>
+<li>If the file does not contain any bonding information, try to guess the bonds;</li>
 <li>Use the first molecule of the frame.</li>
 </ul>
 <p>The same move type can be present more than once in the input, to have different

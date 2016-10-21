@@ -78,14 +78,14 @@ moves = [
 <p>All the Monte-Carlo moves are specified as inline tables, with the <code>type</code> key
 setting the type of move. They all accept an optional <code>frequency</code> value setting
 at which frequency the move should be selected. By default the frequency is 1,
-and the actual frequency will be the <code>frequency</code> value diveded by the sum of all
+and the actual frequency will be the <code>frequency</code> value divided by the sum of all
 the frequencies.</p>
 <p>Some moves acting a single molecule also accept a <code>molecule</code> key, giving the
 path to a file which <a href="chemfiles.github.io">chemfiles</a> can read. The molecule associated
 with the move will then be selected with the following algorithm:</p>
 <ul>
 <li>Read the first frame of the file;</li>
-<li>If the file does not contain any bonding informations, try to guess the bonds;</li>
+<li>If the file does not contain any bonding information, try to guess the bonds;</li>
 <li>Use the first molecule of the frame.</li>
 </ul>
 <p>The same move type can be present more than once in the input, to have different

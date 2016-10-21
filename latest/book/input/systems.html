@@ -68,7 +68,7 @@ about:</p>
 <ul>
 <li>the configuration, i.e. the positions (and velocities) of your atoms;</li>
 <li>which atoms are connected (bonded) to form molecules;</li>
-<li>how atoms will interact with each othe;</li>
+<li>how atoms will interact with each other;</li>
 <li>and the simulation cell (i.e. volume).</li>
 </ul>
 <p>All these details are listed after the <code>[[systems]]</code> keyword. The double
@@ -118,14 +118,14 @@ format have a look at the <a href="http://wwpdb.org/">PDB website</a>;</p>
 <li>
 <p>The second option is to use the <code>guess_bonds</code> key to utilize a distance-based
 algorithm that will guess the bonds in the system. The algorithm is the same
-as the one in <a href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a>. You should always check and confirm that the
-bondings guessed by the algorithm are coherent with your system.</p>
+as the one in <a href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a>. You should always check and confirm that the bonds
+guessed by the algorithm are coherent with your system.</p>
 <pre><code class="language-toml">[[systems]]
 file = &quot;water.xyz&quot;
 guess_bonds = true
 </code></pre>
-<p>Note that <code>guess_bonds</code> takes a boolean as argument: there are no quotation
-marks around <code>true</code>. Also, TOML is case sensitive, i.e. writing
+<p>Note that <code>guess_bonds</code> takes a boolean value as argument: there are no
+quotation marks around <code>true</code>. Also, TOML is case sensitive, i.e. writing
 <code>guess_bonds = True</code> will throw an error.</p>
 </li>
 </ul>
@@ -145,7 +145,7 @@ cell = 40
 <li>
 <p><code>cell = []</code> create an infinite unit cell, without boundaries. This can be
 used when periodic boundary conditions are undesirables, for example to
-simulate aggregats in the void;</p>
+simulate aggregates in the void;</p>
 <pre><code class="language-toml">[[systems]]
 file = &quot;water.xyz&quot;
 topology = &quot;topology.pdb&quot;

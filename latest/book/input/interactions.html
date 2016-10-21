@@ -64,8 +64,8 @@
                 <div id="content" class="content">
                     <h1>Interactions</h1>
 <p>Interactions describe the energies between atoms - or more general - between
-interaction sites. These energies arrise due to covalent bonding of atoms to
-form molecules,  short-range van der Waals or long-range coulombic energies. To
+interaction sites. These energies arise due to covalent bonding of atoms to
+form molecules, short-range van der Waals or long-range coulombic energies. To
 describe interactions we use <em>potentials</em> which are functions  that take a set
 of parameters and geometrical coordinates (for example distances  or angles) as
 input and yield energies and forces. A set of potential functions  and
@@ -75,14 +75,14 @@ interchangeably.</p>
 <p>To be more specific, we distinguish between the following contributions:</p>
 <ul>
 <li><code>pairs</code> are van der Waals interactions between pairs of atoms,</li>
-<li><code>bonds</code> describe the energy between covalently bonded atoms,</li>
+<li><code>bonds</code> describe the energy between bonded atoms,</li>
 <li><code>angles</code> and <code>dihedrals</code> describe energy contributions due to bending and
-twisting of covalently bonded atoms,</li>
-<li><code>coulomb</code> and <code>charges</code> describe long-range contributions due to electrostatic
-interactions.</li>
+twisting of bonded atoms,</li>
+<li><code>coulomb</code> and <code>charges</code> describe long-range contributions due to
+electrostatic interactions.</li>
 </ul>
 <p>Information about interactions for <code>pairs</code>, <code>bonds</code>, <code>angles</code> and <code>dihedrals</code>
-are organised as arrays of TOML tables. The <code>coulomb</code> section contains
+are organized as arrays of TOML tables. The <code>coulomb</code> section contains
 information about the treatment of long-range electrostatic interactions and the
 <code>charges</code> section defines the partial charges of the atoms.</p>
 <p>An example of an input file for the f-SPC model of water is given bellow:</p>
