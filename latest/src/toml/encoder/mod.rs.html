@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/toml-0.1.30/src/encoder/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/toml-0.2.1/src/encoder/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -245,17 +245,6 @@
 <span id="201">201</span>
 <span id="202">202</span>
 <span id="203">203</span>
-<span id="204">204</span>
-<span id="205">205</span>
-<span id="206">206</span>
-<span id="207">207</span>
-<span id="208">208</span>
-<span id="209">209</span>
-<span id="210">210</span>
-<span id="211">211</span>
-<span id="212">212</span>
-<span id="213">213</span>
-<span id="214">214</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>BTreeMap</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>error</span>;
@@ -294,6 +283,7 @@
 <span class='doccomment'>/// assert_eq!(e.toml.get(&amp;&quot;foo&quot;.to_string()), Some(&amp;Value::Integer(4)))</span>
 <span class='doccomment'>/// # }</span>
 <span class='doccomment'>/// ```</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Default</span>, <span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Encoder</span> {
     <span class='doccomment'>/// Output TOML that is emitted. The current version of this encoder forces</span>
     <span class='doccomment'>/// the top-level representation of a structure to be a table.</span>
@@ -312,7 +302,7 @@
     <span class='doccomment'>/// Indication that a key was needed when a value was emitted, but no key</span>
     <span class='doccomment'>/// was previously emitted.</span>
     <span class='ident'>NeedsKey</span>,
-    <span class='doccomment'>/// Indication that a key was emitted, but not value was emitted.</span>
+    <span class='doccomment'>/// Indication that a key was emitted, but no value was emitted.</span>
     <span class='ident'>NoValue</span>,
     <span class='doccomment'>/// Indicates that a map key was attempted to be emitted at an invalid</span>
     <span class='doccomment'>/// location.</span>
@@ -324,12 +314,22 @@
     <span class='ident'>Custom</span>(<span class='ident'>String</span>),
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PartialEq</span>)]</span>
+<span class='doccomment'>/// Internal state of the encoder when encoding transitions</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>EncoderState</span> {
+    <span class='ident'>inner</span>: <span class='ident'>State</span>,
+}
+
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Debug</span>)]</span>
 <span class='kw'>enum</span> <span class='ident'>State</span> {
     <span class='ident'>Start</span>,
     <span class='ident'>NextKey</span>(<span class='ident'>String</span>),
     <span class='ident'>NextArray</span>(<span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Value</span><span class='op'>&gt;</span>),
     <span class='ident'>NextMapKey</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>Default</span> <span class='kw'>for</span> <span class='ident'>State</span> {
+    <span class='kw'>fn</span> <span class='ident'>default</span>() <span class='op'>-&gt;</span> <span class='ident'>State</span> { <span class='ident'>State</span>::<span class='ident'>Start</span> }
 }
 
 <span class='kw'>impl</span> <span class='ident'>Encoder</span> {
@@ -366,36 +366,14 @@
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>seq</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span>
-        <span class='kw'>where</span> <span class='ident'>F</span>: <span class='ident'>FnOnce</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Encoder</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span>
-    {
-        <span class='kw'>let</span> <span class='ident'>old</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>state</span>, <span class='ident'>State</span>::<span class='ident'>NextArray</span>(<span class='ident'>Vec</span>::<span class='ident'>new</span>()));
-        <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>f</span>(<span class='self'>self</span>));
+    <span class='kw'>fn</span> <span class='ident'>seq_begin</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>State</span>, <span class='ident'>Error</span><span class='op'>&gt;</span> {
+        <span class='prelude-val'>Ok</span>(<span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>state</span>, <span class='ident'>State</span>::<span class='ident'>NextArray</span>(<span class='ident'>Vec</span>::<span class='ident'>new</span>())))
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>seq_end</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>old</span>: <span class='ident'>State</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span> {
         <span class='kw'>match</span> <span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>state</span>, <span class='ident'>old</span>) {
             <span class='ident'>State</span>::<span class='ident'>NextArray</span>(<span class='ident'>v</span>) <span class='op'>=&gt;</span> <span class='self'>self</span>.<span class='ident'>emit_value</span>(<span class='ident'>Value</span>::<span class='ident'>Array</span>(<span class='ident'>v</span>)),
             _ <span class='op'>=&gt;</span> <span class='macro'>unreachable</span><span class='macro'>!</span>(),
-        }
-    }
-
-    <span class='kw'>fn</span> <span class='ident'>table</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span>
-        <span class='kw'>where</span> <span class='ident'>F</span>: <span class='ident'>FnOnce</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Encoder</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>Error</span><span class='op'>&gt;</span>
-    {
-        <span class='kw'>match</span> <span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>state</span>, <span class='ident'>State</span>::<span class='ident'>Start</span>) {
-            <span class='ident'>State</span>::<span class='ident'>NextKey</span>(<span class='ident'>key</span>) <span class='op'>=&gt;</span> {
-                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>nested</span> <span class='op'>=</span> <span class='ident'>Encoder</span>::<span class='ident'>new</span>();
-                <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>f</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>nested</span>));
-                <span class='self'>self</span>.<span class='ident'>toml</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>Value</span>::<span class='ident'>Table</span>(<span class='ident'>nested</span>.<span class='ident'>toml</span>));
-                <span class='prelude-val'>Ok</span>(())
-            }
-            <span class='ident'>State</span>::<span class='ident'>NextArray</span>(<span class='kw-2'>mut</span> <span class='ident'>arr</span>) <span class='op'>=&gt;</span> {
-                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>nested</span> <span class='op'>=</span> <span class='ident'>Encoder</span>::<span class='ident'>new</span>();
-                <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>f</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>nested</span>));
-                <span class='ident'>arr</span>.<span class='ident'>push</span>(<span class='ident'>Value</span>::<span class='ident'>Table</span>(<span class='ident'>nested</span>.<span class='ident'>toml</span>));
-                <span class='self'>self</span>.<span class='ident'>state</span> <span class='op'>=</span> <span class='ident'>State</span>::<span class='ident'>NextArray</span>(<span class='ident'>arr</span>);
-                <span class='prelude-val'>Ok</span>(())
-            }
-            <span class='ident'>State</span>::<span class='ident'>Start</span> <span class='op'>=&gt;</span> <span class='ident'>f</span>(<span class='self'>self</span>),
-            <span class='ident'>State</span>::<span class='ident'>NextMapKey</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>Error</span>::<span class='ident'>InvalidMapKeyLocation</span>),
         }
     }
 

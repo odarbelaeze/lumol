@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.5/src/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.6/src/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
@@ -771,6 +771,9 @@
 <span id="727">727</span>
 <span id="728">728</span>
 <span id="729">729</span>
+<span id="730">730</span>
+<span id="731">731</span>
+<span id="732">732</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2014-2016 bluss and ndarray developers.</span>
 <span class='comment'>//</span>
@@ -822,7 +825,7 @@
 <span class='doccomment'>//!     ``.zip_mut_with()`` are the most efficient ways to</span>
 <span class='doccomment'>//!     perform single traversal and lock step traversal respectively.</span>
 <span class='doccomment'>//!   + ``.iter()`` is efficient for c-contiguous arrays.</span>
-<span class='doccomment'>//!   + Can use BLAS in some operations (`dot` and `mat_mul`).</span>
+<span class='doccomment'>//!   + Can use BLAS in matrix multiplication.</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! ## Crate Feature Flags</span>
 <span class='doccomment'>//!</span>
@@ -888,6 +891,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>shape_builder</span>::{ <span class='ident'>ShapeBuilder</span> };
 
+<span class='kw'>mod</span> <span class='ident'>aliases</span>;
 <span class='kw'>mod</span> <span class='ident'>arraytraits</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde&quot;</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>array_serde</span>;
@@ -895,6 +899,8 @@
 <span class='kw'>mod</span> <span class='ident'>array_serialize</span>;
 <span class='kw'>mod</span> <span class='ident'>arrayformat</span>;
 <span class='kw'>mod</span> <span class='ident'>data_traits</span>;
+
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>aliases</span>::<span class='op'>*</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>data_traits</span>::{
     <span class='ident'>Data</span>,

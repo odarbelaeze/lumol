@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-0' class='srclink' href='../src/ndarray/lib.rs.html#8-729' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-0' class='srclink' href='../src/ndarray/lib.rs.html#8-732' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>The <code>ndarray</code> crate provides an N-dimensional container for general elements
 and for numerics.</p>
 
@@ -96,7 +96,7 @@ needs matching memory layout to be efficient (with some exceptions).</li>
 <code>.zip_mut_with()</code> are the most efficient ways to
 perform single traversal and lock step traversal respectively.</li>
 <li><code>.iter()</code> is efficient for c-contiguous arrays.</li>
-<li>Can use BLAS in some operations (<code>dot</code> and <code>mat_mul</code>).</li>
+<li>Can use BLAS in matrix multiplication.</li>
 </ul></li>
 </ul>
 
@@ -499,10 +499,94 @@ customizing the memory layout (strides) of an array shape.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
+                           <td><a class='type' href='type.Array0.html'
+                                  title='ndarray::Array0'>Array0</a></td>
+                           <td class='docblock short'>
+                                <p>zero-dimensional array</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Array1.html'
+                                  title='ndarray::Array1'>Array1</a></td>
+                           <td class='docblock short'>
+                                <p>one-dimensional array</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Array2.html'
+                                  title='ndarray::Array2'>Array2</a></td>
+                           <td class='docblock short'>
+                                <p>two-dimensional array</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Array3.html'
+                                  title='ndarray::Array3'>Array3</a></td>
+                           <td class='docblock short'>
+                                <p>three-dimensional array</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Array4.html'
+                                  title='ndarray::Array4'>Array4</a></td>
+                           <td class='docblock short'>
+                                <p>four-dimensional array</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayD.html'
+                                  title='ndarray::ArrayD'>ArrayD</a></td>
+                           <td class='docblock short'>
+                                <p>dynamic-dimensional array</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='type' href='type.ArrayView.html'
                                   title='ndarray::ArrayView'>ArrayView</a></td>
                            <td class='docblock short'>
                                 <p>A lightweight array view.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayView0.html'
+                                  title='ndarray::ArrayView0'>ArrayView0</a></td>
+                           <td class='docblock short'>
+                                <p>zero-dimensional array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayView1.html'
+                                  title='ndarray::ArrayView1'>ArrayView1</a></td>
+                           <td class='docblock short'>
+                                <p>one-dimensional array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayView2.html'
+                                  title='ndarray::ArrayView2'>ArrayView2</a></td>
+                           <td class='docblock short'>
+                                <p>two-dimensional array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayView3.html'
+                                  title='ndarray::ArrayView3'>ArrayView3</a></td>
+                           <td class='docblock short'>
+                                <p>three-dimensional array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayView4.html'
+                                  title='ndarray::ArrayView4'>ArrayView4</a></td>
+                           <td class='docblock short'>
+                                <p>four-dimensional array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayViewD.html'
+                                  title='ndarray::ArrayViewD'>ArrayViewD</a></td>
+                           <td class='docblock short'>
+                                <p>dynamic-dimensional array view</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -513,10 +597,94 @@ customizing the memory layout (strides) of an array shape.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayViewMut0.html'
+                                  title='ndarray::ArrayViewMut0'>ArrayViewMut0</a></td>
+                           <td class='docblock short'>
+                                <p>zero-dimensional read-write array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayViewMut1.html'
+                                  title='ndarray::ArrayViewMut1'>ArrayViewMut1</a></td>
+                           <td class='docblock short'>
+                                <p>one-dimensional read-write array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayViewMut2.html'
+                                  title='ndarray::ArrayViewMut2'>ArrayViewMut2</a></td>
+                           <td class='docblock short'>
+                                <p>two-dimensional read-write array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayViewMut3.html'
+                                  title='ndarray::ArrayViewMut3'>ArrayViewMut3</a></td>
+                           <td class='docblock short'>
+                                <p>three-dimensional read-write array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayViewMut4.html'
+                                  title='ndarray::ArrayViewMut4'>ArrayViewMut4</a></td>
+                           <td class='docblock short'>
+                                <p>four-dimensional read-write array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ArrayViewMutD.html'
+                                  title='ndarray::ArrayViewMutD'>ArrayViewMutD</a></td>
+                           <td class='docblock short'>
+                                <p>dynamic-dimensional read-write array view</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='type' href='type.Ix.html'
                                   title='ndarray::Ix'>Ix</a></td>
                            <td class='docblock short'>
                                 <p>Array index type</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Ix0.html'
+                                  title='ndarray::Ix0'>Ix0</a></td>
+                           <td class='docblock short'>
+                                <p>zero-dimensionial</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Ix1.html'
+                                  title='ndarray::Ix1'>Ix1</a></td>
+                           <td class='docblock short'>
+                                <p>one-dimensional</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Ix2.html'
+                                  title='ndarray::Ix2'>Ix2</a></td>
+                           <td class='docblock short'>
+                                <p>two-dimensional</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Ix3.html'
+                                  title='ndarray::Ix3'>Ix3</a></td>
+                           <td class='docblock short'>
+                                <p>three-dimensional</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Ix4.html'
+                                  title='ndarray::Ix4'>Ix4</a></td>
+                           <td class='docblock short'>
+                                <p>four-dimensional</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.IxDyn.html'
+                                  title='ndarray::IxDyn'>IxDyn</a></td>
+                           <td class='docblock short'>
+                                <p>dynamic-dimensional</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
