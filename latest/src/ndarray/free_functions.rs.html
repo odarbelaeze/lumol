@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.7/src/free_functions.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.8/src/free_functions.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>free_functions.rs.html -- source</title>
@@ -235,23 +235,23 @@
 <span class='kw'>use</span> <span class='ident'>imp_prelude</span>::<span class='op'>*</span>;
 
 <span class='doccomment'>/// Create a zero-dimensional array with the element `x`.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr0</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>A</span>) <span class='op'>-&gt;</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>A</span>, ()<span class='op'>&gt;</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr0</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>A</span>) <span class='op'>-&gt;</span> <span class='ident'>Array0</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>
 {
     <span class='kw'>unsafe</span> { <span class='ident'>ArrayBase</span>::<span class='ident'>from_shape_vec_unchecked</span>((), <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>x</span>]) }
 }
 
 <span class='doccomment'>/// Create a one-dimensional array with elements from `xs`.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr1</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span><span class='op'>&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>]) <span class='op'>-&gt;</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix</span><span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr1</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span><span class='op'>&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>]) <span class='op'>-&gt;</span> <span class='ident'>Array1</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
     <span class='ident'>ArrayBase</span>::<span class='ident'>from_vec</span>(<span class='ident'>xs</span>.<span class='ident'>to_vec</span>())
 }
 
 <span class='doccomment'>/// Create a one-dimensional array with elements from `xs`.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rcarr1</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span><span class='op'>&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>]) <span class='op'>-&gt;</span> <span class='ident'>RcArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix</span><span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rcarr1</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span><span class='op'>&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>]) <span class='op'>-&gt;</span> <span class='ident'>RcArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix1</span><span class='op'>&gt;</span> {
     <span class='ident'>arr1</span>(<span class='ident'>xs</span>).<span class='ident'>into_shared</span>()
 }
 
 <span class='doccomment'>/// Create a zero-dimensional array view borrowing `x`.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>aview0</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='kw-2'>&amp;</span><span class='ident'>A</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayView</span><span class='op'>&lt;</span><span class='ident'>A</span>, ()<span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>aview0</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='kw-2'>&amp;</span><span class='ident'>A</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayView0</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
     <span class='kw'>unsafe</span> { <span class='ident'>ArrayView</span>::<span class='ident'>new_</span>(<span class='ident'>x</span>, (), ()) }
 }
 
@@ -269,12 +269,12 @@
 <span class='doccomment'>///     a2d.scalar_sum() == 1024.0</span>
 <span class='doccomment'>/// );</span>
 <span class='doccomment'>/// ```</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>aview1</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>]) <span class='op'>-&gt;</span> <span class='ident'>ArrayView</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix</span><span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>aview1</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>A</span>]) <span class='op'>-&gt;</span> <span class='ident'>ArrayView1</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
     <span class='ident'>ArrayView</span>::<span class='ident'>from</span>(<span class='ident'>xs</span>)
 }
 
 <span class='doccomment'>/// Create a two-dimensional array view with elements borrowing `xs`.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>aview2</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span><span class='op'>=</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>]) <span class='op'>-&gt;</span> <span class='ident'>ArrayView</span><span class='op'>&lt;</span><span class='ident'>A</span>, (<span class='ident'>Ix</span>, <span class='ident'>Ix</span>)<span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>aview2</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span><span class='op'>=</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>]) <span class='op'>-&gt;</span> <span class='ident'>ArrayView2</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
     <span class='kw'>let</span> <span class='ident'>cols</span> <span class='op'>=</span> <span class='ident'>V</span>::<span class='ident'>len</span>();
     <span class='kw'>let</span> <span class='ident'>rows</span> <span class='op'>=</span> <span class='ident'>xs</span>.<span class='ident'>len</span>();
     <span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
@@ -305,7 +305,7 @@
 <span class='doccomment'>///     assert_eq!(&amp;data[..10], [5, 0, 0, 5, 0, 0, 5, 0, 0, 5]);</span>
 <span class='doccomment'>/// }</span>
 <span class='doccomment'>/// ```</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>aview_mut1</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>A</span>]) <span class='op'>-&gt;</span> <span class='ident'>ArrayViewMut</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix</span><span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>aview_mut1</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>A</span>]) <span class='op'>-&gt;</span> <span class='ident'>ArrayViewMut1</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
     <span class='ident'>ArrayViewMut</span>::<span class='ident'>from</span>(<span class='ident'>xs</span>)
 }
 
@@ -345,7 +345,7 @@
 <span class='doccomment'>///     a.shape() == [2, 3]</span>
 <span class='doccomment'>/// );</span>
 <span class='doccomment'>/// ```</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr2</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span> <span class='op'>=</span> <span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>]) <span class='op'>-&gt;</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>A</span>, (<span class='ident'>Ix</span>, <span class='ident'>Ix</span>)<span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr2</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span> <span class='op'>=</span> <span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>]) <span class='op'>-&gt;</span> <span class='ident'>Array2</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
     <span class='kw'>let</span> (<span class='ident'>m</span>, <span class='ident'>n</span>) <span class='op'>=</span> (<span class='ident'>xs</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>Ix</span>, <span class='ident'>V</span>::<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>Ix</span>);
     <span class='kw'>let</span> <span class='ident'>dim</span> <span class='op'>=</span> (<span class='ident'>m</span>, <span class='ident'>n</span>);
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>::<span class='ident'>with_capacity</span>(<span class='ident'>dim</span>.<span class='ident'>size</span>());
@@ -359,7 +359,7 @@
 
 <span class='doccomment'>/// Create a two-dimensional array with elements from `xs`.</span>
 <span class='doccomment'>///</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rcarr2</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span> <span class='op'>=</span> <span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>]) <span class='op'>-&gt;</span> <span class='ident'>RcArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, (<span class='ident'>Ix</span>, <span class='ident'>Ix</span>)<span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rcarr2</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span> <span class='op'>=</span> <span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>]) <span class='op'>-&gt;</span> <span class='ident'>RcArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix2</span><span class='op'>&gt;</span> {
     <span class='ident'>arr2</span>(<span class='ident'>xs</span>).<span class='ident'>into_shared</span>()
 }
 
@@ -381,7 +381,7 @@
 <span class='doccomment'>/// );</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>arr3</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span><span class='op'>=</span><span class='ident'>U</span><span class='op'>&gt;</span>, <span class='ident'>U</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span><span class='op'>=</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>])
-    <span class='op'>-&gt;</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>A</span>, (<span class='ident'>Ix</span>, <span class='ident'>Ix</span>, <span class='ident'>Ix</span>)<span class='op'>&gt;</span>
+    <span class='op'>-&gt;</span> <span class='ident'>Array3</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>
 {
     <span class='kw'>let</span> <span class='ident'>dim</span> <span class='op'>=</span> (<span class='ident'>xs</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>Ix</span>, <span class='ident'>V</span>::<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>Ix</span>, <span class='ident'>U</span>::<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>Ix</span>);
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>::<span class='ident'>with_capacity</span>(<span class='ident'>dim</span>.<span class='ident'>size</span>());
@@ -397,7 +397,7 @@
 
 <span class='doccomment'>/// Create a three-dimensional array with elements from `xs`.</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rcarr3</span><span class='op'>&lt;</span><span class='ident'>A</span>: <span class='ident'>Clone</span>, <span class='ident'>V</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span><span class='op'>=</span><span class='ident'>U</span><span class='op'>&gt;</span>, <span class='ident'>U</span>: <span class='ident'>FixedInitializer</span><span class='op'>&lt;</span><span class='ident'>Elem</span><span class='op'>=</span><span class='ident'>A</span><span class='op'>&gt;&gt;</span>(<span class='ident'>xs</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>V</span>])
-    <span class='op'>-&gt;</span> <span class='ident'>RcArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, (<span class='ident'>Ix</span>, <span class='ident'>Ix</span>, <span class='ident'>Ix</span>)<span class='op'>&gt;</span>
+    <span class='op'>-&gt;</span> <span class='ident'>RcArray</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix3</span><span class='op'>&gt;</span>
 {
     <span class='ident'>arr3</span>(<span class='ident'>xs</span>).<span class='ident'>into_shared</span>()
 }

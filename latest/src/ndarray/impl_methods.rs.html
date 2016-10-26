@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.7/src/impl_methods.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ndarray-0.6.8/src/impl_methods.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>impl_methods.rs.html -- source</title>
@@ -1785,7 +1785,7 @@
     <span class='doccomment'>/// For example, in a 2 × 2 × 3 array, the iterator element</span>
     <span class='doccomment'>/// is a row of 3 elements (and there are 2 × 2 = 4 rows in total).</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// Iterator element is `ArrayView&lt;A, Ix&gt;` (1D array view).</span>
+    <span class='doccomment'>/// Iterator element is `ArrayView1&lt;A&gt;` (1D array view).</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
     <span class='doccomment'>/// use ndarray::arr3;</span>
@@ -1804,7 +1804,7 @@
     <span class='doccomment'>/// Return an iterator that traverses over all dimensions but the innermost,</span>
     <span class='doccomment'>/// and yields each inner row.</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// Iterator element is `ArrayViewMut&lt;A, Ix&gt;` (1D read-write array view).</span>
+    <span class='doccomment'>/// Iterator element is `ArrayViewMut1&lt;A&gt;` (1D read-write array view).</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>inner_iter_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>InnerIterMut</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>D</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>S</span>: <span class='ident'>DataMut</span>
     {
@@ -1944,19 +1944,19 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// The diagonal is simply the sequence indexed by *(0, 0, .., 0)*,</span>
     <span class='doccomment'>/// *(1, 1, ..., 1)* etc as long as all axes have elements.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>diag</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayView</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>diag</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayView1</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>view</span>().<span class='ident'>into_diag</span>()
     }
 
     <span class='doccomment'>/// Return a read-write view over the diagonal elements of the array.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>diag_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayViewMut</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Ix</span><span class='op'>&gt;</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>diag_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayViewMut1</span><span class='op'>&lt;</span><span class='ident'>A</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>S</span>: <span class='ident'>DataMut</span>,
     {
         <span class='self'>self</span>.<span class='ident'>view_mut</span>().<span class='ident'>into_diag</span>()
     }
 
     <span class='doccomment'>/// Return the diagonal as a one-dimensional array.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>into_diag</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>S</span>, <span class='ident'>Ix</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>into_diag</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>S</span>, <span class='ident'>Ix1</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> (<span class='ident'>len</span>, <span class='ident'>stride</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>diag_params</span>();
         <span class='ident'>ArrayBase</span> {
             <span class='ident'>data</span>: <span class='self'>self</span>.<span class='ident'>data</span>,
@@ -2619,7 +2619,7 @@
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>map_axis</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>B</span>, <span class='ident'>F</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>axis</span>: <span class='ident'>Axis</span>, <span class='kw-2'>mut</span> <span class='ident'>mapping</span>: <span class='ident'>F</span>)
         <span class='op'>-&gt;</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>D</span>::<span class='ident'>Smaller</span><span class='op'>&gt;</span>
         <span class='kw'>where</span> <span class='ident'>D</span>: <span class='ident'>RemoveAxis</span>,
-              <span class='ident'>F</span>: <span class='ident'>FnMut</span>(<span class='ident'>ArrayView</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>A</span>, <span class='ident'>Ix</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>B</span>,
+              <span class='ident'>F</span>: <span class='ident'>FnMut</span>(<span class='ident'>ArrayView1</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>A</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>B</span>,
               <span class='ident'>A</span>: <span class='lifetime'>&#39;a</span>,
     {
         <span class='kw'>let</span> <span class='ident'>view_len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>shape</span>().<span class='ident'>axis</span>(<span class='ident'>axis</span>);
