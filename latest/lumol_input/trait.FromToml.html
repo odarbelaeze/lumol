@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1274' class='srclink' href='../src/lumol_input/src/lib.rs.html#96-99' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1273' class='srclink' href='../src/lumol_input/src/lib.rs.html#96-99' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait FromToml: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> {
     fn <a href='#tymethod.from_toml' class='fnname'>from_toml</a>(table: &amp;<a class='type' href='../toml/type.Table.html' title='toml::Table'>Table</a>) -&gt; <a class='type' href='../lumol_input/type.Result.html' title='lumol_input::Result'>Result</a>&lt;Self&gt;;
 }</pre><div class='docblock'><p>Convert a TOML table to a Rust type.</p>
@@ -58,22 +58,22 @@
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl FromToml for <a class='struct' href='../lumol/potentials/functions/struct.NullPotential.html' title='lumol::potentials::functions::NullPotential'>NullPotential</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/potentials/functions/struct.Harmonic.html' title='lumol::potentials::functions::Harmonic'>Harmonic</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/potentials/functions/struct.LennardJones.html' title='lumol::potentials::functions::LennardJones'>LennardJones</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/potentials/functions/struct.CosineHarmonic.html' title='lumol::potentials::functions::CosineHarmonic'>CosineHarmonic</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/potentials/functions/struct.Torsion.html' title='lumol::potentials::functions::Torsion'>Torsion</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/potentials/global/wolf/struct.Wolf.html' title='lumol::potentials::global::wolf::Wolf'>Wolf</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/potentials/global/ewald/struct.Ewald.html' title='lumol::potentials::global::ewald::Ewald'>Ewald</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/simulation/outputs/struct.TrajectoryOutput.html' title='lumol::simulation::outputs::TrajectoryOutput'>TrajectoryOutput</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/simulation/outputs/struct.CellOutput.html' title='lumol::simulation::outputs::CellOutput'>CellOutput</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/simulation/outputs/struct.EnergyOutput.html' title='lumol::simulation::outputs::EnergyOutput'>EnergyOutput</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/simulation/outputs/struct.PropertiesOutput.html' title='lumol::simulation::outputs::PropertiesOutput'>PropertiesOutput</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/simulation/md/molecular_dynamics/struct.MolecularDynamics.html' title='lumol::simulation::md::molecular_dynamics::MolecularDynamics'>MolecularDynamics</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/simulation/md/controls/struct.BerendsenThermostat.html' title='lumol::simulation::md::controls::BerendsenThermostat'>BerendsenThermostat</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/simulation/md/controls/struct.RescaleThermostat.html' title='lumol::simulation::md::controls::RescaleThermostat'>RescaleThermostat</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/simulation/md/controls/struct.RemoveTranslation.html' title='lumol::simulation::md::controls::RemoveTranslation'>RemoveTranslation</a></code></li>
-<li><code>impl FromToml for <a class='struct' href='../lumol/simulation/md/controls/struct.RemoveRotation.html' title='lumol::simulation::md::controls::RemoveRotation'>RemoveRotation</a></code></li>
+    <li><code>impl FromToml for <a class='struct' href='../lumol/energy/functions/struct.NullPotential.html' title='lumol::energy::functions::NullPotential'>NullPotential</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/energy/functions/struct.Harmonic.html' title='lumol::energy::functions::Harmonic'>Harmonic</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/energy/functions/struct.LennardJones.html' title='lumol::energy::functions::LennardJones'>LennardJones</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/energy/functions/struct.CosineHarmonic.html' title='lumol::energy::functions::CosineHarmonic'>CosineHarmonic</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/energy/functions/struct.Torsion.html' title='lumol::energy::functions::Torsion'>Torsion</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/energy/global/wolf/struct.Wolf.html' title='lumol::energy::global::wolf::Wolf'>Wolf</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/energy/global/ewald/struct.Ewald.html' title='lumol::energy::global::ewald::Ewald'>Ewald</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/out/struct.TrajectoryOutput.html' title='lumol::out::TrajectoryOutput'>TrajectoryOutput</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/out/struct.CellOutput.html' title='lumol::out::CellOutput'>CellOutput</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/out/struct.EnergyOutput.html' title='lumol::out::EnergyOutput'>EnergyOutput</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/out/struct.PropertiesOutput.html' title='lumol::out::PropertiesOutput'>PropertiesOutput</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/sim/md/molecular_dynamics/struct.MolecularDynamics.html' title='lumol::sim::md::molecular_dynamics::MolecularDynamics'>MolecularDynamics</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/sim/md/controls/struct.BerendsenThermostat.html' title='lumol::sim::md::controls::BerendsenThermostat'>BerendsenThermostat</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/sim/md/controls/struct.RescaleThermostat.html' title='lumol::sim::md::controls::RescaleThermostat'>RescaleThermostat</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/sim/md/controls/struct.RemoveTranslation.html' title='lumol::sim::md::controls::RemoveTranslation'>RemoveTranslation</a></code></li>
+<li><code>impl FromToml for <a class='struct' href='../lumol/sim/md/controls/struct.RemoveRotation.html' title='lumol::sim::md::controls::RemoveRotation'>RemoveRotation</a></code></li>
 </ul><script type="text/javascript" async
                          src="../implementors/lumol_input/trait.FromToml.js">
                  </script></section>

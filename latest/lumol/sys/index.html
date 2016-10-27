@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `sys` mod in crate `lumol`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, sys">
+
+    <title>lumol::sys - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>lumol</a></p><script>window.sidebarCurrent = {name: 'sys', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>lumol</a>::<wbr><a class='mod' href=''>sys</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2736' class='srclink' href='../../src/lumol/src/sys/mod.rs.html#4-42' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>The <code>system</code> module provide a way to store data about a simulated system.
+These systems are represented by an <code>System</code> instance, made of a list of
+<code>Particle</code>, an enclosing <code>UnitCell</code> and some interactions.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='compute/index.html'
+                                  title='lumol::sys::compute'>compute</a></td>
+                           <td class='docblock short'>
+                                <p>Computing properties of a system</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='veloc/index.html'
+                                  title='lumol::sys::veloc'>veloc</a></td>
+                           <td class='docblock short'>
+                                <p>This module provides some ways to initialize the velocities in a <code>System</code></p>
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Angle.html'
+                                  title='lumol::sys::Angle'>Angle</a></td>
+                           <td class='docblock short'>
+                                <p>An <code>Angle</code> formed by the atoms at indexes <code>i</code>, <code>j</code> and <code>k</code></p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Bond.html'
+                                  title='lumol::sys::Bond'>Bond</a></td>
+                           <td class='docblock short'>
+                                <p>A <code>Bond</code> between the atoms at indexes <code>i</code> and <code>j</code></p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Connectivity.html'
+                                  title='lumol::sys::Connectivity'>Connectivity</a></td>
+                           <td class='docblock short'>
+                                <p>The <code>Connectivity</code> bitflag encode the topological distance between
+two particles in the molecule, i.e. the number of bonds between the
+particles.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Dihedral.html'
+                                  title='lumol::sys::Dihedral'>Dihedral</a></td>
+                           <td class='docblock short'>
+                                <p>A <code>Dihedral</code> angle formed by the atoms at indexes <code>i</code>, <code>j</code>, <code>k</code> and <code>m</code></p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.ElementData.html'
+                                  title='lumol::sys::ElementData'>ElementData</a></td>
+                           <td class='docblock short'>
+                                <p>Data about one &quot;extended&quot; chemical element.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.EnergyCache.html'
+                                  title='lumol::sys::EnergyCache'>EnergyCache</a></td>
+                           <td class='docblock short'>
+                                <p>This is a cache for energy computation.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.EnergyEvaluator.html'
+                                  title='lumol::sys::EnergyEvaluator'>EnergyEvaluator</a></td>
+                           <td class='docblock short'>
+                                <p>An helper struct to evaluate energy components of a system.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Molecule.html'
+                                  title='lumol::sys::Molecule'>Molecule</a></td>
+                           <td class='docblock short'>
+                                <p>A molecule is the basic building block for a topology. It contains data
+about the connectivity (bonds, angles, dihedrals) in the system.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Particle.html'
+                                  title='lumol::sys::Particle'>Particle</a></td>
+                           <td class='docblock short'>
+                                <p>The Particle type hold basic data about a particle in the system. It is self
+contained, so that it will be easy to send data between parrallels
+processes.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.ParticleKind.html'
+                                  title='lumol::sys::ParticleKind'>ParticleKind</a></td>
+                           <td class='docblock short'>
+                                <p>A particle kind. Particles with the same name will have the same kind. This
+is used for faster potential lookup.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.PeriodicTable.html'
+                                  title='lumol::sys::PeriodicTable'>PeriodicTable</a></td>
+                           <td class='docblock short'>
+                                <p>The <code>PeriodicTable</code> struct give access to elements information, and give a
+way to register new elements in the list.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.System.html'
+                                  title='lumol::sys::System'>System</a></td>
+                           <td class='docblock short'>
+                                <p>The System type hold all the data about a simulated system.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Trajectory.html'
+                                  title='lumol::sys::Trajectory'>Trajectory</a></td>
+                           <td class='docblock short'>
+                                <p>A Trajectory is a file containing one or more successives simulation steps</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.TrajectoryError.html'
+                                  title='lumol::sys::TrajectoryError'>TrajectoryError</a></td>
+                           <td class='docblock short'>
+                                <p>Possible error when reading and wrinting to trajectories</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.UnitCell.html'
+                                  title='lumol::sys::UnitCell'>UnitCell</a></td>
+                           <td class='docblock short'>
+                                <p>An UnitCell defines the system physical boundaries.</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.CellShape.html'
+                                  title='lumol::sys::CellShape'>CellShape</a></td>
+                           <td class='docblock short'>
+                                <p>The shape of a cell determine how we will be able to compute the periodic
+boundaries condition.</p>
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.CONNECT_12.html'
+                                  title='lumol::sys::CONNECT_12'>CONNECT_12</a></td>
+                           <td class='docblock short'>
+                                <p>The particles are separated by one bond</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.CONNECT_13.html'
+                                  title='lumol::sys::CONNECT_13'>CONNECT_13</a></td>
+                           <td class='docblock short'>
+                                <p>The particles are separated by two bonds</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.CONNECT_14.html'
+                                  title='lumol::sys::CONNECT_14'>CONNECT_14</a></td>
+                           <td class='docblock short'>
+                                <p>The particles are separated by three bonds</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.CONNECT_FAR.html'
+                                  title='lumol::sys::CONNECT_FAR'>CONNECT_FAR</a></td>
+                           <td class='docblock short'>
+                                <p>The particles are separated by more than three bonds</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.ToChemfiles.html'
+                                  title='lumol::sys::ToChemfiles'>ToChemfiles</a></td>
+                           <td class='docblock short'>
+                                <p>Convert Lumol types to chemfiles types</p>
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.guess_bonds.html'
+                                  title='lumol::sys::guess_bonds'>guess_bonds</a></td>
+                           <td class='docblock short'>
+                                <p>Guess the bonds in a system using Chemfiles algorithm</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.molecule_type.html'
+                                  title='lumol::sys::molecule_type'>molecule_type</a></td>
+                           <td class='docblock short'>
+                                <p>Get the molecule type of the given <code>molecule</code> containing the <code>particles</code>.
+This type can be used to identify all the molecules containing the same
+bonds and particles (see <code>System::molecule_type</code> for more information).</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.read_molecule.html'
+                                  title='lumol::sys::read_molecule'>read_molecule</a></td>
+                           <td class='docblock short'>
+                                <p>Read a the first molecule from the file at <code>path</code>. If no bond information
+exists in the file, bonds are guessed.</p>
+                           </td>
+                       </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Permutations.html'
+                                  title='lumol::sys::Permutations'>Permutations</a></td>
+                           <td class='docblock short'>
+                                <p>Particles permutations:. Indexes are given in the <code>(old, new)</code> form.</p>
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "lumol";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

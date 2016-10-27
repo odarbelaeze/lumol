@@ -462,7 +462,7 @@
 <span class='doccomment'>/// indices and is though as storage backend for multi-dimensional data.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # use lumol::Array2;</span>
+<span class='doccomment'>/// # use lumol::types::Array2;</span>
 <span class='doccomment'>/// let mut a = Array2::zeros((3, 5));</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// assert_eq!(a[(0, 4)], 0.0);</span>
@@ -477,7 +477,7 @@
     <span class='doccomment'>/// Get the shape of the array</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Array2;</span>
+    <span class='doccomment'>/// # use lumol::types::Array2;</span>
     <span class='doccomment'>/// let a: Array2&lt;f64&gt; = Array2::zeros((3, 5));</span>
     <span class='doccomment'>/// assert_eq!(a.shape(), (3, 5));</span>
     <span class='doccomment'>/// ```</span>
@@ -494,7 +494,7 @@
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Array2;</span>
+    <span class='doccomment'>/// # use lumol::types::Array2;</span>
     <span class='doccomment'>/// let a: Array2&lt;f64&gt; = Array2::zeros((8, 5));</span>
     <span class='doccomment'>/// assert_eq!(a[(6, 2)], 0.0);</span>
     <span class='doccomment'>/// ```</span>
@@ -508,7 +508,7 @@
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Array2;</span>
+    <span class='doccomment'>/// # use lumol::types::Array2;</span>
     <span class='doccomment'>/// let mut a = Array2::zeros((8, 5));</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// a[(3, 3)] = 42.0;</span>
@@ -532,7 +532,7 @@
     <span class='doccomment'>/// Assign the given scalar to all entries in this array</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Array2;</span>
+    <span class='doccomment'>/// # use lumol::types::Array2;</span>
     <span class='doccomment'>/// let mut a = Array2::zeros((8, 5));</span>
     <span class='doccomment'>/// a.assign(33.0);</span>
     <span class='doccomment'>///</span>
@@ -550,7 +550,7 @@
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Array2;</span>
+    <span class='doccomment'>/// # use lumol::types::Array2;</span>
     <span class='doccomment'>/// let a: Array2&lt;f64&gt; = Array2::zeros((8, 5));</span>
     <span class='doccomment'>/// let b: Array2&lt;f64&gt; = Array2::default((8, 5));</span>
     <span class='doccomment'>///</span>
@@ -589,7 +589,7 @@
 <span class='doccomment'>/// indices and is though as storage backend for multi-dimensional data.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # use lumol::Array3;</span>
+<span class='doccomment'>/// # use lumol::types::Array3;</span>
 <span class='doccomment'>/// let mut a = Array3::zeros((3, 5, 2));</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// assert_eq!(a[(0, 4, 1)], 0.0);</span>
@@ -604,7 +604,7 @@
     <span class='doccomment'>/// Get the shape of the array.</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Array3;</span>
+    <span class='doccomment'>/// # use lumol::types::Array3;</span>
     <span class='doccomment'>/// let a: Array3&lt;f64&gt; = Array3::zeros((3, 5, 7));</span>
     <span class='doccomment'>/// assert_eq!(a.shape(), (3, 5, 7));</span>
     <span class='doccomment'>/// ```</span>
@@ -621,7 +621,7 @@
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Array3;</span>
+    <span class='doccomment'>/// # use lumol::types::Array3;</span>
     <span class='doccomment'>/// let a: Array3&lt;f64&gt; = Array3::zeros((8, 5, 2));</span>
     <span class='doccomment'>/// assert_eq!(a[(6, 2, 0)], 0.0);</span>
     <span class='doccomment'>/// ```</span>
@@ -635,7 +635,7 @@
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Array3;</span>
+    <span class='doccomment'>/// # use lumol::types::Array3;</span>
     <span class='doccomment'>/// let mut a = Array3::zeros((8, 5, 7));</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// a[(3, 3, 3)] = 42.0;</span>
@@ -670,7 +670,7 @@
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Array3;</span>
+    <span class='doccomment'>/// # use lumol::types::Array3;</span>
     <span class='doccomment'>/// let a: Array3&lt;f64&gt; = Array3::zeros((8, 5, 2));</span>
     <span class='doccomment'>/// let b: Array3&lt;f64&gt; = Array3::default((8, 5, 2));</span>
     <span class='doccomment'>///</span>

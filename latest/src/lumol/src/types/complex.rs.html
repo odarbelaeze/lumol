@@ -451,7 +451,7 @@
 <span class='doccomment'>/// `Complex` implements all the usual arithmetics operations:</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # use lumol::Complex;</span>
+<span class='doccomment'>/// # use lumol::types::Complex;</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// let w = Complex::cartesian(-1.0, 0.5);</span>
 <span class='doccomment'>/// let z = Complex::cartesian(4.0, 2.0);</span>
@@ -486,7 +486,7 @@
     <span class='doccomment'>/// Create a new `Complex` from a norm `r` and a phase `phi` in radians.</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Complex;</span>
+    <span class='doccomment'>/// # use lumol::types::Complex;</span>
     <span class='doccomment'>/// # use std::f64;</span>
     <span class='doccomment'>/// let z = Complex::polar(3.0, f64::consts::PI);</span>
     <span class='doccomment'>/// assert_eq!(z.norm(), 3.0);</span>
@@ -501,7 +501,7 @@
     <span class='doccomment'>/// Create a complex from cartesian coordinates</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Complex;</span>
+    <span class='doccomment'>/// # use lumol::types::Complex;</span>
     <span class='doccomment'>/// let z = Complex::cartesian(3.0, -2.0);</span>
     <span class='doccomment'>/// assert_eq!(z.real(), 3.0);</span>
     <span class='doccomment'>/// assert_eq!(z.imag(), -2.0);</span>
@@ -517,7 +517,7 @@
     <span class='doccomment'>/// Create a complex from cartesian coordinates</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Complex;</span>
+    <span class='doccomment'>/// # use lumol::types::Complex;</span>
     <span class='doccomment'>/// let z = Complex::cartesian(3.0, -2.0);</span>
     <span class='doccomment'>/// assert_eq!(z.real(), 3.0);</span>
     <span class='doccomment'>/// ```</span>
@@ -529,7 +529,7 @@
     <span class='doccomment'>/// Get the imaginary part of the complex</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Complex;</span>
+    <span class='doccomment'>/// # use lumol::types::Complex;</span>
     <span class='doccomment'>/// let z = Complex::cartesian(3.0, -2.0);</span>
     <span class='doccomment'>/// assert_eq!(z.imag(), -2.0);</span>
     <span class='doccomment'>/// ```</span>
@@ -541,7 +541,7 @@
     <span class='doccomment'>/// Get the phase of the complex in the [-π, π) interval</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Complex;</span>
+    <span class='doccomment'>/// # use lumol::types::Complex;</span>
     <span class='doccomment'>/// let z = Complex::polar(2.0, 0.3);</span>
     <span class='doccomment'>/// assert_eq!(z.phase(), 0.3);</span>
     <span class='doccomment'>/// ```</span>
@@ -553,7 +553,7 @@
     <span class='doccomment'>/// Get the norm of the complex</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Complex;</span>
+    <span class='doccomment'>/// # use lumol::types::Complex;</span>
     <span class='doccomment'>/// # use std::f64;</span>
     <span class='doccomment'>/// let z = Complex::polar(2.0, 0.3);</span>
     <span class='doccomment'>/// assert_eq!(z.norm(), 2.0);</span>
@@ -569,7 +569,7 @@
     <span class='doccomment'>/// Get the square of the norm if this complex</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Complex;</span>
+    <span class='doccomment'>/// # use lumol::types::Complex;</span>
     <span class='doccomment'>/// let z = Complex::cartesian(2.0, 1.0);</span>
     <span class='doccomment'>/// assert_eq!(z.norm2(), 5.0);</span>
     <span class='doccomment'>/// ```</span>
@@ -581,7 +581,7 @@
     <span class='doccomment'>/// Get the conjugate of the complex</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Complex;</span>
+    <span class='doccomment'>/// # use lumol::types::Complex;</span>
     <span class='doccomment'>/// let z = Complex::cartesian(2.0, 1.0);</span>
     <span class='doccomment'>/// assert_eq!(z.conj(), Complex::cartesian(2.0, -1.0));</span>
     <span class='doccomment'>/// ```</span>

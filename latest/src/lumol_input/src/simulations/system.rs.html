@@ -257,9 +257,9 @@
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
 <span class='kw'>use</span> <span class='ident'>toml</span>::{<span class='ident'>Table</span>, <span class='ident'>Value</span>};
 
-<span class='kw'>use</span> <span class='ident'>lumol</span>::<span class='ident'>chfl</span>::{<span class='ident'>Trajectory</span>, <span class='ident'>ToChemfiles</span>};
 <span class='kw'>use</span> <span class='ident'>lumol</span>::<span class='ident'>units</span>;
-<span class='kw'>use</span> <span class='ident'>lumol</span>::<span class='ident'>system</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>lumol</span>::<span class='ident'>sys</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>lumol</span>::<span class='ident'>sys</span>::<span class='ident'>veloc</span>::{<span class='ident'>BoltzmannVelocities</span>, <span class='ident'>InitVelocities</span>};
 
 <span class='kw'>use</span> <span class='ident'>error</span>::{<span class='ident'>Error</span>, <span class='prelude-ty'>Result</span>};
 <span class='kw'>use</span> <span class='ident'>extract</span>;
@@ -425,7 +425,7 @@
     <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>path</span>::<span class='ident'>Path</span>;
     <span class='kw'>use</span> <span class='ident'>Input</span>;
     <span class='kw'>use</span> <span class='ident'>testing</span>::<span class='ident'>bad_inputs</span>;
-    <span class='kw'>use</span> <span class='ident'>lumol</span>::<span class='ident'>system</span>::{<span class='ident'>Particle</span>, <span class='ident'>UnitCell</span>};
+    <span class='kw'>use</span> <span class='ident'>lumol</span>::<span class='ident'>sys</span>::{<span class='ident'>Particle</span>, <span class='ident'>UnitCell</span>};
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>system</span>() {

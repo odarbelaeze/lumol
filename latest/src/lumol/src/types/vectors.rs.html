@@ -509,7 +509,7 @@
 <span class='doccomment'>/// A `Vector3D` implement all the arithmetics operations:</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # use lumol::Vector3D;</span>
+<span class='doccomment'>/// # use lumol::types::Vector3D;</span>
 <span class='doccomment'>/// let u = Vector3D::new(1.0, 2.0, 3.0);</span>
 <span class='doccomment'>/// let v = Vector3D::new(4.0, -2.0, 1.0);</span>
 <span class='doccomment'>///</span>
@@ -557,7 +557,7 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Vector3D;</span>
+    <span class='doccomment'>/// # use lumol::types::Vector3D;</span>
     <span class='doccomment'>/// let vec = Vector3D::new(1.0, 0.0, -42.0);</span>
     <span class='doccomment'>/// ```</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>x</span>: <span class='ident'>f64</span>, <span class='ident'>y</span>: <span class='ident'>f64</span>, <span class='ident'>z</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>Vector3D</span> {
@@ -568,7 +568,7 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Vector3D;</span>
+    <span class='doccomment'>/// # use lumol::types::Vector3D;</span>
     <span class='doccomment'>/// let vec = Vector3D::new(1.0, 0.0, -4.0);</span>
     <span class='doccomment'>/// assert_eq!(vec.norm2(), 17.0);</span>
     <span class='doccomment'>/// ```</span>
@@ -579,7 +579,7 @@
     <span class='doccomment'>/// Return the euclidean norm of a Vector3D</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Vector3D;</span>
+    <span class='doccomment'>/// # use lumol::types::Vector3D;</span>
     <span class='doccomment'>/// # use std::f64;</span>
     <span class='doccomment'>/// let vec = Vector3D::new(1.0, 0.0, -4.0);</span>
     <span class='doccomment'>/// assert_eq!(vec.norm(), f64::sqrt(17.0));</span>
@@ -591,7 +591,7 @@
     <span class='doccomment'>/// Normalize a `Vector3D`.</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Vector3D;</span>
+    <span class='doccomment'>/// # use lumol::types::Vector3D;</span>
     <span class='doccomment'>/// let vec = Vector3D::new(1.0, 0.0, -4.0);</span>
     <span class='doccomment'>/// let n = vec.normalized();</span>
     <span class='doccomment'>/// assert_eq!(n.norm(), 1.0);</span>
@@ -607,8 +607,8 @@
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// # use lumol::Vector3D;</span>
-    <span class='doccomment'>/// # use lumol::Matrix3;</span>
+    <span class='doccomment'>/// # use lumol::types::Vector3D;</span>
+    <span class='doccomment'>/// # use lumol::types::Matrix3;</span>
     <span class='doccomment'>/// let a = Vector3D::new(1.0, 0.0, -4.0);</span>
     <span class='doccomment'>/// let b = Vector3D::new(1.0, 2.0, 3.0);</span>
     <span class='doccomment'>/// let matrix = Matrix3::new(</span>

@@ -109,9 +109,6 @@
 <span id="65">65</span>
 <span id="66">66</span>
 <span id="67">67</span>
-<span id="68">68</span>
-<span id="69">69</span>
-<span id="70">70</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -161,28 +158,25 @@
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rand</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>special</span>;
 
+<span class='comment'>// Helper modules</span>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>mod</span> <span class='ident'>tests</span>;
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>mod</span> <span class='ident'>utils</span>;
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>mod</span> <span class='ident'>logging</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>logging</span>::{<span class='ident'>Logger</span>, <span class='ident'>LogLevel</span>};
 
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>units</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>constants</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>consts</span>;
 
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>logging</span>::{<span class='ident'>Logger</span>, <span class='ident'>LogLevel</span>};
+
+<span class='comment'>// Main modules</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>types</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>potentials</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>system</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>simulation</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>chfl</span>;
-
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>types</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>potentials</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>system</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>simulation</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>chfl</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>energy</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>sys</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>sim</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>out</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
