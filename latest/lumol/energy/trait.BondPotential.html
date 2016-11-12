@@ -47,9 +47,32 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1858' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#95' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait BondPotential: <a class='trait' href='../../lumol/energy/trait.Virial.html' title='lumol::energy::Virial'>Virial</a> + <a class='trait' href='../../lumol/energy/trait.BoxCloneBond.html' title='lumol::energy::BoxCloneBond'>BoxCloneBond</a> { }</pre><div class='docblock'><p>Potential that can be used for molecular bonds</p>
+               </span><a id='src-1843' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#152-161' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait BondPotential: <a class='trait' href='../../lumol/energy/trait.Potential.html' title='lumol::energy::Potential'>Potential</a> + BoxCloneBond {
+    fn <a href='#method.virial' class='fnname'>virial</a>(&amp;self, r: &amp;<a class='struct' href='../../lumol/types/struct.Vector3D.html' title='lumol::types::Vector3D'>Vector3D</a>) -&gt; <a class='struct' href='../../lumol/types/struct.Matrix3.html' title='lumol::types::Matrix3'>Matrix3</a> { ... }
+}</pre><div class='docblock'><p>Marker trait for potentials that can be used for molecular bonds.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>lumol</span>::<span class='ident'>energy</span>::{<span class='ident'>Potential</span>, <span class='ident'>BondPotential</span>};
+
+<span class='comment'>// A no-op potential</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>Null</span>;
+
+<span class='kw'>impl</span> <span class='ident'>Potential</span> <span class='kw'>for</span> <span class='ident'>Null</span> {
+    <span class='kw'>fn</span> <span class='ident'>energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {<span class='number'>0.0</span>}
+    <span class='kw'>fn</span> <span class='ident'>force</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {<span class='number'>0.0</span>}
+}
+
+<span class='comment'>// Now we can use the Null potential for bonds</span>
+<span class='kw'>impl</span> <span class='ident'>BondPotential</span> <span class='kw'>for</span> <span class='ident'>Null</span> {}<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.virial' class='method stab '><span id='virial.v' class='invisible'><code>fn <a href='#method.virial' class='fnname'>virial</a>(&amp;self, r: &amp;<a class='struct' href='../../lumol/types/struct.Vector3D.html' title='lumol::types::Vector3D'>Vector3D</a>) -&gt; <a class='struct' href='../../lumol/types/struct.Matrix3.html' title='lumol::types::Matrix3'>Matrix3</a></code></span></h3><div class='docblock'><p>Compute the virial contribution corresponding to the distance <code>r</code>
+between the particles.</p>
+</div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     <li><code>impl BondPotential for <a class='struct' href='../../lumol/energy/struct.NullPotential.html' title='lumol::energy::NullPotential'>NullPotential</a></code></li>

@@ -68,7 +68,7 @@ using Lumol is:</p>
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>input</span>.<span class='ident'>read</span>().<span class='ident'>unwrap</span>();
 
     <span class='ident'>config</span>.<span class='ident'>simulation</span>.<span class='ident'>run</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>config</span>.<span class='ident'>system</span>, <span class='ident'>config</span>.<span class='ident'>nsteps</span>);
-}</pre>
+}<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 
 <p>This crate also provide an <code>InteractionsInput</code> for reading interactions
 from a TOML file. It can be used to set the interactions in a system:</p>
@@ -87,20 +87,20 @@ from a TOML file. It can be used to set the interactions in a system:</p>
     <span class='comment'>// Read the interactions</span>
     <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>InteractionsInput</span>::<span class='ident'>new</span>(<span class='string'>&quot;potentials.toml&quot;</span>).<span class='ident'>unwrap</span>();
     <span class='ident'>input</span>.<span class='ident'>read</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>system</span>).<span class='ident'>unwrap</span>();
-}</pre>
+}<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Input.html'
                                   title='lumol_input::Input'>Input</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>An input file for Lumol.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.InteractionsInput.html'
                                   title='lumol_input::InteractionsInput'>InteractionsInput</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>An interaction input file for Lumol.</p>
                            </td>
                        </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
@@ -108,7 +108,7 @@ from a TOML file. It can be used to set the interactions in a system:</p>
                        <tr class=' module-item'>
                            <td><a class='enum' href='enum.Error.html'
                                   title='lumol_input::Error'>Error</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Possible causes of error when reading input files</p>
                            </td>
                        </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
@@ -116,14 +116,14 @@ from a TOML file. It can be used to set the interactions in a system:</p>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.FromToml.html'
                                   title='lumol_input::FromToml'>FromToml</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Convert a TOML table to a Rust type.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.FromTomlWithData.html'
                                   title='lumol_input::FromTomlWithData'>FromTomlWithData</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Convert a TOML table and some additional data to a Rust type.</p>
                            </td>
                        </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
@@ -131,7 +131,7 @@ from a TOML file. It can be used to set the interactions in a system:</p>
                        <tr class=' module-item'>
                            <td><a class='type' href='type.Result.html'
                                   title='lumol_input::Result'>Result</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Custom <code>Result</code> type for input files</p>
                            </td>
                        </tr></table></section>

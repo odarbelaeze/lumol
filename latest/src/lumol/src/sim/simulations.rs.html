@@ -166,11 +166,11 @@
 <span class='kw'>use</span> <span class='ident'>sim</span>::<span class='ident'>TemperatureStrategy</span>;
 <span class='kw'>use</span> <span class='ident'>out</span>::<span class='ident'>Output</span>;
 
-<span class='doccomment'>/// Writting an output at a given frequency</span>
+<span class='doccomment'>/// Writing an output at a given frequency</span>
 <span class='kw'>struct</span> <span class='ident'>OutputFrequency</span> {
     <span class='doccomment'>/// The output to use</span>
     <span class='ident'>output</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>Output</span><span class='op'>&gt;</span>,
-    <span class='doccomment'>/// The frequency. `output` will be used everytime the system step matches</span>
+    <span class='doccomment'>/// The frequency. `output` will be used every time the system step matches</span>
     <span class='doccomment'>/// this frequency.</span>
     <span class='ident'>frequency</span>: <span class='ident'>u64</span>,
 }
@@ -251,8 +251,8 @@
     }
 
     <span class='doccomment'>/// Add a new `Output` algorithm in the outputs list, which will be used</span>
-    <span class='doccomment'>/// at the given frequency. The output will be used everytime the system</span>
-    <span class='doccomment'>///  step matches this frequency.</span>
+    <span class='doccomment'>/// at the given frequency. The output will be used every time the system</span>
+    <span class='doccomment'>/// step matches this frequency.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_output_with_frequency</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>output</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>Output</span><span class='op'>&gt;</span>, <span class='ident'>frequency</span>: <span class='ident'>u64</span>) {
         <span class='self'>self</span>.<span class='ident'>outputs</span>.<span class='ident'>push</span>(<span class='ident'>OutputFrequency</span>::<span class='ident'>with_frequency</span>(<span class='ident'>output</span>, <span class='ident'>frequency</span>));
     }

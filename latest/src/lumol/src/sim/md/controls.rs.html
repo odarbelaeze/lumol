@@ -324,14 +324,14 @@
 
 <span class='doccomment'>//! While running a simulation, we often want to have control over some</span>
 <span class='doccomment'>//! simulation parameters: the temperature, the pressure, etc. This is the goal</span>
-<span class='doccomment'>//! of the control algorithms, all implmenting of the `Control` trait.</span>
+<span class='doccomment'>//! of the control algorithms, all implementing of the `Control` trait.</span>
 <span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>Matrix3</span>, <span class='ident'>Vector3D</span>, <span class='ident'>Zero</span>};
 <span class='kw'>use</span> <span class='ident'>sys</span>::<span class='ident'>System</span>;
 <span class='kw'>use</span> <span class='ident'>sys</span>::<span class='ident'>veloc</span>;
 
-<span class='doccomment'>/// Trait for controling some parameters in a system during a simulation.</span>
+<span class='doccomment'>/// Trait for controlling some parameters in a system during a simulation.</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Control</span> {
-    <span class='doccomment'>/// Function called once at the beggining of the simulation, which allow</span>
+    <span class='doccomment'>/// Function called once at the beginning of the simulation, which allow</span>
     <span class='doccomment'>/// for some setup of the control algorithm if needed.</span>
     <span class='kw'>fn</span> <span class='ident'>setup</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, _: <span class='kw-2'>&amp;</span><span class='ident'>System</span>) {}
 
@@ -342,17 +342,17 @@
     <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, _: <span class='kw-2'>&amp;</span><span class='ident'>System</span>) {}
 }
 
-<span class='doccomment'>/// Trait for controls usables as thermostats</span>
+<span class='doccomment'>/// Trait for controls usable as thermostats</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Thermostat</span>: <span class='ident'>Control</span> {}
 
 <span class='comment'>/******************************************************************************/</span>
 <span class='doccomment'>/// Velocity rescaling thermostat.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// The velocity rescale algorithm controls the temperature by rescaling all</span>
-<span class='doccomment'>/// the velocities when the temperature differs exceedingly from the desired</span>
-<span class='doccomment'>/// temperature. A tolerance parameter prevent this algorithm from running too</span>
-<span class='doccomment'>/// often: if tolerance is 10K and the target temperature is 300K, the algorithm</span>
-<span class='doccomment'>/// will only run if the instant temperature is below 290K or above 310K.</span>
+<span class='doccomment'>/// This algorithm controls the temperature by rescaling all the velocities when</span>
+<span class='doccomment'>/// the temperature differs exceedingly from the desired temperature. A</span>
+<span class='doccomment'>/// tolerance parameter prevent this algorithm from running too often: if</span>
+<span class='doccomment'>/// tolerance is 10K and the target temperature is 300K, the algorithm will only</span>
+<span class='doccomment'>/// run if the instant temperature is below 290K or above 310K.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>RescaleThermostat</span> {
     <span class='doccomment'>/// Target temperature</span>
     <span class='ident'>temperature</span>: <span class='ident'>f64</span>,
@@ -390,7 +390,7 @@
 <span class='comment'>/******************************************************************************/</span>
 <span class='doccomment'>/// Berendsen thermostat.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// The berendsen thermostat sets the simulation temperature by exponentially</span>
+<span class='doccomment'>/// The Berendsen thermostat sets the simulation temperature by exponentially</span>
 <span class='doccomment'>/// relaxing to a desired temperature. A more complete description of this</span>
 <span class='doccomment'>/// algorithm can be found in the original article [1].</span>
 <span class='doccomment'>///</span>

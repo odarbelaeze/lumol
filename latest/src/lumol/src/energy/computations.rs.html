@@ -159,17 +159,98 @@
 <span id="115">115</span>
 <span id="116">116</span>
 <span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
 
-<span class='kw'>use</span> <span class='kw'>super</span>::{<span class='ident'>Potential</span>, <span class='ident'>PairPotential</span>};
+<span class='kw'>use</span> <span class='ident'>energy</span>::{<span class='ident'>Potential</span>, <span class='ident'>PairPotential</span>};
 
-<span class='doccomment'>/// Methods for energy and forces computation.</span>
+<span class='doccomment'>/// Alternative energy and forces computation.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// A potential computation is a way of computing a potential given its</span>
-<span class='doccomment'>/// expression (represented by a `Potential`). The same potential can be</span>
-<span class='doccomment'>/// computed either direcly, or using a cutoff, or by a table interpolation, ...</span>
+<span class='doccomment'>/// The `Computation` trait represent an alternative way to compute a given</span>
+<span class='doccomment'>/// potential. For example using interpolation on a table or on a grid, from a</span>
+<span class='doccomment'>/// Fourrier decompostion, *etc.*</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Examples</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// # use lumol::energy::Potential;</span>
+<span class='doccomment'>/// use lumol::energy::Computation;</span>
+<span class='doccomment'>/// use lumol::energy::Harmonic;</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// /// This is just a thin wrapper logging everytime the `energy/force`</span>
+<span class='doccomment'>/// /// methods are called.</span>
+<span class='doccomment'>/// #[derive(Clone)]</span>
+<span class='doccomment'>/// struct LoggingComputation&lt;T: Potential&gt;(T);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// impl&lt;T: Potential&gt; Computation for LoggingComputation&lt;T&gt; {</span>
+<span class='doccomment'>///     fn compute_energy(&amp;self, r: f64) -&gt; f64 {</span>
+<span class='doccomment'>///         println!(&quot;Called energy&quot;);</span>
+<span class='doccomment'>///         self.0.energy(r)</span>
+<span class='doccomment'>///     }</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>///     fn compute_force(&amp;self, r: f64) -&gt; f64 {</span>
+<span class='doccomment'>///         println!(&quot;Called force&quot;);</span>
+<span class='doccomment'>///         self.0.force(r)</span>
+<span class='doccomment'>///     }</span>
+<span class='doccomment'>/// }</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let potential = Harmonic{x0: 0.5, k: 4.2};</span>
+<span class='doccomment'>/// let computation = LoggingComputation(potential.clone());</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(computation.energy(1.0), potential.energy(1.0));</span>
+<span class='doccomment'>/// assert_eq!(computation.force(2.0), potential.force(2.0));</span>
+<span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Computation</span>: <span class='ident'>Sync</span> <span class='op'>+</span> <span class='ident'>Send</span> {
     <span class='doccomment'>/// Compute the energy value at `r`</span>
     <span class='kw'>fn</span> <span class='ident'>compute_energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>;
@@ -191,16 +272,11 @@
 <span class='doccomment'>/// Computation of a potential using tabulated values.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// This can be faster than direct computation for smooth potentials, but will</span>
-<span class='doccomment'>/// either uses more memory or be less precise than direct computation. Values</span>
-<span class='doccomment'>/// are tabulated in the `[0, max)` range, and a cutoff is applied after `max`.</span>
+<span class='doccomment'>/// uses more memory and be less precise than direct computation. Values are</span>
+<span class='doccomment'>/// tabulated in the `[0, max)` range, and a cutoff is applied after `max`.</span>
 <span class='doccomment'>/// Energy is shifted to ensure `E(max) = 0`</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TableComputation</span> {
-    <span class='comment'>// TODO: use genericity over static values here if it ever comes out</span>
-    <span class='comment'>// see https://internals.rust-lang.org/t/pre-rfc-genericity-over-static-values/1538/19</span>
-
-    <span class='doccomment'>/// Number of tabulated values</span>
-    <span class='ident'>size</span>: <span class='ident'>usize</span>,
     <span class='doccomment'>/// Step for tabulated value. `energy_table[i]`/`force_table[i]` contains</span>
     <span class='doccomment'>/// energy/force at `r = i * delta`</span>
     <span class='ident'>delta</span>: <span class='ident'>f64</span>,
@@ -214,8 +290,22 @@
 <span class='kw'>impl</span> <span class='ident'>TableComputation</span> {
     <span class='doccomment'>/// Create a new `TableComputation` for `potential`, with `size` points and</span>
     <span class='doccomment'>/// a maximum value of `max`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>potential</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PairPotential</span><span class='op'>&gt;</span>, <span class='ident'>size</span>: <span class='ident'>usize</span>, <span class='ident'>max</span>:<span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>TableComputation</span> {
-        <span class='kw'>let</span> <span class='ident'>delta</span> <span class='op'>=</span> <span class='ident'>max</span><span class='op'>/</span>(<span class='ident'>size</span> <span class='kw'>as</span> <span class='ident'>f64</span>);
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// # use lumol::energy::Potential;</span>
+    <span class='doccomment'>/// use lumol::energy::TableComputation;</span>
+    <span class='doccomment'>/// use lumol::energy::Harmonic;</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// let potential = Harmonic{x0: 0.5, k: 4.2};</span>
+    <span class='doccomment'>/// let table = TableComputation::new(&amp;potential, 1000, 2.0);</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// assert_eq!(table.energy(1.0), -4.2);</span>
+    <span class='doccomment'>/// assert_eq!(table.energy(3.0), 0.0);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>potential</span>: <span class='kw-2'>&amp;</span><span class='ident'>PairPotential</span>, <span class='ident'>size</span>: <span class='ident'>usize</span>, <span class='ident'>max</span>:<span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>TableComputation</span> {
+        <span class='kw'>let</span> <span class='ident'>delta</span> <span class='op'>=</span> <span class='ident'>max</span> <span class='op'>/</span> (<span class='ident'>size</span> <span class='kw'>as</span> <span class='ident'>f64</span>);
         <span class='kw'>let</span> <span class='ident'>energy_shift</span> <span class='op'>=</span> <span class='ident'>potential</span>.<span class='ident'>energy</span>(<span class='ident'>max</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>energy_table</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>size</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>force_table</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>size</span>);
@@ -225,7 +315,6 @@
             <span class='ident'>force_table</span>.<span class='ident'>push</span>(<span class='ident'>potential</span>.<span class='ident'>force</span>(<span class='ident'>pos</span>));
         }
         <span class='ident'>TableComputation</span> {
-            <span class='ident'>size</span>: <span class='ident'>size</span>,
             <span class='ident'>delta</span>: <span class='ident'>delta</span>,
             <span class='ident'>energy_table</span>: <span class='ident'>energy_table</span>,
             <span class='ident'>force_table</span>: <span class='ident'>force_table</span>
@@ -235,22 +324,24 @@
 
 <span class='kw'>impl</span> <span class='ident'>Computation</span> <span class='kw'>for</span> <span class='ident'>TableComputation</span> {
     <span class='kw'>fn</span> <span class='ident'>compute_energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>energy_table</span>.<span class='ident'>len</span>() <span class='op'>==</span> <span class='self'>self</span>.<span class='ident'>force_table</span>.<span class='ident'>len</span>());
         <span class='kw'>let</span> <span class='ident'>bin</span> <span class='op'>=</span> <span class='ident'>f64</span>::<span class='ident'>floor</span>(<span class='ident'>r</span> <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>delta</span>) <span class='kw'>as</span> <span class='ident'>usize</span>;
-        <span class='kw'>if</span> <span class='ident'>bin</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>size</span> <span class='op'>-</span> <span class='number'>1</span> {
-            <span class='kw'>let</span> <span class='ident'>dx</span> <span class='op'>=</span> <span class='ident'>r</span> <span class='op'>-</span> (<span class='ident'>bin</span> <span class='kw'>as</span> <span class='ident'>f64</span>)<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>delta</span>;
-            <span class='kw'>let</span> <span class='ident'>slope</span> <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>energy_table</span>[<span class='ident'>bin</span> <span class='op'>+</span> <span class='number'>1</span>] <span class='op'>-</span> <span class='self'>self</span>.<span class='ident'>energy_table</span>[<span class='ident'>bin</span>])<span class='op'>/</span><span class='self'>self</span>.<span class='ident'>delta</span>;
-            <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>energy_table</span>[<span class='ident'>bin</span>] <span class='op'>+</span> <span class='ident'>dx</span><span class='op'>*</span><span class='ident'>slope</span>;
+        <span class='kw'>if</span> <span class='ident'>bin</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>energy_table</span>.<span class='ident'>len</span>() <span class='op'>-</span> <span class='number'>1</span> {
+            <span class='kw'>let</span> <span class='ident'>dx</span> <span class='op'>=</span> <span class='ident'>r</span> <span class='op'>-</span> (<span class='ident'>bin</span> <span class='kw'>as</span> <span class='ident'>f64</span>) <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>delta</span>;
+            <span class='kw'>let</span> <span class='ident'>slope</span> <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>energy_table</span>[<span class='ident'>bin</span> <span class='op'>+</span> <span class='number'>1</span>] <span class='op'>-</span> <span class='self'>self</span>.<span class='ident'>energy_table</span>[<span class='ident'>bin</span>]) <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>delta</span>;
+            <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>energy_table</span>[<span class='ident'>bin</span>] <span class='op'>+</span> <span class='ident'>dx</span> <span class='op'>*</span> <span class='ident'>slope</span>;
         } <span class='kw'>else</span> {
             <span class='kw'>return</span> <span class='number'>0.0</span>;
         }
     }
 
     <span class='kw'>fn</span> <span class='ident'>compute_force</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>energy_table</span>.<span class='ident'>len</span>() <span class='op'>==</span> <span class='self'>self</span>.<span class='ident'>force_table</span>.<span class='ident'>len</span>());
         <span class='kw'>let</span> <span class='ident'>bin</span> <span class='op'>=</span> <span class='ident'>f64</span>::<span class='ident'>floor</span>(<span class='ident'>r</span> <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>delta</span>) <span class='kw'>as</span> <span class='ident'>usize</span>;
-        <span class='kw'>if</span> <span class='ident'>bin</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>size</span> <span class='op'>-</span> <span class='number'>1</span> {
-            <span class='kw'>let</span> <span class='ident'>dx</span> <span class='op'>=</span> <span class='ident'>r</span> <span class='op'>-</span> (<span class='ident'>bin</span> <span class='kw'>as</span> <span class='ident'>f64</span>)<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>delta</span>;
-            <span class='kw'>let</span> <span class='ident'>slope</span> <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>force_table</span>[<span class='ident'>bin</span> <span class='op'>+</span> <span class='number'>1</span>] <span class='op'>-</span> <span class='self'>self</span>.<span class='ident'>force_table</span>[<span class='ident'>bin</span>])<span class='op'>/</span><span class='self'>self</span>.<span class='ident'>delta</span>;
-            <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>force_table</span>[<span class='ident'>bin</span>] <span class='op'>+</span> <span class='ident'>dx</span><span class='op'>*</span><span class='ident'>slope</span>;
+        <span class='kw'>if</span> <span class='ident'>bin</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>force_table</span>.<span class='ident'>len</span>() <span class='op'>-</span> <span class='number'>1</span> {
+            <span class='kw'>let</span> <span class='ident'>dx</span> <span class='op'>=</span> <span class='ident'>r</span> <span class='op'>-</span> (<span class='ident'>bin</span> <span class='kw'>as</span> <span class='ident'>f64</span>) <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>delta</span>;
+            <span class='kw'>let</span> <span class='ident'>slope</span> <span class='op'>=</span> (<span class='self'>self</span>.<span class='ident'>force_table</span>[<span class='ident'>bin</span> <span class='op'>+</span> <span class='number'>1</span>] <span class='op'>-</span> <span class='self'>self</span>.<span class='ident'>force_table</span>[<span class='ident'>bin</span>]) <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>delta</span>;
+            <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>force_table</span>[<span class='ident'>bin</span>] <span class='op'>+</span> <span class='ident'>dx</span> <span class='op'>*</span> <span class='ident'>slope</span>;
         } <span class='kw'>else</span> {
             <span class='kw'>return</span> <span class='number'>0.0</span>;
         }
@@ -259,8 +350,6 @@
 
 <span class='kw'>impl</span> <span class='ident'>PairPotential</span> <span class='kw'>for</span> <span class='ident'>TableComputation</span> {}
 
-<span class='comment'>/******************************************************************************/</span>
-
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
     <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
@@ -268,13 +357,24 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>table</span>() {
-        <span class='kw'>let</span> <span class='ident'>table</span> <span class='op'>=</span> <span class='ident'>TableComputation</span>::<span class='ident'>new</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>Harmonic</span>{<span class='ident'>k</span>: <span class='number'>50.0</span>, <span class='ident'>x0</span>: <span class='number'>2.0</span>}), <span class='number'>1000</span>, <span class='number'>4.0</span>);
+        <span class='kw'>let</span> <span class='ident'>table</span> <span class='op'>=</span> <span class='ident'>TableComputation</span>::<span class='ident'>new</span>(<span class='kw-2'>&amp;</span><span class='ident'>Harmonic</span>{<span class='ident'>k</span>: <span class='number'>50.0</span>, <span class='ident'>x0</span>: <span class='number'>2.0</span>}, <span class='number'>1000</span>, <span class='number'>4.0</span>);
 
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_force</span>(<span class='number'>2.5</span>), <span class='op'>-</span><span class='number'>25.0</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_energy</span>(<span class='number'>2.5</span>), <span class='op'>-</span><span class='number'>93.75</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_force</span>(<span class='number'>2.5</span>), <span class='op'>-</span><span class='number'>25.0</span>);
 
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_force</span>(<span class='number'>4.1</span>), <span class='number'>0.0</span>);
+        <span class='comment'>// Check that the table is defined up to the cutoff value</span>
+        <span class='kw'>let</span> <span class='ident'>delta</span> <span class='op'>=</span> <span class='number'>4.0</span> <span class='op'>/</span> <span class='number'>1000.0</span>;
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_energy</span>(<span class='number'>4.0</span> <span class='op'>-</span> <span class='number'>2.0</span> <span class='op'>*</span> <span class='ident'>delta</span>), <span class='op'>-</span><span class='number'>0.7984000000000009</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_force</span>(<span class='number'>4.0</span> <span class='op'>-</span> <span class='number'>2.0</span> <span class='op'>*</span> <span class='ident'>delta</span>), <span class='op'>-</span><span class='number'>99.6</span>);
+
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_energy</span>(<span class='number'>4.0</span> <span class='op'>-</span> <span class='ident'>delta</span>), <span class='number'>0.0</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_force</span>(<span class='number'>4.0</span> <span class='op'>-</span> <span class='ident'>delta</span>), <span class='number'>0.0</span>);
+
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_energy</span>(<span class='number'>4.0</span>), <span class='number'>0.0</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_force</span>(<span class='number'>4.0</span>), <span class='number'>0.0</span>);
+
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_energy</span>(<span class='number'>4.1</span>), <span class='number'>0.0</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>table</span>.<span class='ident'>compute_force</span>(<span class='number'>4.1</span>), <span class='number'>0.0</span>);
     }
 }
 </pre>

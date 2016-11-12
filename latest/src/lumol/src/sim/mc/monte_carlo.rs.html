@@ -260,7 +260,7 @@
     <span class='ident'>beta</span>: <span class='ident'>f64</span>,
     <span class='doccomment'>/// List of possible Monte-Carlo moves</span>
     <span class='ident'>moves</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>MCMove</span><span class='op'>&gt;&gt;</span>,
-    <span class='doccomment'>/// Cummulative frequencies of the Monte-Carlo moves</span>
+    <span class='doccomment'>/// Cumulative frequencies of the Monte-Carlo moves</span>
     <span class='ident'>frequencies</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span>,
     <span class='doccomment'>/// Random number generator for the simulation. All random state will be</span>
     <span class='doccomment'>/// taken from this.</span>
@@ -268,7 +268,7 @@
     <span class='doccomment'>/// Cache for faster energy computation</span>
     <span class='ident'>cache</span>: <span class='ident'>EnergyCache</span>,
     <span class='doccomment'>/// Flag checking if the moves frequencies has been converted to</span>
-    <span class='doccomment'>/// cummulative frequencies or not yet.</span>
+    <span class='doccomment'>/// cumulative frequencies or not yet.</span>
     <span class='ident'>initialized</span>: <span class='ident'>bool</span>,
 }
 
@@ -343,7 +343,7 @@
         <span class='kw'>for</span> <span class='ident'>frequency</span> <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>frequencies</span> {
             <span class='op'>*</span><span class='ident'>frequency</span> <span class='op'>/=</span> <span class='ident'>sum</span>;
         }
-        <span class='comment'>// Make the frequencies vector contain cummulative frequencies</span>
+        <span class='comment'>// Make the frequencies vector contain cumulative frequencies</span>
         <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>1</span>..<span class='self'>self</span>.<span class='ident'>frequencies</span>.<span class='ident'>len</span>() {
             <span class='self'>self</span>.<span class='ident'>frequencies</span>[<span class='ident'>i</span>] <span class='op'>+=</span> <span class='self'>self</span>.<span class='ident'>frequencies</span>[<span class='ident'>i</span> <span class='op'>-</span> <span class='number'>1</span>];
         }

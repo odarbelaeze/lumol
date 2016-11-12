@@ -347,6 +347,7 @@
 <span id="303">303</span>
 <span id="304">304</span>
 <span id="305">305</span>
+<span id="306">306</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -361,11 +362,11 @@
 <span class='kw'>use</span> <span class='ident'>sys</span>::<span class='ident'>System</span>;
 <span class='kw'>use</span> <span class='ident'>sys</span>::{<span class='ident'>Trajectory</span>, <span class='ident'>TrajectoryError</span>};
 
-<span class='doccomment'>/// The `Output` trait define the interface for all the quantities outputed by</span>
+<span class='doccomment'>/// The `Output` trait define the interface for all the quantities outputted by</span>
 <span class='doccomment'>/// the simulation during the run. An Output can be a text or a binary data</span>
 <span class='doccomment'>/// file, an image, a text log, …</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Output</span> {
-    <span class='doccomment'>/// Function called once at the beggining of the simulation, which allow</span>
+    <span class='doccomment'>/// Function called once at the beginning of the simulation, which allow</span>
     <span class='doccomment'>/// for some setup of the output if needed.</span>
     <span class='kw'>fn</span> <span class='ident'>setup</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, _: <span class='kw-2'>&amp;</span><span class='ident'>System</span>) {}
 
@@ -378,8 +379,9 @@
 
 <span class='comment'>/******************************************************************************/</span>
 <span class='doccomment'>/// The `TrajectoryOutput` allow to write the trajectory of the system to a</span>
-<span class='doccomment'>/// file, using any format supported by the</span>
-<span class='doccomment'>/// [Chemfiles](http://chemfiles.readthedocs.org/en/latest/formats.html) library.</span>
+<span class='doccomment'>/// file, using any format supported by the [Chemfiles][chemfiles] library.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// [chemfiles]: http://chemfiles.github.io</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TrajectoryOutput</span> {
     <span class='ident'>file</span>: <span class='ident'>Trajectory</span>,
 }

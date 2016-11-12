@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["BOHR_RADIUS","Bohr radius"],["ELCC","4*pi*epsilon0"],["K_BOLTZMANN","Boltzmann constant"],["NA","Avogadro number"]]});
+initSidebarItems({"constant":[["BOHR_RADIUS","Bohr radius"],["ELCC","4 * pi * epsilon_0"],["K_BOLTZMANN","Boltzmann constant"],["NA","Avogadro number"]]});

@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2170' class='srclink' href='../src/ndarray/shape_builder.rs.html#10-16' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-2174' class='srclink' href='../src/ndarray/shape_builder.rs.html#10-16' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ShapeBuilder {
     type <a href='#associatedtype.Dim' class='type'>Dim</a>: <a class='trait' href='../ndarray/trait.Dimension.html' title='ndarray::Dimension'>Dimension</a>;
     fn <a href='#tymethod.f' class='fnname'>f</a>(self) -&gt; <a class='struct' href='../ndarray/struct.Shape.html' title='ndarray::Shape'>Shape</a>&lt;Self::Dim&gt;;
@@ -61,10 +61,10 @@ customizing the memory layout (strides) of an array shape.</p>
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Dim' class='method stab '><code>type <a href='#associatedtype.Dim' class='type'>Dim</a>: <a class='trait' href='../ndarray/trait.Dimension.html' title='ndarray::Dimension'>Dimension</a></code></h3></div>
+        <h3 id='associatedtype.Dim' class='method stab '><span id='Dim.t' class='invisible'><code>type <a href='#associatedtype.Dim' class='type'>Dim</a>: <a class='trait' href='../ndarray/trait.Dimension.html' title='ndarray::Dimension'>Dimension</a></code></span></h3></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.f' class='method stab '><code>fn <a href='#tymethod.f' class='fnname'>f</a>(self) -&gt; <a class='struct' href='../ndarray/struct.Shape.html' title='ndarray::Shape'>Shape</a>&lt;Self::Dim&gt;</code></h3><h3 id='tymethod.set_f' class='method stab '><code>fn <a href='#tymethod.set_f' class='fnname'>set_f</a>(self, is_f: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../ndarray/struct.Shape.html' title='ndarray::Shape'>Shape</a>&lt;Self::Dim&gt;</code></h3><h3 id='tymethod.strides' class='method stab '><code>fn <a href='#tymethod.strides' class='fnname'>strides</a>(self, strides: Self::Dim) -&gt; <a class='struct' href='../ndarray/struct.StrideShape.html' title='ndarray::StrideShape'>StrideShape</a>&lt;Self::Dim&gt;</code></h3></div>
+        <h3 id='tymethod.f' class='method stab '><span id='f.v' class='invisible'><code>fn <a href='#tymethod.f' class='fnname'>f</a>(self) -&gt; <a class='struct' href='../ndarray/struct.Shape.html' title='ndarray::Shape'>Shape</a>&lt;Self::Dim&gt;</code></span></h3><h3 id='tymethod.set_f' class='method stab '><span id='set_f.v' class='invisible'><code>fn <a href='#tymethod.set_f' class='fnname'>set_f</a>(self, is_f: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../ndarray/struct.Shape.html' title='ndarray::Shape'>Shape</a>&lt;Self::Dim&gt;</code></span></h3><h3 id='tymethod.strides' class='method stab '><span id='strides.v' class='invisible'><code>fn <a href='#tymethod.strides' class='fnname'>strides</a>(self, strides: Self::Dim) -&gt; <a class='struct' href='../ndarray/struct.StrideShape.html' title='ndarray::StrideShape'>StrideShape</a>&lt;Self::Dim&gt;</code></span></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     <li><code>impl&lt;D&gt; ShapeBuilder for D <span class='where'>where D: <a class='trait' href='../ndarray/trait.Dimension.html' title='ndarray::Dimension'>Dimension</a></span></code></li>

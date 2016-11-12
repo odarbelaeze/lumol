@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2950' class='srclink' href='../../src/ndarray/linalg/impl_linalg.rs.html#150-156' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-2954' class='srclink' href='../../src/ndarray/linalg/impl_linalg.rs.html#150-156' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Dot&lt;Rhs&gt; {
     type <a href='#associatedtype.Output' class='type'>Output</a>;
     fn <a href='#tymethod.dot' class='fnname'>dot</a>(&amp;self, rhs: &amp;Rhs) -&gt; Self::Output;
@@ -58,13 +58,13 @@ multiplication.</p>
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Output' class='method stab '><code>type <a href='#associatedtype.Output' class='type'>Output</a></code></h3><div class='docblock'><p>The result of the operation.</p>
+        <h3 id='associatedtype.Output' class='method stab '><span id='Output.t' class='invisible'><code>type <a href='#associatedtype.Output' class='type'>Output</a></code></span></h3><div class='docblock'><p>The result of the operation.</p>
 
 <p>For two-dimensional arrays: a rectangular array.</p>
 </div></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.dot' class='method stab '><code>fn <a href='#tymethod.dot' class='fnname'>dot</a>(&amp;self, rhs: &amp;Rhs) -&gt; Self::Output</code></h3></div>
+        <h3 id='tymethod.dot' class='method stab '><span id='dot.v' class='invisible'><code>fn <a href='#tymethod.dot' class='fnname'>dot</a>(&amp;self, rhs: &amp;Rhs) -&gt; Self::Output</code></span></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     <li><code>impl&lt;A,&nbsp;S,&nbsp;S2&gt; Dot&lt;<a class='struct' href='../../ndarray/struct.ArrayBase.html' title='ndarray::ArrayBase'>ArrayBase</a>&lt;S2,&nbsp;<a class='type' href='../../ndarray/type.Ix2.html' title='ndarray::Ix2'>Ix2</a>&gt;&gt; for <a class='struct' href='../../ndarray/struct.ArrayBase.html' title='ndarray::ArrayBase'>ArrayBase</a>&lt;S,&nbsp;<a class='type' href='../../ndarray/type.Ix2.html' title='ndarray::Ix2'>Ix2</a>&gt; <span class='where'>where S: <a class='trait' href='../../ndarray/trait.Data.html' title='ndarray::Data'>Data</a>&lt;Elem=A&gt;, S2: <a class='trait' href='../../ndarray/trait.Data.html' title='ndarray::Data'>Data</a>&lt;Elem=A&gt;, A: <a class='trait' href='../../ndarray/trait.LinalgScalar.html' title='ndarray::LinalgScalar'>LinalgScalar</a></span></code></li>

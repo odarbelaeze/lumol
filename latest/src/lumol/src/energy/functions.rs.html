@@ -279,6 +279,71 @@
 <span id="235">235</span>
 <span id="236">236</span>
 <span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -286,10 +351,25 @@
 <span class='kw'>use</span> <span class='ident'>energy</span>::<span class='ident'>Potential</span>;
 <span class='kw'>use</span> <span class='ident'>energy</span>::{<span class='ident'>PairPotential</span>, <span class='ident'>BondPotential</span>, <span class='ident'>AnglePotential</span>, <span class='ident'>DihedralPotential</span>};
 
-<span class='doccomment'>/// The `NullPotential` always returns 0 as energy and force.</span>
+<span class='doccomment'>/// No-op potential.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// It should be used to indicate that there is no potential interaction between</span>
-<span class='doccomment'>/// two particles kinds.</span>
+<span class='doccomment'>/// The `NullPotential` always returns 0 as energy and force. It should be used</span>
+<span class='doccomment'>/// to indicate that there is no potential interaction for a given set of</span>
+<span class='doccomment'>/// particles.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Examples</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// use lumol::energy::Potential;</span>
+<span class='doccomment'>/// use lumol::energy::NullPotential;</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let potential = NullPotential;</span>
+<span class='doccomment'>/// assert_eq!(potential.energy(0.1), 0.0);</span>
+<span class='doccomment'>/// assert_eq!(potential.energy(100000.0), 0.0);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(potential.force(0.1), 0.0);</span>
+<span class='doccomment'>/// assert_eq!(potential.force(100000.0), 0.0);</span>
+<span class='doccomment'>/// ```</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>NullPotential</span>;
 <span class='kw'>impl</span> <span class='ident'>Potential</span> <span class='kw'>for</span> <span class='ident'>NullPotential</span> {
@@ -302,12 +382,24 @@
 <span class='kw'>impl</span> <span class='ident'>AnglePotential</span> <span class='kw'>for</span> <span class='ident'>NullPotential</span> {}
 <span class='kw'>impl</span> <span class='ident'>DihedralPotential</span> <span class='kw'>for</span> <span class='ident'>NullPotential</span> {}
 
-<span class='comment'>/******************************************************************************/</span>
 <span class='doccomment'>/// Lennard-Jones potential.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// The following expression is used:</span>
-<span class='doccomment'>/// $$ V(r) = 4 \epsilon \left[ (\sigma/r)^{12} - (\sigma/r)^{6} \right] $$</span>
-<span class='doccomment'>/// where $\sigma$ is a distance constant, and $\epsilon$ an energetic constant.</span>
+<span class='doccomment'>/// The following expression of Lennard-Jones potential is used: `V(r) = 4 *</span>
+<span class='doccomment'>/// epsilon * ((sigma/r)^12 - (sigma/r)^6)` where `sigma` is the Lennard-Jones</span>
+<span class='doccomment'>/// distance constant, and `epsilon` the Lennard-Jones energetic constant.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Examples</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// use lumol::energy::Potential;</span>
+<span class='doccomment'>/// use lumol::energy::LennardJones;</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let potential = LennardJones{sigma: 2.0, epsilon: 10.0};</span>
+<span class='doccomment'>/// assert_eq!(potential.energy(2.0), 0.0);</span>
+<span class='doccomment'>/// assert_eq!(potential.energy(3.0), -3.203365942785746);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(potential.force(2.0), 120.0);</span>
+<span class='doccomment'>/// ```</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>LennardJones</span> {
     <span class='doccomment'>/// Distance constant of the Lennard-Jones potential</span>
@@ -332,12 +424,24 @@
 
 <span class='kw'>impl</span> <span class='ident'>PairPotential</span> <span class='kw'>for</span> <span class='ident'>LennardJones</span> {}
 
-<span class='comment'>/******************************************************************************/</span>
 <span class='doccomment'>/// Harmonic potential.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// The following expression is used:</span>
-<span class='doccomment'>/// $$ V(x) = \frac 12 k (x - x_0)^2 $$</span>
-<span class='doccomment'>/// where $x_0$ is the distance equilibrium, and $k$ the elastic constant.</span>
+<span class='doccomment'>/// The following energy expression is used: `V(x) = 1/2 * k * (x - x0)^2` where</span>
+<span class='doccomment'>/// `x0` is the distance equilibrium, and `k` the elastic constant.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Examples</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// use lumol::energy::Potential;</span>
+<span class='doccomment'>/// use lumol::energy::Harmonic;</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let potential = Harmonic{x0: 2.0, k: 100.0};</span>
+<span class='doccomment'>/// assert_eq!(potential.energy(2.0), 0.0);</span>
+<span class='doccomment'>/// assert_eq!(potential.energy(3.0), 50.0);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(potential.force(2.0), 0.0);</span>
+<span class='doccomment'>/// assert_eq!(potential.force(1.5), 50.0);</span>
+<span class='doccomment'>/// ```</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Harmonic</span> {
     <span class='doccomment'>/// Spring constant</span>
@@ -364,12 +468,24 @@
 <span class='kw'>impl</span> <span class='ident'>AnglePotential</span> <span class='kw'>for</span> <span class='ident'>Harmonic</span> {}
 <span class='kw'>impl</span> <span class='ident'>DihedralPotential</span> <span class='kw'>for</span> <span class='ident'>Harmonic</span> {}
 
-<span class='comment'>/******************************************************************************/</span>
 <span class='doccomment'>/// Cosine harmonic potential.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// The following expression is used:</span>
-<span class='doccomment'>/// $$ V(r) = \frac 12 k (\cos r - \cos x_0)^2 $$</span>
-<span class='doccomment'>/// where $x_0$ is the distance equilibrium, and $k$ the elastic constant.</span>
+<span class='doccomment'>/// The following potential expression is used: `V(x) = 1/2 * k * (cos(x) -</span>
+<span class='doccomment'>/// cos(x0))^2` where `x0` is the distance equilibrium, and `k` the elastic</span>
+<span class='doccomment'>/// constant.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Examples</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// use lumol::energy::Potential;</span>
+<span class='doccomment'>/// use lumol::energy::CosineHarmonic;</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let potential = CosineHarmonic::new(/* k */ 100.0, /* x0 */ 2.0);</span>
+<span class='doccomment'>/// assert_eq!(potential.energy(2.0), 0.0);</span>
+<span class='doccomment'>/// assert_eq!(potential.energy(3.0), 16.464942078100552);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(potential.force(2.0), 0.0);</span>
+<span class='doccomment'>/// ```</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>CosineHarmonic</span> {
     <span class='doccomment'>/// Spring constant</span>
@@ -402,13 +518,28 @@
 <span class='kw'>impl</span> <span class='ident'>AnglePotential</span> <span class='kw'>for</span> <span class='ident'>CosineHarmonic</span> {}
 <span class='kw'>impl</span> <span class='ident'>DihedralPotential</span> <span class='kw'>for</span> <span class='ident'>CosineHarmonic</span> {}
 
-<span class='comment'>/******************************************************************************/</span>
 <span class='doccomment'>/// Torsion potential.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// The following expression is used:</span>
-<span class='doccomment'>/// $$ V(r) = k(1 + \cos(n\phi_0 - \delta)) $$</span>
-<span class='doccomment'>/// where $k$ is the force constant, `n` the periodicity of the potential, and</span>
-<span class='doccomment'>/// $\delta$ the equilibrium angle.</span>
+<span class='doccomment'>/// This potential is intended for use with dihedral angles, using a</span>
+<span class='doccomment'>/// customisable periodicity and multiple minima.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// The following potential expression is used: `V(x) = k * (1 + cos(n * x -</span>
+<span class='doccomment'>/// delta))` where `k` is the force constant, `n` the periodicity of the</span>
+<span class='doccomment'>/// potential, and `delta` the equilibrium angle.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Examples</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// use lumol::energy::Potential;</span>
+<span class='doccomment'>/// use lumol::energy::Torsion;</span>
+<span class='doccomment'>/// use std::f64::consts::PI;</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let potential = Torsion{delta: PI / 2.0, k: 10.0, n: 3};</span>
+<span class='doccomment'>/// assert_eq!(potential.energy(PI / 2.0), 0.0);</span>
+<span class='doccomment'>/// assert_eq!(potential.energy(PI / 3.0), 10.0);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert!(potential.force(PI / 2.0).abs() &lt; 1e-12);</span>
+<span class='doccomment'>/// ```</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Torsion</span> {
     <span class='doccomment'>/// Force constant</span>
@@ -437,7 +568,6 @@
 
 <span class='kw'>impl</span> <span class='ident'>DihedralPotential</span> <span class='kw'>for</span> <span class='ident'>Torsion</span> {}
 
-<span class='comment'>/******************************************************************************/</span>
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>tests</span> {

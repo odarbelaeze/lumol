@@ -47,10 +47,8 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-869' class='srclink' href='../src/chemfiles/selection.rs.html#83-85' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct Selection {
-    // some fields omitted
-}</pre><div class='docblock'><p>Select atoms in a <code>Frame</code> with a selection language.</p>
+               </span><a id='src-867' class='srclink' href='../src/chemfiles/selection.rs.html#83-85' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Selection { /* fields omitted */ }</pre><div class='docblock'><p>Select atoms in a <code>Frame</code> with a selection language.</p>
 
 <p>The selection language is built by combining basic operations. Each basic
 operation follows the <code>&lt;selector&gt;[(&lt;variable&gt;)] &lt;operator&gt; &lt;value&gt;</code>
@@ -58,27 +56,27 @@ structure, where <code>&lt;operator&gt;</code> is a comparison operator in <code
 Refer to the <a href="http://chemfiles.rtfd.io/en/latest/selections.html">full
 documentation</a> to know
 the allowed selectors and how to use them.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../chemfiles/struct.Selection.html' title='chemfiles::Selection'>Selection</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-874' class='srclink' href='../src/chemfiles/selection.rs.html#97-164' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>&lt;'a,&nbsp;S:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;&amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;(selection: S) -&gt; <a class='type' href='../chemfiles/type.Result.html' title='chemfiles::Result'>Result</a>&lt;<a class='struct' href='../chemfiles/struct.Selection.html' title='chemfiles::Selection'>Selection</a>&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../chemfiles/struct.Selection.html' title='chemfiles::Selection'>Selection</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-872' class='srclink' href='../src/chemfiles/selection.rs.html#97-164' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>&lt;'a,&nbsp;S:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;&amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;(selection: S) -&gt; <a class='type' href='../chemfiles/type.Result.html' title='chemfiles::Result'>Result</a>&lt;<a class='struct' href='../chemfiles/struct.Selection.html' title='chemfiles::Selection'>Selection</a>&gt;</code></span></h4>
 <div class='docblock'><p>Create a new selection from the given selection string.</p>
-</div><h4 id='method.size' class='method'><code>fn <a href='#method.size' class='fnname'>size</a>(&amp;self) -&gt; <a class='type' href='../chemfiles/type.Result.html' title='chemfiles::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt;</code></h4>
+</div><h4 id='method.size' class='method'><span id='size.v' class='invisible'><code>fn <a href='#method.size' class='fnname'>size</a>(&amp;self) -&gt; <a class='type' href='../chemfiles/type.Result.html' title='chemfiles::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt;</code></span></h4>
 <div class='docblock'><p>Get the size of the selection, i.e. the number of atoms we are selecting
 together.</p>
 
 <p>This value is 1 for the &#39;atom&#39; context, 2 for the &#39;pair&#39; and &#39;bond&#39;
 context, 3 for the &#39;three&#39; and &#39;angles&#39; contextes and 4 for the &#39;four&#39;
 and &#39;dihedral&#39; contextes.</p>
-</div><h4 id='method.evaluate' class='method'><code>fn <a href='#method.evaluate' class='fnname'>evaluate</a>(&amp;mut self, frame: &amp;<a class='struct' href='../chemfiles/struct.Frame.html' title='chemfiles::Frame'>Frame</a>) -&gt; <a class='type' href='../chemfiles/type.Result.html' title='chemfiles::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../chemfiles/struct.Match.html' title='chemfiles::Match'>Match</a>&gt;&gt;</code></h4>
+</div><h4 id='method.evaluate' class='method'><span id='evaluate.v' class='invisible'><code>fn <a href='#method.evaluate' class='fnname'>evaluate</a>(&amp;mut self, frame: &amp;<a class='struct' href='../chemfiles/struct.Frame.html' title='chemfiles::Frame'>Frame</a>) -&gt; <a class='type' href='../chemfiles/type.Result.html' title='chemfiles::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../chemfiles/struct.Match.html' title='chemfiles::Match'>Match</a>&gt;&gt;</code></span></h4>
 <div class='docblock'><p>Evaluate a selection for a given frame, and return the corresponding
 matches.</p>
-</div><h4 id='method.list' class='method'><code>fn <a href='#method.list' class='fnname'>list</a>(&amp;mut self, frame: &amp;<a class='struct' href='../chemfiles/struct.Frame.html' title='chemfiles::Frame'>Frame</a>) -&gt; <a class='type' href='../chemfiles/type.Result.html' title='chemfiles::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt;&gt;</code></h4>
+</div><h4 id='method.list' class='method'><span id='list.v' class='invisible'><code>fn <a href='#method.list' class='fnname'>list</a>(&amp;mut self, frame: &amp;<a class='struct' href='../chemfiles/struct.Frame.html' title='chemfiles::Frame'>Frame</a>) -&gt; <a class='type' href='../chemfiles/type.Result.html' title='chemfiles::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt;&gt;</code></span></h4>
 <div class='docblock'><p>Evaluates a selection of size 1 on a given <code>frame</code>. This function
 returns the list of atomic indexes in the frame matching this selection.</p>
 
 <h1 id='panics' class='section-header'><a href='#panics'>Panics</a></h1>
 <p>If the selection size is not 1.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../chemfiles/struct.Selection.html' title='chemfiles::Selection'>Selection</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-871' class='srclink' href='../src/chemfiles/selection.rs.html#87-95' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../chemfiles/struct.Selection.html' title='chemfiles::Selection'>Selection</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-869' class='srclink' href='../src/chemfiles/selection.rs.html#87-95' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.drop' class='method'><span id='drop.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></span></h4>
 <div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
 </div></div></section>
     <section id='search' class="content hidden"></section>

@@ -263,6 +263,7 @@
 <span id="219">219</span>
 <span id="220">220</span>
 <span id="221">221</span>
+<span id="222">222</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -280,7 +281,7 @@
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='ident'>EnergyEvaluator</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Create a new energy evaluator acting on the given `system`.</span>
+    <span class='doccomment'>/// Create a new `EnergyEvaluator` acting on the given `system`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>system</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>System</span>) <span class='op'>-&gt;</span> <span class='ident'>EnergyEvaluator</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='ident'>EnergyEvaluator</span> {
             <span class='ident'>system</span>: <span class='ident'>system</span>,
@@ -293,9 +294,10 @@
     <span class='doccomment'>/// distance `r`</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>pair</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>f64</span>, <span class='ident'>i</span>: <span class='ident'>usize</span>, <span class='ident'>j</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='kw'>let</span> <span class='ident'>distance</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>system</span>.<span class='ident'>bond_distance</span>(<span class='ident'>i</span>, <span class='ident'>j</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>energy</span> <span class='op'>=</span> <span class='number'>0.0</span>;
         <span class='kw'>for</span> <span class='ident'>potential</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>system</span>.<span class='ident'>pair_potentials</span>(<span class='ident'>i</span>, <span class='ident'>j</span>) {
-            <span class='kw'>let</span> <span class='ident'>info</span> <span class='op'>=</span> <span class='ident'>potential</span>.<span class='ident'>restriction</span>().<span class='ident'>informations</span>(<span class='self'>self</span>.<span class='ident'>system</span>, <span class='ident'>i</span>, <span class='ident'>j</span>);
+            <span class='kw'>let</span> <span class='ident'>info</span> <span class='op'>=</span> <span class='ident'>potential</span>.<span class='ident'>restriction</span>().<span class='ident'>information</span>(<span class='ident'>distance</span>);
             <span class='kw'>if</span> <span class='op'>!</span><span class='ident'>info</span>.<span class='ident'>excluded</span> {
                 <span class='ident'>energy</span> <span class='op'>+=</span> <span class='ident'>info</span>.<span class='ident'>scaling</span> <span class='op'>*</span> <span class='ident'>potential</span>.<span class='ident'>energy</span>(<span class='ident'>r</span>);
             }

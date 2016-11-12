@@ -610,7 +610,7 @@
 
 <span class='doccomment'>/// A 3x3 square matrix type.</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// `Matrix3` implements all the usual arithmetics operations:</span>
+<span class='doccomment'>/// `Matrix3` implements all the usual arithmetic operations:</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```</span>
 <span class='doccomment'>/// use lumol::types::{Matrix3, Vector3D, One};</span>
@@ -713,7 +713,7 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
     <span class='doccomment'>/// # use lumol::types::{Matrix3, One};</span>
-    <span class='doccomment'>/// // A diagonal matrix is trivially inversible</span>
+    <span class='doccomment'>/// // A diagonal matrix is trivially invertible</span>
     <span class='doccomment'>/// let matrix = Matrix3::new(</span>
     <span class='doccomment'>///     4.0, 0.0, 0.0,</span>
     <span class='doccomment'>///     0.0, 1.0, 0.0,</span>
@@ -732,7 +732,7 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Panics</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// If the matrix is not inversible, *i.e.* if the matrix determinant</span>
+    <span class='doccomment'>/// If the matrix is not invertible, *i.e.* if the matrix determinant</span>
     <span class='doccomment'>/// equals zero.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>inverse</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix3</span> {
         <span class='kw'>let</span> <span class='ident'>determinant</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>determinant</span>();

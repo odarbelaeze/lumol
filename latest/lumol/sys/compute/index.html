@@ -47,14 +47,14 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-4901' class='srclink' href='../../../src/lumol/src/sys/compute.rs.html#4-517' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-4866' class='srclink' href='../../../src/lumol/src/sys/compute.rs.html#4-519' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Computing properties of a system</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Forces.html'
                                   title='lumol::sys::compute::Forces'>Forces</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Compute all the forces acting on the system, and return a vector of
 force acting on each particles</p>
                            </td>
@@ -62,21 +62,21 @@ force acting on each particles</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.KineticEnergy.html'
                                   title='lumol::sys::compute::KineticEnergy'>KineticEnergy</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Compute the kinetic energy of the system</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.PotentialEnergy.html'
                                   title='lumol::sys::compute::PotentialEnergy'>PotentialEnergy</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Compute the potential energy of the system</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Pressure.html'
                                   title='lumol::sys::compute::Pressure'>Pressure</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Compute the virial pressure of the system. This pressure is given by the
 following formula:
 $$ p = \frac{N k_B T}{V} + \frac{1}{3V} \sum_i \vec f_i \cdot \vec r_i $$</p>
@@ -85,7 +85,7 @@ $$ p = \frac{N k_B T}{V} + \frac{1}{3V} \sum_i \vec f_i \cdot \vec r_i $$</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.PressureAtTemperature.html'
                                   title='lumol::sys::compute::PressureAtTemperature'>PressureAtTemperature</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Compute the pressure of the system from the virial equation, at the given
 temperature. This pressure is given by the following formula:
 $$ p = \frac{N k_B T}{V} + \frac{1}{3V} \sum_i \vec f_i \cdot \vec r_i $$</p>
@@ -94,7 +94,7 @@ $$ p = \frac{N k_B T}{V} + \frac{1}{3V} \sum_i \vec f_i \cdot \vec r_i $$</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Stress.html'
                                   title='lumol::sys::compute::Stress'>Stress</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Compute the stress tensor of the system, defined by:
 $$ \sigma = \frac{1}{V} (\sum_i m_i v_i \otimes v_i + \sum_i \sum_{j &gt; i} \vec r_{ij} \otimes \vec f_{ij}) $$</p>
                            </td>
@@ -102,7 +102,7 @@ $$ \sigma = \frac{1}{V} (\sum_i m_i v_i \otimes v_i + \sum_i \sum_{j &gt; i} \ve
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.StressAtTemperature.html'
                                   title='lumol::sys::compute::StressAtTemperature'>StressAtTemperature</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Compute the stress tensor of the system from the virial equation, at the
 given temperature. The stress tensor is defined by
 $$ \sigma = \sigma = \frac{1}{V} (\sum_i m_i v_i \otimes v_i + \sum_i \sum_{j &gt; i} \vec r_{ij} \otimes \vec f_{ij}) $$
@@ -113,21 +113,21 @@ temperature.</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Temperature.html'
                                   title='lumol::sys::compute::Temperature'>Temperature</a></td>
-                           <td class='docblock short'>
-                                <p>Compute the instananeous temperature of the system</p>
+                           <td class='docblock-short'>
+                                <p>Compute the instantaneous temperature of the system</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.TotalEnergy.html'
                                   title='lumol::sys::compute::TotalEnergy'>TotalEnergy</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Compute the total energy of the system</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Virial.html'
                                   title='lumol::sys::compute::Virial'>Virial</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Compute the virial tensor of the system, defined by
 $$ W = \sum_i \sum_{j &gt; i} \vec r_{ij} \otimes \vec f_{ij} $$</p>
                            </td>
@@ -135,7 +135,7 @@ $$ W = \sum_i \sum_{j &gt; i} \vec r_{ij} \otimes \vec f_{ij} $$</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Volume.html'
                                   title='lumol::sys::compute::Volume'>Volume</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Compute the volume of the system</p>
                            </td>
                        </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
@@ -143,8 +143,8 @@ $$ W = \sum_i \sum_{j &gt; i} \vec r_{ij} \otimes \vec f_{ij} $$</p>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.Compute.html'
                                   title='lumol::sys::compute::Compute'>Compute</a></td>
-                           <td class='docblock short'>
-                                <p>The compute trait allow to compute properties of a system, whithout
+                           <td class='docblock-short'>
+                                <p>The compute trait allow to compute properties of a system, without
 modifying this system. The Output type is the type of the computed
 property.</p>
                            </td>

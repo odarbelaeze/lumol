@@ -47,50 +47,50 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-5072' class='srclink' href='../../src/lumol/src/sim/mod.rs.html#4-17' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-5039' class='srclink' href='../../src/lumol/src/sim/mod.rs.html#4-17' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Types and traits for representing simulation algorithms</p>
 </div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='mod' href='mc/index.html'
                                   title='lumol::sim::mc'>mc</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Monte-Carlo Metropolis algorithms</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='mod' href='md/index.html'
                                   title='lumol::sim::md'>md</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Molecular dynamics algorithms.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='mod' href='min/index.html'
                                   title='lumol::sim::min'>min</a></td>
-                           <td class='docblock short'>
-                                <p>Energy minization algorithms</p>
+                           <td class='docblock-short'>
+                                <p>Energy minimization algorithms</p>
                            </td>
                        </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.MolecularDynamics.html'
                                   title='lumol::sim::MolecularDynamics'>MolecularDynamics</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Molecular Dynamics propagator for the simulation.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.MonteCarlo.html'
                                   title='lumol::sim::MonteCarlo'>MonteCarlo</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Metropolis Monte-Carlo propagator</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.Simulation.html'
                                   title='lumol::sim::Simulation'>Simulation</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>The Simulation struct holds all the needed algorithms for running the
 simulation. It should be use together with a <code>System</code> to perform the
 simulation.</p>
@@ -99,15 +99,15 @@ simulation.</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.SteepestDescent.html'
                                   title='lumol::sim::SteepestDescent'>SteepestDescent</a></td>
-                           <td class='docblock short'>
-                                <p>Steepest gradient descent for energy minization.</p>
+                           <td class='docblock-short'>
+                                <p>Steepest gradient descent for energy minimization.</p>
                            </td>
                        </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='enum' href='enum.TemperatureStrategy.html'
                                   title='lumol::sim::TemperatureStrategy'>TemperatureStrategy</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Possible temperature computation strategies. Different propagators needs
 different ways to compute the temperature: Monte-Carlo temperature is a
 constant of the simulation, whereas for molecular dynamics we use the
@@ -118,7 +118,7 @@ instantaneous velocities.</p>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.Propagator.html'
                                   title='lumol::sim::Propagator'>Propagator</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>The propagator trait is the main algorithm of a simulation, i.e. the one
 which update the system. The main function here is <code>propagate</code>, which
 should propagate the simulation for one step.</p>

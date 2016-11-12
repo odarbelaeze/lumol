@@ -498,7 +498,7 @@
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
 
-<span class='doccomment'>//! 3-dimmensional vector type</span>
+<span class='doccomment'>//! 3-dimensional vector type</span>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::{<span class='ident'>Add</span>, <span class='ident'>Sub</span>, <span class='ident'>Neg</span>, <span class='ident'>Mul</span>, <span class='ident'>Div</span>, <span class='ident'>BitXor</span>, <span class='ident'>Index</span>, <span class='ident'>IndexMut</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::{<span class='ident'>AddAssign</span>, <span class='ident'>SubAssign</span>, <span class='ident'>MulAssign</span>, <span class='ident'>DivAssign</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>PartialEq</span>;
@@ -506,7 +506,7 @@
 
 <span class='doccomment'>/// A 3-dimensional vector type</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// A `Vector3D` implement all the arithmetics operations:</span>
+<span class='doccomment'>/// A `Vector3D` implement all the arithmetic operations:</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```</span>
 <span class='doccomment'>/// # use lumol::types::Vector3D;</span>
@@ -522,7 +522,7 @@
 <span class='doccomment'>/// let w = u + v;</span>
 <span class='doccomment'>/// assert_eq!(w, Vector3D::new(5.0, 0.0, 4.0));</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// // Substraction</span>
+<span class='doccomment'>/// // Subtraction</span>
 <span class='doccomment'>/// let w = u - v;</span>
 <span class='doccomment'>/// assert_eq!(w, Vector3D::new(-3.0, 4.0, 2.0));</span>
 <span class='doccomment'>///</span>
@@ -564,7 +564,7 @@
         <span class='ident'>Vector3D</span>([<span class='ident'>x</span>, <span class='ident'>y</span>, <span class='ident'>z</span>])
     }
 
-    <span class='doccomment'>/// Return the squared euclidean norm of a Vector3D</span>
+    <span class='doccomment'>/// Return the squared euclidean norm of a `Vector3D`</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
@@ -576,7 +576,7 @@
         <span class='self'>self</span> <span class='op'>*</span> <span class='self'>self</span>
     }
 
-    <span class='doccomment'>/// Return the euclidean norm of a Vector3D</span>
+    <span class='doccomment'>/// Return the euclidean norm of a `Vector3D`</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>/// ```</span>
     <span class='doccomment'>/// # use lumol::types::Vector3D;</span>

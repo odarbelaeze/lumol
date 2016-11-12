@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/matrixmultiply-0.1.11/src/gemm.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/matrixmultiply-0.1.12/src/gemm.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>gemm.rs.html -- source</title>
@@ -390,6 +390,7 @@
 <span id="346">346</span>
 <span id="347">347</span>
 <span id="348">348</span>
+<span id="349">349</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2016 bluss</span>
 <span class='comment'>//</span>
@@ -662,9 +663,10 @@
 <span class='doccomment'>/// + kc: length of the micropanel</span>
 <span class='doccomment'>/// + mc: number of rows/columns in the matrix to be packed</span>
 <span class='doccomment'>/// + mr: kernel rows/columns that we round up to</span>
+<span class='doccomment'>/// + pack: packing buffer</span>
+<span class='doccomment'>/// + a: matrix,</span>
 <span class='doccomment'>/// + rsa: row stride</span>
 <span class='doccomment'>/// + csa: column stride</span>
-<span class='doccomment'>/// + zero: zero element to pad with</span>
 <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>pack</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='ident'>kc</span>: <span class='ident'>usize</span>, <span class='ident'>mc</span>: <span class='ident'>usize</span>, <span class='ident'>mr</span>: <span class='ident'>usize</span>, <span class='ident'>pack</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>T</span>,
                   <span class='ident'>a</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>T</span>, <span class='ident'>rsa</span>: <span class='ident'>isize</span>, <span class='ident'>csa</span>: <span class='ident'>isize</span>)
     <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>Element</span>

@@ -331,14 +331,13 @@
 <span id="287">287</span>
 <span id="288">288</span>
 <span id="289">289</span>
-<span id="290">290</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
 <span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>Vector3D</span>, <span class='ident'>Matrix3</span>, <span class='ident'>One</span>, <span class='ident'>Zero</span>};
 <span class='kw'>use</span> <span class='ident'>sys</span>::<span class='ident'>System</span>;
 
-<span class='doccomment'>/// The `Integrator` trait define integrators interface for molecular dynamics.</span>
+<span class='doccomment'>/// The `Integrator` trait define integrator interface for molecular dynamics.</span>
 <span class='doccomment'>/// An integrator is an algorithm responsible for propagating the equations of</span>
 <span class='doccomment'>/// motion in the system.</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Integrator</span> {
@@ -485,7 +484,7 @@
 }
 
 <span class='comment'>/******************************************************************************/</span>
-<span class='doccomment'>/// This is needed for the `BerendsenBarostat` implentations. The value comes</span>
+<span class='doccomment'>/// This is needed for the `BerendsenBarostat` implementation. The value comes</span>
 <span class='doccomment'>/// from the DL_POLY source code.</span>
 <span class='kw'>const</span> <span class='ident'>WATER_COMPRESSIBILITY</span>: <span class='ident'>f64</span> <span class='op'>=</span> <span class='number'>7372.0</span>;
 
@@ -548,7 +547,6 @@
     }
 }
 
-<span class='comment'>/******************************************************************************/</span>
 <span class='doccomment'>/// Anisotropic Berendsen barostat integrator based on velocity-Verlet. This one</span>
 <span class='doccomment'>/// neither reversible nor symplectic.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>AnisoBerendsenBarostat</span> {
@@ -556,7 +554,7 @@
     <span class='ident'>timestep</span>: <span class='ident'>f64</span>,
     <span class='doccomment'>/// Target stress matrix for the barostat</span>
     <span class='ident'>stress</span>: <span class='ident'>Matrix3</span>,
-    <span class='doccomment'>/// Barostat time sscale, expressed in units of the timestep</span>
+    <span class='doccomment'>/// Barostat time scale, expressed in units of the timestep</span>
     <span class='ident'>tau</span>: <span class='ident'>f64</span>,
     <span class='doccomment'>/// Storing the accelerations</span>
     <span class='ident'>accelerations</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Vector3D</span><span class='op'>&gt;</span>,
@@ -607,7 +605,7 @@
         <span class='kw'>let</span> <span class='ident'>factor</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>timestep</span> <span class='op'>*</span> <span class='ident'>WATER_COMPRESSIBILITY</span> <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>tau</span>;
         <span class='self'>self</span>.<span class='ident'>eta</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>one</span>() <span class='op'>-</span> <span class='ident'>factor</span> <span class='op'>*</span> (<span class='self'>self</span>.<span class='ident'>stress</span> <span class='op'>-</span> <span class='ident'>system</span>.<span class='ident'>stress</span>());
 
-        <span class='comment'>// Make the eta matrix symetric here</span>
+        <span class='comment'>// Make the eta matrix symmetric here</span>
         <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>3</span> {
             <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='ident'>i</span> {
                 <span class='self'>self</span>.<span class='ident'>eta</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)] <span class='op'>=</span> <span class='number'>0.5</span> <span class='op'>*</span> (<span class='self'>self</span>.<span class='ident'>eta</span>[(<span class='ident'>i</span>, <span class='ident'>j</span>)] <span class='op'>+</span> <span class='self'>self</span>.<span class='ident'>eta</span>[(<span class='ident'>j</span>, <span class='ident'>i</span>)]);

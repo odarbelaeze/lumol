@@ -176,8 +176,6 @@
 <span id="132">132</span>
 <span id="133">133</span>
 <span id="134">134</span>
-<span id="135">135</span>
-<span id="136">136</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -201,7 +199,7 @@
     }
 }
 
-<span class='doccomment'>/// Random initializer for the velocities of a system.</span>
+<span class='doccomment'>/// A method to initialize the velocities of a system.</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>InitVelocities</span> {
     <span class='doccomment'>/// Initialize the velocities of the system.</span>
     <span class='kw'>fn</span> <span class='ident'>init</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>system</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>System</span>);
@@ -209,7 +207,7 @@
     <span class='kw'>fn</span> <span class='ident'>seed</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>seed</span>: <span class='ident'>u64</span>);
 }
 
-<span class='doccomment'>/// Initialize the velocities from a Boltzman distribution.</span>
+<span class='doccomment'>/// Initialize the velocities from a Boltzmann distribution.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BoltzmannVelocities</span> {
     <span class='ident'>temperature</span>: <span class='ident'>f64</span>,
     <span class='ident'>dist</span>: <span class='ident'>Normal</span>,
@@ -217,8 +215,7 @@
 }
 
 <span class='kw'>impl</span> <span class='ident'>BoltzmannVelocities</span> {
-    <span class='doccomment'>/// This `BoltzmannVelocities` initializer will initialize velocities at</span>
-    <span class='doccomment'>/// temperature `temperature`.</span>
+    <span class='doccomment'>/// Create a new `BoltzmannVelocities` at the given `temperature`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>temperature</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>BoltzmannVelocities</span> {
         <span class='ident'>BoltzmannVelocities</span>{
             <span class='ident'>temperature</span>: <span class='ident'>temperature</span>,
@@ -253,8 +250,7 @@
 }
 
 <span class='kw'>impl</span> <span class='ident'>UniformVelocities</span> {
-    <span class='doccomment'>/// This `UniformVelocities` initializer will initialize velocities at</span>
-    <span class='doccomment'>/// temperature `temperature`.</span>
+    <span class='doccomment'>/// Create a new `UniformVelocities` at the given `temperature`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>temperature</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>UniformVelocities</span> {
         <span class='kw'>let</span> <span class='ident'>factor</span> <span class='op'>=</span> <span class='ident'>f64</span>::<span class='ident'>sqrt</span>(<span class='number'>3.0</span><span class='op'>*</span><span class='ident'>K_BOLTZMANN</span> <span class='op'>*</span> <span class='ident'>temperature</span>);
         <span class='ident'>UniformVelocities</span>{

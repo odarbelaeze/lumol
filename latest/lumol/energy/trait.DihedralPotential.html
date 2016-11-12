@@ -47,8 +47,24 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1880' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#103' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait DihedralPotential: <a class='trait' href='../../lumol/energy/trait.Potential.html' title='lumol::energy::Potential'>Potential</a> + <a class='trait' href='../../lumol/energy/trait.BoxCloneDihedral.html' title='lumol::energy::BoxCloneDihedral'>BoxCloneDihedral</a> { }</pre><div class='docblock'><p>Potential that can be used for molecular dihedral angles.</p>
+               </span><a id='src-1871' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#205' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait DihedralPotential: <a class='trait' href='../../lumol/energy/trait.Potential.html' title='lumol::energy::Potential'>Potential</a> + BoxCloneDihedral { }</pre><div class='docblock'><p>Marker trait for potentials that can be used for molecular dihedral angles.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>lumol</span>::<span class='ident'>energy</span>::{<span class='ident'>Potential</span>, <span class='ident'>DihedralPotential</span>};
+
+<span class='comment'>// A no-op potential</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>Null</span>;
+
+<span class='kw'>impl</span> <span class='ident'>Potential</span> <span class='kw'>for</span> <span class='ident'>Null</span> {
+    <span class='kw'>fn</span> <span class='ident'>energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {<span class='number'>0.0</span>}
+    <span class='kw'>fn</span> <span class='ident'>force</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {<span class='number'>0.0</span>}
+}
+
+<span class='comment'>// Now we can use the Null potential for dihedral angles</span>
+<span class='kw'>impl</span> <span class='ident'>DihedralPotential</span> <span class='kw'>for</span> <span class='ident'>Null</span> {}<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>

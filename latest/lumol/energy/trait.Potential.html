@@ -47,20 +47,46 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1821' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#66-71' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait Potential: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + <a class='trait' href='../../lumol/energy/trait.BoxClonePotential.html' title='lumol::energy::BoxClonePotential'>BoxClonePotential</a> {
+               </span><a id='src-1819' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#94-99' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait Potential: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> {
     fn <a href='#tymethod.energy' class='fnname'>energy</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>;
     fn <a href='#tymethod.force' class='fnname'>force</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>;
-}</pre><div class='docblock'><p>A set of two parametric functions which takes a single scalar variable and
-return the corresponding energy or norm of the force.</p>
+}</pre><div class='docblock'><p>A potential for force and energy computations.</p>
 
-<p>The scalar variable will be the distance for pair potentials, the angle for
+<p>A potential is defined with two functions that takes a single scalar
+variable and return the corresponding energy or norm of the force. The
+scalar variable will be the distance for pair potentials, the angle for
 angles or dihedral angles potentials, <em>etc.</em></p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>lumol</span>::<span class='ident'>energy</span>::<span class='ident'>Potential</span>;
+
+<span class='doccomment'>/// An hard sphere potential</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>HardSphere</span> {
+    <span class='doccomment'>/// Sphere radius</span>
+    <span class='kw'>pub</span> <span class='ident'>r</span>: <span class='ident'>f64</span>
+}
+
+<span class='kw'>impl</span> <span class='ident'>Potential</span> <span class='kw'>for</span> <span class='ident'>HardSphere</span> {
+    <span class='kw'>fn</span> <span class='ident'>energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>r</span> {
+            <span class='ident'>f64</span>::<span class='ident'>INFINITY</span>
+        } <span class='kw'>else</span> {
+            <span class='number'>0.0</span>
+        }
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>force</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='number'>0.0</span>
+    }
+}<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.energy' class='method stab '><code>fn <a href='#tymethod.energy' class='fnname'>energy</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h3><div class='docblock'><p>Get the energy corresponding to the variable <code>x</code></p>
-</div><h3 id='tymethod.force' class='method stab '><code>fn <a href='#tymethod.force' class='fnname'>force</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></h3><div class='docblock'><p>Get the force norm corresponding to the variable <code>x</code></p>
+        <h3 id='tymethod.energy' class='method stab '><span id='energy.v' class='invisible'><code>fn <a href='#tymethod.energy' class='fnname'>energy</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></span></h3><div class='docblock'><p>Get the energy corresponding to the variable <code>x</code></p>
+</div><h3 id='tymethod.force' class='method stab '><span id='force.v' class='invisible'><code>fn <a href='#tymethod.force' class='fnname'>force</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></span></h3><div class='docblock'><p>Get the force norm corresponding to the variable <code>x</code></p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>

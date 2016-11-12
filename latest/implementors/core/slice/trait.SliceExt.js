@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors["lazy_static"] = [];implementors["either"] = [];implementors["libc"] = [];
+implementors["either"] = [];implementors["lazy_static"] = [];implementors["libc"] = [];implementors["itertools"] = [];implementors["lumol"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

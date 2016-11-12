@@ -47,23 +47,21 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-5685' class='srclink' href='../../src/lumol/src/sim/simulations.rs.html#54-57' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct Simulation {
-    // some fields omitted
-}</pre><div class='docblock'><p>The Simulation struct holds all the needed algorithms for running the
+               </span><a id='src-5653' class='srclink' href='../../src/lumol/src/sim/simulations.rs.html#54-57' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Simulation { /* fields omitted */ }</pre><div class='docblock'><p>The Simulation struct holds all the needed algorithms for running the
 simulation. It should be use together with a <code>System</code> to perform the
 simulation.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../lumol/sim/struct.Simulation.html' title='lumol::sim::Simulation'>Simulation</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5688' class='srclink' href='../../src/lumol/src/sim/simulations.rs.html#59-114' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(propagator: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../lumol/sim/trait.Propagator.html' title='lumol::sim::Propagator'>Propagator</a>&gt;) -&gt; <a class='struct' href='../../lumol/sim/struct.Simulation.html' title='lumol::sim::Simulation'>Simulation</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../lumol/sim/struct.Simulation.html' title='lumol::sim::Simulation'>Simulation</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5656' class='srclink' href='../../src/lumol/src/sim/simulations.rs.html#59-114' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(propagator: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../lumol/sim/trait.Propagator.html' title='lumol::sim::Propagator'>Propagator</a>&gt;) -&gt; <a class='struct' href='../../lumol/sim/struct.Simulation.html' title='lumol::sim::Simulation'>Simulation</a></code></span></h4>
 <div class='docblock'><p>Create a new Simulation from a Propagator.</p>
-</div><h4 id='method.run' class='method'><code>fn <a href='#method.run' class='fnname'>run</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>, nsteps: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></h4>
+</div><h4 id='method.run' class='method'><span id='run.v' class='invisible'><code>fn <a href='#method.run' class='fnname'>run</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>, nsteps: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></span></h4>
 <div class='docblock'><p>Run the simulation on System for <code>nsteps</code> steps.</p>
-</div><h4 id='method.add_output' class='method'><code>fn <a href='#method.add_output' class='fnname'>add_output</a>(&amp;mut self, output: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../lumol/out/trait.Output.html' title='lumol::out::Output'>Output</a>&gt;)</code></h4>
+</div><h4 id='method.add_output' class='method'><span id='add_output.v' class='invisible'><code>fn <a href='#method.add_output' class='fnname'>add_output</a>(&amp;mut self, output: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../lumol/out/trait.Output.html' title='lumol::out::Output'>Output</a>&gt;)</code></span></h4>
 <div class='docblock'><p>Add a new <code>Output</code> algorithm in the outputs list</p>
-</div><h4 id='method.add_output_with_frequency' class='method'><code>fn <a href='#method.add_output_with_frequency' class='fnname'>add_output_with_frequency</a>(&amp;mut self, output: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../lumol/out/trait.Output.html' title='lumol::out::Output'>Output</a>&gt;, frequency: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>)</code></h4>
+</div><h4 id='method.add_output_with_frequency' class='method'><span id='add_output_with_frequency.v' class='invisible'><code>fn <a href='#method.add_output_with_frequency' class='fnname'>add_output_with_frequency</a>(&amp;mut self, output: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../lumol/out/trait.Output.html' title='lumol::out::Output'>Output</a>&gt;, frequency: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>)</code></span></h4>
 <div class='docblock'><p>Add a new <code>Output</code> algorithm in the outputs list, which will be used
-at the given frequency. The output will be used everytime the system
- step matches this frequency.</p>
+at the given frequency. The output will be used every time the system
+step matches this frequency.</p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
 

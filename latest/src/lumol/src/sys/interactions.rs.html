@@ -367,6 +367,7 @@
 <span id="323">323</span>
 <span id="324">324</span>
 <span id="325">325</span>
+<span id="326">326</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -420,17 +421,17 @@
     }
 }
 
-<span class='doccomment'>/// Sort pair indexes to get a cannonical representation</span>
+<span class='doccomment'>/// Sort pair indexes to get a canonical representation</span>
 <span class='attribute'>#[<span class='ident'>inline</span>]</span> <span class='kw'>fn</span> <span class='ident'>sort_pair</span>(<span class='ident'>i</span>: <span class='ident'>Kind</span>, <span class='ident'>j</span>:<span class='ident'>Kind</span>) <span class='op'>-&gt;</span> (<span class='ident'>Kind</span>, <span class='ident'>Kind</span>) {
     <span class='kw'>if</span> <span class='ident'>i</span> <span class='op'>&lt;</span> <span class='ident'>j</span> { (<span class='ident'>i</span>, <span class='ident'>j</span>) } <span class='kw'>else</span> { (<span class='ident'>j</span>, <span class='ident'>i</span>) }
 }
 
-<span class='doccomment'>/// Sort angle indexes to get a cannonical representation</span>
+<span class='doccomment'>/// Sort angle indexes to get a canonical representation</span>
 <span class='attribute'>#[<span class='ident'>inline</span>]</span> <span class='kw'>fn</span> <span class='ident'>sort_angle</span>(<span class='ident'>i</span>: <span class='ident'>Kind</span>, <span class='ident'>j</span>:<span class='ident'>Kind</span>, <span class='ident'>k</span>:<span class='ident'>Kind</span>) <span class='op'>-&gt;</span> (<span class='ident'>Kind</span>, <span class='ident'>Kind</span>, <span class='ident'>Kind</span>) {
     <span class='kw'>if</span> <span class='ident'>i</span> <span class='op'>&lt;</span> <span class='ident'>k</span> { (<span class='ident'>i</span>, <span class='ident'>j</span>, <span class='ident'>k</span>) } <span class='kw'>else</span> { (<span class='ident'>k</span>, <span class='ident'>j</span>, <span class='ident'>i</span>) }
 }
 
-<span class='doccomment'>/// Sort dihedral indexes to get a cannonical representation</span>
+<span class='doccomment'>/// Sort dihedral indexes to get a canonical representation</span>
 <span class='attribute'>#[<span class='ident'>inline</span>]</span> <span class='kw'>fn</span> <span class='ident'>sort_dihedral</span>(<span class='ident'>i</span>: <span class='ident'>Kind</span>, <span class='ident'>j</span>:<span class='ident'>Kind</span>, <span class='ident'>k</span>:<span class='ident'>Kind</span>, <span class='ident'>m</span>:<span class='ident'>Kind</span>) <span class='op'>-&gt;</span> (<span class='ident'>Kind</span>, <span class='ident'>Kind</span>, <span class='ident'>Kind</span>, <span class='ident'>Kind</span>) {
     <span class='kw'>if</span> <span class='ident'>max</span>(<span class='ident'>i</span>, <span class='ident'>j</span>) <span class='op'>&lt;</span> <span class='ident'>max</span>(<span class='ident'>k</span>, <span class='ident'>m</span>) { (<span class='ident'>i</span>, <span class='ident'>j</span>, <span class='ident'>k</span>, <span class='ident'>m</span>) } <span class='kw'>else</span> { (<span class='ident'>m</span>, <span class='ident'>k</span>, <span class='ident'>j</span>, <span class='ident'>i</span>) }
 }
@@ -594,7 +595,8 @@
     }
 
     <span class='doccomment'>/// Get the coulombic interaction as a RefCell, because the</span>
-    <span class='doccomment'>/// `GlobalPotential` are allowed to mutate themself when computing energy.</span>
+    <span class='doccomment'>/// `GlobalPotential` are allowed to mutate themselves when computing</span>
+    <span class='doccomment'>/// energy.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>coulomb</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>RefCell</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>CoulombicPotential</span><span class='op'>&gt;&gt;</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>coulomb</span>.<span class='ident'>as_ref</span>()
     }

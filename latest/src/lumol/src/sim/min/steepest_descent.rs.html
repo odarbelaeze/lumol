@@ -183,6 +183,7 @@
 <span id="139">139</span>
 <span id="140">140</span>
 <span id="141">141</span>
+<span id="142">142</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -191,18 +192,20 @@
 <span class='kw'>use</span> <span class='ident'>sys</span>::<span class='ident'>System</span>;
 <span class='kw'>use</span> <span class='ident'>sim</span>::{<span class='ident'>Propagator</span>, <span class='ident'>TemperatureStrategy</span>};
 
-<span class='doccomment'>/// Steepest gradient descent for energy minization.</span>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>f64</span>;
+
+<span class='doccomment'>/// Steepest gradient descent for energy minimization.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// This algorithm is very rough, and will not converge in all the situations.</span>
 <span class='doccomment'>/// However it is easy to use, and simple enough to be implemented quickly.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>SteepestDescent</span> {
     <span class='doccomment'>/// Dumping factor</span>
     <span class='ident'>gamma</span>: <span class='ident'>f64</span>,
-    <span class='doccomment'>/// Force norm convergence criterium</span>
+    <span class='doccomment'>/// Force norm convergence criterion</span>
     <span class='ident'>force_crit</span>: <span class='ident'>f64</span>,
-    <span class='doccomment'>/// Energy convergence criterium</span>
+    <span class='doccomment'>/// Energy convergence criterion</span>
     <span class='ident'>energy_crit</span>: <span class='ident'>f64</span>,
-    <span class='doccomment'>/// Has the last minization converged?</span>
+    <span class='doccomment'>/// Has the last minimization converged?</span>
     <span class='ident'>is_converged</span>: <span class='ident'>bool</span>
 }
 
@@ -213,19 +216,19 @@
 }
 
 <span class='kw'>impl</span> <span class='ident'>SteepestDescent</span> {
-    <span class='doccomment'>/// Create a GradientDescent with sensible default values for energy and</span>
+    <span class='doccomment'>/// Create a `SteepestDescent` with sensible default values for energy and</span>
     <span class='doccomment'>/// force convergence criteria.</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// The default for force criterium is `1e-5 kJ/mol/Å^2`, and `1e-5</span>
-    <span class='doccomment'>/// kJ/mol/Å^2` for the energy criterium.</span>
+    <span class='doccomment'>/// The default for force criterion is `1e-5 kJ/mol/Å^2`, and `1e-5</span>
+    <span class='doccomment'>/// kJ/mol/Å^2` for the energy criterion.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>SteepestDescent</span> {
         <span class='kw'>let</span> <span class='ident'>delta_f</span> <span class='op'>=</span> <span class='ident'>utils</span>::<span class='ident'>unit_from</span>(<span class='number'>1e-5</span>, <span class='string'>&quot;kJ/mol/A&quot;</span>);
         <span class='kw'>let</span> <span class='ident'>delta_e</span> <span class='op'>=</span> <span class='ident'>utils</span>::<span class='ident'>unit_from</span>(<span class='number'>1e-5</span>, <span class='string'>&quot;kJ/mol&quot;</span>);
         <span class='ident'>SteepestDescent</span>::<span class='ident'>with_criteria</span>(<span class='ident'>delta_f</span>, <span class='ident'>delta_e</span>)
     }
 
-    <span class='doccomment'>/// Create a new `GradientDescent` with the force convergence criterium of</span>
-    <span class='doccomment'>/// `force`, and the energy convergence criterium of `energy`.</span>
+    <span class='doccomment'>/// Create a new `SteepestDescent` with the given `force` and `energy`</span>
+    <span class='doccomment'>/// convergence criterion.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>with_criteria</span>(<span class='ident'>force</span>: <span class='ident'>f64</span>, <span class='ident'>energy</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>SteepestDescent</span> {
         <span class='kw'>let</span> <span class='ident'>gamma</span> <span class='op'>=</span> <span class='ident'>utils</span>::<span class='ident'>unit_from</span>(<span class='number'>0.1</span>, <span class='string'>&quot;fs^2/u&quot;</span>);
         <span class='ident'>SteepestDescent</span>{
@@ -236,7 +239,7 @@
         }
     }
 
-    <span class='doccomment'>/// Has the minization converged so far ?</span>
+    <span class='doccomment'>/// Has the minimization converged so far ?</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>converged</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
         <span class='self'>self</span>.<span class='ident'>is_converged</span>
     }
@@ -253,9 +256,8 @@
 
     <span class='kw'>fn</span> <span class='ident'>propagate</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>system</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>System</span>) {
         <span class='kw'>let</span> <span class='ident'>forces</span> <span class='op'>=</span> <span class='ident'>system</span>.<span class='ident'>forces</span>();
-        <span class='comment'>// Get the maximal value in the vector.</span>
-        <span class='comment'>// How can you know that fold(cte, cte) will do it ?</span>
-        <span class='kw'>let</span> <span class='ident'>max_force_norm2</span> <span class='op'>=</span> <span class='ident'>forces</span>.<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>f</span><span class='op'>|</span> <span class='ident'>f</span>.<span class='ident'>norm2</span>()).<span class='ident'>fold</span>(<span class='op'>-</span><span class='number'>1.</span><span class='op'>/</span><span class='number'>0.</span> <span class='comment'>/* -inf */</span>, <span class='ident'>f64</span>::<span class='ident'>max</span>);
+        <span class='comment'>// Find the largest non-NaN in forces, or NaN otherwise</span>
+        <span class='kw'>let</span> <span class='ident'>max_force_norm2</span> <span class='op'>=</span> <span class='ident'>forces</span>.<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>f</span><span class='op'>|</span> <span class='ident'>f</span>.<span class='ident'>norm2</span>()).<span class='ident'>fold</span>(<span class='ident'>f64</span>::<span class='ident'>NAN</span>, <span class='ident'>f64</span>::<span class='ident'>max</span>);
         <span class='kw'>if</span> <span class='ident'>max_force_norm2</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>force_crit</span> {
             <span class='self'>self</span>.<span class='ident'>is_converged</span> <span class='op'>=</span> <span class='bool-val'>true</span>;
             <span class='kw'>return</span>;

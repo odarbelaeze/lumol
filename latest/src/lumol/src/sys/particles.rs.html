@@ -139,8 +139,6 @@
 <span id="95">95</span>
 <span id="96">96</span>
 <span id="97">97</span>
-<span id="98">98</span>
-<span id="99">99</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -171,8 +169,7 @@
 }
 
 <span class='doccomment'>/// The Particle type hold basic data about a particle in the system. It is self</span>
-<span class='doccomment'>/// contained, so that it will be easy to send data between parrallels</span>
-<span class='doccomment'>/// processes.</span>
+<span class='doccomment'>/// contained, so that it will be easy to send data between parallels processes.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Particle</span> {
     <span class='doccomment'>/// Particle name. This one is not public, as we always want to get &amp;str,</span>
@@ -238,7 +235,6 @@
 
         <span class='ident'>part</span>.<span class='ident'>set_name</span>(<span class='string'>&quot;H&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>part</span>.<span class='ident'>name</span>(), <span class='string'>&quot;H&quot;</span>);
-
     }
 }
 </pre>

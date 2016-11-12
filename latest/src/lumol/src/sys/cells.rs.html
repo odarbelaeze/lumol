@@ -816,6 +816,7 @@
 <span id="772">772</span>
 <span id="773">773</span>
 <span id="774">774</span>
+<span id="775">775</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -833,7 +834,7 @@
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>CellShape</span> {
     <span class='doccomment'>/// Infinite unit cell, with no boundaries</span>
     <span class='ident'>Infinite</span>,
-    <span class='doccomment'>/// Orthorombic unit cell, with cuboide shape</span>
+    <span class='doccomment'>/// Orthorombic unit cell, with cuboid shape</span>
     <span class='ident'>Orthorombic</span>,
     <span class='doccomment'>/// Triclinic unit cell, with arbitrary parallelepipedic shape</span>
     <span class='ident'>Triclinic</span>,
@@ -842,7 +843,7 @@
 <span class='doccomment'>/// An UnitCell defines the system physical boundaries.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// The shape of the cell can be any of the [`CellShape`][CellShape], and will</span>
-<span class='doccomment'>/// influe on how periodic boundary conditions are applied.</span>
+<span class='doccomment'>/// influence how periodic boundary conditions are applied.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// [CellShape]: enum.CellShape.html</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>, <span class='ident'>Clone</span>, <span class='ident'>Copy</span>, <span class='ident'>PartialEq</span>)]</span>
@@ -871,7 +872,7 @@
             <span class='ident'>shape</span>: <span class='ident'>CellShape</span>::<span class='ident'>Infinite</span>
         }
     }
-    <span class='doccomment'>/// Create an orthorombic unit cell, with side lengths `a, b, c`.</span>
+    <span class='doccomment'>/// Create an orthorhombic unit cell, with side lengths `a, b, c`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>ortho</span>(<span class='ident'>a</span>: <span class='ident'>f64</span>, <span class='ident'>b</span>: <span class='ident'>f64</span>, <span class='ident'>c</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>UnitCell</span> {
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>&gt;</span> <span class='number'>0.0</span> <span class='op'>&amp;&amp;</span> <span class='ident'>b</span> <span class='op'>&gt;</span> <span class='number'>0.0</span> <span class='op'>&amp;&amp;</span> <span class='ident'>c</span> <span class='op'>&gt;</span> <span class='number'>0.0</span>, <span class='string'>&quot;Cell lengths must be positive&quot;</span>);
         <span class='kw'>let</span> <span class='ident'>cell</span> <span class='op'>=</span> <span class='ident'>Matrix3</span>::<span class='ident'>new</span>(<span class='ident'>a</span>, <span class='number'>0.0</span>, <span class='number'>0.0</span>,
@@ -1075,7 +1076,7 @@
 <span class='doccomment'>/// Geometric operations using periodic boundary conditions</span>
 <span class='kw'>impl</span> <span class='ident'>UnitCell</span> {
     <span class='doccomment'>/// Wrap a vector in the unit cell, obeying the periodic boundary conditions.</span>
-    <span class='doccomment'>/// For a cubic cell of side lenght `L`, this produce a vector with all</span>
+    <span class='doccomment'>/// For a cubic cell of side length `L`, this produce a vector with all</span>
     <span class='doccomment'>/// components in `[0, L)`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>wrap_vector</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>vect</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Vector3D</span>) {
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>shape</span> {
@@ -1096,7 +1097,7 @@
     }
 
     <span class='doccomment'>/// Find the image of a vector in the unit cell, obeying the periodic</span>
-    <span class='doccomment'>/// boundary conditions. For a cubic cell of side lenght `L`, this produce a</span>
+    <span class='doccomment'>/// boundary conditions. For a cubic cell of side length `L`, this produce a</span>
     <span class='doccomment'>/// vector with all components in `[-L/2, L/2)`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>vector_image</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>vect</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Vector3D</span>) {
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>shape</span> {
@@ -1122,7 +1123,8 @@
         <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>inv</span> <span class='op'>*</span> <span class='ident'>vect</span>;
     }
 
-    <span class='doccomment'>/// Get the cartesian representation of the fractional `v` vector in this cell</span>
+    <span class='doccomment'>/// Get the Cartesian representation of the fractional `v` vector in this</span>
+    <span class='doccomment'>/// cell</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>cartesian</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>frac</span>: <span class='kw-2'>&amp;</span><span class='ident'>Vector3D</span>) <span class='op'>-&gt;</span> <span class='ident'>Vector3D</span> {
         <span class='kw'>return</span> <span class='self'>self</span>.<span class='ident'>cell</span> <span class='op'>*</span> <span class='ident'>frac</span>;
@@ -1397,7 +1399,7 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>distances</span>() {
-        <span class='comment'>// Orthorombic unit cell</span>
+        <span class='comment'>// Orthorhombic unit cell</span>
         <span class='kw'>let</span> <span class='ident'>cell</span> <span class='op'>=</span> <span class='ident'>UnitCell</span>::<span class='ident'>ortho</span>(<span class='number'>3.0</span>, <span class='number'>4.0</span>, <span class='number'>5.0</span>);
         <span class='kw'>let</span> <span class='ident'>u</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='ident'>Vector3D</span>::<span class='ident'>zero</span>();
         <span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>2.0</span>, <span class='number'>6.0</span>);
@@ -1420,7 +1422,7 @@
         <span class='ident'>cell</span>.<span class='ident'>wrap_vector</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>v</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>v</span>, <span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='number'>9.0</span>, <span class='number'>8.0</span>, <span class='number'>4.0</span>));
 
-        <span class='comment'>// Orthorombic unit cell</span>
+        <span class='comment'>// Orthorhombic unit cell</span>
         <span class='kw'>let</span> <span class='ident'>cell</span> <span class='op'>=</span> <span class='ident'>UnitCell</span>::<span class='ident'>ortho</span>(<span class='number'>3.0</span>, <span class='number'>4.0</span>, <span class='number'>5.0</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>1.5</span>, <span class='number'>6.0</span>);
         <span class='ident'>cell</span>.<span class='ident'>wrap_vector</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>v</span>);
@@ -1450,7 +1452,7 @@
         <span class='ident'>cell</span>.<span class='ident'>vector_image</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>v</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>v</span>, <span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='op'>-</span><span class='number'>1.0</span>, <span class='op'>-</span><span class='number'>2.0</span>, <span class='number'>4.0</span>));
 
-        <span class='comment'>// Orthorombic unit cell</span>
+        <span class='comment'>// Orthorhombic unit cell</span>
         <span class='kw'>let</span> <span class='ident'>cell</span> <span class='op'>=</span> <span class='ident'>UnitCell</span>::<span class='ident'>ortho</span>(<span class='number'>3.0</span>, <span class='number'>4.0</span>, <span class='number'>5.0</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='ident'>Vector3D</span>::<span class='ident'>new</span>(<span class='number'>1.0</span>, <span class='number'>1.5</span>, <span class='number'>6.0</span>);
         <span class='ident'>cell</span>.<span class='ident'>vector_image</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>v</span>);

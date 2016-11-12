@@ -133,7 +133,7 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>MolecularDynamics</span> {
     <span class='doccomment'>/// The integrator we should use to propagate the equations of motion.</span>
     <span class='ident'>integrator</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>Integrator</span><span class='op'>&gt;</span>,
-    <span class='doccomment'>/// Optional thermostating algorithm</span>
+    <span class='doccomment'>/// Optional thermostat algorithm</span>
     <span class='ident'>thermostat</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>Thermostat</span><span class='op'>&gt;&gt;</span>,
     <span class='doccomment'>/// Control algorithms in the simulation.</span>
     <span class='ident'>controls</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>Control</span><span class='op'>&gt;&gt;</span>,

@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["SteepestDescent","Steepest gradient descent for energy minization."]]});
+initSidebarItems({"struct":[["SteepestDescent","Steepest gradient descent for energy minimization."]]});
