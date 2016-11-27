@@ -47,8 +47,11 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1826' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#121-130' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1826' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#135-164' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait PairPotential: <a class='trait' href='../../lumol/energy/trait.Potential.html' title='lumol::energy::Potential'>Potential</a> + BoxClonePair {
+    fn <a href='#tymethod.tail_energy' class='fnname'>tail_energy</a>(&amp;self, cutoff: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>;
+    fn <a href='#tymethod.tail_virial' class='fnname'>tail_virial</a>(&amp;self, cutoff: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>;
+
     fn <a href='#method.virial' class='fnname'>virial</a>(&amp;self, r: &amp;<a class='struct' href='../../lumol/types/struct.Vector3D.html' title='lumol::types::Vector3D'>Vector3D</a>) -&gt; <a class='struct' href='../../lumol/types/struct.Matrix3.html' title='lumol::types::Matrix3'>Matrix3</a> { ... }
 }</pre><div class='docblock'><p>Marker trait for potentials that can be used for non-bonded two body
 interactions.</p>
@@ -66,9 +69,37 @@ interactions.</p>
     <span class='kw'>fn</span> <span class='ident'>force</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>x</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {<span class='number'>0.0</span>}
 }
 
-<span class='comment'>// Now we can use the Null potential for pair interactions</span>
-<span class='kw'>impl</span> <span class='ident'>PairPotential</span> <span class='kw'>for</span> <span class='ident'>Null</span> {}<a class='test-arrow' target='_blank' href=''>Run</a></pre>
+<span class='comment'>// By implementing this trait, we can use the Null potential for pair</span>
+<span class='comment'>// interactions</span>
+<span class='kw'>impl</span> <span class='ident'>PairPotential</span> <span class='kw'>for</span> <span class='ident'>Null</span> {
+    <span class='kw'>fn</span> <span class='ident'>tail_energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>cutoff</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='kw'>return</span> <span class='number'>0.0</span>;
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>tail_virial</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>cutoff</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='kw'>return</span> <span class='number'>0.0</span>;
+    }
+}<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.tail_energy' class='method stab '><span id='tail_energy.v' class='invisible'><code>fn <a href='#tymethod.tail_energy' class='fnname'>tail_energy</a>(&amp;self, cutoff: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></span></h3><div class='docblock'><p>Compute the tail correction to the energy for the given cutoff.</p>
+
+<p>Calling <code>V(r)</code> the <code>Potential::energy(r)</code> function corresponding to this
+potential, this function should return the integral from <code>cutoff</code> to
+infinity of <code>r^2 V(r)</code>: <code>\int_{cutoff}^\infty r^2 V(r) dr</code>.</p>
+
+<p>If this integral does not converge for the current potential, this
+function should then return 0 to disable tail corrections.</p>
+</div><h3 id='tymethod.tail_virial' class='method stab '><span id='tail_virial.v' class='invisible'><code>fn <a href='#tymethod.tail_virial' class='fnname'>tail_virial</a>(&amp;self, cutoff: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></span></h3><div class='docblock'><p>Compute the tail correction to the virial for the given cutoff.</p>
+
+<p>Calling <code>f(r)</code> the <code>Potential::force(r)</code> function corresponding to this
+potential, this function should return the integral from <code>cutoff</code> to
+infinity of <code>f(r) r^3</code>: <code>\int_{cutoff}^\infty r^3 f(r) dr</code>.</p>
+
+<p>If this integral does not converge for the current potential, this
+function should then return 0.0 to disable tail corrections.</p>
+</div></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
         <h3 id='method.virial' class='method stab '><span id='virial.v' class='invisible'><code>fn <a href='#method.virial' class='fnname'>virial</a>(&amp;self, r: &amp;<a class='struct' href='../../lumol/types/struct.Vector3D.html' title='lumol::types::Vector3D'>Vector3D</a>) -&gt; <a class='struct' href='../../lumol/types/struct.Matrix3.html' title='lumol::types::Matrix3'>Matrix3</a></code></span></h3><div class='docblock'><p>Compute the virial contribution corresponding to the distance <code>r</code>
@@ -80,7 +111,6 @@ between the particles.</p>
 <li><code>impl PairPotential for <a class='struct' href='../../lumol/energy/struct.LennardJones.html' title='lumol::energy::LennardJones'>LennardJones</a></code></li>
 <li><code>impl PairPotential for <a class='struct' href='../../lumol/energy/struct.Harmonic.html' title='lumol::energy::Harmonic'>Harmonic</a></code></li>
 <li><code>impl PairPotential for <a class='struct' href='../../lumol/energy/struct.TableComputation.html' title='lumol::energy::TableComputation'>TableComputation</a></code></li>
-<li><code>impl PairPotential for <a class='struct' href='../../lumol/energy/struct.PairInteraction.html' title='lumol::energy::PairInteraction'>PairInteraction</a></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/lumol/energy/trait.PairPotential.js">
                  </script></section>

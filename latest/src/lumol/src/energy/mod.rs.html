@@ -265,6 +265,40 @@
 <span id="221">221</span>
 <span id="222">222</span>
 <span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -304,7 +338,11 @@
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! // It can be used for pair and dihedral potentials, but not for angles or</span>
 <span class='doccomment'>//! // bonds.</span>
-<span class='doccomment'>//! impl PairPotential for OnePotential {}</span>
+<span class='doccomment'>//! impl PairPotential for OnePotential {</span>
+<span class='doccomment'>//!     /* some code omitted */</span>
+<span class='doccomment'>//!     # fn tail_energy(&amp;self, cutoff: f64) -&gt; f64 {0.0}</span>
+<span class='doccomment'>//!     # fn tail_virial(&amp;self, cutoff: f64) -&gt; f64 {0.0}</span>
+<span class='doccomment'>//! }</span>
 <span class='doccomment'>//! impl DihedralPotential for OnePotential {}</span>
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//!</span>
@@ -372,6 +410,7 @@
 <span class='doccomment'>/// # Example</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// # use lumol::types::{Zero, Matrix3};</span>
 <span class='doccomment'>/// use lumol::energy::{Potential, PairPotential};</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// // A no-op potential</span>
@@ -383,8 +422,17 @@
 <span class='doccomment'>///     fn force(&amp;self, x: f64) -&gt; f64 {0.0}</span>
 <span class='doccomment'>/// }</span>
 <span class='doccomment'>///</span>
-<span class='doccomment'>/// // Now we can use the Null potential for pair interactions</span>
-<span class='doccomment'>/// impl PairPotential for Null {}</span>
+<span class='doccomment'>/// // By implementing this trait, we can use the Null potential for pair</span>
+<span class='doccomment'>/// // interactions</span>
+<span class='doccomment'>/// impl PairPotential for Null {</span>
+<span class='doccomment'>///     fn tail_energy(&amp;self, cutoff: f64) -&gt; f64 {</span>
+<span class='doccomment'>///         return 0.0;</span>
+<span class='doccomment'>///     }</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>///     fn tail_virial(&amp;self, cutoff: f64) -&gt; f64 {</span>
+<span class='doccomment'>///         return 0.0;</span>
+<span class='doccomment'>///     }</span>
+<span class='doccomment'>/// }</span>
 <span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>PairPotential</span> : <span class='ident'>Potential</span> <span class='op'>+</span> <span class='ident'>BoxClonePair</span> {
     <span class='doccomment'>/// Compute the virial contribution corresponding to the distance `r`</span>
@@ -395,6 +443,26 @@
         <span class='kw'>let</span> <span class='ident'>force</span> <span class='op'>=</span> <span class='ident'>fact</span> <span class='op'>*</span> <span class='ident'>rn</span>;
         <span class='ident'>force</span>.<span class='ident'>tensorial</span>(<span class='ident'>r</span>)
     }
+
+    <span class='doccomment'>/// Compute the tail correction to the energy for the given cutoff.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Calling `V(r)` the `Potential::energy(r)` function corresponding to this</span>
+    <span class='doccomment'>/// potential, this function should return the integral from `cutoff` to</span>
+    <span class='doccomment'>/// infinity of `r^2 V(r)`: `\int_{cutoff}^\infty r^2 V(r) dr`.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// If this integral does not converge for the current potential, this</span>
+    <span class='doccomment'>/// function should then return 0 to disable tail corrections.</span>
+    <span class='kw'>fn</span> <span class='ident'>tail_energy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>cutoff</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>;
+
+    <span class='doccomment'>/// Compute the tail correction to the virial for the given cutoff.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Calling `f(r)` the `Potential::force(r)` function corresponding to this</span>
+    <span class='doccomment'>/// potential, this function should return the integral from `cutoff` to</span>
+    <span class='doccomment'>/// infinity of `f(r) r^3`: `\int_{cutoff}^\infty r^3 f(r) dr`.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// If this integral does not converge for the current potential, this</span>
+    <span class='doccomment'>/// function should then return 0.0 to disable tail corrections.</span>
+    <span class='kw'>fn</span> <span class='ident'>tail_virial</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>cutoff</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>;
 }
 <span class='macro'>impl_box_clone</span><span class='macro'>!</span>(<span class='ident'>PairPotential</span>, <span class='ident'>BoxClonePair</span>, <span class='ident'>box_clone_pair</span>);
 

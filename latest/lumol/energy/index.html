@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1817' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#4-223' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1817' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#4-257' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Interaction potentials for energy and forces computations</p>
 
 <h1 id='potentials' class='section-header'><a href='#potentials'>Potentials</a></h1>
@@ -84,7 +84,9 @@ interactions.</li>
 
 <span class='comment'>// It can be used for pair and dihedral potentials, but not for angles or</span>
 <span class='comment'>// bonds.</span>
-<span class='kw'>impl</span> <span class='ident'>PairPotential</span> <span class='kw'>for</span> <span class='ident'>OnePotential</span> {}
+<span class='kw'>impl</span> <span class='ident'>PairPotential</span> <span class='kw'>for</span> <span class='ident'>OnePotential</span> {
+    <span class='comment'>/* some code omitted */</span>
+}
 <span class='kw'>impl</span> <span class='ident'>DihedralPotential</span> <span class='kw'>for</span> <span class='ident'>OnePotential</span> {}<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 
 <h1 id='global-and-coulombic-potentials' class='section-header'><a href='#global-and-coulombic-potentials'>Global and Coulombic potentials</a></h1>

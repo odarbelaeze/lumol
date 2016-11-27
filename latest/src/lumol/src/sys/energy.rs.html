@@ -264,6 +264,28 @@
 <span id="220">220</span>
 <span id="221">221</span>
 <span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -273,7 +295,7 @@
 <span class='doccomment'>//! This module provides simple function to compute separated components of the</span>
 <span class='doccomment'>//! potential energy of an `System`.</span>
 <span class='kw'>use</span> <span class='ident'>sys</span>::<span class='ident'>System</span>;
-<span class='kw'>use</span> <span class='ident'>energy</span>::<span class='ident'>Potential</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>f64</span>::<span class='ident'>consts</span>::<span class='ident'>PI</span>;
 
 <span class='doccomment'>/// An helper struct to evaluate energy components of a system.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>EnergyEvaluator</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
@@ -312,6 +334,25 @@
             <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> (<span class='ident'>i</span><span class='op'>+</span><span class='number'>1</span>)..<span class='self'>self</span>.<span class='ident'>system</span>.<span class='ident'>size</span>() {
                 <span class='kw'>let</span> <span class='ident'>r</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>system</span>.<span class='ident'>nearest_image</span>(<span class='ident'>i</span>, <span class='ident'>j</span>).<span class='ident'>norm</span>();
                 <span class='ident'>energy</span> <span class='op'>+=</span> <span class='self'>self</span>.<span class='ident'>pair</span>(<span class='ident'>r</span>, <span class='ident'>i</span>, <span class='ident'>j</span>);
+            }
+        }
+        <span class='kw'>return</span> <span class='ident'>energy</span>;
+    }
+
+    <span class='doccomment'>/// Compute the energy due to long range corrections for the pairs</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>pairs_tail</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>energy</span> <span class='op'>=</span> <span class='number'>0.0</span>;
+        <span class='kw'>let</span> <span class='ident'>volume</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>system</span>.<span class='ident'>volume</span>();
+        <span class='kw'>let</span> <span class='ident'>composition</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>system</span>.<span class='ident'>composition</span>();
+        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>system</span>.<span class='ident'>particle_kinds</span>() {
+            <span class='kw'>let</span> <span class='ident'>ni</span> <span class='op'>=</span> <span class='ident'>composition</span>[<span class='kw-2'>&amp;</span><span class='ident'>i</span>] <span class='kw'>as</span> <span class='ident'>f64</span>;
+            <span class='kw'>for</span> <span class='ident'>j</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>system</span>.<span class='ident'>particle_kinds</span>() {
+                <span class='kw'>let</span> <span class='ident'>nj</span> <span class='op'>=</span> <span class='ident'>composition</span>[<span class='kw-2'>&amp;</span><span class='ident'>j</span>] <span class='kw'>as</span> <span class='ident'>f64</span>;
+                <span class='kw'>let</span> <span class='ident'>potentials</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>system</span>.<span class='ident'>interactions</span>().<span class='ident'>pairs</span>(<span class='ident'>i</span>, <span class='ident'>j</span>);
+                <span class='kw'>for</span> <span class='ident'>potential</span> <span class='kw'>in</span> <span class='ident'>potentials</span> {
+                    <span class='ident'>energy</span> <span class='op'>+=</span> <span class='number'>2.0</span> <span class='op'>*</span> <span class='ident'>PI</span> <span class='op'>*</span> <span class='ident'>ni</span> <span class='op'>*</span> <span class='ident'>nj</span> <span class='op'>*</span> <span class='ident'>potential</span>.<span class='ident'>tail_energy</span>() <span class='op'>/</span> <span class='ident'>volume</span>;
+                }
             }
         }
         <span class='kw'>return</span> <span class='ident'>energy</span>;
@@ -432,11 +473,13 @@
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>system</span>.<span class='ident'>add_bond</span>(<span class='number'>1</span>, <span class='number'>2</span>).<span class='ident'>is_empty</span>());
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>system</span>.<span class='ident'>add_bond</span>(<span class='number'>2</span>, <span class='number'>3</span>).<span class='ident'>is_empty</span>());
 
-        <span class='kw'>let</span> <span class='ident'>lj</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>LennardJones</span> {
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>pair</span> <span class='op'>=</span> <span class='ident'>PairInteraction</span>::<span class='ident'>new</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>LennardJones</span> {
             <span class='ident'>epsilon</span>: <span class='ident'>unit_from</span>(<span class='number'>100.0</span>, <span class='string'>&quot;kJ/mol/A^2&quot;</span>),
             <span class='ident'>sigma</span>: <span class='ident'>unit_from</span>(<span class='number'>0.8</span>, <span class='string'>&quot;A&quot;</span>)
-        });
-        <span class='ident'>system</span>.<span class='ident'>interactions_mut</span>().<span class='ident'>add_pair</span>(<span class='string'>&quot;F&quot;</span>, <span class='string'>&quot;F&quot;</span>, <span class='ident'>PairInteraction</span>::<span class='ident'>new</span>(<span class='ident'>lj</span>, <span class='number'>5.0</span>));
+        }), <span class='number'>5.0</span>);
+        <span class='ident'>pair</span>.<span class='ident'>enable_tail_corrections</span>();
+
+        <span class='ident'>system</span>.<span class='ident'>interactions_mut</span>().<span class='ident'>add_pair</span>(<span class='string'>&quot;F&quot;</span>, <span class='string'>&quot;F&quot;</span>, <span class='ident'>pair</span>);
 
         <span class='ident'>system</span>.<span class='ident'>interactions_mut</span>().<span class='ident'>add_bond</span>(<span class='string'>&quot;F&quot;</span>, <span class='string'>&quot;F&quot;</span>,
             <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>Harmonic</span>{
@@ -464,6 +507,7 @@
         <span class='kw'>let</span> <span class='ident'>system</span> <span class='op'>=</span> <span class='ident'>testing_system</span>();
         <span class='kw'>let</span> <span class='ident'>evaluator</span> <span class='op'>=</span> <span class='ident'>EnergyEvaluator</span>::<span class='ident'>new</span>(<span class='kw-2'>&amp;</span><span class='ident'>system</span>);
         <span class='macro'>assert_approx_eq</span><span class='macro'>!</span>(<span class='ident'>evaluator</span>.<span class='ident'>pairs</span>(), <span class='ident'>unit_from</span>(<span class='op'>-</span><span class='number'>258.3019360389957</span>, <span class='string'>&quot;kJ/mol&quot;</span>));
+        <span class='macro'>assert_approx_eq</span><span class='macro'>!</span>(<span class='ident'>evaluator</span>.<span class='ident'>pairs_tail</span>(), <span class='op'>-</span><span class='number'>0.0000028110338032153973</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>

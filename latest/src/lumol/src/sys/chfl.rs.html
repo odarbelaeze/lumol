@@ -387,7 +387,7 @@
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
 
-<span class='doccomment'>//! [Chemfiles][Chemfiles] adapter for Lumol.</span>
+<span class='doccomment'>//! [Chemfiles][Chemfiles] conversion for Lumol.</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! [Chemfiles]: https://Chemfiles.github.io/</span>
 <span class='kw'>use</span> <span class='ident'>sys</span>::{<span class='ident'>System</span>, <span class='ident'>Particle</span>, <span class='ident'>Molecule</span>, <span class='ident'>UnitCell</span>, <span class='ident'>CellShape</span>};
@@ -722,7 +722,7 @@ H 0.0 1.0 0.0
 
         <span class='comment'>// This is only a simple regression test on the moltype function. Feel</span>
         <span class='comment'>// free to change the value if the molecule type algorithm change.</span>
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>molecule_type</span>(<span class='kw-2'>&amp;</span><span class='ident'>molecule</span>, <span class='kw-2'>&amp;</span><span class='ident'>atoms</span>), <span class='number'>4144180246440175497</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>molecule_type</span>(<span class='kw-2'>&amp;</span><span class='ident'>molecule</span>, <span class='kw-2'>&amp;</span><span class='ident'>atoms</span>), <span class='number'>10531116511729139659</span>);
     }
 }
 </pre>

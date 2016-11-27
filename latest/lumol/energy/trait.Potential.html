@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1819' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#94-99' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1819' class='srclink' href='../../src/lumol/src/energy/mod.rs.html#98-103' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Potential: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> {
     fn <a href='#tymethod.energy' class='fnname'>energy</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>;
     fn <a href='#tymethod.force' class='fnname'>force</a>(&amp;self, x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>;
@@ -96,7 +96,6 @@ angles or dihedral angles potentials, <em>etc.</em></p>
 <li><code>impl Potential for <a class='struct' href='../../lumol/energy/struct.CosineHarmonic.html' title='lumol::energy::CosineHarmonic'>CosineHarmonic</a></code></li>
 <li><code>impl Potential for <a class='struct' href='../../lumol/energy/struct.Torsion.html' title='lumol::energy::Torsion'>Torsion</a></code></li>
 <li><code>impl&lt;P:&nbsp;<a class='trait' href='../../lumol/energy/trait.Computation.html' title='lumol::energy::Computation'>Computation</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + 'static&gt; Potential for P</code></li>
-<li><code>impl Potential for <a class='struct' href='../../lumol/energy/struct.PairInteraction.html' title='lumol::energy::PairInteraction'>PairInteraction</a></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/lumol/energy/trait.Potential.js">
                  </script></section>
