@@ -113,6 +113,14 @@
 <span id="69">69</span>
 <span id="70">70</span>
 <span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -134,7 +142,7 @@
     <span class='doccomment'>/// Give a short description of this move</span>
     <span class='kw'>fn</span> <span class='ident'>describe</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span>;
 
-    <span class='doccomment'>/// Prepare the move, by selecting the particles to move, and the parameters</span>
+    <span class='doccomment'>/// Prepare the move by selecting the particles to move, and the parameters</span>
     <span class='doccomment'>/// of the move. The `rng` random number generator should be used to</span>
     <span class='doccomment'>/// generate the parameters of the move.</span>
     <span class='doccomment'>///</span>
@@ -143,19 +151,27 @@
     <span class='kw'>fn</span> <span class='ident'>prepare</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>system</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>System</span>, <span class='ident'>rng</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>Rng</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>;
 
     <span class='doccomment'>/// Get the cost of performing this move on `system`. For example in</span>
-    <span class='doccomment'>/// simple NVT simulations, this cost is the energetic difference over</span>
-    <span class='doccomment'>/// `beta`. The cost must be dimensionless, and will be placed in an</span>
-    <span class='doccomment'>/// exponential. The `cache` should be used to compute the cost, or the</span>
+    <span class='doccomment'>/// simple NVT simulations, this cost is the energetic difference between</span>
+    <span class='doccomment'>/// the new and the old state times beta. The cost must be dimmensionless.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Note that the cost will be placed in an exponential with a negative sign.</span>
+    <span class='doccomment'>/// For NVT using the Metropolis criterion:</span>
+    <span class='doccomment'>/// cost = beta*(U_new - U_old) -&gt; P_acc = min[1, exp(-cost)].</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// The `cache` should be used to compute the cost, or the</span>
     <span class='doccomment'>/// `cache.unused` function should be used to ensure that the cache is</span>
-    <span class='doccomment'>/// updated  as needed after this move.</span>
+    <span class='doccomment'>/// updated as needed after this move.</span>
     <span class='kw'>fn</span> <span class='ident'>cost</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>system</span>: <span class='kw-2'>&amp;</span><span class='ident'>System</span>, <span class='ident'>beta</span>: <span class='ident'>f64</span>, <span class='ident'>cache</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>EnergyCache</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>;
 
     <span class='doccomment'>/// Apply the move, if it has not already been done in `prepare`.</span>
     <span class='kw'>fn</span> <span class='ident'>apply</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>system</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>System</span>);
 
-    <span class='doccomment'>/// Restore the system to it&#39;s initial state, if it has been changed in</span>
+    <span class='doccomment'>/// Restore the system to it&#39;s initial state if it has been changed in</span>
     <span class='doccomment'>/// `prepare`.</span>
     <span class='kw'>fn</span> <span class='ident'>restore</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>system</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>System</span>);
+
+    <span class='doccomment'>/// Update the sample range for displacements.</span>
+    <span class='kw'>fn</span> <span class='ident'>update_amplitude</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>scaling_factor</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span>);
 }
 
 <span class='doccomment'>/// Select a random molecule in the system using `rng` as random number</span>

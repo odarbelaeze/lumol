@@ -47,26 +47,37 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-5333' class='srclink' href='../../../src/lumol/src/sim/mc/monte_carlo.rs.html#14-29' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-5333' class='srclink' href='../../../src/lumol/src/sim/mc/monte_carlo.rs.html#14-32' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct MonteCarlo { /* fields omitted */ }</pre><div class='docblock'><p>Metropolis Monte-Carlo propagator</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../lumol/sim/struct.MonteCarlo.html' title='lumol::sim::MonteCarlo'>MonteCarlo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5340' class='srclink' href='../../../src/lumol/src/sim/mc/monte_carlo.rs.html#31-109' title='goto source code'>[src]</a></span></h3>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../lumol/sim/struct.MonteCarlo.html' title='lumol::sim::MonteCarlo'>MonteCarlo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5341' class='srclink' href='../../../src/lumol/src/sim/mc/monte_carlo.rs.html#34-138' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../../../lumol/sim/struct.MonteCarlo.html' title='lumol::sim::MonteCarlo'>MonteCarlo</a></code></span></h4>
 <div class='docblock'><p>Create a new Monte-Carlo propagator at temperature <code>T</code>.</p>
 </div><h4 id='method.from_rng' class='method'><span id='from_rng.v' class='invisible'><code>fn <a href='#method.from_rng' class='fnname'>from_rng</a>(temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, rng: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../rand/trait.Rng.html' title='rand::Rng'>Rng</a>&gt;) -&gt; <a class='struct' href='../../../lumol/sim/struct.MonteCarlo.html' title='lumol::sim::MonteCarlo'>MonteCarlo</a></code></span></h4>
 <div class='docblock'><p>Create a Monte-Carlo propagator at temperature <code>T</code>, using the <code>rng</code>
 random number generator.</p>
 </div><h4 id='method.add' class='method'><span id='add.v' class='invisible'><code>fn <a href='#method.add' class='fnname'>add</a>(&amp;mut self, mcmove: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../lumol/sim/mc/trait.MCMove.html' title='lumol::sim::mc::MCMove'>MCMove</a>&gt;, frequency: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>)</code></span></h4>
-<div class='docblock'><p>Add a the <code>mcmove</code> Monte-Carlo move to this propagator, with frequency
+<div class='docblock'><p>Add the <code>mcmove</code> Monte-Carlo move to this propagator, with frequency
 <code>frequency</code>. All calls to this function should happen before any
 simulation run.</p>
 
 <h1 id='panics' class='section-header'><a href='#panics'>Panics</a></h1>
 <p>If called after a simulation run.</p>
+</div><h4 id='method.add_move_with_acceptance' class='method'><span id='add_move_with_acceptance.v' class='invisible'><code>fn <a href='#method.add_move_with_acceptance' class='fnname'>add_move_with_acceptance</a>(&amp;mut self, mcmove: <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../lumol/sim/mc/trait.MCMove.html' title='lumol::sim::mc::MCMove'>MCMove</a>&gt;, frequency: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, target_acceptance: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>)</code></span></h4>
+<div class='docblock'><p>Add the <code>mcmove</code> Monte-Carlo move to the propagator.
+<code>frequency</code> describes how frequent a move is called, <code>target_acceptance</code>
+is the desired acceptance ratio of the move.</p>
+
+<h1 id='panics-1' class='section-header'><a href='#panics-1'>Panics</a></h1>
+<p>If called after a simulation run.
+If <code>target_acceptance</code> is either negative or larger than one.</p>
+</div><h4 id='method.set_amplitude_update_frequency' class='method'><span id='set_amplitude_update_frequency.v' class='invisible'><code>fn <a href='#method.set_amplitude_update_frequency' class='fnname'>set_amplitude_update_frequency</a>(&amp;mut self, frequency: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>)</code></span></h4>
+<div class='docblock'><p>Set the number of times a move has to be called before its amplitude
+is updated. This value is applied to all moves.</p>
 </div><h4 id='method.temperature' class='method'><span id='temperature.v' class='invisible'><code>fn <a href='#method.temperature' class='fnname'>temperature</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></span></h4>
 <div class='docblock'><p>Get the temperature of the simulation</p>
 </div><h4 id='method.set_temperature' class='method'><span id='set_temperature.v' class='invisible'><code>fn <a href='#method.set_temperature' class='fnname'>set_temperature</a>(&amp;mut self, temperature: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>)</code></span></h4>
 <div class='docblock'><p>Set the temperature of the simulation</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../lumol/sim/trait.Propagator.html' title='lumol::sim::Propagator'>Propagator</a> for <a class='struct' href='../../../lumol/sim/struct.MonteCarlo.html' title='lumol::sim::MonteCarlo'>MonteCarlo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5377' class='srclink' href='../../../src/lumol/src/sim/mc/monte_carlo.rs.html#111-152' title='goto source code'>[src]</a></span></h3>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../lumol/sim/trait.Propagator.html' title='lumol::sim::Propagator'>Propagator</a> for <a class='struct' href='../../../lumol/sim/struct.MonteCarlo.html' title='lumol::sim::MonteCarlo'>MonteCarlo</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-5390' class='srclink' href='../../../src/lumol/src/sim/mc/monte_carlo.rs.html#140-197' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.temperature_strategy' class='method'><span id='temperature_strategy.v' class='invisible'><code>fn <a href='../../../lumol/sim/trait.Propagator.html#tymethod.temperature_strategy' class='fnname'>temperature_strategy</a>(&amp;self) -&gt; <a class='enum' href='../../../lumol/sim/enum.TemperatureStrategy.html' title='lumol::sim::TemperatureStrategy'>TemperatureStrategy</a></code></span></h4>
 <div class='docblock'><p>Get the temperature computation strategy for this propagator</p>
 </div><h4 id='method.setup' class='method'><span id='setup.v' class='invisible'><code>fn <a href='../../../lumol/sim/trait.Propagator.html#method.setup' class='fnname'>setup</a>(&amp;mut self, system: &amp;<a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>)</code></span></h4>

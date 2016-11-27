@@ -47,34 +47,41 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-5414' class='srclink' href='../../../src/lumol/src/sim/mc/moves/mod.rs.html#17-43' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-5450' class='srclink' href='../../../src/lumol/src/sim/mc/moves/mod.rs.html#17-51' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait MCMove {
     fn <a href='#tymethod.describe' class='fnname'>describe</a>(&amp;self) -&gt; &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>;
     fn <a href='#tymethod.prepare' class='fnname'>prepare</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>, rng: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../rand/trait.Rng.html' title='rand::Rng'>Rng</a>&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>;
     fn <a href='#tymethod.cost' class='fnname'>cost</a>(&amp;self, system: &amp;<a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>, beta: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, cache: &amp;mut <a class='struct' href='../../../lumol/sys/struct.EnergyCache.html' title='lumol::sys::EnergyCache'>EnergyCache</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>;
     fn <a href='#tymethod.apply' class='fnname'>apply</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>);
     fn <a href='#tymethod.restore' class='fnname'>restore</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>);
+    fn <a href='#tymethod.update_amplitude' class='fnname'>update_amplitude</a>(&amp;mut self, scaling_factor: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>&gt;);
 }</pre><div class='docblock'><p>The <code>MCMove</code> trait correspond to the set of methods used in Monte-Carlo
 simulations.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
         <h3 id='tymethod.describe' class='method stab '><span id='describe.v' class='invisible'><code>fn <a href='#tymethod.describe' class='fnname'>describe</a>(&amp;self) -&gt; &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></span></h3><div class='docblock'><p>Give a short description of this move</p>
-</div><h3 id='tymethod.prepare' class='method stab '><span id='prepare.v' class='invisible'><code>fn <a href='#tymethod.prepare' class='fnname'>prepare</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>, rng: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../rand/trait.Rng.html' title='rand::Rng'>Rng</a>&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h3><div class='docblock'><p>Prepare the move, by selecting the particles to move, and the parameters
+</div><h3 id='tymethod.prepare' class='method stab '><span id='prepare.v' class='invisible'><code>fn <a href='#tymethod.prepare' class='fnname'>prepare</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>, rng: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../rand/trait.Rng.html' title='rand::Rng'>Rng</a>&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h3><div class='docblock'><p>Prepare the move by selecting the particles to move, and the parameters
 of the move. The <code>rng</code> random number generator should be used to
 generate the parameters of the move.</p>
 
 <p>This function should return true is we can perform the move, and false
 otherwise.</p>
 </div><h3 id='tymethod.cost' class='method stab '><span id='cost.v' class='invisible'><code>fn <a href='#tymethod.cost' class='fnname'>cost</a>(&amp;self, system: &amp;<a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>, beta: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>, cache: &amp;mut <a class='struct' href='../../../lumol/sys/struct.EnergyCache.html' title='lumol::sys::EnergyCache'>EnergyCache</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a></code></span></h3><div class='docblock'><p>Get the cost of performing this move on <code>system</code>. For example in
-simple NVT simulations, this cost is the energetic difference over
-<code>beta</code>. The cost must be dimensionless, and will be placed in an
-exponential. The <code>cache</code> should be used to compute the cost, or the
+simple NVT simulations, this cost is the energetic difference between
+the new and the old state times beta. The cost must be dimmensionless.</p>
+
+<p>Note that the cost will be placed in an exponential with a negative sign.
+For NVT using the Metropolis criterion:
+cost = beta*(U_new - U_old) -&gt; P_acc = min[1, exp(-cost)].</p>
+
+<p>The <code>cache</code> should be used to compute the cost, or the
 <code>cache.unused</code> function should be used to ensure that the cache is
-updated  as needed after this move.</p>
+updated as needed after this move.</p>
 </div><h3 id='tymethod.apply' class='method stab '><span id='apply.v' class='invisible'><code>fn <a href='#tymethod.apply' class='fnname'>apply</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>)</code></span></h3><div class='docblock'><p>Apply the move, if it has not already been done in <code>prepare</code>.</p>
-</div><h3 id='tymethod.restore' class='method stab '><span id='restore.v' class='invisible'><code>fn <a href='#tymethod.restore' class='fnname'>restore</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>)</code></span></h3><div class='docblock'><p>Restore the system to it&#39;s initial state, if it has been changed in
+</div><h3 id='tymethod.restore' class='method stab '><span id='restore.v' class='invisible'><code>fn <a href='#tymethod.restore' class='fnname'>restore</a>(&amp;mut self, system: &amp;mut <a class='struct' href='../../../lumol/sys/struct.System.html' title='lumol::sys::System'>System</a>)</code></span></h3><div class='docblock'><p>Restore the system to it&#39;s initial state if it has been changed in
 <code>prepare</code>.</p>
+</div><h3 id='tymethod.update_amplitude' class='method stab '><span id='update_amplitude.v' class='invisible'><code>fn <a href='#tymethod.update_amplitude' class='fnname'>update_amplitude</a>(&amp;mut self, scaling_factor: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>&gt;)</code></span></h3><div class='docblock'><p>Update the sample range for displacements.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>

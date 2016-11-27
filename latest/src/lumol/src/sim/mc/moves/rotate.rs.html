@@ -198,6 +198,17 @@
 <span id="154">154</span>
 <span id="155">155</span>
 <span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
 </pre><pre class='rust '>
 <span class='comment'>// Lumol, an extensible molecular simulation engine</span>
 <span class='comment'>// Copyright (C) 2015-2016 G. Fraux — BSD license</span>
@@ -223,8 +234,10 @@
     <span class='ident'>newpos</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Vector3D</span><span class='op'>&gt;</span>,
     <span class='doccomment'>/// Normal distribution, for generation of the axis</span>
     <span class='ident'>axis_rng</span>: <span class='ident'>Normal</span>,
+    <span class='doccomment'>/// Maximum values for the range of the range distribution of the angle</span>
+    <span class='ident'>theta</span>: <span class='ident'>f64</span>,
     <span class='doccomment'>/// Range distribution, for generation of the angle</span>
-    <span class='ident'>angle_rng</span>: <span class='ident'>Range</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span>,
+    <span class='ident'>range</span>: <span class='ident'>Range</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>Rotate</span> {
@@ -248,7 +261,8 @@
             <span class='ident'>molid</span>: <span class='ident'>usize</span>::<span class='ident'>MAX</span>,
             <span class='ident'>newpos</span>: <span class='ident'>Vec</span>::<span class='ident'>new</span>(),
             <span class='ident'>axis_rng</span>: <span class='ident'>Normal</span>::<span class='ident'>new</span>(<span class='number'>0.0</span>, <span class='number'>1.0</span>),
-            <span class='ident'>angle_rng</span>: <span class='ident'>Range</span>::<span class='ident'>new</span>(<span class='op'>-</span><span class='ident'>theta</span>, <span class='ident'>theta</span>),
+            <span class='ident'>theta</span>: <span class='ident'>theta</span>,
+            <span class='ident'>range</span>: <span class='ident'>Range</span>::<span class='ident'>new</span>(<span class='op'>-</span><span class='ident'>theta</span>, <span class='ident'>theta</span>),
         }
     }
 }
@@ -279,10 +293,11 @@
             <span class='self'>self</span>.<span class='ident'>axis_rng</span>.<span class='ident'>sample</span>(<span class='ident'>rng</span>),
             <span class='self'>self</span>.<span class='ident'>axis_rng</span>.<span class='ident'>sample</span>(<span class='ident'>rng</span>)
         ).<span class='ident'>normalized</span>();
-        <span class='kw'>let</span> <span class='ident'>theta</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>angle_rng</span>.<span class='ident'>sample</span>(<span class='ident'>rng</span>);
-
+        <span class='kw'>let</span> <span class='ident'>theta</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>range</span>.<span class='ident'>sample</span>(<span class='ident'>rng</span>);
         <span class='self'>self</span>.<span class='ident'>newpos</span>.<span class='ident'>clear</span>();
+
         <span class='kw'>let</span> <span class='ident'>molecule</span> <span class='op'>=</span> <span class='ident'>system</span>.<span class='ident'>molecule</span>(<span class='self'>self</span>.<span class='ident'>molid</span>);
+
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>masses</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>0.0</span>; <span class='ident'>molecule</span>.<span class='ident'>size</span>()];
         <span class='kw'>for</span> (<span class='ident'>i</span>, <span class='ident'>pi</span>) <span class='kw'>in</span> <span class='ident'>molecule</span>.<span class='ident'>iter</span>().<span class='ident'>enumerate</span>() {
             <span class='ident'>masses</span>[<span class='ident'>i</span>] <span class='op'>=</span> <span class='ident'>system</span>[<span class='ident'>pi</span>].<span class='ident'>mass</span>;
@@ -307,6 +322,13 @@
 
     <span class='kw'>fn</span> <span class='ident'>restore</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, _: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>System</span>) {
         <span class='comment'>// Nothing to do</span>
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>update_amplitude</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>scaling_factor</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span>) {
+        <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>s</span>) <span class='op'>=</span> <span class='ident'>scaling_factor</span> {
+            <span class='self'>self</span>.<span class='ident'>theta</span> <span class='op'>*=</span> <span class='ident'>s</span>;
+            <span class='self'>self</span>.<span class='ident'>range</span> <span class='op'>=</span> <span class='ident'>Range</span>::<span class='ident'>new</span>(<span class='op'>-</span><span class='self'>self</span>.<span class='ident'>theta</span>, <span class='self'>self</span>.<span class='ident'>theta</span>);
+        }
     }
 }
 
